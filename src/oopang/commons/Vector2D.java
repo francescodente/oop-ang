@@ -30,15 +30,6 @@ public interface Vector2D {
     Vector2D setVectorX(final double value);
     
     /**
-     * Change the sign of the X value
-     * @return
-     *      new Vector with its new values 
-     */
-    default Vector2D flipX() {
-        return this.setVectorX(-this.getX());
-    }
-    
-    /**
      * Set Y to the given value
      * @param value
      *      the value to be set as new Y
@@ -46,6 +37,15 @@ public interface Vector2D {
      *      new Vector with its new values 
      */
     Vector2D setVectorY(final double value);
+    
+    /**
+     * Change the sign of the X value
+     * @return
+     *      new Vector with its new values 
+     */
+    default Vector2D flipX() {
+        return this.setVectorX(-this.getX());
+    }
     
     /**
      * Change the sign of the Y value
