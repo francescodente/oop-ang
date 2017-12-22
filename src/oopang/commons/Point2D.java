@@ -1,46 +1,48 @@
 package oopang.commons;
 
+/**
+ * Represents a point in 2D space.
+ */
 public interface Point2D {
-	
+
     /**
-     * Translate this Point by the given Vector
+     * Translates this Point by the given Vector.
      * @param vector
-     *      the Vector that represent the translation
+     *      the Vector that represent the translation.
      * @return
-     *      new Point with its new value
-     */     
-    Point2D translate(final Vector2D vector);
-    
-    /**
-     * Set X to the given value
-     * @param value
-     *      the value to be set as new X
-     * @return
-     *      new Point with the new Y value
+     *      new Point with its new value.
      */
-    Point2D setPointX(final double value);
-    
+    Point2D translate(Vector2D vector);
+
     /**
-     * Set Y to the given value
+     * Sets X to the given value.
      * @param value
-     *      the value to be set as new Y
+     *      the value to be set as new X.
      * @return
-     *      new Point with the new Y value
+     *      new Point with the new Y value.
      */
-    Point2D setPointY(final double value);
-    
+    Point2D setPointX(double value);
+
     /**
-     * Returns the X value of the Vector
+     * Sets Y to the given value.
+     * @param value
+     *      the value to be set as new Y.
      * @return
-     *      X value
+     *      new Point with the new Y value.
+     */
+    Point2D setPointY(double value);
+
+    /**
+     * Returns the X value of the Vector.
+     * @return
+     *      X value.
      */
     double getX();
-    
+
     /**
-     * Returns the Y value of the Vector
+     * Returns the Y value of the Vector.
      * @return
-     *      Y value 
+     *      Y value.
      */
     double getY();
-
 }

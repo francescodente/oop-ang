@@ -1,10 +1,21 @@
 package oopang.commons;
 
+/**
+ * Represent a pair of (x,y) coordinates that can represent a Vector or 
+ * a point in 2D space.
+ */
 public class Cartesian implements Vector2D, Point2D {
-    
+
     private final double x;
     private final double y;
-    
+
+    /**
+     * Creates a new Cartesian object with (x,y) coordinates. 
+     * @param x
+     *      X coordinate
+     * @param y
+     *      Y coordinate
+     */
     public Cartesian(final double x, final double y) {
         this.x = x;
         this.y = y;

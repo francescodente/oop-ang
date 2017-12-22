@@ -1,27 +1,30 @@
 package oopang.model;
 
+/**
+ * A component to be attached to a GameObject to define its behavior.
+ */
 public interface Component {
-    
+
     /**
-     * Initialize Component activity
+     * Initialize Component activity.
      */
     void start();
-    
+
     /**
-     * Update Component status
+     * Update Component status.
      * 
      * @param deltaTime
-     *       time elapsed since last update
+     *       time elapsed since last update.
      */
-    void update(final double deltaTime);
-    
+    void update(double deltaTime);
+
     /**
-     * Enable the Component activity
+     * Enable the Component activity.
      */
     void enable();
-    
+
     /**
-     * Disable the Component activity
+     * Disable the Component activity.
      */
     void disable();
 

@@ -1,25 +1,28 @@
 package oopang.model;
 
+/**
+ * Model of the application.
+ */
 public interface Model {
 
     /**
-     * Return the current level being played
+     * Returns the current level being played.
      * @return
-     *      the current level
+     *      the current level.
      */
     Level getCurrentLevel();
-    
+
     /**
-     * Set the current level to the given one.
+     * Sets the current level to the given one.
      * @param level
      *      the new level
      */
-    void setCurrentLevel(final Level level);
-    
+    void setCurrentLevel(Level level);
+
     /**
-     * Updates the model's state
+     * Updates the model's state.
      * @param deltaTime
      *      time elapsed since last update
      */
-    void update(final double deltaTime);
+    void update(double deltaTime);
 }

@@ -1,86 +1,89 @@
 package oopang.commons;
 
+/**
+ * Represents a vector in 2D space.
+ */
 public interface Vector2D {
-    
+
     /**
-     * Sum the given Vector to this Vector
+     * Sums the given Vector to this Vector.
      * @param vector
-     *      the Vector to be summed
+     *      the Vector to be summed.
      * @return
-     *      new Vector with its new value
+     *      new Vector with its new value.
      */
-    Vector2D sumVector(final Vector2D vector);
-    
+    Vector2D sumVector(Vector2D vector);
+
     /**
-     * Multiply this Vector by the given value
+     * Multiplies this Vector by the given value.
      * @param value 
-     *       value to multiply the Vector with
+     *       value to multiply the Vector with.
      * @return
-     *      new Vector with its new values
+     *      new Vector with its new values.
      */
-    Vector2D multiply(final double value);
-    
+    Vector2D multiply(double value);
+
     /**
-     * Set X to the given value
+     * Sets X to the given value.
      * @param value
-     *      the value to be set as new X
+     *      the value to be set as new X.
      * @return
-     *      this Vector with its new values 
+     *      this Vector with its new values.
      */
-    Vector2D setVectorX(final double value);
-    
+    Vector2D setVectorX(double value);
+
     /**
-     * Set Y to the given value
+     * Sets Y to the given value.
      * @param value
-     *      the value to be set as new Y
+     *      the value to be set as new Y.
      * @return
-     *      new Vector with its new values 
+     *      new Vector with its new values.
      */
-    Vector2D setVectorY(final double value);
-    
+    Vector2D setVectorY(double value);
+
     /**
-     * Change the sign of the X value
+     * Changes the sign of the X value.
      * @return
-     *      new Vector with its new values 
+     *      new Vector with its new values.
      */
     default Vector2D flipX() {
         return this.setVectorX(-this.getX());
     }
-    
+
     /**
-     * Change the sign of the Y value
+     * Changes the sign of the Y value.
      * @return
-     *      new Vector with its new values 
+     *      new Vector with its new values.
      */
     default Vector2D flipY() {
         return this.setVectorY(-this.getY());
     }
-    
+
     /**
-     * Returns the X value of the Vector
+     * Returns the X value of the Vector.
      * @return
-     *      X value
+     *      X value.
      */
     double getX();
-    
+
     /**
-     * Returns the Y value of the Vector
+     * Returns the Y value of the Vector.
      * @return
-     *      Y value 
+     *      Y value.
      */
     double getY();
-    
+
     /**
-     * Returns the module of the Vector
+     * Returns the module of the Vector.
      * @return
-     *      module 
+     *      the module.
      */
     double getModule();
-    
+
     /**
      * Returns a new Vector with the same direction and module equal to 1.
      * @return
-     *      the normalized version of this Vector
+     *      the normalized version of this Vector.
      */
     Vector2D normalized();
 }
