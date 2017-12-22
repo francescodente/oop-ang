@@ -11,37 +11,37 @@ public class Cartesian implements Vector2D, Point2D {
     }
 
     @Override
-    public Point2D translate(Vector2D vector) {
+    public Point2D translate(final Vector2D vector) {
         return Points2D.of(this.x + vector.getX(), this.y + vector.getY());
     }
 
     @Override
-    public Point2D setPointX(double value) {
+    public Point2D setPointX(final double value) {
         return Points2D.of(value, this.y);
     }
 
     @Override
-    public Point2D setPointY(double value) {
+    public Point2D setPointY(final double value) {
         return Points2D.of(this.x, value);
     }
 
     @Override
-    public Vector2D sumVector(Vector2D vector) {
+    public Vector2D sumVector(final Vector2D vector) {
         return Vectors2D.of(this.x + vector.getX(), this.y + vector.getY());
     }
 
     @Override
-    public Vector2D multiply(double value) {
+    public Vector2D multiply(final double value) {
         return Vectors2D.of(this.x * value, this.y * value);
     }
 
     @Override
-    public Vector2D setVectorX(double value) {
+    public Vector2D setVectorX(final double value) {
         return Vectors2D.of(value, this.y);
     }
 
     @Override
-    public Vector2D setVectorY(double value) {
+    public Vector2D setVectorY(final double value) {
         return Vectors2D.of(this.x, value);
     }
 
