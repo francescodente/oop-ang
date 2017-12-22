@@ -1,4 +1,4 @@
-package oopang.commons;
+package oopang.commons.space;
 
 /**
  * Utility class for Vector2D objects.

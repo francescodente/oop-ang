@@ -1,6 +1,8 @@
-package oopang.model;
+package oopang.model.levels;
 
 import java.util.stream.Stream;
+
+import oopang.model.gameobjects.GameObject;
 
 /**
  * Represents a level containing all GameObjects.

@@ -1,7 +1,7 @@
-package oopang.commons;
+package oopang.commons.space;
 
 /**
- * Represent a pair of (x,y) coordinates that can represent a Vector or 
+ * Represents a pair of (x,y) coordinates that can act as a Vector or 
  * a point in 2D space.
  */
 public class Cartesian implements Vector2D, Point2D {

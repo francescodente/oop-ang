@@ -1,4 +1,4 @@
-package oopang.commons;
+package oopang.commons.space;
 
 /**
  * Represents a vector in 2D space.

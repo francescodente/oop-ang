@@ -1,5 +1,7 @@
 package oopang.model;
 
+import oopang.model.levels.Level;
+
 /**
  * Model of the application.
  */

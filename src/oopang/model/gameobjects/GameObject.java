@@ -1,9 +1,10 @@
-package oopang.model;
+package oopang.model.gameobjects;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import oopang.commons.Point2D;
+import oopang.commons.space.Point2D;
+import oopang.model.components.Component;
 
 /**
  * Represents an entity of the game.

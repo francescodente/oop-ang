@@ -1,4 +1,4 @@
-package oopang.model;
+package oopang.model.components;
 
 /**
  * A component to be attached to a GameObject to define its behavior.
