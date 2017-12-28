@@ -28,4 +28,11 @@ public interface Component {
      */
     void disable();
 
+    /**
+     * Is this component enabled?
+     * @return
+     *      True if the component is active, false otherwise.
+     */
+    boolean isEnabled();
+
 }
