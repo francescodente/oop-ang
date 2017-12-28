@@ -2,7 +2,9 @@ package oopang.model.gameobjects;
 
 import java.util.stream.Stream;
 import oopang.commons.space.Point2D;
+import oopang.commons.space.Points2D;
 import oopang.model.components.Component;
+import oopang.model.levels.Level;
 
 /**
  * This class represents the abstract model for all GameObjects and gives a basic implementation
@@ -11,6 +13,17 @@ import oopang.model.components.Component;
 public abstract class AbstractGameObject implements GameObject {
 
     private Point2D position;
+    private final Level world;
+
+    /**
+     * Initializes default data for this game object.
+     * @param level
+     *      the level this game object belongs to.
+     */
+    public AbstractGameObject(final Level level) {
+        this.world = level;
+        this.position = Points2D.ZERO;
+    }
 
     @Override
     public void start() {
@@ -23,7 +36,9 @@ public abstract class AbstractGameObject implements GameObject {
     }
 
     @Override
-    public abstract void destroy();
+    public void destroy() {
+        this.world.removeGameObject(this);
+    }
 
     @Override
     public abstract Stream<Component> getAllComponents();
