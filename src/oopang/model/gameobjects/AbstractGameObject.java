@@ -5,23 +5,21 @@ import oopang.commons.space.Point2D;
 import oopang.model.components.Component;
 
 /**
- * This class represent the abstract model for all GameObjects and gives a basic implementation
+ * This class represents the abstract model for all GameObjects and gives a basic implementation
  * of the main methods.
  */
-
 public abstract class AbstractGameObject implements GameObject {
 
     private Point2D position;
 
     @Override
     public void start() {
-       this.getAllComponents().forEach(comp -> comp.start());
+       this.getAllComponents().forEach(Component::start);
     }
 
     @Override
     public void update(final double deltaTime) {
-        this.getAllComponents().forEach(comp -> comp.update(deltaTime));
-
+        this.getAllComponents().filter(Component::isEnabled).forEach(comp -> comp.update(deltaTime));
     }
 
     @Override
@@ -39,5 +37,4 @@ public abstract class AbstractGameObject implements GameObject {
     public void setPosition(final Point2D position) {
         this.position = position;
     }
-
 }
