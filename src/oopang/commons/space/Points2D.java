@@ -40,4 +40,22 @@ public final class Points2D {
     public static double distance(final Point2D a, final Point2D b) {
         return Vectors2D.fromTo(a, b).getModule();
     }
+
+    /**
+     * Linearly interpolates between point a and b by t.
+     * @param a
+     *      the first point.
+     * @param b
+     *      the second point.
+     * @param t
+     *      a value between 0 and 1 that indicates the percentage of the interpolation.
+     *      If t = 0, the result is a.
+     *      If t = 1, the result is b.
+     *      If 0 < t < 1, the result is a point between a and b.
+     * @return
+     *      the resulting point.
+     */
+    public static Point2D lerp(final Point2D a, final Point2D b, final double t) {
+        return a.translate(Vectors2D.fromTo(a, b).multiply(t));
+    }
 }
