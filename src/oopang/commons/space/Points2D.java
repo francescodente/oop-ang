@@ -27,4 +27,17 @@ public final class Points2D {
     public static Point2D of(final double x, final double y) {
         return new Cartesian(x, y);
     }
+
+    /**
+     * Returns the distance between point a and b.
+     * @param a
+     *      the first point.
+     * @param b
+     *      the second point.
+     * @return
+     *      the distance.
+     */
+    public static double distance(final Point2D a, final Point2D b) {
+        return Vectors2D.fromTo(a, b).getModule();
+    }
 }

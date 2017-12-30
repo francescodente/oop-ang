@@ -47,4 +47,17 @@ public final class Vectors2D {
     public static Vector2D of(final double x, final double y) {
         return new Cartesian(x, y);
     }
+
+    /**
+     * Returns the vector going from the first point to the second point.
+     * @param from
+     *      the first vector.
+     * @param to
+     *      the second vector.
+     * @return
+     *      the vector going from the first point to the second point.
+     */
+    public static Vector2D fromTo(final Point2D from, final Point2D to) {
+        return Vectors2D.of(to.getX() - from.getX(), to.getY() - from.getY());
+    }
 }
