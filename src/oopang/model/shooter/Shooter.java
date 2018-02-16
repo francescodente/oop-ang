@@ -8,16 +8,22 @@ import oopang.model.gameobjects.Shot;
 public interface Shooter {
 
     /**
-     * Enable the shooting.
+     * Check if the shooting action can be performed.
      * @return
      *      if the shooter can shoot
      */
     boolean canShoot();
 
     /**
-     * Shoot the projectile.
+     * Shoot the projectile if possible otherwise do nothing.
      */
     void shoot();
+
+    /**
+     * Check if the shots should be reset and call reset shot.
+     */
+    void checkReset();
+
 
     /**
      * Reset shot status to be ready for next shooting.
@@ -25,11 +31,5 @@ public interface Shooter {
      *      the shot to be reset
      */
     void resetShot(Shot shot);
-
-    /**
-     * Check if the shot should be reset.
-     * 
-     */
-    void checkReset();
 
 }
