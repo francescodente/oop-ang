@@ -72,4 +72,13 @@ public class MultipleShooter implements Shooter {
         shots.put(shot, true);
     }
 
+    /**
+     * Accessible for children.
+     * @return
+     *  the shots map
+     */
+    protected Map<Shot, Boolean> getShots() {
+        return shots;
+    }
+
 }
