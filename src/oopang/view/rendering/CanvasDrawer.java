@@ -15,10 +15,11 @@ public interface CanvasDrawer {
      *      the object to be rendered.
      */
     void addRenderer(Renderer rend);
-    
+
     /**
      * Tells the canvas to stop rendering an object.
      * @param rend
+     *      the renderer to remove.
      */
     void removeRenderer(Renderer rend);
 
