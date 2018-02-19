@@ -15,10 +15,7 @@ public class World implements Model {
 
     @Override
     public Level getCurrentLevel() {
-        if (currentLevel.isPresent()) {
-            return this.currentLevel.get();
-        } 
-        throw new IllegalStateException();
+        return currentLevel.orElseThrow(() -> new IllegalStateException());
     }
 
     @Override
@@ -28,10 +25,7 @@ public class World implements Model {
 
     @Override
     public void update(final double deltaTime) {
-        if (currentLevel.isPresent()) {
-            this.currentLevel.get().update(deltaTime);
-        }
-
+        currentLevel.ifPresent(l -> l.update(deltaTime));
     }
 
 }
