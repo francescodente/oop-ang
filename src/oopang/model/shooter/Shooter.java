@@ -19,17 +19,5 @@ public interface Shooter {
      */
     void shoot();
 
-    /**
-     * Check if the shots should be reset and call reset shot.
-     */
-    void checkReset();
-
-
-    /**
-     * Reset shot status to be ready for next shooting.
-     * @param shot
-     *      the shot to be reset
-     */
-    void resetShot(Shot shot);
 
 }

@@ -8,15 +8,7 @@ import oopang.model.levels.Level;
  * The Shot disappears immediately after the collision so the canShoot method can be called again.
  */
 
-public class BasicShooter extends MultipleShooter {
+public class BasicShooter {
 
-    /**
-     * Create a BasicShooter Object.
-     * @param level
-     *      current level reference
-     */
-    public BasicShooter(final Level level) {
-        super(level, 1);
-    }
 
 }

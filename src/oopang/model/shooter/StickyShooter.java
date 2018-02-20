@@ -10,28 +10,7 @@ import oopang.model.levels.Level;
  * It has a map of shots with a value describing whether the shot can be shot or not.
  */
 
-public class StickyShooter extends MultipleShooter {
+public class StickyShooter  {
 
-    /**
-     * Create a StickyShooter Object.
-     * @param level
-     *      the current level reference
-     */
-    public StickyShooter(final Level level) {
-        super(level, 1);
-    }
-
-    @Override
-    public void checkReset() {
-        super.getShots().entrySet().stream()
-        .filter(e -> !e.getValue())
-        .map(e -> e.getKey())
-        .forEach(s -> {
-            if (s.isCollidingWith().isPresent()) {
-                //TODO ONLY IF IS A BALL
-                resetShot(s);
-                }
-        });
-    }
 
 }

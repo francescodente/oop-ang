@@ -1,10 +1,12 @@
 package oopang.model.gameobjects;
 
-import java.util.Optional;
+
 import java.util.stream.Stream;
 
+import oopang.commons.events.Event;
 import oopang.model.components.Component;
 import oopang.model.levels.Level;
+import oopang.model.shooter.ShotResult;
 
 /**
  * This class implements the GameObject Shot which is a projectile that can be shot by the player to hit the balls.
@@ -16,6 +18,8 @@ public class Shot extends AbstractGameObject {
     /*
      * Speed, movement, colliding components
      */
+    private final Event<ShotResult> shotResult;
+
     /**
      * Creates a GameObject of type Shot.
      * @param level
@@ -23,23 +27,23 @@ public class Shot extends AbstractGameObject {
      */
     public Shot(final Level level) {
         super(level);
+        this.shotResult = new Event<>();
         // TODO Auto-generated constructor stub
-    }
-
-    /**
-     * Check if the shot is colliding with something except the player itself.
-     * @return
-     *      An Optional containing the colliding GameObject if any
-     */
-    public Optional<GameObject> isCollidingWith() {
-        //TODO implements with colliding component
-        return Optional.empty();
     }
 
     @Override
     public Stream<Component> getAllComponents() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /**
+     * Return event reference to add handler.
+     * @return
+     *      Shot Result event
+     */
+    public Event<ShotResult> getShotResultEvent() {
+        return this.shotResult;
     }
 
 
