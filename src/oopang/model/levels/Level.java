@@ -2,7 +2,7 @@ package oopang.model.levels;
 
 import java.util.stream.Stream;
 
-import oopang.commons.events.Event;
+import oopang.commons.events.EventHandler;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
 
@@ -52,10 +52,16 @@ public interface Level {
     GameObjectFactory getGameObjectFactory();
 
     /**
-     * Returns the {@link Event} object that is triggered when a new {@link GameObject} is
-     * created and added to the level.
-     * @return
-     *      the {@link Event} object.
+     * Registers an {@link EventHandler} for when a new object is created and added to the level.
+     * @param handler
+     *      the {@link EventHandler}.
      */
-    Event<GameObject> getObjectCreatedEvent();
+    void registerObjectCreatedEvent(EventHandler<GameObject> handler);
+
+    /**
+     * Unregisters an {@link EventHandler} for the object created event.
+     * @param handler
+     *      the {@link EventHandler} to remove.
+     */
+    void unregisterObjectCreatedEvent(EventHandler<GameObject> handler);
 }
