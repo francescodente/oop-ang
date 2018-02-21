@@ -3,6 +3,7 @@ package oopang.model.levels;
 import java.util.stream.Stream;
 
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.GameObjectFactory;
 
 /**
  * Represents a level containing all GameObjects.
@@ -41,4 +42,11 @@ public interface Level {
      *      the GameObject to be removed.
      */
     void removeGameObject(GameObject obj);
+
+    /**
+     * Returns a factory for objects that will be added to this level.
+     * @return
+     *      the factory for this level.
+     */
+    GameObjectFactory getGameObjectFactory();
 }
