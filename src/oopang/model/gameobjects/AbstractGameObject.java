@@ -1,6 +1,7 @@
 package oopang.model.gameobjects;
 
-import java.util.stream.Stream;
+import oopang.commons.events.Event;
+import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
 import oopang.model.components.Component;
@@ -14,6 +15,7 @@ public abstract class AbstractGameObject implements GameObject {
 
     private Point2D position;
     private final Level world;
+    private final Event<GameObject> destroyedEvent;
 
     /**
      * Initializes default data for this game object.
@@ -23,6 +25,7 @@ public abstract class AbstractGameObject implements GameObject {
     public AbstractGameObject(final Level level) {
         this.world = level;
         this.position = Points2D.ZERO;
+        this.destroyedEvent = new Event<>();
     }
 
     @Override
@@ -38,10 +41,8 @@ public abstract class AbstractGameObject implements GameObject {
     @Override
     public void destroy() {
         this.world.removeGameObject(this);
+        this.destroyedEvent.trigger(this);
     }
-
-    @Override
-    public abstract Stream<Component> getAllComponents();
 
     @Override
     public Point2D getPosition() {
@@ -51,5 +52,15 @@ public abstract class AbstractGameObject implements GameObject {
     @Override
     public void setPosition(final Point2D position) {
         this.position = position;
+    }
+
+    @Override
+    public void registerDestroyedEvent(final EventHandler<GameObject> handler) {
+        this.destroyedEvent.registerHandler(handler);
+    }
+
+    @Override
+    public void unregisterDestroyedEvent(final EventHandler<GameObject> handler) {
+        this.destroyedEvent.unregisterHandler(handler);
     }
 }
