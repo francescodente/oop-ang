@@ -2,6 +2,7 @@ package oopang.model.levels;
 
 import java.util.stream.Stream;
 
+import oopang.commons.events.Event;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
 
@@ -49,4 +50,12 @@ public interface Level {
      *      the factory for this level.
      */
     GameObjectFactory getGameObjectFactory();
+
+    /**
+     * Returns the {@link Event} object that is triggered when a new {@link GameObject} is
+     * created and added to the level.
+     * @return
+     *      the {@link Event} object.
+     */
+    Event<GameObject> getObjectCreatedEvent();
 }
