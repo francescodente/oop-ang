@@ -39,4 +39,13 @@ public abstract class GameObjectRenderer<G extends GameObject> extends GenericRe
     protected G getGameObject() {
         return this.gameObject;
     }
+
+    /**
+     * Returns the {@link Sprite} used to render the {@link GameObject}.
+     * @return
+     *      the {@link Sprite} object.
+     */
+    protected Sprite getSprite() {
+        return this.sprite;
+    }
 }
