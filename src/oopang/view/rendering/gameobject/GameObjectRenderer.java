@@ -1,6 +1,8 @@
-package oopang.view.rendering;
+package oopang.view.rendering.gameobject;
 
 import oopang.model.gameobjects.GameObject;
+import oopang.view.rendering.GenericRenderer;
+import oopang.view.rendering.Sprite;
 
 /**
  * A decorator for sprite objects that adds {@link GameObject} behavior like automatic position update.
