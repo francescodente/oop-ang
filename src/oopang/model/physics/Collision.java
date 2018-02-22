@@ -7,8 +7,8 @@ import oopang.commons.space.Vector2D;
  */
 public class Collision {
 
-    private Vector2D normal;
-    private Collidable other;
+    private final Vector2D normal;
+    private final Collidable other;
 
     /**
      * Creates a new collision instance.
