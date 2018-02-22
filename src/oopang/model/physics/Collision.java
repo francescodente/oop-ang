@@ -1,7 +1,5 @@
 package oopang.model.physics;
 
-import java.awt.geom.Point2D;
-
 import oopang.commons.space.Vector2D;
 
 /**
