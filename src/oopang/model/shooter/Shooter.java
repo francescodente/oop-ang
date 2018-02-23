@@ -1,7 +1,5 @@
 package oopang.model.shooter;
 
-import oopang.model.gameobjects.Shot;
-
 /**
  * This interface represent an Object that allow the player to shoot a Shot.
  */

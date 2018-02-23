@@ -1,6 +1,5 @@
 package oopang.model.shooter;
 
-import oopang.model.levels.Level;
 
 /**
  * This is the implementation of the MultipleShooter Object.
@@ -10,7 +9,21 @@ import oopang.model.levels.Level;
  * It has a map of shots with a value describing whether the shot can be shot or not.
  */
 
-public class StickyShooter  {
+public class StickyShooter extends MultipleShooter {
+
+    /**
+     * Create a new StickyShooter instance.
+     */
+    public StickyShooter() {
+        super(1);
+    }
+
+    @Override
+    protected void handleShotResult(final ShotResult arg) {
+        if (arg == ShotResult.BALL) {
+            this.currentShotNumber--;
+        }
+    }
 
 
 }

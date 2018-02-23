@@ -1,10 +1,7 @@
 package oopang.model.shooter;
 
-
-
+import oopang.commons.LevelManager;
 import oopang.model.gameobjects.Shot;
-import oopang.model.levels.Level;
-import oopang.commons.events.EventHandler;
 
 /**
  * This is the implementation of the MultipleShooter Object.
@@ -16,33 +13,47 @@ import oopang.commons.events.EventHandler;
 
 public class MultipleShooter implements Shooter {
 
-
-    private boolean canShoot;
+    /**
+     * 
+     */
+    protected int currentShotNumber;
+    private final int max;
 
     /**
-     * Create a new shooter obj.
-     * @param level
-     *      currentLevel reference
+     * Create a new MultipleShooter instance.
+     * @param max
+     *      the max number of shots that can be shot simultaneously
      */
-    public MultipleShooter(final Level level) {
-        this.currentLevel = level;
+    public MultipleShooter(final int max) {
+        this.currentShotNumber = 0;
+        this.max = max;
     }
 
     @Override
     public boolean canShoot() {
-        // TODO Auto-generated method stub
-        return false;
+        return currentShotNumber < max;
     }
 
     @Override
     public void shoot() {
         if (canShoot()) {
-            /*
-            final Shot newShot =
-            newShot.getShotResultEvent().registerHandler(s -> canShoot = true);
-            */
+        //Shot newShot = LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
+        //LevelManager.getCurrentLevel().addGameObject(newShot);
+
+        //TODO set new shot proprieties to current player pos
+        this.currentShotNumber++;
+
+        //register to event calling this.handleCollision
         }
     }
 
+    /**
+     * Used in a shotResult handler registered to each new shot.
+     * @param arg
+     *      the ShotResult 
+     */
+    protected void handleShotResult(final ShotResult arg) {
+        this.currentShotNumber--;
+    }
 
 }
