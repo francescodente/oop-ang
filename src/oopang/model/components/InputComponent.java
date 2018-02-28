@@ -1,15 +1,15 @@
 package oopang.model.components;
 
 import oopang.model.gameobjects.GameObject;
-import oopang.model.input.InputController;
 import oopang.model.input.InputDirection;
+import oopang.model.input.InputReader;
 
 /**
  * A component used by object can have input from user.
  */
 public class InputComponent extends AbstractComponent {
     private ShooterComponent shooter;
-    private InputController controller;
+    private InputReader controller;
     private MovementComponent moving;
     /**
      * Create a new Input Component for the specified GameObject.
