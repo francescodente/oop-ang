@@ -1,10 +1,7 @@
 package oopang.model.shooter;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import oopang.commons.LevelManager;
 import oopang.model.gameobjects.Shot;
-import oopang.model.levels.Level;
 
 /**
  * This is the implementation of the MultipleShooter Object.
@@ -16,69 +13,51 @@ import oopang.model.levels.Level;
 
 public class MultipleShooter implements Shooter {
 
-    private final Map<Shot, Boolean> shots;
+    private int currentShotNumber;
     private final int max;
-    private int currentShooting;
 
     /**
-     * Create a new basicShooter instance.
-     * @param level
-     *      the current level reference
+     * Create a new MultipleShooter instance.
      * @param max
-     *      max number that can be shot at the same time 
+     *      the max number of shots that can be shot simultaneously
      */
-    public MultipleShooter(final Level level, final int max) {
+    public MultipleShooter(final int max) {
+        this.currentShotNumber = 0;
         this.max = max;
-        this.currentShooting = 0;
-
-        this.shots = new HashMap<>();
-        for (int i = 0; i < max; i++) {
-            shots.put(new Shot(level), true); //TODO change with factory constructor of shot
-        }
     }
 
     @Override
-    public boolean canShoot() {
-        return currentShooting < max;
+    public final boolean canShoot() {
+        return currentShotNumber < max;
     }
 
     @Override
-    public void shoot() {
+    public final void shoot() {
         if (canShoot()) {
-            Shot tobeShot = shots.entrySet().stream().filter(e -> e.getValue()).findFirst().get().getKey();
-            tobeShot.start(); //TODO change with implementation of shooting action
-            currentShooting++;
-            shots.put(tobeShot, false);
+        //Shot newShot = LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
+        //LevelManager.getCurrentLevel().addGameObject(newShot);
+
+        //TODO set new shot proprieties to current player pos
+        this.currentShotNumber++;
+
+        //register to event calling this.handleCollision
         }
-
-    }
-
-    @Override
-    public void checkReset() {
-        shots.entrySet().stream()
-                        .filter(e -> !e.getValue())
-                        .map(e -> e.getKey())
-                        .forEach(s -> {
-                            if (s.isCollidingWith().isPresent()) {
-                                resetShot(s);
-                                }
-                        });
-    }
-
-    @Override
-    public void resetShot(final Shot shot) {
-        //TODO reset the shot
-        currentShooting--;
-        shots.put(shot, true);
     }
 
     /**
-     * Accessible for children.
-     * @return
-     *  the shots map
+     * Used in a shotResult handler registered to each new shot.
+     * @param arg
+     *      the ShotResult 
      */
-    protected Map<Shot, Boolean> getShots() {
-        return shots;
+    protected void handleShotResult(final ShotResult arg) {
+        this.decreaseCurrentShotNumber();
+    }
+
+    /**
+     * Used in children to modify currentShotNumber.
+     */
+    protected void decreaseCurrentShotNumber() {
+        this.currentShotNumber--;
     }
 
 }

@@ -1,6 +1,5 @@
 package oopang.model.shooter;
 
-import oopang.model.levels.Level;
 
 /**
  * This is the implementation of the MultipleShooter Object.
@@ -13,25 +12,18 @@ import oopang.model.levels.Level;
 public class StickyShooter extends MultipleShooter {
 
     /**
-     * Create a StickyShooter Object.
-     * @param level
-     *      the current level reference
+     * Create a new StickyShooter instance.
      */
-    public StickyShooter(final Level level) {
-        super(level, 1);
+    public StickyShooter() {
+        super(1);
     }
 
     @Override
-    public void checkReset() {
-        super.getShots().entrySet().stream()
-        .filter(e -> !e.getValue())
-        .map(e -> e.getKey())
-        .forEach(s -> {
-            if (s.isCollidingWith().isPresent()) {
-                //TODO ONLY IF IS A BALL
-                resetShot(s);
-                }
-        });
+    protected void handleShotResult(final ShotResult arg) {
+        if (arg == ShotResult.BALL) {
+            this.decreaseCurrentShotNumber();
+        }
     }
+
 
 }

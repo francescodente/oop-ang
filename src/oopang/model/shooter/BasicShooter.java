@@ -1,6 +1,5 @@
 package oopang.model.shooter;
 
-import oopang.model.levels.Level;
 
 /**
  * This is the Basic implementation of the Shooter Object.
@@ -11,12 +10,10 @@ import oopang.model.levels.Level;
 public class BasicShooter extends MultipleShooter {
 
     /**
-     * Create a BasicShooter Object.
-     * @param level
-     *      current level reference
+     * Create a new BasicShooter instance.
      */
-    public BasicShooter(final Level level) {
-        super(level, 1);
+    public BasicShooter() {
+        super(1);
     }
 
 }
