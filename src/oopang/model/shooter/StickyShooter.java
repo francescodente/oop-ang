@@ -21,7 +21,7 @@ public class StickyShooter extends MultipleShooter {
     @Override
     protected void handleShotResult(final ShotResult arg) {
         if (arg == ShotResult.BALL) {
-            this.currentShotNumber--;
+            this.decreaseCurrentShotNumber();
         }
     }
 

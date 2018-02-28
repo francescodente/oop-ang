@@ -13,10 +13,7 @@ import oopang.model.gameobjects.Shot;
 
 public class MultipleShooter implements Shooter {
 
-    /**
-     * 
-     */
-    protected int currentShotNumber;
+    private int currentShotNumber;
     private final int max;
 
     /**
@@ -30,12 +27,12 @@ public class MultipleShooter implements Shooter {
     }
 
     @Override
-    public boolean canShoot() {
+    public final boolean canShoot() {
         return currentShotNumber < max;
     }
 
     @Override
-    public void shoot() {
+    public final void shoot() {
         if (canShoot()) {
         //Shot newShot = LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
         //LevelManager.getCurrentLevel().addGameObject(newShot);
@@ -53,6 +50,13 @@ public class MultipleShooter implements Shooter {
      *      the ShotResult 
      */
     protected void handleShotResult(final ShotResult arg) {
+        this.decreaseCurrentShotNumber();
+    }
+
+    /**
+     * Used in children to modify currentShotNumber.
+     */
+    protected void decreaseCurrentShotNumber() {
         this.currentShotNumber--;
     }
 
