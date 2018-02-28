@@ -2,6 +2,7 @@ package oopang.model.components;
 
 import org.dyn4j.geometry.Convex;
 
+import oopang.commons.LevelManager;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
@@ -12,7 +13,7 @@ import oopang.model.physics.Collision;
 /**
  * A component that makes the {@link GameObject} it is attached to able to collide with other objects.
  */
-public class CollisionComponent extends AbstractComponent implements Collidable {
+public final class CollisionComponent extends AbstractComponent implements Collidable {
 
     private final Convex boundingBox;
     private final Event<Collision> collisionEvent;
@@ -32,7 +33,7 @@ public class CollisionComponent extends AbstractComponent implements Collidable 
 
     @Override
     public void start() {
-        //CollisionManager.addCollidable(this);
+        LevelManager.getCurrentLevel().getCollisionManager().addCollidable(this);
     }
 
     @Override
