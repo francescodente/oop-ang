@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
+import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.levels.Level;
 import oopang.model.shooter.ShotResult;
@@ -19,7 +20,7 @@ public class Shot extends AbstractGameObject {
     /*
      * Speed, movement
      */
-
+    //private final CollisionComponent collisionComponent;
     private final Event<ShotResult> shotResult;
 
     /**
