@@ -1,6 +1,5 @@
 package oopang.model.components;
 
-import oopang.commons.exceptions.MissingComponentException;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.GameObject;
@@ -38,9 +37,7 @@ public class GravityComponent extends AbstractComponent {
 
     @Override
     public void start() {
-        this.movement = this.getGameObject()
-                .getComponent(MovementComponent.class)
-                .orElseThrow(() -> new MissingComponentException(this.getGameObject()));
+        this.movement = this.getGameObject().getComponent(MovementComponent.class).get();
     }
 
     @Override
