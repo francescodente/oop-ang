@@ -1,5 +1,6 @@
 package oopang.model.components;
 
+import oopang.commons.exceptions.MissingComponentException;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.GameObject;
@@ -12,6 +13,7 @@ public class GravityComponent extends AbstractComponent {
     private static final Vector2D DEFAULT_GRAVITY_ACC = Vectors2D.of(0, -9.81);
 
     private final Vector2D gravity;
+    private MovementComponent movement;
 
     /**
      * Creates a new GravityComponent instance with default gravity acceleration (0, -9.81).
@@ -36,16 +38,14 @@ public class GravityComponent extends AbstractComponent {
 
     @Override
     public void start() {
-        // TODO: get a reference to the VelocityComponent of this GameObject.
+        this.movement = this.getGameObject()
+                .getComponent(MovementComponent.class)
+                .orElseThrow(() -> new MissingComponentException(this.getGameObject()));
     }
 
     @Override
     public void update(final double deltaTime) {
         final Vector2D dV = gravity.multiply(deltaTime);
-        this.updateVelocity(dV);
-    }
-
-    private void updateVelocity(final Vector2D dV) {
-        // TODO: add dV to VelocityComponent's velocity.
+        this.movement.setVelocity(this.movement.getVelocity().sumVector(dV));
     }
 }
