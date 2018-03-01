@@ -25,11 +25,9 @@ public class Shot extends AbstractGameObject {
 
     /**
      * Creates a GameObject of type Shot.
-     * @param level
-     *      the level this GameObject belongs to
      */
-    public Shot(final Level level) {
-        super(level);
+    public Shot() {
+        super();
         this.shotResult = new Event<>();
         // TODO Auto-generated constructor stub
     }
