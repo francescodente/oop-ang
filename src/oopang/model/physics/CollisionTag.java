@@ -21,13 +21,9 @@ public enum CollisionTag {
      */
     CEILING,
     /**
-     * Collision tag for the left wall.
+     * Collision tag for all walls.
      */
-    LEFT_WALL,
-    /**
-     * Collision tag for the right wall.
-     */
-    RIGHT_WALL,
+    WALL,
     /**
      * Collision tag for all pickups.
      */
