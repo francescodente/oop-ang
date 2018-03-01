@@ -15,7 +15,11 @@ public enum CollisionTag {
     /**
      * Collision tag for the floor.
      */
-    FLOOR
+    FLOOR,
+    /**
+     * Collision tag for the ceiling.
+     */
+    CEILING,
     /**
      * Collision tag for all walls.
      */
