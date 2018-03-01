@@ -12,11 +12,9 @@ public class BasicShooter extends MultipleShooter {
 
     /**
      * Create a BasicShooter Object.
-     * @param level
-     *      current level reference
      */
-    public BasicShooter(final Level level) {
-        super(level, 1);
+    public BasicShooter() {
+        super(1);
     }
 
 }

@@ -27,13 +27,13 @@ public class MultipleShooter implements Shooter {
      * @param max
      *      max number that can be shot at the same time 
      */
-    public MultipleShooter(final Level level, final int max) {
+    public MultipleShooter(final int max) {
         this.max = max;
         this.currentShooting = 0;
 
         this.shots = new HashMap<>();
         for (int i = 0; i < max; i++) {
-            shots.put(new Shot(level), true); //TODO change with factory constructor of shot
+            shots.put(new Shot(), true); //TODO change with factory constructor of shot
         }
     }
 

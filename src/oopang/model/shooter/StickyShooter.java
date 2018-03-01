@@ -14,11 +14,9 @@ public class StickyShooter extends MultipleShooter {
 
     /**
      * Create a StickyShooter Object.
-     * @param level
-     *      the current level reference
      */
-    public StickyShooter(final Level level) {
-        super(level, 1);
+    public StickyShooter() {
+        super(1);
     }
 
     @Override
