@@ -1,9 +1,12 @@
 package oopang.model.physics;
 
+import java.util.Optional;
+
 import org.dyn4j.geometry.Convex;
 
 import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
+import oopang.model.gameobjects.GameObject;
 
 /**
  * Represents an object that can collide with other collidable objects.
@@ -23,6 +26,20 @@ public interface Collidable {
      *      the position.
      */
     Point2D getPosition();
+
+    /**
+     * Returns the {@link CollisionTag} for this collidable.
+     * @return
+     *      the {@link CollisionTag}.
+     */
+    CollisionTag getCollisionTag();
+
+    /**
+     * Returns an optional representing the {@link GameObject} represented by this collidable.
+     * @return
+     *      the optional {@link GameObject}.
+     */
+    Optional<GameObject> getAttachedGameObject();
 
     /**
      * Tells this object that it is colliding with another object.
