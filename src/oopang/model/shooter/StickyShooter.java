@@ -1,5 +1,6 @@
 package oopang.model.shooter;
 
+import oopang.model.physics.CollisionTag;
 
 /**
  * This is the implementation of the MultipleShooter Object.
@@ -20,8 +21,9 @@ public class StickyShooter extends MultipleShooter {
 
     @Override
     protected void handleShotResult(final ShotResult arg) {
-        if (arg == ShotResult.BALL) {
+        if (arg.getTag() == CollisionTag.BUBBLE) {
             this.decreaseCurrentShotNumber();
+            arg.getShot().destroy();
         }
     }
 
