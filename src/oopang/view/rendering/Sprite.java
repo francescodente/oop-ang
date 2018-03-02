@@ -9,7 +9,7 @@ import oopang.commons.space.Vector2D;
  * relative to the bottom left corner of the canvas. The pivot is the point relative to the center of the image that
  * is used as the center for rotations. It can be set as a vector starting from the center of the image. Coordinates
  * in the range [-1,1] indicate a pivot inside the rectangle of the image. The rotation is specified as the number
- * of radians to rotate the image counter-clockwise. The image source is specified as an ImageID. 
+ * of degrees to rotate the image counter-clockwise. The image source is specified as an ImageID. 
  */
 public interface Sprite extends Renderer {
     /**
@@ -43,14 +43,14 @@ public interface Sprite extends Renderer {
     /**
      * Sets the rotation of the sprite around the pivot.
      * @param angle
-     *      the new angle in radians.
+     *      the new angle in degrees.
      */
     void setAngle(double angle);
 
     /**
-     * Returns the rotation of the sprite around the pivot.
+     * Returns the rotation of the sprite around the pivot in degrees.
      * @return
-     *      the rotation.
+     *      the rotation in degrees.
      */
     double getAngle();
 
