@@ -3,11 +3,18 @@ package oopang.model.gameobjects;
 
 import java.util.stream.Stream;
 
+import org.dyn4j.geometry.Convex;
+import org.dyn4j.geometry.Rectangle;
+
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
+import oopang.commons.space.Point2D;
+import oopang.commons.space.Vectors2D;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
-import oopang.model.levels.Level;
+import oopang.model.components.MovementComponent;
+import oopang.model.physics.Collision;
+import oopang.model.physics.CollisionTag;
 import oopang.model.shooter.ShotResult;
 
 /**
@@ -16,33 +23,53 @@ import oopang.model.shooter.ShotResult;
  * 
  */
 public class Shot extends AbstractGameObject {
+    
+    private static final double WIDTH = 1;
 
-    /*
-     * Speed, movement
-     */
-    //private final CollisionComponent collisionComponent;
+    private final MovementComponent movementComponent;
+    private final CollisionComponent collisionComponent;
     private final Event<ShotResult> shotResult;
+    private final double startY;
 
     /**
      * Creates a GameObject of type Shot.
+     * @param startPosition
+     *      the Position of the player when a new Shot is created
      */
-    public Shot() {
+    public Shot(final Point2D startPosition) {
         super();
         this.shotResult = new Event<>();
-        // TODO Auto-generated constructor stub
+        this.movementComponent = new MovementComponent(this);
+        this.movementComponent.setVelocity(Vectors2D.UP);
+
+        Convex boundingBox = new Rectangle(WIDTH, 0); //TODO this is a test
+        this.collisionComponent = new CollisionComponent(this, boundingBox, CollisionTag.SHOT);
+        this.setPosition(startPosition);
+
+        this.startY = startPosition.getY();
     }
 
-    @Override
-    public Stream<Component> getAllComponents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public void start() {
         super.start();
-        //this.collisionComponent.registerCollisionEvent( TODO handler which triggers shotResult )
-        // handler call super.destroy
+        this.collisionComponent.registerCollisionEvent(c -> handleCollision(c));
+    }
+
+    @Override
+    public void update(final double deltaTime) {
+        super.update(deltaTime);
+
+    }
+
+
+    private void handleCollision(final Collision c) {
+        final CollisionTag tag = c.getOther().getCollisionTag();
+        if (tag == CollisionTag.BUBBLE) {
+            shotResult.trigger(ShotResult.BALL);
+        } else if (tag == CollisionTag.WALL) {
+            shotResult.trigger(ShotResult.WALL);
+        }
     }
 
     /**
@@ -63,4 +90,10 @@ public class Shot extends AbstractGameObject {
         this.shotResult.unregisterHandler(handler);
     }
 
+
+    @Override
+    public Stream<Component> getAllComponents() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
