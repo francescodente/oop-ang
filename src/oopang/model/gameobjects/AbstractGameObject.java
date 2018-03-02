@@ -6,7 +6,6 @@ import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
 import oopang.model.components.Component;
-import oopang.model.levels.Level;
 
 /**
  * This class represents the abstract model for all GameObjects and gives a basic implementation
