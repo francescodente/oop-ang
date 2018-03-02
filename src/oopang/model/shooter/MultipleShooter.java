@@ -51,6 +51,7 @@ public class MultipleShooter implements Shooter {
      */
     protected void handleShotResult(final ShotResult arg) {
         this.decreaseCurrentShotNumber();
+        arg.getShot().destroy();
     }
 
     /**
