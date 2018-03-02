@@ -1,6 +1,7 @@
 package oopang.model.gameobjects;
 
 
+
 import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Convex;
@@ -23,7 +24,7 @@ import oopang.model.shooter.ShotResult;
  * 
  */
 public class Shot extends AbstractGameObject {
-    
+
     private static final double WIDTH = 1;
 
     private final MovementComponent movementComponent;
@@ -42,7 +43,7 @@ public class Shot extends AbstractGameObject {
         this.movementComponent = new MovementComponent(this);
         this.movementComponent.setVelocity(Vectors2D.UP);
 
-        Convex boundingBox = new Rectangle(WIDTH, 0); //TODO this is a test
+        final Convex boundingBox = new Rectangle(WIDTH, 1); 
         this.collisionComponent = new CollisionComponent(this, boundingBox, CollisionTag.SHOT);
         this.setPosition(startPosition);
 
@@ -59,7 +60,7 @@ public class Shot extends AbstractGameObject {
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
-
+        collisionComponent.setShape(new Rectangle(WIDTH, this.getPosition().getY() - startY));
     }
 
 
@@ -91,7 +92,6 @@ public class Shot extends AbstractGameObject {
 
     @Override
     public Stream<Component> getAllComponents() {
-        // TODO Auto-generated method stub
-        return null;
+        return Stream.of(collisionComponent, movementComponent);
     }
 }
