@@ -26,6 +26,8 @@ import oopang.model.shooter.ShotResult;
 public class Shot extends AbstractGameObject {
 
     private static final double WIDTH = 1;
+    private static final double START_HEIGHT = 1;
+    private static final double SPEED = 1;
 
     private final MovementComponent movementComponent;
     private final CollisionComponent collisionComponent;
@@ -41,9 +43,9 @@ public class Shot extends AbstractGameObject {
         super();
         this.shotResult = new Event<>();
         this.movementComponent = new MovementComponent(this);
-        this.movementComponent.setVelocity(Vectors2D.UP);
+        this.movementComponent.setVelocity(Vectors2D.UP.multiply(SPEED));
 
-        final Convex boundingBox = new Rectangle(WIDTH, 1); 
+        final Convex boundingBox = new Rectangle(WIDTH, START_HEIGHT); 
         this.collisionComponent = new CollisionComponent(this, boundingBox, CollisionTag.SHOT);
         this.setPosition(startPosition);
 
