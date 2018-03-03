@@ -18,7 +18,7 @@ import oopang.model.physics.CollisionTag;
  */
 public final class CollisionComponent extends AbstractComponent implements Collidable {
 
-    private final Convex boundingBox;
+    private Convex boundingBox;
     private final Event<Collision> collisionEvent;
     private final CollisionTag collisionTag;
 
@@ -46,6 +46,15 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     @Override
     public Convex getShape() {
         return this.boundingBox;
+    }
+
+    /**
+     * Set the boundingBox to a new Shape.
+     * @param shape
+     *      the new shape to be used
+     */
+    public void setShape(final Convex shape) {
+        this.boundingBox = shape;
     }
 
     @Override

@@ -34,25 +34,16 @@ public class MultipleShooter implements Shooter {
     @Override
     public final void shoot() {
         if (canShoot()) {
-        //Shot newShot = LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
-        //LevelManager.getCurrentLevel().addGameObject(newShot);
+        Shot newShot = (Shot) LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
+        LevelManager.getCurrentLevel().addGameObject(newShot);
 
         //TODO set new shot proprieties to current player pos
         this.currentShotNumber++;
 
-        //register to event calling this.handleCollision
+        newShot.registerDestroyedEvent(s -> this.decreaseCurrentShotNumber());
         }
     }
 
-    /**
-     * Used in a shotResult handler registered to each new shot.
-     * @param arg
-     *      the ShotResult 
-     */
-    protected void handleShotResult(final ShotResult arg) {
-        this.decreaseCurrentShotNumber();
-        arg.getShot().destroy();
-    }
 
     /**
      * Used in children to modify currentShotNumber.
