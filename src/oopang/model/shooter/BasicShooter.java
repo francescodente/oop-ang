@@ -1,5 +1,6 @@
 package oopang.model.shooter;
 
+import oopang.model.gameobjects.GameObject;
 
 /**
  * This is the Basic implementation of the Shooter Object.
@@ -11,9 +12,11 @@ public class BasicShooter extends MultipleShooter {
 
     /**
      * Create a new BasicShooter instance.
+     * @param player
+     *      the player reference
      */
-    public BasicShooter() {
-        super(1);
+    public BasicShooter(final GameObject player) {
+        super(1, player);
     }
 
 }

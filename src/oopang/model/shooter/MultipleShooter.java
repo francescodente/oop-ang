@@ -1,6 +1,7 @@
 package oopang.model.shooter;
 
 import oopang.commons.LevelManager;
+import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.Shot;
 
 /**
@@ -14,16 +15,20 @@ import oopang.model.gameobjects.Shot;
 public class MultipleShooter implements Shooter {
 
     private int currentShotNumber;
-    private final int max;
+    private int max;
+    private GameObject player;
 
     /**
      * Create a new MultipleShooter instance.
      * @param max
      *      the max number of shots that can be shot simultaneously
+     * @param player
+     *      the player reference
      */
-    public MultipleShooter(final int max) {
+    public MultipleShooter(final int max, final GameObject player) {
         this.currentShotNumber = 0;
         this.max = max;
+        this.player = player;
     }
 
     @Override
@@ -34,22 +39,19 @@ public class MultipleShooter implements Shooter {
     @Override
     public final void shoot() {
         if (canShoot()) {
-        Shot newShot = (Shot) LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
+        //final Shot newShot = (Shot) LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
+        final Shot newShot = new Shot(player.getPosition());
         LevelManager.getCurrentLevel().addGameObject(newShot);
 
-        //TODO set new shot proprieties to current player pos
         this.currentShotNumber++;
 
-        newShot.registerDestroyedEvent(s -> this.decreaseCurrentShotNumber());
+        newShot.registerDestroyedEvent(s -> this.currentShotNumber--);
         }
     }
 
-
-    /**
-     * Used in children to modify currentShotNumber.
-     */
-    protected void decreaseCurrentShotNumber() {
-        this.currentShotNumber--;
+    @Override
+    public void setMaxShootable(final int max) {
+        this.max = max;
     }
 
 }

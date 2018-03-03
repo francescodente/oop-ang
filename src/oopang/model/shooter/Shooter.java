@@ -17,5 +17,11 @@ public interface Shooter {
      */
     void shoot();
 
+    /**
+     * Change max shootable.
+     * @param max
+     *      the new max shootable
+     */
+    void setMaxShootable(int max);
 
 }
