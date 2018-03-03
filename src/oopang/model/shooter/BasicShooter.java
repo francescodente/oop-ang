@@ -1,6 +1,9 @@
 package oopang.model.shooter;
 
+import java.util.function.Supplier;
+
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.Shot;
 
 /**
  * This is the Basic implementation of the Shooter Object.
@@ -14,9 +17,11 @@ public class BasicShooter extends MultipleShooter {
      * Create a new BasicShooter instance.
      * @param player
      *      the player reference
+     * @param supplier
+     *      the shot supplier
      */
-    public BasicShooter(final GameObject player) {
-        super(1, player);
+    public BasicShooter(final GameObject player, final Supplier<Shot> supplier) {
+        super(1, player, supplier);
     }
 
 }

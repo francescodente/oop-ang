@@ -1,5 +1,9 @@
 package oopang.model.shooter;
 
+import java.util.function.Supplier;
+
+import oopang.model.gameobjects.Shot;
+
 /**
  * This interface represent an Object that allow the player to shoot a Shot.
  */
@@ -23,5 +27,12 @@ public interface Shooter {
      *      the new max shootable
      */
     void setMaxShootable(int max);
+
+    /**
+     * Change shot supplier.
+     * @param supplier
+     *      the new shot supplier
+     */
+    void setSupplier(Supplier<Shot> supplier);
 
 }

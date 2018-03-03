@@ -1,5 +1,7 @@
 package oopang.model.shooter;
 
+import java.util.function.Supplier;
+
 import oopang.commons.LevelManager;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.Shot;
@@ -17,6 +19,7 @@ public class MultipleShooter implements Shooter {
     private int currentShotNumber;
     private int max;
     private GameObject player;
+    private Supplier<Shot> supplier;
 
     /**
      * Create a new MultipleShooter instance.
@@ -24,11 +27,14 @@ public class MultipleShooter implements Shooter {
      *      the max number of shots that can be shot simultaneously
      * @param player
      *      the player reference
+     * @param supplier
+     *      the supplier of shots
      */
-    public MultipleShooter(final int max, final GameObject player) {
+    public MultipleShooter(final int max, final GameObject player, final Supplier<Shot> supplier) {
         this.currentShotNumber = 0;
         this.max = max;
         this.player = player;
+        this.supplier = supplier;
     }
 
     @Override
@@ -39,8 +45,7 @@ public class MultipleShooter implements Shooter {
     @Override
     public final void shoot() {
         if (canShoot()) {
-        //final Shot newShot = (Shot) LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
-        final Shot newShot = new Shot(player.getPosition()); 
+        final Shot newShot = supplier.get();
         LevelManager.getCurrentLevel().addGameObject(newShot);
 
         this.currentShotNumber++;
@@ -52,6 +57,12 @@ public class MultipleShooter implements Shooter {
     @Override
     public void setMaxShootable(final int max) {
         this.max = max;
+    }
+
+    @Override
+    public void setSupplier(final Supplier<Shot> supplier) {
+        this.supplier = supplier;
+
     }
 
 }
