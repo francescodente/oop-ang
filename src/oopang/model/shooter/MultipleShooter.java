@@ -40,7 +40,7 @@ public class MultipleShooter implements Shooter {
     public final void shoot() {
         if (canShoot()) {
         //final Shot newShot = (Shot) LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
-        final Shot newShot = new Shot(player.getPosition());
+        final Shot newShot = new Shot(player.getPosition()); 
         LevelManager.getCurrentLevel().addGameObject(newShot);
 
         this.currentShotNumber++;
