@@ -2,7 +2,7 @@ package oopang.model.shooter;
 
 import java.util.function.Supplier;
 
-import oopang.model.gameobjects.HookShot;
+import oopang.model.gameobjects.Shot;
 
 /**
  * This interface represent an Object that allow the player to shoot a Shot.
@@ -33,6 +33,6 @@ public interface Shooter {
      * @param supplier
      *      the new shot supplier
      */
-    void setSupplier(Supplier<HookShot> supplier);
+    void setSupplier(Supplier<Shot> supplier);
 
 }
