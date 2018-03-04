@@ -20,7 +20,7 @@ import oopang.model.physics.CollisionTag;
  * It can collide whit walls and balls, not with the player.
  * 
  */
-public class Shot extends AbstractGameObject {
+public class HookShot extends AbstractGameObject {
 
     private static final double WIDTH = 1;
     private static final double START_HEIGHT = 1;
@@ -35,7 +35,7 @@ public class Shot extends AbstractGameObject {
      * @param startPosition
      *      the Position of the player when a new Shot is created
      */
-    public Shot(final Point2D startPosition) {
+    public HookShot(final Point2D startPosition) {
         super();
         this.movementComponent = new MovementComponent(this);
         this.movementComponent.setVelocity(Vectors2D.UP.multiply(SPEED));
