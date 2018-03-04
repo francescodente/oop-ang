@@ -1,7 +1,5 @@
 package oopang.model.gameobjects;
 
-
-
 import org.dyn4j.geometry.Rectangle;
 
 import oopang.model.physics.Collision;
