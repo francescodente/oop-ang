@@ -42,6 +42,9 @@ public class StickyShot extends HookShot {
         if (tag == CollisionTag.BUBBLE) {
             this.destroy();
         }
+        if (tag == CollisionTag.WALL) {
+            isSticked = true;
+        }
     }
 
 }
