@@ -1,64 +1,52 @@
 package oopang.model.gameobjects;
 
-
-
 import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Convex;
-import org.dyn4j.geometry.Rectangle;
 
-import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
-import oopang.commons.space.Point2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.MovementComponent;
 import oopang.model.physics.Collision;
 import oopang.model.physics.CollisionTag;
-import oopang.model.shooter.ShotResult;
 
 /**
- * This class implements the GameObject Shot which is a projectile that can be shot by the player to hit the balls.
- * It can collide whit walls and balls, not with the player.
+ * This is an abstract implementation of Shot.
  * 
+ *
  */
-public class Shot extends AbstractGameObject {
+public abstract class Shot extends AbstractGameObject {
 
-    private static final double WIDTH = 1;
-    private static final double START_HEIGHT = 1;
-    private static final double SPEED = 1;
+    /**
+     * Standard Speed for all Shot objects.
+     */
+    protected static final double SPEED = 1;
 
     private final MovementComponent movementComponent;
     private final CollisionComponent collisionComponent;
-    private final Event<ShotResult> shotResult;
-    private final double startY;
 
     /**
-     * Creates a GameObject of type Shot.
-     * @param startPosition
-     *      the Position of the player when a new Shot is created
+     * Create a new Shot instance.
+     * @param boundingBox
+     *      the shape of the Shot obj
      */
-    public Shot(final Point2D startPosition) {
-        super();
-        this.shotResult = new Event<>();
+    public Shot(final Convex boundingBox) {
         this.movementComponent = new MovementComponent(this);
-        this.movementComponent.setVelocity(Vectors2D.UP.multiply(SPEED));
-
-        final Convex boundingBox = new Rectangle(WIDTH, START_HEIGHT); 
+        this.getMovementComponent().setVelocity(Vectors2D.UP.multiply(SPEED)); 
         this.collisionComponent = new CollisionComponent(this, boundingBox, CollisionTag.SHOT);
-        this.setPosition(startPosition);
-
-        this.startY = startPosition.getY();
     }
 
-
+    /**
+     * This method has to be called as super.start() in children.
+     */
     @Override
     public void start() {
         super.start();
         this.collisionComponent.registerCollisionEvent(c -> handleCollision(c));
     }
 
+<<<<<<< HEAD
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
@@ -72,28 +60,35 @@ public class Shot extends AbstractGameObject {
             shotResult.trigger(new ShotResult(tag, this));
         }
     }
+=======
+    /**
+     * Handle the collision event.
+     * @param c
+     *      the collision object 
+     */
+    protected abstract void handleCollision(Collision c);
+>>>>>>> ea6bd7a5ccaad2c47976418ae3f3274591c45e0c
 
     /**
-     * Register to event.
-     * @param handler
-     *      the handler to be registered.
+     * Returns the MovementComponent.
+     * @return
+     *      the movement component
      */
-    public void registerShotResultEvent(final EventHandler<ShotResult> handler) {
-        this.shotResult.registerHandler(handler);
+    protected MovementComponent getMovementComponent() {
+        return movementComponent;
     }
 
     /**
-     * Unregister to event.
-     * @param handler
-     *      the handler to be unregistered.
+     * Returns the collisonComponent.
+     * @return
+     *      the collision component
      */
-    public void unregisterShotResultEvent(final EventHandler<ShotResult> handler) {
-        this.shotResult.unregisterHandler(handler);
+    protected CollisionComponent getCollisionComponent() {
+        return collisionComponent;
     }
-
 
     @Override
-    public Stream<Component> getAllComponents() {
+    public final Stream<Component> getAllComponents() {
         return Stream.of(collisionComponent, movementComponent);
     }
 }

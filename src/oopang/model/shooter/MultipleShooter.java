@@ -1,6 +1,8 @@
 package oopang.model.shooter;
 
-import oopang.commons.LevelManager;
+import java.util.function.Supplier;
+
+import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.Shot;
 
 /**
@@ -14,16 +16,24 @@ import oopang.model.gameobjects.Shot;
 public class MultipleShooter implements Shooter {
 
     private int currentShotNumber;
-    private final int max;
+    private int max;
+    private final GameObject player;
+    private Supplier<Shot> supplier;
 
     /**
      * Create a new MultipleShooter instance.
      * @param max
      *      the max number of shots that can be shot simultaneously
+     * @param player
+     *      the player reference
+     * @param supplier
+     *      the supplier of shots
      */
-    public MultipleShooter(final int max) {
+    public MultipleShooter(final int max, final GameObject player, final Supplier<Shot> supplier) {
         this.currentShotNumber = 0;
         this.max = max;
+        this.player = player;
+        this.supplier = supplier;
     }
 
     @Override
@@ -34,31 +44,23 @@ public class MultipleShooter implements Shooter {
     @Override
     public final void shoot() {
         if (canShoot()) {
-        //Shot newShot = LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
-        //LevelManager.getCurrentLevel().addGameObject(newShot);
-
-        //TODO set new shot proprieties to current player pos
+        final Shot newShot = supplier.get();
+        newShot.setPosition(player.getPosition());
         this.currentShotNumber++;
 
-        //register to event calling this.handleCollision
+        newShot.registerDestroyedEvent(s -> this.currentShotNumber--);
         }
     }
 
-    /**
-     * Used in a shotResult handler registered to each new shot.
-     * @param arg
-     *      the ShotResult 
-     */
-    protected void handleShotResult(final ShotResult arg) {
-        this.decreaseCurrentShotNumber();
-        arg.getShot().destroy();
+    @Override
+    public void setMaxShootable(final int max) {
+        this.max = max;
     }
 
-    /**
-     * Used in children to modify currentShotNumber.
-     */
-    protected void decreaseCurrentShotNumber() {
-        this.currentShotNumber--;
+    @Override
+    public void setSupplier(final Supplier<Shot> supplier) {
+        this.supplier = supplier;
+
     }
 
 }
