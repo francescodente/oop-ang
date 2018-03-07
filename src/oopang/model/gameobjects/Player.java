@@ -22,7 +22,6 @@ public class Player extends AbstractGameObject {
     private MovementComponent movement;
     private CollisionComponent collision;
     private ShooterComponent shoot;
-    //private Event<GameOver> events;
     //private List<Power> powerUps;
     /**
      * Constructor of this class.
