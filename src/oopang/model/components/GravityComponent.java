@@ -45,4 +45,13 @@ public class GravityComponent extends AbstractComponent {
         final Vector2D dV = gravity.multiply(deltaTime);
         this.movement.setVelocity(this.movement.getVelocity().sumVector(dV));
     }
+    
+    /**
+     * Gets the gravity value.
+     * @return
+     *      the gravity value.
+     */
+    public Vector2D getGravity() {
+        return gravity;
+    }
 }
