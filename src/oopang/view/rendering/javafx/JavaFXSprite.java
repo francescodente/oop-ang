@@ -30,7 +30,7 @@ public class JavaFXSprite extends GenericSprite {
 
     @Override
     public void render() {
-        // TODO: take in account pivot and rotation.
+        // TODO: take in account pivot.
         this.gc.drawImage(this.image, this.getPosition().getX(), this.getPosition().getY());
     }
 }
