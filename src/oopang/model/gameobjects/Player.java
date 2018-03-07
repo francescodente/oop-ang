@@ -49,6 +49,7 @@ public class Player extends AbstractGameObject {
         }
         if (c.getOther().getCollisionTag() == CollisionTag.PICKUP) {
             //addPower();
+            c.getOther().getAttachedGameObject().get().destroy();
         }
     }
     @Override
