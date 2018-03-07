@@ -43,7 +43,7 @@ public class Pickup extends AbstractGameObject {
     }
 
     @Override
-    public void update(final double deltaTime) {
+    public final void update(final double deltaTime) {
         super.update(deltaTime);
         this.time += deltaTime;
         if (this.time > TIMEOUT) {
@@ -52,7 +52,7 @@ public class Pickup extends AbstractGameObject {
     }
 
     @Override
-    public Stream<Component> getAllComponents() {
+    public final Stream<Component> getAllComponents() {
         return Stream.of(this.gravitycomponent, this.movementcomponent, this.collisioncomponent); 
     }
     /**
