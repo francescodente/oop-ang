@@ -60,4 +60,34 @@ public final class Vectors2D {
     public static Vector2D fromTo(final Point2D from, final Point2D to) {
         return Vectors2D.of(to.getX() - from.getX(), to.getY() - from.getY());
     }
+
+    /**
+     * Returns the vector between [LEFT, RIGHT, UP, DOWN] constants whose direction is 
+     * closer to the given vector's direction.
+     * If the given vector is (0, 0) the constant ZERO is returned.
+     * @param vector
+     *      The vector object.
+     * @return
+     *      LEFT, RIGHT, UP, DOWN or ZERO depending on the direction of the vector.
+     */
+    public static Vector2D getNearestPerpendicularVector(final Vector2D vector) {
+        if (vector.equals(ZERO)) {
+            return ZERO;
+        }
+        final double absX = Math.abs(vector.getX());
+        final double absY = Math.abs(vector.getY());
+        if (absX > absY) {
+            if (vector.getX() > 0) {
+                return RIGHT;
+            } else {
+                return LEFT;
+            }
+        } else {
+            if (vector.getY() > 0) {
+                return UP;
+            } else {
+                return DOWN;
+            }
+        }
+    }
 }
