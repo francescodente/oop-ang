@@ -33,13 +33,12 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void pauseGame() {
-        this.loop.pauseLoop();
+        loop.pauseLoop();
     }
 
     @Override
     public void closeGame() {
-        // TODO Auto-generated method stub
-
+        loop.stopLoop();
     }
 
     @Override
