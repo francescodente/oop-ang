@@ -46,28 +46,12 @@ public abstract class Shot extends AbstractGameObject {
         this.collisionComponent.registerCollisionEvent(c -> handleCollision(c));
     }
 
-<<<<<<< HEAD
-    @Override
-    public void update(final double deltaTime) {
-        super.update(deltaTime);
-        collisionComponent.setShape(new Rectangle(WIDTH, this.getPosition().getY() - startY));
-    }
-
-
-    private void handleCollision(final Collision c) {
-        final CollisionTag tag = c.getOther().getCollisionTag();
-        if (tag == CollisionTag.BALL || tag == CollisionTag.WALL) {
-            shotResult.trigger(new ShotResult(tag, this));
-        }
-    }
-=======
     /**
      * Handle the collision event.
      * @param c
      *      the collision object 
      */
     protected abstract void handleCollision(Collision c);
->>>>>>> ea6bd7a5ccaad2c47976418ae3f3274591c45e0c
 
     /**
      * Returns the MovementComponent.

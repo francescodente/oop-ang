@@ -39,7 +39,7 @@ public class StickyShot extends HookShot {
     @Override
     protected void handleCollision(final Collision c) {
         final CollisionTag tag = c.getOther().getCollisionTag();
-        if (tag == CollisionTag.BUBBLE) {
+        if (tag == CollisionTag.BALL) {
             this.destroy();
         }
         if (tag == CollisionTag.WALL) {
