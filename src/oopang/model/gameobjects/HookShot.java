@@ -40,7 +40,7 @@ public class HookShot extends Shot {
     @Override
     protected void handleCollision(final Collision c) {
         final CollisionTag tag = c.getOther().getCollisionTag();
-        if (tag == CollisionTag.BUBBLE || tag == CollisionTag.WALL) {
+        if (tag == CollisionTag.BALL || tag == CollisionTag.WALL) {
             this.destroy();
         }
     }

@@ -13,10 +13,6 @@ public enum CollisionTag {
      */
     BALL,
     /**
-     * Collision tag for the floor.
-     */
-    FLOOR,
-    /**
      * Collision tag for all walls.
      */
     WALL,
