@@ -1,6 +1,7 @@
 package oopang.model.gameobjects;
 
 import oopang.commons.space.Vector2D;
+import oopang.model.powers.Power;
 
 /**
  * A factory for {@link GameObject}s that also adds them to the current level.
@@ -25,11 +26,18 @@ public interface GameObjectFactory {
     GameObject createBall(double radius, Vector2D vector);
 
     /**
-     * Creates a new hook {@link GameObject} and adds it to the level.
+     * Creates a new hook {@link Shot} and adds it to the level.
      * @return
-     *      the hook {@link GameObject}.
+     *      the hook {@link Shot}.
      */
-    GameObject createHookShot();
+    Shot createHookShot();
+
+    /**
+     * Create a new sticky {@link Shot} and adds it to the level.
+     * @return
+     *      the sticky {@link Shot}
+     */
+    Shot createStickyShot();
 
     /**
      * Creates a new wall {@link GameObject} and adds it to the level.
@@ -41,4 +49,13 @@ public interface GameObjectFactory {
      *      the wall {@link GameObject}.
      */
     GameObject createWall(double width, double height);
+
+    /**
+     * Creates a new pickup {@link GameObject} and adds it to the level.
+     * @param power
+     *      the power of the pickup
+     * @return
+     *      the pickup {@link GameObject}.
+     */
+    GameObject createPickup(Power power);
 }
