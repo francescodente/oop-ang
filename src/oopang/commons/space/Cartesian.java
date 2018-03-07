@@ -6,6 +6,8 @@ package oopang.commons.space;
  */
 public class Cartesian implements Vector2D, Point2D {
 
+    private static final double EPSILON = 0.001;
+
     private final double x;
     private final double y;
 
@@ -74,5 +76,37 @@ public class Cartesian implements Vector2D, Point2D {
     @Override
     public Vector2D normalized() {
         return this.multiply(1 / this.getModule());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(this.x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(this.y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Vector2D)) {
+            return false;
+        }
+        final Vector2D other = (Vector2D) obj;
+        if (other.getX() < this.x - EPSILON || other.getX() > this.x + EPSILON) {
+            return false;
+        } else if (other.getY() < this.y - EPSILON || other.getY() > this.y + EPSILON) {
+            return false;
+        }
+        return true;
     }
 }
