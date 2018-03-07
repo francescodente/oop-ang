@@ -14,29 +14,23 @@ import oopang.model.physics.CollisionTag;
  *  This class represents the GameObject Pick-up, which is a series of enhancements 
  *  that the player can get colliding.
  * 
- * @author NicholasCiarafoni
+ * 
  */
 public class Pickup extends AbstractGameObject {
-    private double time;
     private static final double WIDTH = 5;
     private static final double HEIGHT = 5;
-    private static final double TIMEOUT = 10000;
+    private static final double TIMEOUT = 10;
     private final GravityComponent gravitycomponent;
     private final MovementComponent movementcomponent;
     private final CollisionComponent collisioncomponent;
+    private double time;
     /**
-     * Create a Pick-Up GameObject
-     * @param time
-     * @param gravitycomponent
-     * @param movementcomponent
-     * @param collisioncomponent
+     * Create a Pick-Up GameObject.
      */
-   public Pickup() {
+    public Pickup() {
         super();
-        this.time = time;
-        
         final Convex pickup = new Rectangle(WIDTH, HEIGHT);
-        this.collisioncomponent = new CollisionComponent(this,pickup, CollisionTag.PICKUP);
+        this.collisioncomponent = new CollisionComponent(this, pickup, CollisionTag.PICKUP);
     }
     //private final Power power;
     /*nota per me: completare un package power con un interfaccia Power,
@@ -45,10 +39,6 @@ public class Pickup extends AbstractGameObject {
      *  impostazioni iniziali, i pickup instant, sono i potenziamenti istantanei che vanno 
      *  a colpire il tempo e altro, fino alla durata del livello/vita del player.
   */
-/**
- * This method using the deltaTime to update, the sum of deltaTimes are used to set Pick-up's
- * lifetime.
- */
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
