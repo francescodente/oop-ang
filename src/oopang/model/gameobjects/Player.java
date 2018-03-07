@@ -10,13 +10,14 @@ import oopang.model.components.InputComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.components.ShooterComponent;
 import oopang.model.physics.CollisionTag;
+import oopang.model.physics.Collision;
 /**
  * This class implements the player object.
  */
 public class Player extends AbstractGameObject {
 
-    private final double WIDTH = 1;
-    private final double HEIGHT = 1;
+    private static final double WIDTH = 1;
+    private static final double HEIGHT = 1;
     private InputComponent input;
     private MovementComponent movement;
     private CollisionComponent collision;
@@ -32,9 +33,27 @@ public class Player extends AbstractGameObject {
         movement = new MovementComponent(this);
         shoot = new ShooterComponent(this);
     }
+    /**
+     * Method start.
+     */
+    public void start() {
+        collision.registerCollisionEvent(this::checkCollission);
+    }
+    /*
+    private void death() {
+    }
+    */
+    private void checkCollission(final Collision c) {
+        if (c.getOther().getCollisionTag() == CollisionTag.BUBBLE) {
+            this.destroy();
+        }
+        if (c.getOther().getCollisionTag() == CollisionTag.PICKUP) {
+            //addPower();
+        }
+    }
     @Override
     public final Stream<Component> getAllComponents() {
         // TODO Auto-generated method stub
-        return null;
+        return Stream.of(input, movement, collision, shoot);
     }
 }
