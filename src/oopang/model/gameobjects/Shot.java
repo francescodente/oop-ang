@@ -68,7 +68,7 @@ public class Shot extends AbstractGameObject {
 
     private void handleCollision(final Collision c) {
         final CollisionTag tag = c.getOther().getCollisionTag();
-        if (tag == CollisionTag.BUBBLE || tag == CollisionTag.WALL) {
+        if (tag == CollisionTag.BALL || tag == CollisionTag.WALL) {
             shotResult.trigger(new ShotResult(tag, this));
         }
     }

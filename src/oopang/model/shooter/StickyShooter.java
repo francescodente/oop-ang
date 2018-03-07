@@ -21,7 +21,7 @@ public class StickyShooter extends MultipleShooter {
 
     @Override
     protected void handleShotResult(final ShotResult arg) {
-        if (arg.getTag() == CollisionTag.BUBBLE) {
+        if (arg.getTag() == CollisionTag.BALL) {
             this.decreaseCurrentShotNumber();
             arg.getShot().destroy();
         }

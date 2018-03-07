@@ -1,5 +1,7 @@
 package oopang.model.gameobjects;
 
+import oopang.commons.space.Vector2D;
+
 /**
  * A factory for {@link GameObject}s that also adds them to the current level.
  */
@@ -15,10 +17,12 @@ public interface GameObjectFactory {
      * Creates a new bubble {@link GameObject} given its radius and adds it to the level.
      * @param radius
      *      the radius of the bubble.
+     * @param vector
+     *      the velocity of the bubble.
      * @return
      *      the bubble {@link GameObject}.
      */
-    GameObject createBubble(double radius);
+    GameObject createBall(double radius, Vector2D vector);
 
     /**
      * Creates a new hook {@link GameObject} and adds it to the level.

@@ -9,9 +9,9 @@ public enum CollisionTag {
      */
     PLAYER,
     /**
-     * Collision tag for all bubbles.
+     * Collision tag for all ball.
      */
-    BUBBLE,
+    BALL,
     /**
      * Collision tag for the floor.
      */

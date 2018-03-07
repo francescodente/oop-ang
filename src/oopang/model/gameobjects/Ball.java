@@ -43,7 +43,7 @@ public class Ball extends AbstractGameObject {
         this.gravity = new GravityComponent(this);
         this.movement = new MovementComponent(this);
         this.movement.setVelocity(vector);
-        this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BUBBLE);
+        this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
     }
 
     @Override
@@ -109,8 +109,8 @@ public class Ball extends AbstractGameObject {
      * Method that generate two new ball and call destroy.
      */
     private void generate() {
-        LevelManager.getCurrentLevel().getGameObjectFactory().createBubble(radius / 2, VECTORDX);
-        LevelManager.getCurrentLevel().getGameObjectFactory().createBubble(radius / 2, VECTORSX);
+        LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORDX);
+        LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORSX);
         this.destroy();
     }
 

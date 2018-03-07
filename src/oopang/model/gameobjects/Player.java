@@ -64,7 +64,7 @@ public class Player extends AbstractGameObject {
      *      Type of Collision
      */
     private void checkCollission(final Collision c) {
-        if (c.getOther().getCollisionTag() == CollisionTag.BUBBLE) {
+        if (c.getOther().getCollisionTag() == CollisionTag.BALL) {
             this.destroy();
         }
         if (c.getOther().getCollisionTag() == CollisionTag.PICKUP) {
