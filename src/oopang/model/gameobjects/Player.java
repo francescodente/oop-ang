@@ -18,11 +18,13 @@ public class Player extends AbstractGameObject {
 
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
+
     private InputComponent input;
     private MovementComponent movement;
     private CollisionComponent collision;
     private ShooterComponent shoot;
     //private List<Power> powerUps;
+
     /**
      * Constructor of this class.
      */
@@ -32,12 +34,14 @@ public class Player extends AbstractGameObject {
         movement = new MovementComponent(this);
         shoot = new ShooterComponent(this);
     }
+
     /**
      * Method start.
      */
     public void start() {
         collision.registerCollisionEvent(this::checkCollission);
     }
+
     /*
     private void death() {
     }
@@ -51,6 +55,7 @@ public class Player extends AbstractGameObject {
             c.getOther().getAttachedGameObject().get().destroy();
         }
     }
+
     @Override
     public final Stream<Component> getAllComponents() {
         // TODO Auto-generated method stub

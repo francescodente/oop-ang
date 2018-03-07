@@ -46,6 +46,13 @@ public interface Level {
     void removeGameObject(GameObject obj);
 
     /**
+     * Returns the current score of this level.
+     * @return
+     *      the score.
+     */
+    int getScore();
+
+    /**
      * Returns a factory for objects that will be added to this level.
      * @return
      *      the factory for this level.
