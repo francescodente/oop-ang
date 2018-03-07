@@ -1,29 +1,26 @@
 package oopang.model.powers;
 
 import oopang.model.gameobjects.Player;
-
-public abstract class PowerInstant implements Power {
-
+/**
+ * 
+ * 
+ *
+ */
+public abstract class PowerInstant extends AbstractPower {
+    /**
+     * This create an PowerInstant object.
+     *
+     */
     public PowerInstant() {
-        // TODO Auto-generated constructor stub
     }
-
+    /**
+     * It must be called in extended methods.
+     */
     @Override
-    public void activate(Player player) {
-        // TODO Auto-generated method stub
-
+    public void activate(final Player player) {
+        super.activate(player);
+        this.deactivate();
     }
+ }
 
-    @Override
-    public void update(double deltaTime) {
-        // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public boolean isActive() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-}
