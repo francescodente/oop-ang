@@ -25,7 +25,7 @@ public class JavaFXRendererFactory extends AbstractRendererFactory {
 
     @Override
     public Sprite createSprite(final ImageID sourceID) {
-        final Sprite sprite = new JavaFXSprite(gc);
+        final Sprite sprite = new JavaFXImageSprite(gc);
         sprite.setSource(sourceID);
         return sprite;
     }
