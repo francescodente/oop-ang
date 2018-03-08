@@ -1,12 +1,17 @@
 package oopang.controller.loader;
 
+import java.util.Optional;
+
 /**
  * The interface that controls the loading of the selected level into the game.
  */
 public interface LevelLoader {
     /**
      * Method that load the level.
-     * N.B. Need to decide what kind of parameter the method need
+     * @param level
+     *      The kind of level to load.
+     * @param index
+     *      The index of the level (if present) to load.
      */
-    public void load();
+    public void load(LevelTag level, Optional<Integer> index);
 }
