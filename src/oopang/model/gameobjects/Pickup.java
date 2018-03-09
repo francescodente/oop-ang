@@ -55,6 +55,7 @@ public class Pickup extends AbstractGameObject {
     public final Stream<Component> getAllComponents() {
         return Stream.of(this.gravitycomponent, this.movementcomponent, this.collisioncomponent); 
     }
+
     /**
      * This getter returns the associated power.
      * @return
@@ -62,5 +63,15 @@ public class Pickup extends AbstractGameObject {
      */
     public Power getPower() {
         return this.power;
+    }
+
+    @Override
+    public double getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public double getHeight() {
+        return HEIGHT;
     }
 }

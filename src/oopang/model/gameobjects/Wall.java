@@ -15,6 +15,8 @@ import oopang.model.physics.CollisionTag;
 public class Wall extends AbstractGameObject {
 
     private final Component collision;
+    private final double width;
+    private final double height;
 
     /**
      * Creates a new Wall {@link GameObject} given its dimensions.
@@ -25,6 +27,8 @@ public class Wall extends AbstractGameObject {
      */
     public Wall(final double width, final double height) {
         super();
+        this.width = width;
+        this.height = height;
         final Convex shape = new Rectangle(width, height);
         this.collision = new CollisionComponent(this, shape, CollisionTag.WALL);
     }
@@ -32,5 +36,15 @@ public class Wall extends AbstractGameObject {
     @Override
     public Stream<Component> getAllComponents() {
         return Stream.of(this.collision);
+    }
+
+    @Override
+    public double getWidth() {
+        return this.width;
+    }
+
+    @Override
+    public double getHeight() {
+        return this.height;
     }
 }

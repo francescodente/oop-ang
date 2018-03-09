@@ -114,4 +114,14 @@ public class Ball extends AbstractGameObject {
         this.destroy();
     }
 
+    @Override
+    public double getWidth() {
+        return this.radius * 2;
+    }
+
+    @Override
+    public double getHeight() {
+        return this.radius * 2;
+    }
+
 }

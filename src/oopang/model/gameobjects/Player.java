@@ -88,4 +88,14 @@ public class Player extends AbstractGameObject {
     public final Stream<Component> getAllComponents() {
         return Stream.of(this.input, this.movement, this.collision, this.shoot);
     }
+
+    @Override
+    public double getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public double getHeight() {
+        return HEIGHT;
+    }
 }
