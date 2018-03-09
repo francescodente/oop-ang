@@ -1,18 +1,28 @@
 package oopang.controller.loader;
 
-import java.util.Optional;
-import java.util.logging.Level;
-
 /**
  * The interface that controls the loading of the selected level into the game.
  */
 public interface LevelLoader {
+
     /**
-     * Method that load the level.
-     * @param level
-     *      The kind of level to load.
-     * @param index
-     *      The index of the level (if present) to load.
+     * Method that load the infinite level.
      */
-    public Level load(LevelTag level, Optional<Integer> index);
+    public LevelData loadInfiniteLevel();
+
+    /**
+     * Method that load a level of the story mode.
+     * @param index
+     *      The index of the level to load
+     * @return
+     *      Information about the level 
+     */
+    public LevelData loadStoryLevel(Integer index);
+
+    /**
+     * Method that load the Tutorial.
+     * @return
+     *      Information about the tutorial level
+     */
+    public LevelData loadTutorial();
 }
