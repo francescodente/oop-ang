@@ -4,7 +4,7 @@ import java.util.Date;
 
 import oopang.controller.DayTime;
 import oopang.model.BallColor;
-import oopang.view.Background;
+import oopang.view.rendering.ImageID;
 
 /**
  * A class containing informations about the level.
@@ -15,18 +15,18 @@ public class LevelData {
     private static final Double AFTERNOON = 19.00;
 
     private BallColor color;
-    private ImageId backgorund;
+    private ImageID background;
     private DayTime time;
     private Date currentTime;
 
     /**
-     * Constructor of the class
+     * Constructor of the class.
      * @param color
      *      The color of the Ball.
      * @param background
      *      The background of the level.
      */
-    public LevelData(final BallColor color, Imageid background) {
+    public LevelData(final BallColor color, ImageID background) {
         super();
         this.color = color;
         this.background = background;
@@ -34,6 +34,9 @@ public class LevelData {
         findDayTime();
     }
 
+    /**
+     * Utility method to set the DayTime.
+     */
     private final void findDayTime() {
         if (currentTime.getTime() < MORNING) {
             time = DayTime.MORNING;
@@ -59,7 +62,7 @@ public class LevelData {
      * @return
      *      The background of the level.
      */
-    public Background getBackground() {
+    public ImageID getBackground() {
         return this.background;
     }
 
