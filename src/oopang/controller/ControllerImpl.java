@@ -3,7 +3,9 @@ package oopang.controller;
 import oopang.commons.Command;
 import oopang.model.Model;
 import oopang.model.World;
+import oopang.model.levels.Level;
 import oopang.view.View;
+import oopang.view.ViewImpl;
 
 /**
  * This is the concrete implementation of the Controller.
@@ -20,13 +22,14 @@ public class ControllerImpl implements Controller {
      */
     public ControllerImpl() {
         model = new World();
-        //view = new ViewImpl??
+        view = new ViewImpl();
         loop = new GameLoop(view, model);
     }
 
     @Override
     public final void startGame(final int levelIndex) {
-        //Level level = loader.load(levelIndex);
+        Level level = loader.load(levelIndex);
+        level.registerObjectCreatedEvent(obj -> view.notifyNewGameObject(obj));
         //model.setCurrentLevel(level);
         loop.start();
     }
