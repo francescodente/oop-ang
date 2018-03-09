@@ -25,10 +25,10 @@ public class Ball extends AbstractGameObject {
     private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
     private static final Vector2D VECTORSX = Vectors2D.of(-1, 1);
 
-    private GravityComponent gravity;
-    private MovementComponent movement;
-    private CollisionComponent collision;
-    private double radius;
+    private final GravityComponent gravity;
+    private final MovementComponent movement;
+    private final CollisionComponent collision;
+    private final double radius;
 
     /**
      * Creates the GameObject of the type Ball.

@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -22,11 +23,11 @@ public class Player extends AbstractGameObject {
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
 
-    private InputComponent input;
-    private MovementComponent movement;
-    private CollisionComponent collision;
-    private ShooterComponent shoot;
-    private List<Power> powerUps;
+    private final InputComponent input;
+    private final MovementComponent movement;
+    private final CollisionComponent collision;
+    private final ShooterComponent shoot;
+    private final List<Power> powerUps;
 
     /**
      * Constructor of this class.
@@ -36,6 +37,8 @@ public class Player extends AbstractGameObject {
         this.collision = new CollisionComponent(this, new Capsule(WIDTH, HEIGHT), CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
         this.shoot = new ShooterComponent(this);
+        this.input = new InputComponent(this);
+        this.powerUps = new LinkedList<>();
     }
 
     /**
