@@ -64,7 +64,7 @@ public class Ball extends AbstractGameObject {
      */
     private void handleCollision(final Collision coll) {
         if (coll.getOther().getCollisionTag() == CollisionTag.WALL) {
-            Vector2D normal = Vectors2D.getNearestPerpendicularVector(coll.getNormal());
+            final Vector2D normal = Vectors2D.getNearestPerpendicularVector(coll.getNormal());
             if (Math.abs(normal.getX()) > Math.abs(normal.getY())) {
                 this.reverseHorizontalDirection();
             } else {
