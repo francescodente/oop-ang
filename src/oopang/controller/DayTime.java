@@ -5,4 +5,19 @@ package oopang.controller;
  */
 public enum DayTime {
 
+    /**
+     * 
+     */
+    MORNING,
+
+    /**
+     * 
+     */
+    AFTERNOON,
+
+    /**
+     * 
+     */
+    NIGHT;
+
 }
