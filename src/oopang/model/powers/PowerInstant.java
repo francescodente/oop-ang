@@ -21,6 +21,10 @@ public abstract class PowerInstant extends AbstractPower {
         super.activate(player);
         this.deactivate();
     }
+    @Override
+    public void update(final double deltaTime) {
+    }
+
  }
 
 
