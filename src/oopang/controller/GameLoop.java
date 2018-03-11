@@ -5,6 +5,8 @@ import java.util.concurrent.BlockingQueue;
 
 import oopang.commons.Command;
 import oopang.model.Model;
+import oopang.model.input.InputController;
+import oopang.model.input.InputWriter;
 import oopang.view.View;
 
 /**
@@ -18,9 +20,11 @@ public class GameLoop extends Thread {
 
     private final View scene;
     private final Model world;
+    private final BlockingQueue<Command> inputQueue;
+    private final InputWriter input;
     private volatile boolean paused;
     private volatile boolean stopped;
-    private BlockingQueue<Command> inputQueue;
+   
 
     /**
      * Creates a new game loop that updates the given model and renders on the
@@ -34,6 +38,7 @@ public class GameLoop extends Thread {
         super();
         this.scene = view;
         this.world = model;
+        this.input = new InputController();
         this.paused = false;
         this.inputQueue = new ArrayBlockingQueue<>(MAXINPUT);
     }
@@ -96,7 +101,7 @@ public class GameLoop extends Thread {
     private void processInput() {
         Command toBeExec = this.inputQueue.poll();
         while (toBeExec != null) {
-            toBeExec.execute();
+            toBeExec.execute(input);
             toBeExec = this.inputQueue.poll();
         }
     }
