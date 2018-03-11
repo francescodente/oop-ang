@@ -46,8 +46,6 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void sendCommand(final Command cmd) {
-        // TODO Auto-generated method stub
-
+        this.loop.addCommand(cmd);
     }
-
 }
