@@ -1,5 +1,7 @@
 package oopang.model.shooter;
 
+import java.util.function.Supplier;
+
 import oopang.model.gameobjects.Shot;
 
 /**
@@ -20,16 +22,17 @@ public interface Shooter {
     void shoot();
 
     /**
-     * Check if the shots should be reset and call reset shot.
+     * Change max shootable.
+     * @param max
+     *      the new max shootable
      */
-    void checkReset();
-
+    void setMaxShootable(int max);
 
     /**
-     * Reset shot status to be ready for next shooting.
-     * @param shot
-     *      the shot to be reset
+     * Change shot supplier.
+     * @param supplier
+     *      the new shot supplier
      */
-    void resetShot(Shot shot);
+    void setSupplier(Supplier<Shot> supplier);
 
 }

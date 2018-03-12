@@ -1,10 +1,9 @@
 package oopang.model.shooter;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.function.Supplier;
 
+import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.Shot;
-import oopang.model.levels.Level;
 
 /**
  * This is the implementation of the MultipleShooter Object.
@@ -16,69 +15,52 @@ import oopang.model.levels.Level;
 
 public class MultipleShooter implements Shooter {
 
-    private final Map<Shot, Boolean> shots;
-    private final int max;
-    private int currentShooting;
+    private int currentShotNumber;
+    private int max;
+    private final GameObject player;
+    private Supplier<Shot> supplier;
 
     /**
-     * Create a new basicShooter instance.
-     * @param level
-     *      the current level reference
+     * Create a new MultipleShooter instance.
      * @param max
-     *      max number that can be shot at the same time 
+     *      the max number of shots that can be shot simultaneously
+     * @param player
+     *      the player reference
+     * @param supplier
+     *      the supplier of shots
      */
-    public MultipleShooter(final Level level, final int max) {
+    public MultipleShooter(final int max, final GameObject player, final Supplier<Shot> supplier) {
+        this.currentShotNumber = 0;
         this.max = max;
-        this.currentShooting = 0;
-
-        this.shots = new HashMap<>();
-        for (int i = 0; i < max; i++) {
-            shots.put(new Shot(level), true); //TODO change with factory constructor of shot
-        }
+        this.player = player;
+        this.supplier = supplier;
     }
 
     @Override
-    public boolean canShoot() {
-        return currentShooting < max;
+    public final boolean canShoot() {
+        return currentShotNumber < max;
     }
 
     @Override
-    public void shoot() {
+    public final void shoot() {
         if (canShoot()) {
-            Shot tobeShot = shots.entrySet().stream().filter(e -> e.getValue()).findFirst().get().getKey();
-            tobeShot.start(); //TODO change with implementation of shooting action
-            currentShooting++;
-            shots.put(tobeShot, false);
+        final Shot newShot = supplier.get();
+        newShot.setPosition(player.getPosition());
+        this.currentShotNumber++;
+
+        newShot.registerDestroyedEvent(s -> this.currentShotNumber--);
         }
-
     }
 
     @Override
-    public void checkReset() {
-        shots.entrySet().stream()
-                        .filter(e -> !e.getValue())
-                        .map(e -> e.getKey())
-                        .forEach(s -> {
-                            if (s.isCollidingWith().isPresent()) {
-                                resetShot(s);
-                                }
-                        });
+    public void setMaxShootable(final int max) {
+        this.max = max;
     }
 
     @Override
-    public void resetShot(final Shot shot) {
-        //TODO reset the shot
-        currentShooting--;
-        shots.put(shot, true);
-    }
+    public void setSupplier(final Supplier<Shot> supplier) {
+        this.supplier = supplier;
 
-    /**
-     * Accessible for children.
-     * @return
-     *  the shots map
-     */
-    protected Map<Shot, Boolean> getShots() {
-        return shots;
     }
 
 }

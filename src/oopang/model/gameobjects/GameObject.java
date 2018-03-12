@@ -60,6 +60,20 @@ public interface GameObject {
     Point2D getPosition();
 
     /**
+     * Returns the GameObject width.
+     * @return
+     *      GameObject width
+     */
+    double getWidth();
+
+    /**
+     * Returns the GameObject height.
+     * @return
+     *      GameObject height.
+     */
+    double getHeight();
+
+    /**
      * Sets the current position of this GameObject to the given Point2D.
      * @param position
      *      the new position.

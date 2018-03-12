@@ -1,5 +1,7 @@
 package oopang.view;
 
+import oopang.model.gameobjects.GameObject;
+
 /**
  * View of the application.
  */
@@ -26,6 +28,13 @@ public interface View {
      * 
      */
     void showPauseMenu();
+
+    /**
+     * Create the new GameObject renderer and register to its destruction.
+     * @param obj
+     *      the new GameObject added to the level
+     */
+    void notifyNewGameObject(GameObject obj);
 
     //TODO event impl
 

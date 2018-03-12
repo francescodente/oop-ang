@@ -1,0 +1,27 @@
+package oopang.model.physics;
+
+/**
+ * Represents a value used to decide if an object type can collide with another.
+ */
+public enum CollisionTag {
+    /**
+     * Collision tag for the player object.
+     */
+    PLAYER,
+    /**
+     * Collision tag for all ball.
+     */
+    BALL,
+    /**
+     * Collision tag for all walls.
+     */
+    WALL,
+    /**
+     * Collision tag for all pickups.
+     */
+    PICKUP,
+    /**
+     * Collision tag for all shots.
+     */
+    SHOT;
+}

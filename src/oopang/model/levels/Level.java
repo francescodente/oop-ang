@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import oopang.commons.events.EventHandler;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
+import oopang.model.physics.CollisionManager;
 
 /**
  * Represents a level containing all GameObjects.
@@ -45,11 +46,25 @@ public interface Level {
     void removeGameObject(GameObject obj);
 
     /**
+     * Returns the current score of this level.
+     * @return
+     *      the score.
+     */
+    int getScore();
+
+    /**
      * Returns a factory for objects that will be added to this level.
      * @return
      *      the factory for this level.
      */
     GameObjectFactory getGameObjectFactory();
+
+    /**
+     * Returns a collision manager for collidable in this level.
+     * @return
+     *      the collision manager for this level
+     */
+    CollisionManager getCollisionManager();
 
     /**
      * Registers an {@link EventHandler} for when a new object is created and added to the level.

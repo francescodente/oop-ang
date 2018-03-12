@@ -1,46 +1,78 @@
 package oopang.model.gameobjects;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.dyn4j.geometry.Convex;
+
+import oopang.commons.space.Vectors2D;
+import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
-import oopang.model.levels.Level;
+import oopang.model.components.MovementComponent;
+import oopang.model.physics.Collision;
+import oopang.model.physics.CollisionTag;
 
 /**
- * This class implements the GameObject Shot which is a projectile that can be shot by the player to hit the balls.
- * It can collide whit walls and balls, not with the player.
+ * This is an abstract implementation of Shot.
  * 
+ *
  */
-public class Shot extends AbstractGameObject {
+public abstract class Shot extends AbstractGameObject {
 
-    /*
-     * Speed, movement, colliding components
-     */
     /**
-     * Creates a GameObject of type Shot.
-     * @param level
-     *      the level this GameObject belongs to
+     * Standard Speed for all Shot objects.
      */
-    public Shot(final Level level) {
-        super(level);
-        // TODO Auto-generated constructor stub
+    protected static final double SPEED = 1;
+
+    private final MovementComponent movementComponent;
+    private final CollisionComponent collisionComponent;
+
+    /**
+     * Create a new Shot instance.
+     * @param boundingBox
+     *      the shape of the Shot obj
+     */
+    public Shot(final Convex boundingBox) {
+        this.movementComponent = new MovementComponent(this);
+        this.getMovementComponent().setVelocity(Vectors2D.UP.multiply(SPEED)); 
+        this.collisionComponent = new CollisionComponent(this, boundingBox, CollisionTag.SHOT);
     }
 
     /**
-     * Check if the shot is colliding with something except the player itself.
-     * @return
-     *      An Optional containing the colliding GameObject if any
+     * This method has to be called as super.start() in children.
      */
-    public Optional<GameObject> isCollidingWith() {
-        //TODO implements with colliding component
-        return Optional.empty();
+    @Override
+    public void start() {
+        super.start();
+        this.collisionComponent.registerCollisionEvent(c -> handleCollision(c));
+    }
+
+    /**
+     * Handle the collision event.
+     * @param c
+     *      the collision object 
+     */
+    protected abstract void handleCollision(Collision c);
+
+    /**
+     * Returns the MovementComponent.
+     * @return
+     *      the movement component
+     */
+    protected MovementComponent getMovementComponent() {
+        return movementComponent;
+    }
+
+    /**
+     * Returns the collisonComponent.
+     * @return
+     *      the collision component
+     */
+    protected CollisionComponent getCollisionComponent() {
+        return collisionComponent;
     }
 
     @Override
-    public Stream<Component> getAllComponents() {
-        // TODO Auto-generated method stub
-        return null;
+    public final Stream<Component> getAllComponents() {
+        return Stream.of(collisionComponent, movementComponent);
     }
-
-
 }
