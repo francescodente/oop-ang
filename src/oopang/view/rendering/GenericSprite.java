@@ -1,7 +1,9 @@
 package oopang.view.rendering;
 
 import oopang.commons.space.Point2D;
+import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
+import oopang.commons.space.Vectors2D;
 
 /**
  * Provides a generic implementation of the {@link Sprite} interface that stores transformation
@@ -9,6 +11,7 @@ import oopang.commons.space.Vector2D;
  * render() method.
  */
 public abstract class GenericSprite extends GenericRenderer implements Sprite {
+    private static final double DEF_DIM = 100;
 
     private Point2D srcTopLeft;
     private Vector2D srcOffset;
@@ -16,6 +19,19 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
     private Vector2D pivot;
     private double width;
     private double height;
+
+    /**
+     * Initializes base data for the sprite.
+     */
+    public GenericSprite() {
+        super();
+        this.srcTopLeft = Points2D.ZERO;
+        this.srcOffset = Vectors2D.ZERO;
+        this.pivot = Vectors2D.ZERO;
+        this.position = Points2D.ZERO;
+        this.width = DEF_DIM;
+        this.height = DEF_DIM;
+    }
 
     @Override
     public final void setPosition(final Point2D pos) {
@@ -79,5 +95,13 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
     @Override
     public final double getHeight() {
         return this.height;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setSource(final ImageID sourceID) {
+        this.setSourceWindow(Points2D.ZERO, Vectors2D.of(this.getSourceWidth(), this.getSourceHeight()));
     }
 }

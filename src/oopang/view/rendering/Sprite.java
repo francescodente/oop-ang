@@ -91,7 +91,7 @@ public interface Sprite extends Renderer {
     double getSourceHeight();
 
     /**
-     * Sets the source image of the sprite.
+     * Sets the source image of the sprite. This method resets the source window properties (i.e. the source rectangle).
      * @param sourceID
      *      the new source image identifier.
      */
