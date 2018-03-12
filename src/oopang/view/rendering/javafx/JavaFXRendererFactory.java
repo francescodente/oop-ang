@@ -23,12 +23,12 @@ public class JavaFXRendererFactory extends AbstractRendererFactory {
     }
 
     @Override
-    public Sprite createSprite() {
+    public final Sprite createSprite() {
         return new JavaFXImageSprite(gc);
     }
 
     @Override
-    public Renderer createBackgroundRenderer() {
+    public final Renderer createBackgroundRenderer() {
         return null;
     }
 

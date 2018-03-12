@@ -30,7 +30,7 @@ public class ImageManager {
      *      The real {@link Image} object.
      */
     public Image getImage(final ImageID id) {
-        return new Image(id.getPath()); // TODO: may need some changes to the path.
+        return new Image(id.getPath());
     }
 
     private static class ImageManagerProxy extends ImageManager {
