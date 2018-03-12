@@ -8,7 +8,7 @@ import oopang.model.gameobjects.GameObject;
 public abstract class AbstractRendererFactory implements RendererFactory {
 
     @Override
-    public Renderer createGameObjectRenderer(final GameObject obj) {
+    public final Renderer createGameObjectRenderer(final GameObject obj) {
         // TODO Check to see what type of game object is given. Depending on that generate a new
         // appropriate GameObjectRenderer.
         return null;

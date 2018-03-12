@@ -1,6 +1,6 @@
 package oopang.view.rendering.javafx;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import javafx.scene.image.Image;
 import oopang.view.rendering.ImageID;
@@ -38,7 +38,7 @@ public class ImageManager {
 
         ImageManagerProxy() {
             super();
-            this.imageMap = new HashMap<>();
+            this.imageMap = new EnumMap<>(ImageID.class);
         }
 
         @Override
