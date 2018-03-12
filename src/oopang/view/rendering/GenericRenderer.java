@@ -13,12 +13,12 @@ public abstract class GenericRenderer implements Renderer {
     }
 
     @Override
-    public void setLayer(final int layer) {
+    public final void setLayer(final int layer) {
         this.renderLayer = layer;
     }
 
     @Override
-    public int getLayer() {
+    public final int getLayer() {
         return this.renderLayer;
     }
 }

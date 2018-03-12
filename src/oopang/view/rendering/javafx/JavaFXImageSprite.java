@@ -8,7 +8,7 @@ import oopang.view.rendering.ImageID;
 /**
  * Represents a sprite that can be renderer on a {@link javafx.scene.canvas.Canvas} object.
  */
-public class JavaFXImageSprite extends GenericSprite {
+public final class JavaFXImageSprite extends GenericSprite {
 
     private Image image;
     private final GraphicsContext gc;
@@ -30,7 +30,27 @@ public class JavaFXImageSprite extends GenericSprite {
 
     @Override
     public void render() {
-        // TODO: take in account pivot.
-        this.gc.drawImage(this.image, this.getPosition().getX(), this.getPosition().getY());
+        this.gc.translate(
+                this.getPivot().getX() * this.getWidth(),
+                this.getPivot().getY() * this.getHeight());
+        this.gc.drawImage(this.image,
+                this.getSourceTopLeftCorner().getX(),
+                this.getSourceTopLeftCorner().getY(),
+                this.getSourceOffset().getX(),
+                this.getSourceOffset().getY(),
+                this.getPosition().getX(),
+                this.getPosition().getY(),
+                this.getWidth(),
+                this.getHeight());
+    }
+
+    @Override
+    public double getSourceWidth() {
+        return this.image.getWidth();
+    }
+
+    @Override
+    public double getSourceHeight() {
+        return this.image.getHeight();
     }
 }
