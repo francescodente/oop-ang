@@ -11,6 +11,7 @@ import oopang.commons.space.Point2D;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.physics.Collidable;
 import oopang.model.physics.Collision;
+import oopang.model.physics.CollisionManager;
 import oopang.model.physics.CollisionTag;
 
 /**
@@ -40,7 +41,9 @@ public final class CollisionComponent extends AbstractComponent implements Colli
 
     @Override
     public void start() {
-        LevelManager.getCurrentLevel().getCollisionManager().addCollidable(this);
+        final CollisionManager manager = LevelManager.getCurrentLevel().getCollisionManager();
+        manager.addCollidable(this);
+        this.getAttachedGameObject().ifPresent(obj -> obj.registerDestroyedEvent(o -> manager.removeCollidable(this)));
     }
 
     @Override

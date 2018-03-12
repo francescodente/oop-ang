@@ -54,9 +54,6 @@ public class SimpleCollisionManager implements CollisionManager {
     @Override
     public void addCollidable(final Collidable coll) {
         this.collidables.add(coll);
-        coll.getAttachedGameObject().ifPresent(obj -> {
-            obj.registerDestroyedEvent(o -> this.removeCollidable(coll));
-        });
     }
 
     @Override
