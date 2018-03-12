@@ -7,7 +7,19 @@ public enum ImageID {
     /**
      * The image for the player character.
      */
-    PLAYER("");
+    PLAYER(""),
+    /**
+     * The image for the balls.
+     */
+    BALL(""),
+    /**
+     * The image for the walls.
+     */
+    WALL(""),
+    /**
+     * The image for the backgrounds.
+     */
+    BACKGROUND("");
 
     private final String path;
 
