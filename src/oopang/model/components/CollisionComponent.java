@@ -64,7 +64,9 @@ public final class CollisionComponent extends AbstractComponent implements Colli
 
     @Override
     public void notifyCollision(final Collision coll) {
-        this.collisionEvent.trigger(coll);
+        if (this.isEnabled()) {
+            this.collisionEvent.trigger(coll);
+        }
     }
 
     @Override
