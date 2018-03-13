@@ -43,4 +43,12 @@ public class ShotRenderer extends GameObjectRenderer<Shot> {
         //sprite.setPivot(????);
     }
 
+    @Override
+    public void render() {
+        super.render();
+        final double width = getGameObject().getWidth() * getSprite().getSourceWidth() / MAX_SHOT_WIDTH;
+        final double height = getGameObject().getHeight() * getSprite().getSourceHeight() / MAX_SHOT_HEIGHT;
+        getSprite().setSourceWindow(Points2D.ZERO, Vectors2D.of(width, height));
+    }
+
 }
