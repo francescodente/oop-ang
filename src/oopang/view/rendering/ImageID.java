@@ -13,6 +13,14 @@ public enum ImageID {
      */
     BALL(""),
     /**
+     * The image for the HookShot.
+     */
+    HOOKSHOT(""),
+    /**
+     * The image for the StickyShot.
+     */
+    STICKYSHOT(""),
+    /**
      * The image for the walls.
      */
     WALL(""),
