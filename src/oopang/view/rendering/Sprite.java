@@ -26,14 +26,18 @@ public interface Sprite extends Renderer {
     Point2D getPosition();
 
     /**
-     * Sets the pivot of the sprite.
+     * Sets the pivot of the sprite. The pivot is the point relative to the center of the image that
+     * is used as the center for positioning. Coordinates in the range [-1,1] indicate a pivot inside
+     * the rectangle of the image.
      * @param pivot
      *      the new pivot.
      */
     void setPivot(Vector2D pivot);
 
     /**
-     * Returns the pivot of the sprite.
+     * Returns the pivot of the sprite. The pivot is the point relative to the center of the image that
+     * is used as the center for positioning. Coordinates in the range [-1,1] indicate a pivot inside
+     * the rectangle of the image.
      * @return
      *      the pivot.
      */
