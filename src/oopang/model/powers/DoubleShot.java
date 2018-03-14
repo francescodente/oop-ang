@@ -14,7 +14,7 @@ public final class DoubleShot extends PowerInstant {
     @Override
     public void activate(final Player player) {
         super.activate(player);
-        Supplier<Shot> supplier = () -> LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
+        final Supplier<Shot> supplier = () -> LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
         player.getComponent(ShooterComponent.class).ifPresent(c -> c.setShooter(new MultipleShooter(2, player, supplier)));
     }
 }

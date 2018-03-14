@@ -14,7 +14,7 @@ public final class AdhesiveShot extends PowerInstant {
     @Override
     public void activate(final Player player) {
         super.activate(player);
-        Supplier<Shot> supplier = () -> LevelManager.getCurrentLevel().getGameObjectFactory().createStickyShot();
+        final Supplier<Shot> supplier = () -> LevelManager.getCurrentLevel().getGameObjectFactory().createStickyShot();
         player.getComponent(ShooterComponent.class).ifPresent(c -> c.setShooter(new MultipleShooter(1, player, supplier)));
     }
  }

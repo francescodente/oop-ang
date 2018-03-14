@@ -8,7 +8,7 @@ import oopang.model.gameobjects.Player;
  *
  */
 public final class DoubleSpeed extends PowerTimed {
-private static final int  DOUBLESPEED = 2;
+private static final int  DOUBLE = 2;
     /**
      * This constructor set time.
      * @param timeout 
@@ -21,7 +21,7 @@ private static final int  DOUBLESPEED = 2;
     @Override
     public void activate(final Player player) {
         super.activate(player);
-        player.getComponent(MovementComponent.class).ifPresent(c -> c.setVelocity(c.getVelocity().multiply(DOUBLESPEED)));
+        player.getComponent(MovementComponent.class).ifPresent(c -> c.setVelocity(c.getVelocity().multiply(DOUBLE)));
     }
 
     @Override

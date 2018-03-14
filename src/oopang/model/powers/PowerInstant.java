@@ -7,12 +7,7 @@ import oopang.model.gameobjects.Player;
  *
  */
 public abstract class PowerInstant extends AbstractPower {
-    /**
-     * This create an PowerInstant object.
-     *
-     */
-    public PowerInstant() {
-    }
+ 
     /**
      * It must be called in extended methods.
      */
