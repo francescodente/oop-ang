@@ -10,7 +10,7 @@ import oopang.model.shooter.MultipleShooter;
 /**
  * This enhancement allows the player to fire a shot that attaches to the wall.
  */
-public final class StickyShot extends PowerInstant {
+public final class AdhesiveShot extends PowerInstant {
     @Override
     public void activate(final Player player) {
         super.activate(player);
