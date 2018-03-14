@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Capsule;
 
+import oopang.commons.events.Event;
+import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.InputComponent;
@@ -23,14 +25,15 @@ public class Player extends AbstractGameObject {
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
     private static final double DEFAULT_SPEED = 1;
-
+    
+    
     private final InputComponent input;
     private final MovementComponent movement;
     private final CollisionComponent collision;
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
-
+    private final Event<Power> PickupCollected;
     /**
      * Constructor of this class.
      */
@@ -41,6 +44,7 @@ public class Player extends AbstractGameObject {
         this.shoot = new ShooterComponent(this);
         this.input = new InputComponent(this);
         this.powerUps = new LinkedList<>();
+        this.PickupCollected = new Event<Power>();
         this.speed = DEFAULT_SPEED;
     }
 
@@ -121,5 +125,14 @@ public class Player extends AbstractGameObject {
      */
     public double getSpeed() {
         return this.speed;
+    }
+
+    /**
+     * Register Pickup collected event.
+     * @param handler
+     *      the {@link EventHandler}.
+     */
+    public void registerPickupCollectedEvent(final EventHandler<Power> handler) {
+        this.PickupCollected.registerHandler(handler);
     }
 }

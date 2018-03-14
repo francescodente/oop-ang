@@ -24,6 +24,7 @@ public class BasicFactory implements GameObjectFactory {
     public GameObject createPlayer() {
         final GameObject player = new Player();
         this.currentLevel.addGameObject(player);
+        
         return player;
     }
 
@@ -61,5 +62,5 @@ public class BasicFactory implements GameObjectFactory {
         this.currentLevel.addGameObject(pickup);
         return pickup;
     }
+  }
 
-}
