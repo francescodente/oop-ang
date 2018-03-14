@@ -45,4 +45,16 @@ public class HookShot extends Shot {
         }
     }
 
+
+    @Override
+    public double getWidth() {
+        return WIDTH;
+    }
+
+
+    @Override
+    public double getHeight() {
+        return this.getPosition().getY() - startY;
+    }
+
 }

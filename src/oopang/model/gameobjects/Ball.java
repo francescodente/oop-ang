@@ -26,10 +26,10 @@ public class Ball extends AbstractGameObject {
     private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
     private static final Vector2D VECTORSX = Vectors2D.of(-1, 1);
 
-    private GravityComponent gravity;
-    private MovementComponent movement;
-    private CollisionComponent collision;
-    private double radius;
+    private final GravityComponent gravity;
+    private final MovementComponent movement;
+    private final CollisionComponent collision;
+    private final double radius;
 
     /**
      * Creates the GameObject of the type Ball.
@@ -65,7 +65,7 @@ public class Ball extends AbstractGameObject {
      */
     private void handleCollision(final Collision coll) {
         if (coll.getOther().getCollisionTag() == CollisionTag.WALL) {
-            Vector2D normal = Vectors2D.getNearestPerpendicularVector(coll.getNormal());
+            final Vector2D normal = Vectors2D.getNearestPerpendicularVector(coll.getNormal());
             if (Math.abs(normal.getX()) > Math.abs(normal.getY())) {
                 this.reverseHorizontalDirection();
             } else {
@@ -115,6 +115,16 @@ public class Ball extends AbstractGameObject {
             LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORSX);
         }
         this.destroy();
+    }
+
+    @Override
+    public double getWidth() {
+        return this.radius * 2;
+    }
+
+    @Override
+    public double getHeight() {
+        return this.radius * 2;
     }
 
 }

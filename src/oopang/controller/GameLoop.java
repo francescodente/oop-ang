@@ -1,6 +1,12 @@
 package oopang.controller;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import oopang.commons.Command;
 import oopang.model.Model;
+import oopang.model.input.InputController;
+import oopang.model.input.InputWriter;
 import oopang.view.View;
 
 /**
@@ -10,11 +16,15 @@ public class GameLoop extends Thread {
 
     private static final long MS_BETWEEN_FRAMES = 20;
     private static final double MSEC_TO_SEC = 0.001;
+    private static final int MAXINPUT = 20;
 
     private final View scene;
     private final Model world;
+    private final BlockingQueue<Command> inputQueue;
+    private final InputWriter input;
     private volatile boolean paused;
     private volatile boolean stopped;
+   
 
     /**
      * Creates a new game loop that updates the given model and renders on the
@@ -28,7 +38,9 @@ public class GameLoop extends Thread {
         super();
         this.scene = view;
         this.world = model;
+        this.input = new InputController();
         this.paused = false;
+        this.inputQueue = new ArrayBlockingQueue<>(MAXINPUT);
     }
 
     @Override
@@ -75,8 +87,23 @@ public class GameLoop extends Thread {
         this.interrupt();
     }
 
+    /**
+     * Try to add a new Command to the commandQueue.
+     * @param cmd
+     *      the new command to be added
+     * @return 
+     *      true if the command is successful added
+     */
+    public boolean addCommand(final Command cmd) {
+        return this.inputQueue.offer(cmd);
+    }
+
     private void processInput() {
-        // TODO: retrieve input from command queue.
+        Command toBeExec = this.inputQueue.poll();
+        while (toBeExec != null) {
+            toBeExec.execute(input);
+            toBeExec = this.inputQueue.poll();
+        }
     }
 
     private void updateGame(final double deltaTime) {

@@ -20,9 +20,12 @@ public abstract class PowerTimed extends AbstractPower {
      */
     @Override
     public void update(final double deltaTime) {
-        this.time += deltaTime;
+       if (this.isActive()) {
+           this.time += deltaTime;
+       }
         if (this.time > this.timeout) {
             this.deactivate();
         }
     }
-}
+    }
+

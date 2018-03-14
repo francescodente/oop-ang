@@ -10,6 +10,7 @@ import org.dyn4j.geometry.Transform;
 
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
+import oopang.model.components.CollisionComponent;
 
 /**
  * Basic implementation of the {@link CollisionManager} interface. This implementation looks
