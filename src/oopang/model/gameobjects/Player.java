@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Capsule;
+import org.dyn4j.geometry.Convex;
 
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
@@ -22,23 +23,28 @@ public class Player extends AbstractGameObject {
 
     private static final double WIDTH = 1;
     private static final double HEIGHT = 1;
+    private static final double DEFAULT_SPEED = 1;
 
     private final InputComponent input;
     private final MovementComponent movement;
     private final CollisionComponent collision;
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
+    private double speed;
 
     /**
      * Constructor of this class.
      */
     public Player() {
         super();
-        this.collision = new CollisionComponent(this, new Capsule(WIDTH, HEIGHT), CollisionTag.PLAYER);
+        final Convex shape = new Capsule(WIDTH, HEIGHT);
+        shape.translate(0, 1);
+        this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
         this.shoot = new ShooterComponent(this);
         this.input = new InputComponent(this);
         this.powerUps = new LinkedList<>();
+        this.speed = DEFAULT_SPEED;
     }
 
     /**
@@ -100,5 +106,23 @@ public class Player extends AbstractGameObject {
     @Override
     public double getHeight() {
         return HEIGHT;
+    }
+
+    /**
+     * Setter of speed.
+     * @param speed
+     *      Speed to set.
+     */
+    public void setSpeed(final double speed) {
+        this.speed = speed;
+    }
+
+    /**
+     * Getter of the speed.
+     * @return
+     *      The actual speed.
+     */
+    public double getSpeed() {
+        return this.speed;
     }
 }

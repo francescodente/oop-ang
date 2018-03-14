@@ -8,6 +8,7 @@ import oopang.model.input.InputReader;
  * A component used by object can have input from user.
  */
 public class InputComponent extends AbstractComponent {
+
     private ShooterComponent shooter;
     private InputReader controller;
     private MovementComponent moving;
