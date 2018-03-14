@@ -21,8 +21,8 @@ public class InputComponent extends AbstractComponent {
     }
     @Override
     public final void start() {
-        this.getGameObject().getComponent(ShooterComponent.class).get();
-        this.getGameObject().getComponent(MovementComponent.class).get();
+        this.shooter = this.getGameObject().getComponent(ShooterComponent.class).get();
+        this.moving = this.getGameObject().getComponent(MovementComponent.class).get();
     }
 
     @Override
