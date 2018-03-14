@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Capsule;
+import org.dyn4j.geometry.Convex;
 
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
@@ -36,7 +37,9 @@ public class Player extends AbstractGameObject {
      */
     public Player() {
         super();
-        this.collision = new CollisionComponent(this, new Capsule(WIDTH, HEIGHT), CollisionTag.PLAYER);
+        final Convex shape = new Capsule(WIDTH, HEIGHT);
+        shape.translate(0, 1);
+        this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
         this.shoot = new ShooterComponent(this);
         this.input = new InputComponent(this);
