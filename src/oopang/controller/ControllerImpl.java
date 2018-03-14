@@ -6,7 +6,7 @@ import oopang.model.World;
 import oopang.model.levels.Level;
 import oopang.model.levels.SinglePlayerLevel;
 import oopang.view.View;
-import oopang.view.ViewImpl;
+import oopang.view.JavaFXView;
 
 /**
  * This is the concrete implementation of the Controller.
@@ -23,7 +23,7 @@ public class ControllerImpl implements Controller {
      */
     public ControllerImpl() {
         model = new World();
-        view = new ViewImpl();
+        view = new JavaFXView();
         loop = new GameLoop(view, model);
     }
 

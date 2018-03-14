@@ -1,22 +1,22 @@
 package oopang.view;
 
+import oopang.controller.Controller;
 import oopang.model.gameobjects.GameObject;
 
 /**
  * This is the concrete implementation of the view Interface.
- *
  */
-public class ViewImpl implements View {
+public class JavaFXView implements View {
 
     /**
      * Create a new ViewImpl instance.
      */
-    public ViewImpl() {
+    public JavaFXView() {
         // TODO Auto-generated constructor stub
     }
 
     @Override
-    public void launch() {
+    public void launch(final Controller controller) {
         // TODO Auto-generated method stub
     }
 
@@ -39,5 +39,4 @@ public class ViewImpl implements View {
     public void notifyNewGameObject(final GameObject obj) {
 
     }
-
 }
