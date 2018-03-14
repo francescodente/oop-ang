@@ -56,6 +56,11 @@ public abstract class LevelDecorator implements Level {
     }
 
     @Override
+    public void addScore(final int amount) {
+        this.innerLevel.addScore(amount);
+    }
+
+    @Override
     public GameObjectFactory getGameObjectFactory() {
         return this.innerLevel.getGameObjectFactory();
     }

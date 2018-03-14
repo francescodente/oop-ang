@@ -79,6 +79,11 @@ public class BaseLevel implements Level {
     }
 
     @Override
+    public void addScore(final int amount) {
+        this.score += amount;
+    }
+
+    @Override
     public GameObjectFactory getGameObjectFactory() {
         return this.factory;
     }
@@ -97,5 +102,4 @@ public class BaseLevel implements Level {
     public void unregisterObjectCreatedEvent(final EventHandler<GameObject> handler) {
         this.objectCreatedEvent.unregisterHandler(handler);
     }
-
 }
