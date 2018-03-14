@@ -22,6 +22,7 @@ import oopang.model.physics.CollisionTag;
 public class Ball extends AbstractGameObject {
 
     private static final double BOUNCE_SPEED = 1;
+    private static final double MINRADIUS_BALL = 1;
     private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
     private static final Vector2D VECTORSX = Vectors2D.of(-1, 1);
 
@@ -106,11 +107,13 @@ public class Ball extends AbstractGameObject {
     }
 
     /**
-     * Method that generate two new ball and call destroy.
+     * Method that generate two new ball if the radius is greater than the minimum radius and finally call destroy.
      */
     private void generate() {
-        LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORDX);
-        LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORSX);
+        if (this.radius > MINRADIUS_BALL) {
+            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORDX);
+            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORSX);
+        }
         this.destroy();
     }
 
