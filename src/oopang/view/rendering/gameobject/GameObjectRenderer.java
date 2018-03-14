@@ -30,6 +30,8 @@ public abstract class GameObjectRenderer<G extends GameObject> extends GenericRe
     @Override
     public void render() {
         this.sprite.setPosition(this.gameObject.getPosition());
+        this.sprite.setWidth(this.gameObject.getWidth());
+        this.sprite.setHeight(this.gameObject.getHeight());
         this.sprite.render();
     }
 
