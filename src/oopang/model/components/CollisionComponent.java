@@ -43,7 +43,7 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     public void start() {
         final CollisionManager manager = LevelManager.getCurrentLevel().getCollisionManager();
         manager.addCollidable(this);
-        this.getAttachedGameObject().ifPresent(obj -> obj.registerDestroyedEvent(o -> manager.removeCollidable(this)));
+        this.getGameObject().registerDestroyedEvent(o -> manager.removeCollidable(this));
     }
 
     @Override
