@@ -28,8 +28,8 @@ public class BasicFactory implements GameObjectFactory {
     }
 
     @Override
-    public GameObject createBall(final double radius, final Vector2D velocity) {
-        final GameObject ball = new Ball(radius, velocity);
+    public GameObject createBall(final int size, final Vector2D velocity) {
+        final GameObject ball = new Ball(size, velocity);
         this.currentLevel.addGameObject(ball);
         return ball;
     }
