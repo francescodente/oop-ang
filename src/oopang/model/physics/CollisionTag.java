@@ -7,25 +7,57 @@ public enum CollisionTag {
     /**
      * Collision tag for the player object.
      */
-    PLAYER,
+    PLAYER {
+        @Override
+        public boolean canCollideWith(final CollisionTag other) {
+            return other == WALL || other == BALL || other == PICKUP;
+        }
+    },
     /**
-     * Collision tag for all bubbles.
+     * Collision tag for all ball.
      */
-    BUBBLE,
-    /**
-     * Collision tag for the floor.
-     */
-    FLOOR,
+    BALL {
+        @Override
+        public boolean canCollideWith(final CollisionTag other) {
+            return other == WALL || other == PLAYER || other == SHOT;
+        }
+    },
     /**
      * Collision tag for all walls.
      */
-    WALL,
+    WALL {
+        @Override
+        public boolean canCollideWith(final CollisionTag other) {
+            return other != WALL;
+        }
+    },
     /**
      * Collision tag for all pickups.
      */
-    PICKUP,
+    PICKUP {
+        @Override
+        public boolean canCollideWith(final CollisionTag other) {
+            return other == WALL || other == PLAYER;
+        }
+    },
     /**
      * Collision tag for all shots.
      */
-    SHOT;
+    SHOT {
+        @Override
+        public boolean canCollideWith(final CollisionTag other) {
+            return other == WALL || other == BALL;
+        }
+    };
+
+    /**
+     * Returns true if object of this type can collide with objects of the given one.
+     * @param other
+     *      the other type.
+     * @return
+     *      true if the objects can collide.
+     */
+    public boolean canCollideWith(final CollisionTag other) {
+        return true;
+    }
 }
