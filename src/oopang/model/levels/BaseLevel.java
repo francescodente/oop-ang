@@ -3,6 +3,7 @@ package oopang.model.levels;
 import java.util.LinkedList;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Stream;
 
 import oopang.commons.events.Event;
@@ -22,81 +23,83 @@ public class BaseLevel implements Level {
 
     private static final int INITIAL_SCORE = 0;
 
-    private List<GameObject> list;
+    private Queue<GameObject> startQueue;
+    private List<GameObject> gameObjects;
     private int score;
     private GameObjectFactory factory;
-    private CollisionManager collision;
-    private Event<GameObject> event;
+    private CollisionManager collisionManager;
+    private Event<GameObject> objectCreatedEvent;
 
     /**
      * Creates a new BaseLevel object.
      */
     public BaseLevel() {
-        this.list = new LinkedList<>();
+        this.startQueue = new LinkedList<>();
+        this.gameObjects = new LinkedList<>();
         this.score = INITIAL_SCORE;
         this.factory = new BasicFactory(this);
-        this.collision = new SimpleCollisionManager();
-        this.event = new Event<>();
+        this.collisionManager = new SimpleCollisionManager();
+        this.objectCreatedEvent = new Event<>();
     }
 
     @Override
     public void start() {
-        // TODO Auto-generated method stub
-        list.forEach(e -> e.start());
+        this.gameObjects.forEach(e -> e.start());
     }
 
     @Override
     public void update(final double deltaTime) {
-        // TODO Auto-generated method stub
-        list.forEach(e -> e.update(deltaTime));
+        while (startQueue.size() > 0) {
+            final GameObject obj = startQueue.poll();
+            objectCreatedEvent.trigger(obj);
+            obj.start();
+        }
+        this.gameObjects.forEach(e -> e.update(deltaTime));
     }
 
     @Override
     public Stream<GameObject> getAllObjects() {
-        // TODO Auto-generated method stub
-        return list.stream();
+        return this.gameObjects.stream();
     }
 
     @Override
     public void addGameObject(final GameObject obj) {
-        // TODO Auto-generated method stub
-        list.add(obj);
+        this.gameObjects.add(obj);
+        this.startQueue.add(obj);
     }
 
     @Override
     public void removeGameObject(final GameObject obj) {
-        // TODO Auto-generated method stub
-        list.remove(obj);
+        this.gameObjects.remove(obj);
     }
 
     @Override
     public int getScore() {
-        // TODO Auto-generated method stub
         return this.score;
     }
 
     @Override
+    public void addScore(final int amount) {
+        this.score += amount;
+    }
+
+    @Override
     public GameObjectFactory getGameObjectFactory() {
-        // TODO Auto-generated method stub
         return this.factory;
     }
 
     @Override
     public CollisionManager getCollisionManager() {
-        // TODO Auto-generated method stub
-        return this.collision;
+        return this.collisionManager;
     }
 
     @Override
     public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        // TODO Auto-generated method stub
-        this.event.registerHandler(handler);
+        this.objectCreatedEvent.registerHandler(handler);
     }
 
     @Override
     public void unregisterObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        // TODO Auto-generated method stub
-        this.event.unregisterHandler(handler);
+        this.objectCreatedEvent.unregisterHandler(handler);
     }
-
 }
