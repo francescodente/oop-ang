@@ -12,6 +12,7 @@ public abstract class PowerTimed extends AbstractPower {
      *      Is the duration of enhancements.
      */
     public PowerTimed(final double timeout) {
+       super();
        this.time = 0;
        this.timeout = timeout;
     }
