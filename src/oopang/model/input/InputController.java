@@ -1,12 +1,13 @@
 package oopang.model.input;
 
 /**
- * Class which implements the 2 interfaces.
+ * Describes an object that can act as a {@link InputReader} and as an {@link InputWriter}.
  */
 public final class InputController implements InputReader, InputWriter {
 
-    private boolean isShooting;
+    private boolean shooting;
     private InputDirection direction;
+
     @Override
     public InputDirection getDirection() {
         return this.direction;
@@ -14,7 +15,7 @@ public final class InputController implements InputReader, InputWriter {
 
     @Override
     public boolean isShooting() {
-        return isShooting;
+        return shooting;
     }
 
     @Override
@@ -24,7 +25,6 @@ public final class InputController implements InputReader, InputWriter {
 
     @Override
     public void setShooting(final boolean status) {
-        this.isShooting = status;
+        this.shooting = status;
     }
-
 }
