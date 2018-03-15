@@ -22,7 +22,7 @@ import oopang.model.physics.CollisionTag;
 public class Ball extends AbstractGameObject {
 
     private static final double BOUNCE_SPEED = 1;
-    private static final double MINRADIUS_BALL = 1;
+    private static final int MIN_BALL_SIZE = 1;
     private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
     private static final Vector2D VECTORSX = Vectors2D.of(-1, 1);
 
@@ -30,17 +30,19 @@ public class Ball extends AbstractGameObject {
     private final MovementComponent movement;
     private final CollisionComponent collision;
     private final double radius;
+    private final int size;
 
     /**
      * Creates the GameObject of the type Ball.
-     * @param radius
-     *      the ball radius.
+     * @param size
+     *      the ball size.
      * @param vector
      *      the vector of the ball.
      */
-    public Ball(final double radius, final Vector2D vector) {
+    public Ball(final int size, final Vector2D vector) {
         super();
-        this.radius = radius;
+        this.size = size;
+        this.radius = calculateRadius(size);
         this.gravity = new GravityComponent(this);
         this.movement = new MovementComponent(this);
         this.movement.setVelocity(vector);
@@ -110,9 +112,9 @@ public class Ball extends AbstractGameObject {
      * Method that generate two new ball if the radius is greater than the minimum radius and finally call destroy.
      */
     private void generate() {
-        if (this.radius > MINRADIUS_BALL) {
-            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORDX);
-            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(radius / 2, VECTORSX);
+        if (this.size > MIN_BALL_SIZE) {
+            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORDX);
+            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORSX);
         }
         this.destroy();
     }
@@ -127,4 +129,7 @@ public class Ball extends AbstractGameObject {
         return this.radius * 2;
     }
 
+    private static double calculateRadius(final int size) {
+        return Math.pow(2, size);
+    }
 }
