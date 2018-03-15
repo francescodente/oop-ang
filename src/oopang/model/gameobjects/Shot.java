@@ -32,6 +32,7 @@ public abstract class Shot extends AbstractGameObject {
      *      the shape of the Shot obj
      */
     public Shot(final Convex boundingBox) {
+        super();
         this.movementComponent = new MovementComponent(this);
         this.getMovementComponent().setVelocity(Vectors2D.UP.multiply(SPEED)); 
         this.collisionComponent = new CollisionComponent(this, boundingBox, CollisionTag.SHOT);
