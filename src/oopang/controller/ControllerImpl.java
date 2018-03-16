@@ -1,12 +1,15 @@
 package oopang.controller;
 
+import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+
 import oopang.commons.Command;
+
+import oopang.controller.loader.SessionTag;
 import oopang.model.Model;
-import oopang.model.World;
-import oopang.model.levels.Level;
-import oopang.model.levels.SinglePlayerLevel;
+import oopang.model.input.InputWriter;
 import oopang.view.View;
-import oopang.view.JavaFXView;
+
 
 /**
  * This is the concrete implementation of the Controller.
@@ -15,39 +18,58 @@ public class ControllerImpl implements Controller {
 
     private final Model model;
     private final View view;
-    private final GameLoop loop;
-    //private final LevelLoader loader;
+    private GameLoop gameloop;
+    private GameSession gameSession;
+    private Map<PlayerTag, InputWriter> input;
 
     /**
      * Create a new Controller instance.
+     * @param model
+     *      the model reference
+     * @param view
+     *      the view reference
      */
-    public ControllerImpl() {
-        model = new World();
-        view = new JavaFXView();
-        loop = new GameLoop(view, model);
+    public ControllerImpl(final Model model, final View view) {
+        this.model = model;
+        this.view = view;
     }
 
     @Override
-    public final void startGame(final int levelIndex) {
-        Level level = loader.load(levelIndex);
-        level.registerObjectCreatedEvent(obj -> view.notifyNewGameObject(obj));
+    public void startGameSession(final SessionTag mode, final boolean isMultiPlayer) {
+        this.gameSession = new GameSession(mode, isMultiPlayer);
+        //this.gameloop = this.gameSession.getLoop();
+        //this.map = this.gameSession.getInputMap();
+    }
 
-        model.setCurrentLevel(level);
-        loop.start();
+    @Override
+    public void setLevelIndex(final int levelIndex) {
+        //gameSession.setLevelIndex
     }
 
     @Override
     public void pauseGame() {
-        loop.pauseLoop();
+        this.gameloop.pauseLoop();
     }
 
     @Override
-    public void closeGame() {
-        loop.stopLoop();
+    public void resume() {
+        this.gameloop.resumeLoop();
     }
 
     @Override
-    public void sendCommand(final Command cmd) {
-        this.loop.addCommand(cmd);
+    public void continueGameSession() {
+        //this.gameSession.continueGame();
+        //this.gameloop = this.gameSession.getLoop();
     }
+
+    @Override
+    public void closeGameSession() {
+        // TODO reset references
+    }
+
+    @Override
+    public void sendCommand(final Command cmd, final PlayerTag player) {
+        this.gameloop.addCommand(cmd, player);
+    }
+
 }

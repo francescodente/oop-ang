@@ -1,6 +1,7 @@
 package oopang.controller;
 
 import oopang.commons.Command;
+import oopang.controller.loader.SessionTag;
 
 /**
  * Controller of the application.
@@ -8,11 +9,20 @@ import oopang.commons.Command;
 public interface Controller {
 
     /**
-     * Loads the specified level and starts the game loop.
-     * @param levelIndex
-     *      the index of the level to be loaded.
+     * Creates a new {@link GameSession} object and starts the game.
+     * @param mode
+     *      an enum to indicate Story or Survival mode.
+     * @param isMultiPlayer
+     *      true if multiPlayer is active.
      */
-    void startGame(int levelIndex);
+    void startGameSession(SessionTag mode, boolean isMultiPlayer);
+
+    /**
+     * Set the levelIndex to start with in the GameSession.
+     * @param levelIndex
+     *      the level index indicating the level to be loaded as first
+     */
+    void setLevelIndex(int levelIndex);
 
     /**
      * Pauses the game interrupting the game loop.
@@ -20,14 +30,26 @@ public interface Controller {
     void pauseGame();
 
     /**
-     * Closes the current instance of the level.
+     * Resume the game if it has been paused.
      */
-    void closeGame();
+    void resume();
+
+    /**
+     * Asks the {@link GameSession} to go on with a new level.
+     */
+    void continueGameSession();
+
+    /**
+     * Closes the current instance of the {@link GameSession}.
+     */
+    void closeGameSession();
 
     /**
      * Asks the controller to enqueue a new command to be executed.
      * @param cmd
      *      the command.
+     * @param player
+     *      the player the command is applied to.
      */
-    void sendCommand(Command cmd);
+    void sendCommand(Command cmd, PlayerTag player);
 }
