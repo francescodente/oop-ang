@@ -2,7 +2,7 @@ package oopang.controller.loader;
 /**
  * Annum representing the kind of levels could be loaded.
  */
-public enum LevelTag {
+public enum SessionTag {
     /**
      * An endless level.
      */
