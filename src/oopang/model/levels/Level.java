@@ -3,6 +3,7 @@ package oopang.model.levels;
 import java.util.stream.Stream;
 
 import oopang.commons.events.EventHandler;
+import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
 import oopang.model.physics.CollisionManager;
@@ -86,4 +87,11 @@ public interface Level {
      *      the {@link EventHandler} to remove.
      */
     void unregisterObjectCreatedEvent(EventHandler<GameObject> handler);
+
+    /**
+     * Registers an {@link EventHandler} for when the level ends.
+     * @param handler
+     *      the {@link EventHandler}.
+     */
+    void registerGameOverEvent(EventHandler<GameOverStatus> handler);
 }

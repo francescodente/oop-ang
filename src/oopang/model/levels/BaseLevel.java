@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
+import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.BasicFactory;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
@@ -100,5 +101,10 @@ public class BaseLevel implements Level {
     @Override
     public void unregisterObjectCreatedEvent(final EventHandler<GameObject> handler) {
         this.objectCreatedEvent.unregisterHandler(handler);
+    }
+
+    @Override
+    public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
+        // A base level is not able to end.
     }
 }
