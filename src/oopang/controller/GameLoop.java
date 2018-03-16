@@ -1,5 +1,6 @@
 package oopang.controller;
 
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -20,11 +21,11 @@ public class GameLoop extends Thread {
 
     private final View scene;
     private final Model world;
-    private final BlockingQueue<Command> inputQueue;
-    private final InputWriter input;
+    private final Map<PlayerTag, BlockingQueue<Command>> inputQueue;
+    private final Map<PlayerTag, InputWriter> input;
     private volatile boolean paused;
     private volatile boolean stopped;
-   
+
 
     /**
      * Creates a new game loop that updates the given model and renders on the
@@ -33,14 +34,18 @@ public class GameLoop extends Thread {
      *      the view to render on each frame.
      * @param model
      *      the model to update each frame.
+     * @param inputQueue
+     *      the map with the input queues.
+     * @param input
+     *      the map with the input Writers.
      */
-    public GameLoop(final View view, final Model model) {
+    public GameLoop(final View view, final Model model, final Map<PlayerTag, BlockingQueue<Command>> inputQueue, final Map<PlayerTag, InputWriter> input) {
         super();
         this.scene = view;
         this.world = model;
-        this.input = new InputController();
         this.paused = false;
-        this.inputQueue = new ArrayBlockingQueue<>(MAXINPUT);
+        this.inputQueue = inputQueue;
+        this.input = input;
     }
 
     @Override
@@ -91,19 +96,24 @@ public class GameLoop extends Thread {
      * Try to add a new Command to the commandQueue.
      * @param cmd
      *      the new command to be added
+     * @param player 
+     *      the player tag
      * @return 
      *      true if the command is successful added
      */
-    public boolean addCommand(final Command cmd) {
-        return this.inputQueue.offer(cmd);
+    public boolean addCommand(final Command cmd, final PlayerTag player) {
+        return this.inputQueue.get(player).offer(cmd);
     }
 
     private void processInput() {
-        Command toBeExec = this.inputQueue.poll();
-        while (toBeExec != null) {
-            toBeExec.execute(input);
-            toBeExec = this.inputQueue.poll();
-        }
+        this.inputQueue.keySet().forEach(player -> {
+            final BlockingQueue<Command> queue = inputQueue.get(player);
+            Command cmd = queue.poll();
+            while (cmd != null) {
+                cmd.execute(input.get(player));
+                cmd = queue.poll();
+            }
+        });
     }
 
     private void updateGame(final double deltaTime) {
