@@ -7,8 +7,10 @@ public interface LevelLoader {
 
     /**
      * Method that load the infinite level.
+     * @return
+     *      the levelData of the loaded level
      */
-    public LevelData loadInfiniteLevel();
+    LevelData loadInfiniteLevel();
 
     /**
      * Method that load a level of the story mode.
@@ -17,12 +19,12 @@ public interface LevelLoader {
      * @return
      *      Information about the level 
      */
-    public LevelData loadStoryLevel(Integer index);
+    LevelData loadStoryLevel(Integer index);
 
     /**
      * Method that load the Tutorial.
      * @return
      *      Information about the tutorial level
      */
-    public LevelData loadTutorial();
+    LevelData loadTutorial();
 }

@@ -2,6 +2,7 @@ package oopang.controller;
 
 import oopang.commons.Command;
 import oopang.model.Model;
+import oopang.view.GameScene;
 import oopang.view.View;
 
 
@@ -28,12 +29,13 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
-        // TODO Auto-generated method stub
+        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, levelIndex);
+        this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
     }
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
-        // TODO Auto-generated method stub
+        //this.gameSession = new InfiniteGameSession(isMultiPlayer);
     }
 
     @Override
@@ -60,4 +62,16 @@ public class ControllerImpl implements Controller {
     public void sendCommand(final Command cmd, final PlayerTag player) {
         this.gameSession.getGameLoop().addCommand(cmd, player);
     }
+
+    private void handleSessionResult(final Boolean shouldEnd) {
+        if (shouldEnd) {
+            this.closeGameSession();
+        } else {
+            //do something with view like
+            //this.view.loadScene(GameScene.GO_NEXT_LEVEL);
+            this.continueGameSession();
+        }
+    }
+
 }
+

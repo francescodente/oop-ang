@@ -3,6 +3,11 @@ package oopang.controller;
 import java.util.EnumMap;
 import java.util.Map;
 
+import oopang.commons.events.Event;
+import oopang.commons.events.EventHandler;
+import oopang.controller.loader.LevelData;
+import oopang.controller.loader.LevelLoader;
+import oopang.controller.loader.TestLevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.Model;
 import oopang.model.input.InputController;
@@ -19,6 +24,9 @@ public abstract class GameSession {
     private GameLoop gameloop;
     private final View scene;
     private final Model world;
+    private final LevelLoader loader;
+    private final Event<Boolean> shouldEnd;
+
     private int score;
     private final boolean isMultiPlayer;
 
@@ -36,6 +44,8 @@ public abstract class GameSession {
         this.isMultiPlayer = isMultiPlayer;
         this.world = model;
         this.scene = view;
+        this.loader = new TestLevelLoader();
+        this.shouldEnd = new Event<>();
     }
 
     /**
@@ -63,14 +73,14 @@ public abstract class GameSession {
 
     /**
      * Utility method for subclasses to start a new game loop and run the given level.
-     * @param level
-     *      the {@link Level} to start.
+     * @param leveldata
+     *      the {@link LevelData} to start.
      */
-    protected final void startNewLevel(final Level level) {
+    protected final void startNewLevel(final LevelData leveldata) {
         final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
         final InputController input = new InputController();
         inputMap.put(PlayerTag.PLAYER_ONE, input);
-        Level current = new SinglePlayerLevel(level, input);
+        Level current = new SinglePlayerLevel(leveldata.getLevel(), input);
         if (this.isMultiPlayer) {
             final InputController inputPlayerTwo = new InputController();
             inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
@@ -79,6 +89,7 @@ public abstract class GameSession {
         current.registerGameOverEvent(this::handleGameOver);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
         this.world.setCurrentLevel(current);
+        //TODO send levelData to view
     }
 
     /**
@@ -86,7 +97,41 @@ public abstract class GameSession {
      * @param status
      *      the status of the level.
      */
-    protected void handleGameOver(final GameOverStatus status) {
-        this.score += status.getScore();
+    protected abstract void handleGameOver(GameOverStatus status);
+
+    /**
+     * Add the given score to the global score.
+     * @param score
+     *      the level score.
+     */
+    protected void addScore(final int score) {
+        this.score += score;
+    }
+
+    /**
+     * Returns the level loader reference for the concrete children.
+     * @return
+     *      the level loader
+     */
+    protected LevelLoader getLoader() {
+        return this.loader;
+    }
+
+    /**
+     * Register the status of the GameSession.
+     * @param handler
+     *      The handler of GameSession to register
+     */
+    public void registerShouldEndEvent(final EventHandler<Boolean> handler) {
+        this.shouldEnd.registerHandler(handler);
+    }
+
+    /**
+     * Method that triggers the shouldEnd status.
+     * @param status
+     *      true if the session should end
+     */
+    protected void shouldEnd(final Boolean status) {
+        this.shouldEnd.trigger(status);
     }
 }
