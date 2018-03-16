@@ -1,10 +1,12 @@
 package oopang.model.levels;
 
+import oopang.model.LevelResult;
+
 /**
  * Represents a decorator for level that adds timeout functionality. Specifically, the GameOver event
  * is triggered when the time ends.
  */
-public class TimedLevel extends LevelDecorator {
+public class TimedLevel extends GameOverLevelDecorator {
 
     private double timeLeft;
 
@@ -25,7 +27,7 @@ public class TimedLevel extends LevelDecorator {
         super.update(deltaTime);
         this.timeLeft -= deltaTime;
         if (this.timeLeft <= 0) {
-            // game over
+            this.endLevel(LevelResult.OUT_OF_TIME);
         }
     }
 }

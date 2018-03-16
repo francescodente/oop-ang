@@ -1,5 +1,6 @@
 package oopang.model.levels;
 
+import oopang.model.LevelResult;
 import oopang.model.components.InputComponent;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.input.InputReader;
@@ -7,8 +8,7 @@ import oopang.model.input.InputReader;
 /**
  * Represents a decorator for levels that makes the decorated level single player.
  */
-public class SinglePlayerLevel extends LevelDecorator {
-
+public class SinglePlayerLevel extends GameOverLevelDecorator {
     /**
      * Creates a new single player level based on the given layer.
      * @param baseLevel
@@ -20,5 +20,6 @@ public class SinglePlayerLevel extends LevelDecorator {
         super(baseLevel);
         final GameObject player = this.getGameObjectFactory().createPlayer();
         player.getComponent(InputComponent.class).get().setInputReader(playerInput);
+        player.registerDestroyedEvent(p -> this.endLevel(LevelResult.PLAYER_DEAD));
     }
 }
