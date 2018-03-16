@@ -43,4 +43,12 @@ public class InputComponent extends AbstractComponent {
         }
         moving.getVelocity().multiply(direction.getDirection());
     }
+
+    /**
+     * 
+     * @param input
+     */
+    public void setInputReader(final InputReader input) {
+        this.controller = input;
+    }
 }
