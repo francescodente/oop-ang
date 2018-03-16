@@ -22,6 +22,7 @@ import oopang.model.physics.CollisionTag;
 public class Ball extends AbstractGameObject {
 
     private static final double BOUNCE_SPEED = 1;
+    private static final double SIZE_MULTIPLIER = 1.5;
     private static final int MIN_BALL_SIZE = 1;
     private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
     private static final Vector2D VECTORSX = Vectors2D.of(-1, 1);
@@ -130,6 +131,6 @@ public class Ball extends AbstractGameObject {
     }
 
     private static double calculateRadius(final int size) {
-        return Math.pow(2, size);
+        return Math.pow(2, size) * SIZE_MULTIPLIER;
     }
 }
