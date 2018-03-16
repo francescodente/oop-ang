@@ -25,7 +25,7 @@ public abstract class GameSession {
     private final View scene;
     private final Model world;
     private final LevelLoader loader;
-    private final Event<GameSession> sessionStatus;
+    private final Event<Boolean> shouldEnd;
 
     private int score;
     private final boolean isMultiPlayer;
@@ -45,7 +45,7 @@ public abstract class GameSession {
         this.world = model;
         this.scene = view;
         this.loader = new TestLevelLoader();
-        this.sessionStatus = new Event<>();
+        this.shouldEnd = new Event<>();
     }
 
     /**
@@ -122,16 +122,16 @@ public abstract class GameSession {
      * @param handler
      *      The handler of GameSession to register
      */
-    public void registerGameSessionStatusEvent(final EventHandler<GameSession> handler) {
-        this.sessionStatus.registerHandler(handler);
+    public void registerShouldEndEvent(final EventHandler<Boolean> handler) {
+        this.shouldEnd.registerHandler(handler);
     }
 
     /**
-     * Method that triggers the GameSession status.
-     * @param session
-     *      The GameSession to trigger.
+     * Method that triggers the shouldEnd status.
+     * @param status
+     *      true if the session should end
      */
-    protected void triggerStatus(final GameSession session) {
-        this.sessionStatus.trigger(session);
+    protected void shouldEnd(final Boolean status) {
+        this.shouldEnd.trigger(status);
     }
 }

@@ -2,6 +2,7 @@ package oopang.controller;
 
 import oopang.commons.Command;
 import oopang.model.Model;
+import oopang.view.GameScene;
 import oopang.view.View;
 
 
@@ -29,7 +30,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, levelIndex);
-        this.gameSession.registerGameSessionStatusEvent(s -> this.handleSession(s));
+        this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
     }
 
     @Override
@@ -62,8 +63,14 @@ public class ControllerImpl implements Controller {
         this.gameSession.getGameLoop().addCommand(cmd, player);
     }
 
-    private void handleSession(final GameSession session) {
-        //TODO handle session status!
+    private void handleSessionResult(final Boolean shouldEnd) {
+        if (shouldEnd) {
+            this.closeGameSession();
+        } else {
+            //do something with view like
+            //this.view.loadScene(GameScene.GO_NEXT_LEVEL);
+            this.continueGameSession();
+        }
     }
 
 }

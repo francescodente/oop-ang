@@ -36,7 +36,7 @@ public final class StoryModeGameSession extends GameSession {
     @Override
     public void continueGame() {
         if (this.currentLevel == MAX_LEVEL) {
-            this.triggerStatus(this);
+            this.shouldEnd(true);
         } else {
             final LevelData leveldata = this.getLoader().loadStoryLevel(this.currentLevel);
             super.startNewLevel(leveldata);
@@ -50,13 +50,14 @@ public final class StoryModeGameSession extends GameSession {
 
         if (result == LevelResult.LEVEL_COMPLETE) {
             super.addScore(status.getScore());
+            this.shouldEnd(false);
             //TODO something else?? Should i continue or trigger the event?
         }
 
         if (result == LevelResult.OUT_OF_TIME || result == LevelResult.PLAYER_DEAD) {
             this.lives--;
             if (this.lives <= 0) {
-                this.triggerStatus(this);
+                this.shouldEnd(true);
             }
         }
     }
