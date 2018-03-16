@@ -1,13 +1,7 @@
 package oopang.controller;
 
-import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-
 import oopang.commons.Command;
-
-import oopang.controller.loader.SessionTag;
 import oopang.model.Model;
-import oopang.model.input.InputWriter;
 import oopang.view.View;
 
 
@@ -18,9 +12,7 @@ public class ControllerImpl implements Controller {
 
     private final Model model;
     private final View view;
-    private GameLoop gameloop;
     private GameSession gameSession;
-    private Map<PlayerTag, InputWriter> input;
 
     /**
      * Create a new Controller instance.
@@ -35,31 +27,28 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void startGameSession(final SessionTag mode, final boolean isMultiPlayer) {
-        this.gameSession = new GameSession(mode, isMultiPlayer);
-        //this.gameloop = this.gameSession.getLoop();
-        //this.map = this.gameSession.getInputMap();
+    public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
+        // TODO Auto-generated method stub
     }
 
     @Override
-    public void setLevelIndex(final int levelIndex) {
-        //gameSession.setLevelIndex
+    public void startInifiniteGameSession(final boolean isMultiPlayer) {
+        // TODO Auto-generated method stub
     }
 
     @Override
     public void pauseGame() {
-        this.gameloop.pauseLoop();
+        this.gameSession.getGameLoop().pauseLoop();
     }
 
     @Override
     public void resume() {
-        this.gameloop.resumeLoop();
+        this.gameSession.getGameLoop().resumeLoop();
     }
 
     @Override
     public void continueGameSession() {
-        //this.gameSession.continueGame();
-        //this.gameloop = this.gameSession.getLoop();
+        this.gameSession.continueGame();
     }
 
     @Override
@@ -69,7 +58,6 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void sendCommand(final Command cmd, final PlayerTag player) {
-        this.gameloop.addCommand(cmd, player);
+        this.gameSession.getGameLoop().addCommand(cmd, player);
     }
-
 }

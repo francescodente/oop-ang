@@ -1,7 +1,6 @@
 package oopang.controller;
 
 import oopang.commons.Command;
-import oopang.controller.loader.SessionTag;
 
 /**
  * Controller of the application.
@@ -9,20 +8,20 @@ import oopang.controller.loader.SessionTag;
 public interface Controller {
 
     /**
-     * Creates a new {@link GameSession} object and starts the game.
-     * @param mode
-     *      an enum to indicate Story or Survival mode.
+     * Starts a new story game session from a given level.
+     * @param levelIndex
+     *      the index of the starting level.
      * @param isMultiPlayer
      *      true if multiPlayer is active.
      */
-    void startGameSession(SessionTag mode, boolean isMultiPlayer);
+    void startStoryGameSession(int levelIndex, boolean isMultiPlayer);
 
     /**
-     * Set the levelIndex to start with in the GameSession.
-     * @param levelIndex
-     *      the level index indicating the level to be loaded as first
+     * Starts a new infinite mode game session.
+     * @param isMultiPlayer
+     *      true if multiPlayer is active.
      */
-    void setLevelIndex(int levelIndex);
+    void startInifiniteGameSession(boolean isMultiPlayer);
 
     /**
      * Pauses the game interrupting the game loop.
