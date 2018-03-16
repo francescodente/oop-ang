@@ -12,7 +12,7 @@ import oopang.model.physics.CollisionTag;
  */
 public class HookShot extends Shot {
 
-    private static final double WIDTH = 1;
+    private static final double WIDTH = 5;
     private static final double START_HEIGHT = 1;
 
     private double startY;

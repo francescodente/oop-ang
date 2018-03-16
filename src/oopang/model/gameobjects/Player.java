@@ -23,8 +23,8 @@ import oopang.model.powers.Power;
  */
 public class Player extends AbstractGameObject {
 
-    private static final double WIDTH = 1;
-    private static final double HEIGHT = 1;
+    private static final double WIDTH = 12;
+    private static final double HEIGHT = 15;
     private static final double DEFAULT_SPEED = 1;
     
     

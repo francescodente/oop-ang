@@ -18,8 +18,8 @@ import oopang.model.powers.Power;
  * 
  */
 public class Pickup extends AbstractGameObject {
-    private static final double WIDTH = 5;
-    private static final double HEIGHT = 5;
+    private static final double WIDTH = 6;
+    private static final double HEIGHT = 6;
     private static final double TIMEOUT = 10;
 
     private final GravityComponent gravitycomponent;
