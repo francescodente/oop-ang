@@ -4,8 +4,8 @@ package oopang.model;
  * Describes information about the level termination.
  */
 public final class GameOverStatus {
-    private int score;
-    private LevelResult result;
+    private final int score;
+    private final LevelResult result;
 
     /**
      * Creates a new GameOverStatus given the score and the result.
