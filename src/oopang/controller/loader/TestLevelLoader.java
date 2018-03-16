@@ -19,5 +19,4 @@ public class TestLevelLoader implements LevelLoader {
         // TODO Auto-generated method stub
         return null;
     }
-
 }
