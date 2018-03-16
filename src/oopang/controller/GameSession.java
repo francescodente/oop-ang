@@ -131,7 +131,7 @@ public abstract class GameSession {
      * @param status
      *      true if the session should end
      */
-    protected void shouldEnd(final Boolean status) {
+    protected void triggerShouldEnd(final Boolean status) {
         this.shouldEnd.trigger(status);
     }
 }
