@@ -16,14 +16,14 @@ public interface GameObjectFactory {
 
     /**
      * Creates a new bubble {@link GameObject} given its radius and adds it to the level.
-     * @param radius
-     *      the radius of the bubble.
+     * @param size
+     *      the size of the bubble.
      * @param vector
      *      the velocity of the bubble.
      * @return
      *      the bubble {@link GameObject}.
      */
-    GameObject createBall(double radius, Vector2D vector);
+    GameObject createBall(int size, Vector2D vector);
 
     /**
      * Creates a new hook {@link Shot} and adds it to the level.

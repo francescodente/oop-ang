@@ -66,12 +66,12 @@ public class Pickup extends AbstractGameObject {
     }
 
     @Override
-    public double getWidth() {
+    public final double getWidth() {
         return WIDTH;
     }
 
     @Override
-    public double getHeight() {
+    public final double getHeight() {
         return HEIGHT;
     }
 }

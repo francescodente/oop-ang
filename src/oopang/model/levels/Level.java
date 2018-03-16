@@ -53,6 +53,13 @@ public interface Level {
     int getScore();
 
     /**
+     * Adds a value to the current score of the level.
+     * @param amount
+     *      the amount to add.
+     */
+    void addScore(int amount);
+
+    /**
      * Returns a factory for objects that will be added to this level.
      * @return
      *      the factory for this level.

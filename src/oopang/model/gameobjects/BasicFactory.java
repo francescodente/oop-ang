@@ -8,7 +8,7 @@ import oopang.model.powers.Power;
  * This class is a basic implementation of GameObjectFactory.
  */
 public class BasicFactory implements GameObjectFactory {
-
+    private static final int SCORE = 100;
     private final Level currentLevel;
 
     /**
@@ -22,15 +22,17 @@ public class BasicFactory implements GameObjectFactory {
 
     @Override
     public GameObject createPlayer() {
-        final GameObject player = new Player();
-        this.currentLevel.addGameObject(player);
+        final Player player = new Player();
+        this.currentLevel.addGameObject(player); 
+        player.registerPickupCollectedEvent(obj -> this.currentLevel.addScore(SCORE));
         return player;
     }
 
     @Override
-    public GameObject createBall(final double radius, final Vector2D velocity) {
-        final GameObject ball = new Ball(radius, velocity);
+    public GameObject createBall(final int size, final Vector2D velocity) {
+        final GameObject ball = new Ball(size, velocity);
         this.currentLevel.addGameObject(ball);
+        ball.registerDestroyedEvent(obj -> this.currentLevel.addScore(SCORE));
         return ball;
     }
 
@@ -61,5 +63,5 @@ public class BasicFactory implements GameObjectFactory {
         this.currentLevel.addGameObject(pickup);
         return pickup;
     }
+  }
 
-}
