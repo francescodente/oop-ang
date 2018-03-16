@@ -1,5 +1,6 @@
 package oopang.model.levels;
 
+import oopang.model.components.InputComponent;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.input.InputReader;
 
@@ -18,6 +19,6 @@ public class SinglePlayerLevel extends LevelDecorator {
     public SinglePlayerLevel(final Level baseLevel, final InputReader playerInput) {
         super(baseLevel);
         final GameObject player = this.getGameObjectFactory().createPlayer();
-        //player.getComponent(InputComponent.class).get().setInputReader(playerInput);
+        player.getComponent(InputComponent.class).get().setInputReader(playerInput);
     }
 }
