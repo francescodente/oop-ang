@@ -44,6 +44,7 @@ public class GameLoop extends Thread {
         this.world = model;
         this.paused = false;
         this.inputQueue = new EnumMap<>(PlayerTag.class);
+        input.keySet().forEach(player -> this.inputQueue.put(player, new ArrayBlockingQueue<>(MAXINPUT)));
         this.input = input;
     }
 
