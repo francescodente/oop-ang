@@ -1,5 +1,6 @@
 package oopang.controller;
 
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -34,17 +35,15 @@ public class GameLoop extends Thread {
      *      the view to render on each frame.
      * @param model
      *      the model to update each frame.
-     * @param inputQueue
-     *      the map with the input queues.
      * @param input
      *      the map with the input Writers.
      */
-    public GameLoop(final View view, final Model model, final Map<PlayerTag, BlockingQueue<Command>> inputQueue, final Map<PlayerTag, InputWriter> input) {
+    public GameLoop(final View view, final Model model, final Map<PlayerTag, InputWriter> input) {
         super();
         this.scene = view;
         this.world = model;
         this.paused = false;
-        this.inputQueue = inputQueue;
+        this.inputQueue = new EnumMap<>(PlayerTag.class);
         this.input = input;
     }
 
