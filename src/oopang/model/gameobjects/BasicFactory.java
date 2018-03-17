@@ -1,6 +1,7 @@
 package oopang.model.gameobjects;
 
 import oopang.commons.space.Vector2D;
+import oopang.model.BallColor;
 import oopang.model.levels.Level;
 import oopang.model.powers.Power;
 
@@ -29,8 +30,8 @@ public class BasicFactory implements GameObjectFactory {
     }
 
     @Override
-    public GameObject createBall(final int size, final Vector2D velocity) {
-        final GameObject ball = new Ball(size, velocity);
+    public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
+        final GameObject ball = new Ball(size, velocity, color);
         this.currentLevel.addGameObject(ball);
         ball.registerDestroyedEvent(obj -> this.currentLevel.addScore(SCORE));
         return ball;

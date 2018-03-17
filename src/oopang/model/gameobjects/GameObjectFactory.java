@@ -1,6 +1,7 @@
 package oopang.model.gameobjects;
 
 import oopang.commons.space.Vector2D;
+import oopang.model.BallColor;
 import oopang.model.powers.Power;
 
 /**
@@ -18,12 +19,14 @@ public interface GameObjectFactory {
      * Creates a new bubble {@link GameObject} given its radius and adds it to the level.
      * @param size
      *      the size of the bubble.
-     * @param vector
+     * @param velocity
      *      the velocity of the bubble.
+     * @param color
+     *      the color of the ball.
      * @return
      *      the bubble {@link GameObject}.
      */
-    GameObject createBall(int size, Vector2D vector);
+    GameObject createBall(int size, Vector2D velocity, BallColor color);
 
     /**
      * Creates a new hook {@link Shot} and adds it to the level.
