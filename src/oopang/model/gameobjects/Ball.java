@@ -7,6 +7,7 @@ import org.dyn4j.geometry.Circle;
 import oopang.commons.LevelManager;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
+import oopang.model.BallColor;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.GravityComponent;
@@ -32,6 +33,7 @@ public class Ball extends AbstractGameObject {
     private final CollisionComponent collision;
     private final double radius;
     private final int size;
+    private final BallColor color;
 
     /**
      * Creates the GameObject of the type Ball.
@@ -39,8 +41,10 @@ public class Ball extends AbstractGameObject {
      *      the ball size.
      * @param vector
      *      the vector of the ball.
+     * @param color
+     *      The color of the ball.
      */
-    public Ball(final int size, final Vector2D vector) {
+    public Ball(final int size, final Vector2D vector, final BallColor color) {
         super();
         this.size = size;
         this.radius = calculateRadius(size);
@@ -48,6 +52,7 @@ public class Ball extends AbstractGameObject {
         this.movement = new MovementComponent(this);
         this.movement.setVelocity(vector);
         this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
+        this.color = color;
     }
 
     @Override
@@ -114,8 +119,8 @@ public class Ball extends AbstractGameObject {
      */
     private void generate() {
         if (this.size > MIN_BALL_SIZE) {
-            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORDX);
-            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORSX);
+            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORDX, this.color);
+            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORSX, this.color);
         }
         this.destroy();
     }
@@ -132,5 +137,14 @@ public class Ball extends AbstractGameObject {
 
     private static double calculateRadius(final int size) {
         return Math.pow(2, size) * SIZE_MULTIPLIER;
+    }
+
+    /**
+     * Getter of the Ball Color.
+     * @return
+     *      The Ball Color.
+     */
+    public BallColor getColor() {
+        return this.color;
     }
 }
