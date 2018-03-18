@@ -2,6 +2,7 @@ package oopang.model.levels;
 
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
+import oopang.model.BallColor;
 
 /**
  * Represents a decorator for level that spawns ball constantly.
@@ -37,8 +38,8 @@ public class InfiniteLevel extends LevelDecorator {
             this.nextBallTimeLeft = this.currentWaitTime;
         }
     }
-    
+
     private void spawnBall() {
-        this.getGameObjectFactory().createBall(BALL_START_SIZE, BALL_START_VELOCITY);
+        this.getGameObjectFactory().createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
     }
 }
