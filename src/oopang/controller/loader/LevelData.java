@@ -17,8 +17,7 @@ public class LevelData {
 
     private final BallColor color;
     private final ImageID background;
-    private DayTime time;
-    private final Date currentTime;
+    private final DayTime time;
     private final Level level;
 
     /**
@@ -34,22 +33,20 @@ public class LevelData {
         super();
         this.color = color;
         this.background = background;
-        currentTime = new Date();
-        findDayTime();
+        this.time = findDayTime(new Date());
         this.level = level;
     }
 
     /**
      * Utility method to set the DayTime.
      */
-    private void findDayTime() {
+    private DayTime findDayTime(final Date currentTime) {
         if (currentTime.getTime() < MORNING) {
-            time = DayTime.MORNING;
+            return DayTime.MORNING;
         } else if (currentTime.getTime() > MORNING && currentTime.getTime() < AFTERNOON) {
-            time = DayTime.AFTERNOON;
-        } else if (currentTime.getTime() > AFTERNOON) {
-            time = DayTime.NIGHT;
+            return DayTime.AFTERNOON;
         }
+        return DayTime.NIGHT;
     }
     /**
      * Getter of the color.
