@@ -35,7 +35,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
-        //this.gameSession = new InfiniteGameSession(isMultiPlayer);
+        this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer);
     }
 
     @Override
