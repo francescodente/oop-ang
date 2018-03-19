@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import oopang.commons.events.Event;
@@ -32,7 +33,7 @@ public class BaseLevel implements Level {
     private final GameObjectFactory factory;
     private final CollisionManager collisionManager;
     private final Event<GameObject> objectCreatedEvent;
-    private final List<Power> availablePowers;
+    private final List<Supplier<Power>> availablePowers;
     private boolean pickupReady;
 
     /**
@@ -40,7 +41,7 @@ public class BaseLevel implements Level {
      * @param powers
      *      the list of available powers loaded from level file.
      */
-    public BaseLevel(final List<Power> powers) {
+    public BaseLevel(final List<Supplier<Power>> powers) {
         this.startQueue = new LinkedList<>();
         this.gameObjects = new LinkedList<>();
         this.score = INITIAL_SCORE;
@@ -136,7 +137,7 @@ public class BaseLevel implements Level {
     private Power choosePower() {
         //TODO weighted function
         final Random random = new Random();
-        return this.availablePowers.get(random.nextInt(this.availablePowers.size()));
+        return this.availablePowers.get(random.nextInt(this.availablePowers.size())).get();
     }
 
 }
