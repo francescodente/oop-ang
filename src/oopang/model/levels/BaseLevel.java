@@ -34,7 +34,6 @@ public class BaseLevel implements Level {
     private final CollisionManager collisionManager;
     private final Event<GameObject> objectCreatedEvent;
     private final List<Supplier<Power>> availablePowers;
-    private boolean pickupReady;
 
     /**
      * Creates a new BaseLevel object.
@@ -49,7 +48,6 @@ public class BaseLevel implements Level {
         this.collisionManager = new SimpleCollisionManager();
         this.objectCreatedEvent = new Event<>();
         this.availablePowers = powers;
-        this.pickupReady = false;
     }
 
     @Override
@@ -76,9 +74,6 @@ public class BaseLevel implements Level {
     public void addGameObject(final GameObject obj) {
         this.gameObjects.add(obj);
         this.startQueue.add(obj);
-        if (obj instanceof Ball) {
-            obj.registerDestroyedEvent(ball -> this.generatePickup(ball));
-        }
     }
 
     @Override
@@ -121,17 +116,9 @@ public class BaseLevel implements Level {
         // A base level is not able to end.
     }
 
-    @Override
-    public void setPickupReady() {
-       this.pickupReady = true;
-    }
-
     private void generatePickup(final GameObject obj) {
-        if (this.pickupReady) {
-            final GameObject pickup = this.factory.createPickup(this.choosePower());
-            pickup.setPosition(obj.getPosition());
-            this.pickupReady = false;
-        }
+        final GameObject pickup = this.factory.createPickup(this.choosePower());
+        pickup.setPosition(obj.getPosition());
     }
 
     private Power choosePower() {

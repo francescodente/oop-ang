@@ -95,9 +95,4 @@ public interface Level {
      */
     void registerGameOverEvent(EventHandler<GameOverStatus> handler);
 
-    /**
-     * Set the condition to generate a new pickup.
-    **/
-    void setPickupReady();
-
 }

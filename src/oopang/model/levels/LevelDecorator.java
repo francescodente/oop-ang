@@ -85,9 +85,4 @@ public abstract class LevelDecorator implements Level {
     public void registerGameOverEvent(EventHandler<GameOverStatus> handler) {
         this.innerLevel.registerGameOverEvent(handler);
     }
-
-    @Override
-    public void setPickupReady() {
-        this.innerLevel.setPickupReady();
-    }
 }
