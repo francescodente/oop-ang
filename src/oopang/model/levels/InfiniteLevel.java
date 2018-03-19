@@ -42,4 +42,5 @@ public class InfiniteLevel extends LevelDecorator {
     private void spawnBall() {
         this.getGameObjectFactory().createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
     }
+
 }
