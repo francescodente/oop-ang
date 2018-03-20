@@ -1,7 +1,6 @@
 package oopang.view;
 
 import oopang.controller.Controller;
-import oopang.model.gameobjects.GameObject;
 
 /**
  * View of the application.
