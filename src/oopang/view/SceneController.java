@@ -8,17 +8,17 @@ import oopang.controller.Controller;
  */
 public abstract class SceneController {
 
-    private final Controller controller;
-    private final View view;
+    private Controller controller;
+    private View view;
 
     /**
-     * The constructor that create the MenuController.
+     * Method that initialized the controller and the view.
      * @param controller
      *      the controller of the game.
-     * @param view
-     *      the view of the game.
+     * @param view 
+     *      the controller of the view.
      */
-    public SceneController(final Controller controller, final View view, final Scene scene) {
+    public void init(final Controller controller, final View view) {
         this.controller = controller;
         this.view = view;
     }
