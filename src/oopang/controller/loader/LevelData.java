@@ -15,23 +15,19 @@ public class LevelData {
     private static final Double MORNING = 12.00;
     private static final Double AFTERNOON = 19.00;
 
-    private final BallColor color;
     private final ImageID background;
     private final DayTime time;
     private final Level level;
 
     /**
      * Constructor of the class.
-     * @param color
-     *      The color of the Ball.
      * @param background
      *      The background of the level.
      * @param level
      *      the new level created from loader
      */
-    public LevelData(final BallColor color, final ImageID background, final Level level) {
+    public LevelData(final ImageID background, final Level level) {
         super();
-        this.color = color;
         this.background = background;
         this.time = findDayTime(new Date());
         this.level = level;
@@ -47,14 +43,6 @@ public class LevelData {
             return DayTime.AFTERNOON;
         }
         return DayTime.NIGHT;
-    }
-    /**
-     * Getter of the color.
-     * @return
-     *      The color of the balls.
-     */
-    public BallColor getColor() {
-        return this.color;
     }
 
     /**
