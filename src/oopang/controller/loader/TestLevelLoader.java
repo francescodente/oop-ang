@@ -1,5 +1,8 @@
 package oopang.controller.loader;
 
+/**
+ * Class to try some test for the game.
+ */
 public class TestLevelLoader implements LevelLoader {
 
     @Override
@@ -9,7 +12,7 @@ public class TestLevelLoader implements LevelLoader {
     }
 
     @Override
-    public LevelData loadStoryLevel(Integer index) {
+    public LevelData loadStoryLevel(final Integer index) {
         // TODO Auto-generated method stub
         return null;
     }
