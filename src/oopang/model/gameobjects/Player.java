@@ -26,8 +26,7 @@ public class Player extends AbstractGameObject {
     private static final double WIDTH = 12;
     private static final double HEIGHT = 15;
     private static final double DEFAULT_SPEED = 1;
-    
-    
+
     private final InputComponent input;
     private final MovementComponent movement;
     private final CollisionComponent collision;
@@ -45,7 +44,7 @@ public class Player extends AbstractGameObject {
         this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
         this.shoot = new ShooterComponent(this);
-        this.input = new InputComponent(this);
+        this.input = new InputComponent(this, e -> this.movement.setVelocity(e.multiply(this.speed)), () -> this.shoot.tryShoot());
         this.powerUps = new LinkedList<>();
         this.PickupCollected = new Event<Power>();
         this.speed = DEFAULT_SPEED;
