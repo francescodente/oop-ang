@@ -24,8 +24,10 @@ public interface LevelLoader {
      *      The index of the level to load
      * @return
      *      Information about the level 
+     * @throws IOException 
+     * @throws SAXException 
      */
-    LevelData loadStoryLevel(Integer index);
+    LevelData loadStoryLevel(Integer index) throws SAXException, IOException;
 
     /**
      * Method that load the Tutorial.
