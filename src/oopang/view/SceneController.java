@@ -1,6 +1,5 @@
 package oopang.view;
 
-import javafx.scene.Scene;
 import oopang.controller.Controller;
 
 /**
@@ -43,8 +42,9 @@ public abstract class SceneController {
 
     /**
      * Abstract Method that renders the menu.
+     * The implementation is empty because no all the class uses this method.
      */
-    public abstract void render();
+    public void render() { }
 
     /**
      * Abstract method that depends on the scene selected.

@@ -1,13 +1,14 @@
 package oopang.view;
 
-import oopang.controller.Controller;
 
-public class MainMenuController extends SceneController {
+/**
+ * This class implements the scene MainMenu.
+ */
+public final class MainMenuController extends SceneController {
 
-    public MainMenuController(Controller controller, View view) {
-        super(controller, view);
-    }
-
+    /**
+     * Method that load the next scene from the View.
+     */
     public void nextScene() {
         this.getView().loadScene(GameScene.SELECT_PLAYERS);
     }
