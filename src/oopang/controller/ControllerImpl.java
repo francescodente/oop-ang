@@ -66,10 +66,7 @@ public class ControllerImpl implements Controller {
     private void handleSessionResult(final Boolean shouldEnd) {
         if (shouldEnd) {
             this.closeGameSession();
-        } else {
-            //do something with view like
-            //this.view.loadScene(GameScene.GO_NEXT_LEVEL);
-            this.continueGameSession();
+            this.view.loadScene(GameScene.GAMEOVER);
         }
     }
 

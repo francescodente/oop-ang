@@ -14,6 +14,7 @@ import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
 import oopang.model.levels.Level;
 import oopang.model.levels.SinglePlayerLevel;
+import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
@@ -88,8 +89,8 @@ public abstract class GameSession {
         }
         current.registerGameOverEvent(this::handleGameOver);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
+        this.scene.loadScene(GameScene.GAME_GUI);
         this.world.setCurrentLevel(current);
-        //TODO send levelData to view
     }
 
     /**
@@ -133,5 +134,23 @@ public abstract class GameSession {
      */
     protected void triggerShouldEnd(final Boolean status) {
         this.shouldEnd.trigger(status);
+    }
+
+    /**
+     * Returns the View reference to children.
+     * @return
+     *      the view reference
+     */
+    protected View getScene() {
+        return scene;
+    }
+
+    /**
+     * Returns the Model reference to children.
+     * @return
+     *      the model reference
+     */
+    protected Model getWorld() {
+        return world;
     }
 }

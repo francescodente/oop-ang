@@ -16,6 +16,7 @@ public class JavaFXView extends Application implements View {
     @Override
     public final void launch(final Controller controller) {
         this.control = controller;
+        launch(new String[0]);
     }
 
     @Override
