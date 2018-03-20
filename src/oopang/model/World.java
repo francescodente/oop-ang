@@ -18,6 +18,7 @@ public class World implements Model {
     @Override
     public void setCurrentLevel(final Level level) {
         LevelManager.setCurrentLevel(level);
+        level.start();
     }
 
 }
