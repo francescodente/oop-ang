@@ -1,11 +1,12 @@
 package oopang.view;
 
+import javafx.scene.Scene;
 import oopang.controller.Controller;
 
 /**
  * This represent the Abstract Class that define different Menu scenes.
  */
-public abstract class MenuController {
+public abstract class SceneController {
 
     private final Controller controller;
     private final View view;
@@ -17,7 +18,7 @@ public abstract class MenuController {
      * @param view
      *      the view of the game.
      */
-    public MenuController(final Controller controller, final View view) {
+    public SceneController(final Controller controller, final View view, final Scene scene) {
         this.controller = controller;
         this.view = view;
     }
@@ -40,6 +41,14 @@ public abstract class MenuController {
         return this.view;
     }
 
+    /**
+     * Abstract Method that renders the menu.
+     */
+    public abstract void render();
+
+    /**
+     * Abstract method that depends on the scene selected.
+     */
     protected abstract void nextScene(); 
 
 }

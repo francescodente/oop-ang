@@ -2,7 +2,7 @@ package oopang.view;
 
 import oopang.controller.Controller;
 
-public class SelectPlayersController extends MenuController {
+public class SelectPlayersController extends SceneController {
 
     public SelectPlayersController(Controller controller, View view) {
         super(controller, view);
