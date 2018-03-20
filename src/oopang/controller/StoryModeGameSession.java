@@ -4,6 +4,7 @@ import oopang.controller.loader.LevelData;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
+import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
@@ -15,6 +16,7 @@ public final class StoryModeGameSession extends GameSession {
     private static final int FULL_LIFE = 5;
     private int currentLevel;
     private int lives;
+    private boolean levelForward;
 
     /**
      * Create a new StoryModeGameSession instance.
@@ -31,10 +33,14 @@ public final class StoryModeGameSession extends GameSession {
         super(view, model, isMultiPlayer);
         this.currentLevel = levelIndex;
         this.lives = FULL_LIFE;
+        this.levelForward = true;
     }
 
     @Override
     public void continueGame() {
+        if (!this.levelForward) {
+            this.currentLevel--;
+        }
         if (this.currentLevel == MAX_LEVEL) {
             this.triggerShouldEnd(true);
         } else {
@@ -50,14 +56,14 @@ public final class StoryModeGameSession extends GameSession {
 
         if (result == LevelResult.LEVEL_COMPLETE) {
             super.addScore(status.getScore());
-            this.triggerShouldEnd(false);
-            //TODO something else?? Should i continue or trigger the event?
+            this.levelForward = true;
+            this.getScene().loadScene(GameScene.LEVEL_STEP);
         }
 
         if (result == LevelResult.OUT_OF_TIME || result == LevelResult.PLAYER_DEAD) {
             this.lives--;
-            final LevelData leveldata = this.getLoader().loadStoryLevel(this.currentLevel);
-            super.startNewLevel(leveldata);
+            this.levelForward = false;
+            this.getScene().loadScene(GameScene.LEVEL_RESET);
             if (this.lives <= 0) {
                 this.triggerShouldEnd(true);
             }
