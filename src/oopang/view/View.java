@@ -31,11 +31,4 @@ public interface View {
      * Shows the pause menu as an overlay of the game view.
      */
     void showPauseMenu();
-
-    /**
-     * Create the new GameObject renderer and register to its destruction.
-     * @param obj
-     *      the new GameObject added to the level.
-     */
-    void notifyNewGameObject(GameObject obj);
 }

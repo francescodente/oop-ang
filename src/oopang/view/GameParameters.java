@@ -25,11 +25,11 @@ public final class GameParameters {
     public static void setMultiplayer(final boolean isMultiplayer) {
     GameParameters.multiplayer = isMultiplayer;
     }
-/**
- *  Getter of Level index.
- * @return
- *      Level index.
- */
+    /**
+     *  Getter of Level index.
+     * @return
+     *      Level index.
+     */
     public static int getLevelindex() {
         return levelindex;
     }

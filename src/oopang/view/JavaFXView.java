@@ -1,33 +1,38 @@
 package oopang.view;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 import oopang.controller.Controller;
-import oopang.model.gameobjects.GameObject;
 
 /**
  * This is the concrete implementation of the view Interface.
  */
-public class JavaFXView implements View {
+public class JavaFXView extends Application implements View {
 
-    /**
-     * Create a new ViewImpl instance.
-     */
-    public JavaFXView() {
-        // TODO Auto-generated constructor stub
+    private Controller control;
+    private SceneController currentScene;
+    private Stage stage;
+
+    @Override
+    public final void launch(final Controller controller) {
+        this.control = controller;
     }
 
     @Override
-    public void launch(final Controller controller) {
-        // TODO Auto-generated method stub
+    public final void render() {
+        this.currentScene.render();
     }
 
     @Override
-    public void render() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void loadScene(final GameScene scene) {
-        // TODO Auto-generated method stub
+    public final void loadScene(final GameScene scene) {
+        try {
+            final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
+            stage.setScene(wrapper.getScene());
+            wrapper.getController().init(control, this);
+            this.currentScene = wrapper.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -36,7 +41,8 @@ public class JavaFXView implements View {
     }
 
     @Override
-    public void notifyNewGameObject(final GameObject obj) {
-
+    public final void start(final Stage primaryStage) throws Exception {
+        this.stage = primaryStage; 
+        this.loadScene(GameScene.MAIN_MENU);
     }
 }
