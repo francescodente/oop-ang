@@ -1,5 +1,9 @@
 package oopang.model.components;
 
+import java.util.function.Consumer;
+
+import oopang.commons.space.Vector2D;
+import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.input.InputDirection;
 import oopang.model.input.InputReader;
@@ -9,21 +13,22 @@ import oopang.model.input.InputReader;
  */
 public class InputComponent extends AbstractComponent {
 
-    private ShooterComponent shooter;
     private InputReader controller;
-    private MovementComponent moving;
+    private final Consumer<Vector2D> velocityApplier;
+    private final Runnable shootHandler;
     /**
      * Create a new Input Component for the specified GameObject.
      * @param obj
      *      the GameObject specified
+     * @param velocityApplier
+     *      the consumer that modify velocity.
+     * @param shootHandler
+     *      the runnable controlling the shoot.
      */
-    public InputComponent(final GameObject obj) {
+    public InputComponent(final GameObject obj, final Consumer<Vector2D> velocityApplier, final Runnable shootHandler) {
         super(obj);
-    }
-    @Override
-    public final void start() {
-        this.shooter = this.getGameObject().getComponent(ShooterComponent.class).get();
-        this.moving = this.getGameObject().getComponent(MovementComponent.class).get();
+        this.velocityApplier = velocityApplier;
+        this.shootHandler = shootHandler;
     }
 
     @Override
@@ -39,14 +44,15 @@ public class InputComponent extends AbstractComponent {
      */
     private void handleInput(final InputDirection direction, final boolean shoot) {
         if (shoot) {
-            shooter.tryShoot();
+            shootHandler.run();
         }
-        moving.getVelocity().multiply(direction.getDirection());
+        velocityApplier.accept(Vectors2D.RIGHT.multiply(direction.getDirection()));
     }
 
     /**
-     * 
+     * Set the inputRader.
      * @param input
+     *      The reader to set.
      */
     public void setInputReader(final InputReader input) {
         this.controller = input;

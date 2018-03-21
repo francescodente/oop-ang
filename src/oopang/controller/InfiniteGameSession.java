@@ -1,5 +1,6 @@
 package oopang.controller;
 
+import oopang.controller.loader.LevelData;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
@@ -24,7 +25,9 @@ public final class InfiniteGameSession extends GameSession {
     }
 
     @Override
-    public void continueGame() {
+    public void loadNewLevel() {
+        final LevelData leveldata = this.getLoader().loadInfiniteLevel();
+        super.startNewLevel(leveldata);
     }
 
     @Override

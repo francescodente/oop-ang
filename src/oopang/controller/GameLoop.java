@@ -7,7 +7,6 @@ import java.util.concurrent.BlockingQueue;
 
 import oopang.commons.Command;
 import oopang.model.Model;
-import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
 import oopang.view.View;
 

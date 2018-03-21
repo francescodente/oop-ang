@@ -82,7 +82,7 @@ public abstract class LevelDecorator implements Level {
     }
 
     @Override
-    public void registerGameOverEvent(EventHandler<GameOverStatus> handler) {
+    public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
         this.innerLevel.registerGameOverEvent(handler);
     }
 }

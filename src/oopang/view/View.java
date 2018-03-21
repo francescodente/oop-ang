@@ -1,7 +1,6 @@
 package oopang.view;
 
 import oopang.controller.Controller;
-import oopang.model.gameobjects.GameObject;
 
 /**
  * View of the application.
@@ -31,11 +30,4 @@ public interface View {
      * Shows the pause menu as an overlay of the game view.
      */
     void showPauseMenu();
-
-    /**
-     * Create the new GameObject renderer and register to its destruction.
-     * @param obj
-     *      the new GameObject added to the level.
-     */
-    void notifyNewGameObject(GameObject obj);
 }
