@@ -2,7 +2,6 @@ package oopang.view.rendering.javafx;
 
 import javafx.scene.canvas.GraphicsContext;
 import oopang.view.rendering.AbstractRendererFactory;
-import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Renderer;
 import oopang.view.rendering.Sprite;
 
@@ -24,14 +23,12 @@ public class JavaFXRendererFactory extends AbstractRendererFactory {
     }
 
     @Override
-    public Sprite createSprite(final ImageID sourceID) {
-        final Sprite sprite = new JavaFXImageSprite(gc);
-        sprite.setSource(sourceID);
-        return sprite;
+    public final Sprite createSprite() {
+        return new JavaFXImageSprite(gc);
     }
 
     @Override
-    public Renderer createBackgroundRenderer() {
+    public final Renderer createBackgroundRenderer() {
         return null;
     }
 

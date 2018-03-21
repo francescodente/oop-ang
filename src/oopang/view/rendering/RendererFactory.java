@@ -18,13 +18,11 @@ public interface RendererFactory {
     Renderer createGameObjectRenderer(GameObject obj);
 
     /**
-     * Creates a new Sprite given its source image identifier.
-     * @param sourceID
-     *      the image identifier of this sprite.
+     * Creates a new Sprite object.
      * @return
      *      the Sprite object.
      */
-    Sprite createSprite(ImageID sourceID);
+    Sprite createSprite();
 
     /**
      * Creates a new renderer for the background of the game.

@@ -8,7 +8,7 @@ import oopang.view.rendering.RendererFactory;
 /**
  * An object to address draw calls on a JavaFX Canvas object.
  */
-public class JavaFXCanvasDrawer extends GenericCanvasDrawer {
+public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
 
     private final GraphicsContext gc;
 
