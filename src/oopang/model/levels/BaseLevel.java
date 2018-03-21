@@ -4,20 +4,16 @@ import java.util.LinkedList;
 
 import java.util.List;
 import java.util.Queue;
-import java.util.Random;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.model.GameOverStatus;
-import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.BasicFactory;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
 import oopang.model.physics.CollisionManager;
 import oopang.model.physics.SimpleCollisionManager;
-import oopang.model.powers.Power;
 
 /**
  * The class BaseLevel implements the Level interface.
@@ -33,21 +29,17 @@ public class BaseLevel implements Level {
     private final GameObjectFactory factory;
     private final CollisionManager collisionManager;
     private final Event<GameObject> objectCreatedEvent;
-    private final List<Supplier<Power>> availablePowers;
 
     /**
      * Creates a new BaseLevel object.
-     * @param powers
-     *      the list of available powers loaded from level file.
      */
-    public BaseLevel(final List<Supplier<Power>> powers) {
+    public BaseLevel() {
         this.startQueue = new LinkedList<>();
         this.gameObjects = new LinkedList<>();
         this.score = INITIAL_SCORE;
         this.factory = new BasicFactory(this);
         this.collisionManager = new SimpleCollisionManager();
         this.objectCreatedEvent = new Event<>();
-        this.availablePowers = powers;
     }
 
     @Override
@@ -115,16 +107,4 @@ public class BaseLevel implements Level {
     public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
         // A base level is not able to end.
     }
-
-    private void generatePickup(final GameObject obj) {
-        final GameObject pickup = this.factory.createPickup(this.choosePower());
-        pickup.setPosition(obj.getPosition());
-    }
-
-    private Power choosePower() {
-        //TODO weighted function
-        final Random random = new Random();
-        return this.availablePowers.get(random.nextInt(this.availablePowers.size())).get();
-    }
-
 }
