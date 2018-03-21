@@ -70,7 +70,7 @@ public abstract class GameSession {
     /**
      * Tells the game session to start the next level and create the new game loop.
      */
-    public abstract void continueGame();
+    public abstract void loadNewLevel();
 
     /**
      * Utility method for subclasses to start a new game loop and run the given level.

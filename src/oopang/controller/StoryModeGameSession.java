@@ -37,7 +37,7 @@ public final class StoryModeGameSession extends GameSession {
     }
 
     @Override
-    public void continueGame() {
+    public void loadNewLevel() {
         if (!this.levelForward) {
             this.currentLevel--;
         }
