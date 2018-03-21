@@ -61,7 +61,7 @@ public class XMLLevelLoader implements LevelLoader {
     }
 
     @Override
-    public LevelData loadStoryLevel(final Integer index) throws SAXException, IOException {
+    public LevelData loadStoryLevel(final int index) throws SAXException, IOException {
         this.path += "Level" + index + ".xml";
         final File file = new File(this.path);
         this.doc = dBuilder.parse(file);

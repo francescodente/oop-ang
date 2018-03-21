@@ -27,7 +27,7 @@ public interface LevelLoader {
      * @throws IOException 
      * @throws SAXException 
      */
-    LevelData loadStoryLevel(Integer index) throws SAXException, IOException;
+    LevelData loadStoryLevel(int index) throws SAXException, IOException;
 
     /**
      * Method that load the Tutorial.
