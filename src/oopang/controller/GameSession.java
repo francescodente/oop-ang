@@ -10,6 +10,7 @@ import oopang.controller.loader.LevelLoader;
 import oopang.controller.loader.TestLevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.Model;
+import oopang.model.gameobjects.GameObject;
 import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
 import oopang.model.levels.Level;
@@ -23,6 +24,7 @@ import oopang.view.View;
 public abstract class GameSession {
 
     private GameLoop gameloop;
+    private Level currentLevel;
     private final View scene;
     private final Model world;
     private final LevelLoader loader;
@@ -81,16 +83,16 @@ public abstract class GameSession {
         final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
         final InputController input = new InputController();
         inputMap.put(PlayerTag.PLAYER_ONE, input);
-        Level current = new SinglePlayerLevel(leveldata.getLevel(), input);
+        this.currentLevel = new SinglePlayerLevel(leveldata.getLevel(), input);
         if (this.isMultiPlayer) {
             final InputController inputPlayerTwo = new InputController();
             inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
-            current = new SinglePlayerLevel(current, inputPlayerTwo);
+            this.currentLevel = new SinglePlayerLevel(this.currentLevel, inputPlayerTwo);
         }
-        current.registerGameOverEvent(this::handleGameOver);
+        currentLevel.registerGameOverEvent(this::handleGameOver);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
         this.scene.loadScene(GameScene.GAME_GUI);
-        this.world.setCurrentLevel(current);
+        this.world.setCurrentLevel(this.currentLevel);
     }
 
     /**
@@ -152,5 +154,15 @@ public abstract class GameSession {
      */
     protected Model getWorld() {
         return world;
+    }
+
+    /**
+     * Registers a new {@link EventHandler} to the object created event for the
+     * current level.
+     * @param handler
+     *      the {@link EventHandler} object.
+     */
+    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
+        this.currentLevel.registerObjectCreatedEvent(handler);
     }
 }

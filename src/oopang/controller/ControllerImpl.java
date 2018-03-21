@@ -1,7 +1,9 @@
 package oopang.controller;
 
 import oopang.commons.Command;
+import oopang.commons.events.EventHandler;
 import oopang.model.Model;
+import oopang.model.gameobjects.GameObject;
 import oopang.view.GameScene;
 import oopang.view.View;
 
@@ -68,6 +70,11 @@ public class ControllerImpl implements Controller {
             this.closeGameSession();
             this.view.loadScene(GameScene.GAMEOVER);
         }
+    }
+
+    @Override
+    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
+        this.gameSession.registerObjectCreatedEvent(handler);
     }
 
 }
