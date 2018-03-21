@@ -103,7 +103,7 @@ public class XMLLevelLoader implements LevelLoader {
             final Element attr = (Element) ball;
             final BallColor color = BallColor.valueOf(attr.getAttribute("color"));
             final int size = Integer.parseInt(attr.getAttribute("size"));
-            level.getGameObjectFactory().createBall(size, getVector(k, "Velocity"), color).setPosition(this.getPosition(k));
+            level.getGameObjectFactory().createBall(size, getVector(k, "Velocity", "Ball"), color).setPosition(this.getPoint(k, "Position", "Ball"));
         }
     }
 
@@ -117,9 +117,12 @@ public class XMLLevelLoader implements LevelLoader {
      *      The name of the TreeNode.
      * @return
      */
-    private Vector2D getVector(final int item, final String node) {
-        final NodeList vector = this.doc.getElementsByTagName(node);
-        final Node ballField = vector.item(item);
+    private Vector2D getVector(final int item, final String target, final String source) {
+        final NodeList nList = this.doc.getElementsByTagName(source);
+        final Node nNode = nList.item(item);
+        final Element ObjectElement = (Element) nNode;
+        final NodeList vector = ObjectElement.getElementsByTagName(target);
+        final Node ballField = vector.item(0);
         final Element ballElement = (Element) ballField;
         final Element vectorElement = (Element) ballElement.getElementsByTagName("Vector").item(0);
         return Vectors2D.of(Double.parseDouble(vectorElement.getAttribute("x")), Double.parseDouble(vectorElement.getAttribute("y")));
@@ -134,12 +137,15 @@ public class XMLLevelLoader implements LevelLoader {
      * @return
      *      The {@link Point2D} of the {@link Ball}
      */
-    private Point2D getPosition(final int item) {
-        final NodeList position = this.doc.getElementsByTagName("Position");
-        final Node positionField = position.item(item);
-        final Element positionElement = (Element) positionField;
-        final Element positionBall = (Element) positionElement.getElementsByTagName("Point").item(0);
-        return Points2D.of(Double.valueOf(positionBall.getAttribute("x")), Double.valueOf(positionBall.getAttribute("y")));
+    private Point2D getPoint(final int item, final String target, final String source) {
+        final NodeList nList = this.doc.getElementsByTagName(source);
+        final Node nNode = nList.item(item);
+        final Element ObjectElement = (Element) nNode;
+        final NodeList position = ObjectElement.getElementsByTagName(target);
+        final Node positionField = position.item(0);
+        final Element point = (Element) positionField;
+        final Element pointElement = (Element) point.getElementsByTagName("Vector").item(0);
+        return Points2D.of(Double.valueOf(pointElement.getAttribute("x")), Double.valueOf(pointElement.getAttribute("y")));
     }
 
     /**
@@ -172,7 +178,7 @@ public class XMLLevelLoader implements LevelLoader {
             final Element attr = (Element) wall;
             final double height = Double.parseDouble(attr.getAttribute("height"));
             final double width = Double.parseDouble(attr.getAttribute("width"));
-            level.getGameObjectFactory().createWall(width, height).setPosition(this.getPosition(i));
+            level.getGameObjectFactory().createWall(width, height).setPosition(this.getPoint(i, "Position", "Wall"));
         }
     }
     
