@@ -32,7 +32,7 @@ public class SimpleCollisionManager implements CollisionManager {
     @Override
     public void step() {
         for (int i = 0; i < this.collidables.size(); i++) {
-            for (int j = i + 1; i < this.collidables.size(); j++) {
+            for (int j = i + 1; j < this.collidables.size(); j++) {
                 final Collidable c1 = this.collidables.get(i);
                 final Collidable c2 = this.collidables.get(j);
                 if (c1.getCollisionTag().canCollideWith(c2.getCollisionTag())) {
