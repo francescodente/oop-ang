@@ -40,8 +40,7 @@ public class SimpleCollisionManager implements CollisionManager {
                     final Transform t2 = getTransform(c2);
                     final Penetration p = new Penetration();
                     if (this.narrowPhase.detect(c1.getShape(), t1, c2.getShape(), t2, p)) {
-                        final Vector2D normal = Vectors2D.of(p.getNormal().x, p.getNormal().y)
-                                .multiply(p.getDepth());
+                        final Vector2D normal = Vectors2D.of(p.getNormal().x, p.getNormal().y).normalized();
                         c1.notifyCollision(new Collision(c2, normal.multiply(-1)));
                         c2.notifyCollision(new Collision(c1, normal));
                     }
