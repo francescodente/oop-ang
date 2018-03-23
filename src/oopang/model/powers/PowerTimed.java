@@ -8,11 +8,13 @@ public abstract class PowerTimed extends AbstractPower {
     private final double timeout;
     /**
      * This constructor set time.
-     * @param timeout
+     * @param timeout 
      *      Is the duration of enhancements.
+     * @param powertag 
+     *      The PowerTag.
      */
-    public PowerTimed(final double timeout) {
-       super();
+    public PowerTimed(final double timeout, final PowerTag powertag) {
+       super(powertag);
        this.time = 0;
        this.timeout = timeout;
     }
