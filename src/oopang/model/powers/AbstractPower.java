@@ -8,10 +8,14 @@ import oopang.model.gameobjects.Player;
 public abstract class AbstractPower implements Power {
     private Player player;
     private boolean active;
+    private final PowerTag powertag;
     /**
      * This constructor set the active field on true.
+     * @param powertag
+     *      The PowerTag.
      */
-    public AbstractPower() {
+    public AbstractPower(final PowerTag powertag) {
+        this.powertag = powertag;
         this.active = true;
     }
 
@@ -47,5 +51,13 @@ public abstract class AbstractPower implements Power {
      */
     protected void deactivate() {
         this.active = false;
+    }
+    /**
+     * Return the PowerTag.
+     * @return
+     *      The PowerTag.
+     */
+    public PowerTag getPowertag() {
+        return powertag;
     }
 }
