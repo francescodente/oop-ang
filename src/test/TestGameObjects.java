@@ -14,6 +14,7 @@ import oopang.model.components.MovementComponent;
 import oopang.model.components.ShooterComponent;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.Pickup;
 import oopang.model.gameobjects.Player;
 import oopang.model.gameobjects.Wall;
 
@@ -52,5 +53,16 @@ public class TestGameObjects {
         final GameObject wall = new Wall(1, 1);
         assertTrue(wall.getComponent(CollisionComponent.class).isPresent());
         assertFalse(wall.getComponent(GravityComponent.class).isPresent());
+    }
+
+    /**
+     * Test if the ball has the right components attached.
+     */
+    @Test
+    public void testPickUpComponents() {
+        final GameObject wall = new Pickup(null);
+        assertTrue(wall.getComponent(CollisionComponent.class).isPresent());
+        assertTrue(wall.getComponent(GravityComponent.class).isPresent());
+        assertTrue(wall.getComponent(MovementComponent.class).isPresent());
     }
 }
