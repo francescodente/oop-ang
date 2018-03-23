@@ -2,6 +2,9 @@ package oopang.controller.loader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Supplier;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,7 +25,11 @@ import oopang.model.gameobjects.Wall;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.InfiniteLevel;
 import oopang.model.levels.Level;
+import oopang.model.levels.PickUpGeneratingLevel;
 import oopang.model.levels.TimedLevel;
+import oopang.model.powers.Power;
+import oopang.model.powers.PowerFactory;
+import oopang.model.powers.PowerTag;
 import oopang.view.rendering.ImageID;
 
 /**
@@ -36,17 +43,21 @@ public class XMLLevelLoader implements LevelLoader {
     private String path;
     private File file;
     private Document doc;
+    private PowerFactory powerFactory;
+    private List<Supplier<Power>> powerList;
 
     /**
      * Constructor of the Class setting the base path.
      * @throws ParserConfigurationException
      *      Exception of the XML parsing.
      */
-    public XMLLevelLoader() throws ParserConfigurationException {
+    public XMLLevelLoader(final PowerFactory factory) throws ParserConfigurationException {
         super();
         this.dbFactory = DocumentBuilderFactory.newInstance();
         this.dBuilder = dbFactory.newDocumentBuilder();
         this.path = "/res/levels/";
+        this.powerFactory = factory;
+        this.powerList = new LinkedList<>();
     }
 
     @Override
@@ -57,6 +68,7 @@ public class XMLLevelLoader implements LevelLoader {
         this.doc = dBuilder.parse(file);
         this.doc.getDocumentElement().normalize();
         final ImageID background = this.loadLevelData(this.level);
+        this.getPowers(this.level);
         return new LevelData(background, this.level);
     }
 
@@ -67,7 +79,7 @@ public class XMLLevelLoader implements LevelLoader {
         this.doc = dBuilder.parse(file);
         this.doc.getDocumentElement().normalize();
         final ImageID background = this.loadLevelData(this.level);
-        //this.level = getPowers(doc, this.level);
+        this.getPowers(this.level);
         this.loadBall(this.level);
         this.loadWalls(this.level);
         return new LevelData(background, this.level);
@@ -78,7 +90,12 @@ public class XMLLevelLoader implements LevelLoader {
         // TODO Auto-generated method stub
         return null;
     }
-/*
+
+    /**
+     * Utility method to get Powers form file and decorate the level.
+     * @param level
+     *      The level to decorate.
+     */
     private void getPowers(final Level level) {
         final NodeList powers = this.doc.getElementsByTagName("AvailablePower");
         final Node availablePowers = powers.item(0);
@@ -86,10 +103,28 @@ public class XMLLevelLoader implements LevelLoader {
         final int length = powerField.getElementsByTagName("Power").getLength();
         for (int i = 0; i < length; i++) {
             final Element power = (Element) powerField.getElementsByTagName("Power").item(i);
+            PowerTag pow = PowerTag.valueOf(power.getAttribute("id"));
+            if(pow == PowerTag.ADHESIVESHOT) {
+                this.powerList.add(() -> powerFactory.createAdhesiveShot());
+            }
+            if(pow == PowerTag.ADHESIVESHOT) {
+                this.powerList.add(() -> powerFactory.createAdhesiveShot());
+            }
+            if(pow == PowerTag.DOUBLESHOT) {
+                this.powerList.add(() -> powerFactory.createDoubleShot());
+            }
+            if(pow == PowerTag.DOUBLESPEED) {
+                this.powerList.add(() -> powerFactory.createDoubleSpeed());
+            }
+            if(pow == PowerTag.FREEZE) {
+                this.powerList.add(() -> powerFactory.createFreeze());
+            }
+            if(pow == PowerTag.TIMEDSHIELD) {
+                this.powerList.add(() -> powerFactory.createTimedShield());
+            }
         }
-        return null;
+        this.level = new PickUpGeneratingLevel(this.level, this.powerList);
     }
-*/
     /**
      * Get the {@link Ball} attributes and use the {@link GameObjectFactory} to generate new balls.
      * @param level
