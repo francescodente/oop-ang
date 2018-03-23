@@ -68,6 +68,7 @@ public class Player extends AbstractGameObject {
                 c.update(deltaTime);
             }
         });
+        super.update(deltaTime);
     }
 
     /**
