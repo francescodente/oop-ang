@@ -2,6 +2,7 @@ package oopang.view;
 
 import oopang.controller.Controller;
 import oopang.view.dialogs.Dialog;
+import oopang.view.dialogs.DialogFactory;
 
 /**
  * View of the application.
@@ -38,4 +39,11 @@ public interface View {
      *      the dialog to be shown
      */
     void showDialog(Dialog dialog);
+
+    /**
+     * Returns the DialogFactory.
+     * @return
+     *      the dialogFactory
+     */
+    DialogFactory getDialogFactory();
 }

@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import oopang.controller.Controller;
 import oopang.view.dialogs.Dialog;
+import oopang.view.dialogs.DialogFactory;
+import oopang.view.dialogs.JavaFXDialogFactory;
 
 /**
  * This is the concrete implementation of the view Interface.
@@ -13,10 +15,12 @@ public class JavaFXView extends Application implements View {
     private Controller control;
     private SceneController currentScene;
     private Stage stage;
+    private DialogFactory dialogfactory;
 
     @Override
     public final void launch(final Controller controller) {
         this.control = controller;
+        this.dialogfactory = new JavaFXDialogFactory(this);
         launch(new String[0]);
     }
 
@@ -51,5 +55,10 @@ public class JavaFXView extends Application implements View {
     @Override
     public void showDialog(final Dialog dialog) {
         dialog.show();
+    }
+
+    @Override
+    public DialogFactory getDialogFactory() {
+        return this.dialogfactory;
     }
 }
