@@ -1,6 +1,7 @@
 package oopang.view;
 
 import oopang.controller.Controller;
+import oopang.view.dialogs.Dialog;
 
 /**
  * View of the application.
@@ -30,4 +31,11 @@ public interface View {
      * Shows the pause menu as an overlay of the game view.
      */
     void showPauseMenu();
+
+    /**
+     * Shows the given dialog.
+     * @param dialog
+     *      the dialog to be shown
+     */
+    void showDialog(Dialog dialog);
 }

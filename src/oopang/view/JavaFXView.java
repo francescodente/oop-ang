@@ -3,6 +3,7 @@ package oopang.view;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oopang.controller.Controller;
+import oopang.view.dialogs.Dialog;
 
 /**
  * This is the concrete implementation of the view Interface.
@@ -45,5 +46,10 @@ public class JavaFXView extends Application implements View {
     public final void start(final Stage primaryStage) throws Exception {
         this.stage = primaryStage; 
         this.loadScene(GameScene.MAIN_MENU);
+    }
+
+    @Override
+    public void showDialog(final Dialog dialog) {
+        dialog.show();
     }
 }
