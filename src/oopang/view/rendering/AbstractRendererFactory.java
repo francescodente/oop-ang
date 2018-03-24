@@ -1,6 +1,14 @@
 package oopang.view.rendering;
 
+import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.HookShot;
+import oopang.model.gameobjects.Player;
+import oopang.model.gameobjects.Wall;
+import oopang.view.rendering.gameobject.BallRenderer;
+import oopang.view.rendering.gameobject.HookShotRenderer;
+import oopang.view.rendering.gameobject.PlayerRenderer;
+import oopang.view.rendering.gameobject.WallRenderer;
 
 /**
  * Provides a base implementation of the {@link RendererFactory} interface.
@@ -9,8 +17,15 @@ public abstract class AbstractRendererFactory implements RendererFactory {
 
     @Override
     public final Renderer createGameObjectRenderer(final GameObject obj) {
-        // TODO Check to see what type of game object is given. Depending on that generate a new
-        // appropriate GameObjectRenderer.
+        if (obj instanceof Player) {
+            return new PlayerRenderer(this.createSprite(), (Player) obj);
+        } else if (obj instanceof Ball) {
+            return new BallRenderer(this.createSprite(), (Ball) obj);
+        } else if (obj instanceof Wall) {
+            return new WallRenderer(this.createSprite(), (Wall) obj);
+        } else if (obj instanceof HookShot) {
+            return new HookShotRenderer(this.createSprite(), (HookShot) obj);
+        }
         return null;
     }
 }

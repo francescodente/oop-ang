@@ -1,8 +1,11 @@
 package oopang.model.levels;
 
+import oopang.commons.LevelManager;
+import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
+import oopang.model.gameobjects.GameObject;
 
 /**
  * Represents a decorator for level that spawns ball constantly.
@@ -40,7 +43,11 @@ public class InfiniteLevel extends LevelDecorator {
     }
 
     private void spawnBall() {
-        this.getGameObjectFactory().createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
+        final GameObject newBall = LevelManager.getCurrentLevel()
+                .getGameObjectFactory()
+                .createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
+        // TODO: Give a random position to the ball.
+        newBall.setPosition(Points2D.ZERO);
     }
 
 }
