@@ -63,7 +63,7 @@ public class BaseLevel implements Level {
             objectCreatedEvent.trigger(obj);
         }
         this.gameObjects.forEach(e -> e.update(deltaTime));
-
+        this.collisionManager.step();
         while (destroyQueue.size() > 0) {
             final GameObject obj = destroyQueue.poll();
             this.gameObjects.remove(obj);
