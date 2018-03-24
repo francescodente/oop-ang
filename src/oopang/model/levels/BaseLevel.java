@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Stream;
 
+import oopang.commons.LevelManager;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
+import oopang.commons.space.Points2D;
 import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.BasicFactory;
 import oopang.model.gameobjects.GameObject;
@@ -22,6 +24,9 @@ import oopang.model.physics.SimpleCollisionManager;
 public class BaseLevel implements Level {
 
     private static final int INITIAL_SCORE = 0;
+    private static final double WORLD_WIDTH = 200;
+    private static final double WORLD_HEIGHT = 100;
+    private static final double WALL_WIDTH = 4;
 
     private final Queue<GameObject> startQueue;
     private final List<GameObject> gameObjects;
@@ -44,7 +49,7 @@ public class BaseLevel implements Level {
 
     @Override
     public void start() {
-        this.gameObjects.forEach(e -> e.start());
+        this.createWalls();
     }
 
     @Override
@@ -106,5 +111,16 @@ public class BaseLevel implements Level {
     @Override
     public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
         // A base level is not able to end.
+    }
+
+    private void createWalls() {
+        final GameObject horizontal1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
+        horizontal1.setPosition(Points2D.of(0, -WALL_WIDTH / 2));
+        final GameObject horizontal2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
+        horizontal2.setPosition(Points2D.of(0, WORLD_HEIGHT + (WALL_WIDTH / 2)));
+        final GameObject vertical1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
+        vertical1.setPosition(Points2D.of(-((WORLD_WIDTH / 2) + (WALL_WIDTH / 2)), WORLD_HEIGHT / 2));
+        final GameObject vertical2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
+        vertical2.setPosition(Points2D.of((WORLD_WIDTH / 2) + (WALL_WIDTH / 2), WORLD_HEIGHT / 2));
     }
 }
