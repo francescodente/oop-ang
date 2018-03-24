@@ -102,6 +102,7 @@ public class Player extends AbstractGameObject {
      */
     private void addPower(final Power pow) {
         powerUps.add(pow);
+        this.pickupCollected.trigger(pow);
         pow.activate(this);
     }
 
