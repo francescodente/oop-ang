@@ -1,6 +1,5 @@
 package oopang.model.levels;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import java.util.List;
@@ -35,7 +34,6 @@ public class BaseLevel implements Level {
     private final GameObjectFactory factory;
     private final CollisionManager collisionManager;
     private final Event<GameObject> objectCreatedEvent;
-    private final List<GameObject> externalwalls;
 
     /**
      * Creates a new BaseLevel object.
@@ -47,13 +45,11 @@ public class BaseLevel implements Level {
         this.factory = new BasicFactory(this);
         this.collisionManager = new SimpleCollisionManager();
         this.objectCreatedEvent = new Event<>();
-        this.externalwalls = this.createWalls();
     }
 
     @Override
     public void start() {
-        this.externalwalls.forEach(w -> this.gameObjects.add(w));
-        this.gameObjects.forEach(e -> e.start());
+        this.createWalls();
     }
 
     @Override
@@ -117,7 +113,7 @@ public class BaseLevel implements Level {
         // A base level is not able to end.
     }
 
-    private List<GameObject> createWalls() {
+    private void createWalls() {
         final GameObject horizontal1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
         horizontal1.setPosition(Points2D.of(0, -WALL_WIDTH / 2));
         final GameObject horizontal2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
@@ -126,6 +122,5 @@ public class BaseLevel implements Level {
         vertical1.setPosition(Points2D.of(-((WORLD_WIDTH / 2) + (WALL_WIDTH / 2)), WORLD_HEIGHT / 2));
         final GameObject vertical2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
         vertical2.setPosition(Points2D.of((WORLD_WIDTH / 2) + (WALL_WIDTH / 2), WORLD_HEIGHT / 2));
-        return Arrays.asList(horizontal1, horizontal2, vertical1, vertical2);
     }
 }
