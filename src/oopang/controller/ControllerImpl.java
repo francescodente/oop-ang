@@ -59,7 +59,8 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void closeGameSession() {
-        // TODO reset references
+        this.gameSession = null;
+        this.view.loadScene(GameScene.GAMEOVER);
     }
 
     @Override
