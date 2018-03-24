@@ -2,11 +2,13 @@ package oopang.model.gameobjects;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Capsule;
 import org.dyn4j.geometry.Convex;
 
+import oopang.commons.LevelManager;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
@@ -17,6 +19,7 @@ import oopang.model.components.ShooterComponent;
 import oopang.model.physics.CollisionTag;
 import oopang.model.physics.Collision;
 import oopang.model.powers.Power;
+import oopang.model.shooter.MultipleShooter;
 
 /**
  * This class implements the player object.
@@ -26,6 +29,8 @@ public class Player extends AbstractGameObject {
     private static final double WIDTH = 12;
     private static final double HEIGHT = 15;
     private static final double DEFAULT_SPEED = 1;
+    private static final Supplier<Shot> DEFAULT_SHOT = 
+            () -> LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
 
     private final InputComponent input;
     private final MovementComponent movement;
@@ -33,20 +38,23 @@ public class Player extends AbstractGameObject {
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
-    private final Event<Power> PickupCollected;
+    private final Event<Power> pickupCollected;
     /**
      * Constructor of this class.
      */
     public Player() {
         super();
         final Convex shape = new Capsule(WIDTH, HEIGHT);
-        shape.translate(0, 1);
+        shape.translate(0, HEIGHT / 2);
         this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
         this.shoot = new ShooterComponent(this);
-        this.input = new InputComponent(this, e -> this.movement.setVelocity(e.multiply(this.speed)), () -> this.shoot.tryShoot());
+        this.shoot.setShooter(new MultipleShooter(1, this, DEFAULT_SHOT));
+        this.input = new InputComponent(this,
+                e -> this.movement.setVelocity(e.multiply(this.speed)),
+                () -> this.shoot.tryShoot());
         this.powerUps = new LinkedList<>();
-        this.PickupCollected = new Event<Power>();
+        this.pickupCollected = new Event<Power>();
         this.speed = DEFAULT_SPEED;
     }
 
@@ -136,6 +144,6 @@ public class Player extends AbstractGameObject {
      *      the {@link EventHandler}.
      */
     public void registerPickupCollectedEvent(final EventHandler<Power> handler) {
-        this.PickupCollected.registerHandler(handler);
+        this.pickupCollected.registerHandler(handler);
     }
 }
