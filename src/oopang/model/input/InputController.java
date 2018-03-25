@@ -8,6 +8,14 @@ public final class InputController implements InputReader, InputWriter {
     private boolean shooting;
     private InputDirection direction;
 
+    /**
+     * Initializes a new InputController with direction NONE and no shooting.
+     */
+    public InputController() {
+        this.shooting = false;
+        this.direction = InputDirection.NONE;
+    }
+
     @Override
     public InputDirection getDirection() {
         return this.direction;

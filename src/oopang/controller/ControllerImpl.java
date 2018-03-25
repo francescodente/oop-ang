@@ -1,7 +1,9 @@
 package oopang.controller;
 
 import oopang.commons.Command;
+import oopang.commons.events.EventHandler;
 import oopang.model.Model;
+import oopang.model.gameobjects.GameObject;
 import oopang.view.GameScene;
 import oopang.view.View;
 
@@ -31,11 +33,13 @@ public class ControllerImpl implements Controller {
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, levelIndex);
         this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
+        this.gameSession.loadNewLevel();
     }
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer);
+        this.gameSession.loadNewLevel();
     }
 
     @Override
@@ -50,12 +54,13 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void continueGameSession() {
-        this.gameSession.continueGame();
+        this.gameSession.loadNewLevel();
     }
 
     @Override
     public void closeGameSession() {
-        // TODO reset references
+        this.gameSession = null;
+        this.view.loadScene(GameScene.GAMEOVER);
     }
 
     @Override
@@ -66,11 +71,12 @@ public class ControllerImpl implements Controller {
     private void handleSessionResult(final Boolean shouldEnd) {
         if (shouldEnd) {
             this.closeGameSession();
-        } else {
-            //do something with view like
-            //this.view.loadScene(GameScene.GO_NEXT_LEVEL);
-            this.continueGameSession();
         }
+    }
+
+    @Override
+    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
+        this.gameSession.registerObjectCreatedEvent(handler);
     }
 
 }

@@ -32,7 +32,7 @@ public class SimpleCollisionManager implements CollisionManager {
     @Override
     public void step() {
         for (int i = 0; i < this.collidables.size(); i++) {
-            for (int j = i + 1; i < this.collidables.size(); j++) {
+            for (int j = i + 1; j < this.collidables.size(); j++) {
                 final Collidable c1 = this.collidables.get(i);
                 final Collidable c2 = this.collidables.get(j);
                 if (c1.getCollisionTag().canCollideWith(c2.getCollisionTag())) {
@@ -40,8 +40,7 @@ public class SimpleCollisionManager implements CollisionManager {
                     final Transform t2 = getTransform(c2);
                     final Penetration p = new Penetration();
                     if (this.narrowPhase.detect(c1.getShape(), t1, c2.getShape(), t2, p)) {
-                        final Vector2D normal = Vectors2D.of(p.getNormal().x, p.getNormal().y)
-                                .multiply(p.getDepth());
+                        final Vector2D normal = Vectors2D.of(p.getNormal().x, p.getNormal().y).normalized();
                         c1.notifyCollision(new Collision(c2, normal.multiply(-1)));
                         c2.notifyCollision(new Collision(c1, normal));
                     }

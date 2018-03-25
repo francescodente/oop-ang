@@ -12,7 +12,7 @@ public class TestLevelLoader implements LevelLoader {
     }
 
     @Override
-    public LevelData loadStoryLevel(final Integer index) {
+    public LevelData loadStoryLevel(final int index) {
         // TODO Auto-generated method stub
         return null;
     }

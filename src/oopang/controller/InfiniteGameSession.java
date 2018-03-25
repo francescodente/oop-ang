@@ -1,5 +1,10 @@
 package oopang.controller;
 
+import java.io.IOException;
+
+import org.xml.sax.SAXException;
+
+import oopang.controller.loader.LevelData;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
@@ -24,7 +29,14 @@ public final class InfiniteGameSession extends GameSession {
     }
 
     @Override
-    public void continueGame() {
+    public void loadNewLevel() {
+        LevelData leveldata;
+        try {
+            leveldata = this.getLoader().loadInfiniteLevel();
+            super.startNewLevel(leveldata);
+        } catch (SAXException | IOException e) {
+            this.getScene().showDialog(this.getScene().getDialogFactory().createLevelNotLoaded(e));
+        }
     }
 
     @Override

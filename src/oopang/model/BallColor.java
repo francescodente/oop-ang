@@ -1,5 +1,6 @@
 package oopang.model;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -39,6 +40,6 @@ public enum BallColor {
      */
     public static BallColor randomColor() {
         final Random random = new Random();
-        return BallColor.values()[random.nextInt(BallColor.values().length)];
+        return Arrays.asList(BallColor.values()).get(random.nextInt(BallColor.values().length));
     }
 }

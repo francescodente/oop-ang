@@ -26,21 +26,76 @@ public interface Sprite extends Renderer {
     Point2D getPosition();
 
     /**
-     * Sets the pivot of the sprite.
+     * Sets the pivot of the sprite. The pivot is the point relative to the center of the image that
+     * is used as the center for positioning. Coordinates in the range [-1,1] indicate a pivot inside
+     * the rectangle of the image.
      * @param pivot
      *      the new pivot.
      */
     void setPivot(Vector2D pivot);
 
     /**
-     * Returns the pivot of the sprite.
+     * Returns the pivot of the sprite. The pivot is the point relative to the center of the image that
+     * is used as the center for positioning. Coordinates in the range [-1,1] indicate a pivot inside
+     * the rectangle of the image.
      * @return
      *      the pivot.
      */
     Vector2D getPivot();
 
     /**
-     * Sets the source image of the sprite.
+     * Sets the width on the screen of the Sprite.
+     * @param width
+     *      the new width.
+     */
+    void setWidth(double width);
+
+    /**
+     * Sets the height on the screen of the Sprite.
+     * @param height
+     *      the new height.
+     */
+    void setHeight(double height);
+
+    /**
+     * Returns the width of the rectangle on the canvas.
+     * @return
+     *      the width in pixels.
+     */
+    double getWidth();
+
+    /**
+     * Returns the height of the rectangle on the canvas.
+     * @return
+     *      the height in pixels.
+     */
+    double getHeight();
+
+    /**
+     * Sets the portion of the source image to be rendered on screen.
+     * @param topLeft
+     *      The position of the top-left corner of the source rect.
+     * @param offset
+     *      The offset of the bottom-right corner from the top-left corner.
+     */
+    void setSourceWindow(Point2D topLeft, Vector2D offset);
+
+    /**
+     * Returns the width of the source image in pixels.
+     * @return
+     *      the width of the source image in pixels.
+     */
+    double getSourceWidth();
+
+    /**
+     * Returns the height of the source image in pixels.
+     * @return
+     *      the height of the source image in pixels.
+     */
+    double getSourceHeight();
+
+    /**
+     * Sets the source image of the sprite. This method resets the source window properties (i.e. the source rectangle).
      * @param sourceID
      *      the new source image identifier.
      */

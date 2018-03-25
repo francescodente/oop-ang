@@ -94,4 +94,5 @@ public interface Level {
      *      the {@link EventHandler}.
      */
     void registerGameOverEvent(EventHandler<GameOverStatus> handler);
+
 }

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Stream;
 
+import oopang.commons.LevelManager;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
+import oopang.commons.space.Points2D;
 import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.BasicFactory;
 import oopang.model.gameobjects.GameObject;
@@ -22,8 +24,12 @@ import oopang.model.physics.SimpleCollisionManager;
 public class BaseLevel implements Level {
 
     private static final int INITIAL_SCORE = 0;
+    private static final double WORLD_WIDTH = 200;
+    private static final double WORLD_HEIGHT = 100;
+    private static final double WALL_WIDTH = 4;
 
     private final Queue<GameObject> startQueue;
+    private final Queue<GameObject> destroyQueue;
     private final List<GameObject> gameObjects;
     private int score;
     private final GameObjectFactory factory;
@@ -35,6 +41,7 @@ public class BaseLevel implements Level {
      */
     public BaseLevel() {
         this.startQueue = new LinkedList<>();
+        this.destroyQueue = new LinkedList<>();
         this.gameObjects = new LinkedList<>();
         this.score = INITIAL_SCORE;
         this.factory = new BasicFactory(this);
@@ -44,17 +51,23 @@ public class BaseLevel implements Level {
 
     @Override
     public void start() {
-        this.gameObjects.forEach(e -> e.start());
+        this.createWalls();
     }
 
     @Override
     public void update(final double deltaTime) {
         while (startQueue.size() > 0) {
             final GameObject obj = startQueue.poll();
-            objectCreatedEvent.trigger(obj);
             obj.start();
+            this.gameObjects.add(obj);
+            objectCreatedEvent.trigger(obj);
         }
         this.gameObjects.forEach(e -> e.update(deltaTime));
+        this.collisionManager.step();
+        while (destroyQueue.size() > 0) {
+            final GameObject obj = destroyQueue.poll();
+            this.gameObjects.remove(obj);
+        }
     }
 
     @Override
@@ -64,13 +77,12 @@ public class BaseLevel implements Level {
 
     @Override
     public void addGameObject(final GameObject obj) {
-        this.gameObjects.add(obj);
         this.startQueue.add(obj);
     }
 
     @Override
     public void removeGameObject(final GameObject obj) {
-        this.gameObjects.remove(obj);
+        this.destroyQueue.add(obj);
     }
 
     @Override
@@ -106,5 +118,16 @@ public class BaseLevel implements Level {
     @Override
     public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
         // A base level is not able to end.
+    }
+
+    private void createWalls() {
+        final GameObject horizontal1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
+        horizontal1.setPosition(Points2D.of(0, -WALL_WIDTH / 2));
+        final GameObject horizontal2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
+        horizontal2.setPosition(Points2D.of(0, WORLD_HEIGHT + (WALL_WIDTH / 2)));
+        final GameObject vertical1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
+        vertical1.setPosition(Points2D.of(-((WORLD_WIDTH / 2) + (WALL_WIDTH / 2)), WORLD_HEIGHT / 2));
+        final GameObject vertical2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
+        vertical2.setPosition(Points2D.of((WORLD_WIDTH / 2) + (WALL_WIDTH / 2), WORLD_HEIGHT / 2));
     }
 }

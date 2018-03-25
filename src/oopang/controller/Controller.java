@@ -1,6 +1,8 @@
 package oopang.controller;
 
 import oopang.commons.Command;
+import oopang.commons.events.EventHandler;
+import oopang.model.gameobjects.GameObject;
 
 /**
  * Controller of the application.
@@ -51,4 +53,12 @@ public interface Controller {
      *      the player the command is applied to.
      */
     void sendCommand(Command cmd, PlayerTag player);
+
+    /**
+     * Registers a new {@link EventHandler} to the object created event for the
+     * current level.
+     * @param handler
+     *      the {@link EventHandler} object.
+     */
+    void registerObjectCreatedEvent(EventHandler<GameObject> handler);
 }
