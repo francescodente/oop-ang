@@ -11,5 +11,6 @@ public enum GameScene {
     GAME_GUI,
     GAMEOVER,
     LEVEL_STEP,
+    LEVEL_RESET,
     PAUSE;
 }
