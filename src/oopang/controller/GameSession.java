@@ -2,6 +2,7 @@ package oopang.controller;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
@@ -72,28 +73,41 @@ public abstract class GameSession {
     /**
      * Tells the game session to start the next level and create the new game loop.
      */
-    public abstract void loadNewLevel();
-
-    /**
-     * Utility method for subclasses to start a new game loop and run the given level.
-     * @param leveldata
-     *      the {@link LevelData} to start.
-     */
-    protected final void startNewLevel(final LevelData leveldata) {
+    public void startNextLevel() {
+        Optional<LevelData> levelData = Optional.empty();
+        try {
+            levelData = this.getNextLevel();
+        } catch (Exception e) {
+            this.scene.getDialogFactory().createLevelNotLoaded(e).show();
+        }
+        if (!levelData.isPresent()) {
+            this.shouldEnd.trigger(true);
+            return;
+        }
+        this.currentLevel = levelData.get().getLevel();
         final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
         final InputController input = new InputController();
         inputMap.put(PlayerTag.PLAYER_ONE, input);
-        this.currentLevel = new SinglePlayerLevel(leveldata.getLevel(), input);
+        this.currentLevel = new SinglePlayerLevel(this.currentLevel, input);
         if (this.isMultiPlayer) {
             final InputController inputPlayerTwo = new InputController();
             inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
             this.currentLevel = new SinglePlayerLevel(this.currentLevel, inputPlayerTwo);
         }
-        currentLevel.registerGameOverEvent(this::handleGameOver);
+        this.currentLevel.registerGameOverEvent(this::handleGameOver);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
         this.scene.loadScene(GameScene.GAME_GUI);
         this.world.setCurrentLevel(this.currentLevel);
     }
+
+    /**
+     * Asks subclasses what is the next level to start.
+     * @return
+     *      An optional describing the level data or an empty optional if the game session should end.
+     * @throws Exception
+     *      when the level is not loaded correctly.
+     */
+    protected abstract Optional<LevelData> getNextLevel() throws Exception;
 
     /**
      * Contains the logic for when the level ends.
@@ -127,33 +141,6 @@ public abstract class GameSession {
      */
     public void registerShouldEndEvent(final EventHandler<Boolean> handler) {
         this.shouldEnd.registerHandler(handler);
-    }
-
-    /**
-     * Method that triggers the shouldEnd status.
-     * @param status
-     *      true if the session should end
-     */
-    protected void triggerShouldEnd(final Boolean status) {
-        this.shouldEnd.trigger(status);
-    }
-
-    /**
-     * Returns the View reference to children.
-     * @return
-     *      the view reference
-     */
-    protected View getScene() {
-        return scene;
-    }
-
-    /**
-     * Returns the Model reference to children.
-     * @return
-     *      the model reference
-     */
-    protected Model getWorld() {
-        return world;
     }
 
     /**

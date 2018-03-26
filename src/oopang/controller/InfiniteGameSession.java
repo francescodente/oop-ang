@@ -1,8 +1,6 @@
 package oopang.controller;
 
-import java.io.IOException;
-
-import org.xml.sax.SAXException;
+import java.util.Optional;
 
 import oopang.controller.loader.LevelData;
 import oopang.model.GameOverStatus;
@@ -14,6 +12,7 @@ import oopang.view.View;
  * Class representing a InfiniteGameSession.
  */
 public final class InfiniteGameSession extends GameSession {
+    private boolean levelStarted;
 
     /**
      * Constructor of the infinite {@link GameSession).
@@ -26,17 +25,7 @@ public final class InfiniteGameSession extends GameSession {
      */
     public InfiniteGameSession(final View view, final Model model, final boolean isMultiPlayer) {
         super(view, model, isMultiPlayer);
-    }
-
-    @Override
-    public void loadNewLevel() {
-        LevelData leveldata;
-        try {
-            leveldata = this.getLoader().loadInfiniteLevel();
-            super.startNewLevel(leveldata);
-        } catch (SAXException | IOException e) {
-            this.getScene().showDialog(this.getScene().getDialogFactory().createLevelNotLoaded(e));
-        }
+        this.levelStarted = false;
     }
 
     @Override
@@ -44,8 +33,16 @@ public final class InfiniteGameSession extends GameSession {
        final LevelResult result = status.getResult();
        if (result == LevelResult.PLAYER_DEAD) {
            super.addScore(status.getScore());
-           this.triggerShouldEnd(true);
        }
+    }
+
+    @Override
+    protected Optional<LevelData> getNextLevel() throws Exception {
+        if (this.levelStarted) {
+            return Optional.empty();
+        }
+        this.levelStarted = true;
+        return Optional.of(this.getLoader().loadInfiniteLevel());
     }
 
 }
