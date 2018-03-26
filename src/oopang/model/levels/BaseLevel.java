@@ -29,6 +29,7 @@ public class BaseLevel implements Level {
     private static final double WALL_WIDTH = 4;
 
     private final Queue<GameObject> startQueue;
+    private final Queue<GameObject> destroyQueue;
     private final List<GameObject> gameObjects;
     private int score;
     private final GameObjectFactory factory;
@@ -40,6 +41,7 @@ public class BaseLevel implements Level {
      */
     public BaseLevel() {
         this.startQueue = new LinkedList<>();
+        this.destroyQueue = new LinkedList<>();
         this.gameObjects = new LinkedList<>();
         this.score = INITIAL_SCORE;
         this.factory = new BasicFactory(this);
@@ -56,10 +58,16 @@ public class BaseLevel implements Level {
     public void update(final double deltaTime) {
         while (startQueue.size() > 0) {
             final GameObject obj = startQueue.poll();
-            objectCreatedEvent.trigger(obj);
             obj.start();
+            this.gameObjects.add(obj);
+            objectCreatedEvent.trigger(obj);
         }
         this.gameObjects.forEach(e -> e.update(deltaTime));
+        this.collisionManager.step();
+        while (destroyQueue.size() > 0) {
+            final GameObject obj = destroyQueue.poll();
+            this.gameObjects.remove(obj);
+        }
     }
 
     @Override
@@ -69,13 +77,12 @@ public class BaseLevel implements Level {
 
     @Override
     public void addGameObject(final GameObject obj) {
-        this.gameObjects.add(obj);
         this.startQueue.add(obj);
     }
 
     @Override
     public void removeGameObject(final GameObject obj) {
-        this.gameObjects.remove(obj);
+        this.destroyQueue.add(obj);
     }
 
     @Override
