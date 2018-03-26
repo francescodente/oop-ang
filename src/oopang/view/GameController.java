@@ -27,7 +27,7 @@ public class GameController extends SceneController {
      */
     public GameController(final InputWriter input) {
         super();
-        this.canvasDrawer = new JavaFXCanvasDrawer(new Canvas());
+        //this.canvasDrawer = new JavaFXCanvasDrawer();
         this.input = input;
         this.init();
     }
@@ -41,14 +41,13 @@ public class GameController extends SceneController {
             canvasDrawer.addRenderer(object);
             e.registerDestroyedEvent((r) -> {
                 canvasDrawer.removeRenderer(object);
-                e.destroy();
             });
         });
     }
 
     @Override
     protected void nextScene() {
-        this.getController().closeGameSession();
+        //this.getController().closeGameSession();
     }
 
     /**
@@ -56,7 +55,7 @@ public class GameController extends SceneController {
      * @param event
      *      The Key pressed
      */
-    public void handleInput(final KeyEvent event) {
+    private void handleInput(final KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.VK_LEFT) {
             this.getController().sendCommand((e) -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
         }
