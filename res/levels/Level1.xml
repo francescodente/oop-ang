@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level id = "1">
+    <Background>FUJI</Background>
+    <Time>60</Time>
+    <Gravity>
+        <Vector x = "0" y = "-1"/>
+    </Gravity>
+    <AvailablePower>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "DOUBLESHOOT"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "RED" size = "4">
+            <Velocity>
+                <Vector x = "10" y = "0"/>
+            </Velocity>
+            <Position>
+                <Vector x = "-70" y = "70"/>
+            </Position>
+        </Ball>
+    </GameObject>
+</Level>
