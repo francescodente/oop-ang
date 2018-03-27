@@ -107,9 +107,6 @@ public class XMLLevelLoader implements LevelLoader {
             if(pow == PowerTag.ADHESIVESHOT) {
                 this.powerList.add(() -> powerFactory.createAdhesiveShot());
             }
-            if(pow == PowerTag.ADHESIVESHOT) {
-                this.powerList.add(() -> powerFactory.createAdhesiveShot());
-            }
             if(pow == PowerTag.DOUBLESHOT) {
                 this.powerList.add(() -> powerFactory.createDoubleShot());
             }
