@@ -1,9 +1,7 @@
 package oopang.view;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Locale;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,13 +15,6 @@ public final class SceneLoader {
     private static final SceneLoader SINGLETON = new SceneLoader();
     private static final String PATH_START = "/scenes/";
     private static final String PATH_END = ".fxml";
-
-    private Map<GameScene, String> pathMap;
-
-    private SceneLoader() {
-        this.pathMap = Arrays.stream(GameScene.values())
-                .collect(Collectors.toMap(s -> s, s -> PATH_START + s.toString().toLowerCase() + PATH_END));
-    }
 
     /**
      * Returns the single instance of the SceneLoader.
@@ -40,11 +31,13 @@ public final class SceneLoader {
      *      the {@link GameScene} to be loaded
      * @return
      *      the Scene related to the given tag
-     * @throws IOException 
+     * @throws IOException
+     *      if the file is not loaded correctly
      */
     public SceneWrapper getScene(final GameScene sceneTag) throws IOException {
         final FXMLLoader loader = new FXMLLoader();
-        final Parent parent = loader.load(this.getClass().getResourceAsStream(pathMap.get(sceneTag)));
+        final String path = PATH_START + sceneTag.toString().toLowerCase(Locale.ROOT) + PATH_END;
+        final Parent parent = loader.load(this.getClass().getResourceAsStream(path));
         return new SceneWrapper(new Scene(parent), loader.getController());
     }
 }
