@@ -21,12 +21,10 @@ public class GameController extends SceneController {
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
         this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas);
-        this.getController().registerObjectCreatedEvent((e) -> {
+        this.getController().registerObjectCreatedEvent(e -> {
             final Renderer object = canvasDrawer.getRendererFactory().createGameObjectRenderer(e);
             canvasDrawer.addRenderer(object);
-            e.registerDestroyedEvent((r) -> {
-                canvasDrawer.removeRenderer(object);
-            });
+            e.registerDestroyedEvent(r -> canvasDrawer.removeRenderer(object));
         });
     }
 
