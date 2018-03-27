@@ -1,5 +1,6 @@
 package oopang.view.rendering.gameobject;
 
+import oopang.model.BallColor;
 import oopang.model.gameobjects.Ball;
 import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Sprite;
@@ -24,9 +25,22 @@ public class BallRenderer extends GameObjectRenderer<Ball> {
     public BallRenderer(final Sprite sprite, final Ball gameObject) {
         super(sprite, gameObject);
         this.setLayer(BALL_LAYER);
+        final BallColor color = gameObject.getColor();
         sprite.setSource(ImageID.BALL);
         final SpriteSheet spriteSheet = new SpriteSheet(sprite, COLUMNS, ROWS);
-        spriteSheet.setCell(0, 0);
+        if (color == BallColor.BLUE) {
+            spriteSheet.setCell(0, 0);
+        } else if (color == BallColor.YELLOW) {
+            spriteSheet.setCell(0, 1);
+        } else if (color == BallColor.RED) {
+            spriteSheet.setCell(0, 2);
+        } else if (color == BallColor.GREEN) {
+            spriteSheet.setCell(1, 2);
+        } else if (color == BallColor.ORANGE) {
+            spriteSheet.setCell(1, 0);
+        } else if (color == BallColor.PURPLE) {
+            spriteSheet.setCell(1, 1);
+        }
     }
 
 }
