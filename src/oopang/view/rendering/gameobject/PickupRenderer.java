@@ -1,8 +1,6 @@
 package oopang.view.rendering.gameobject;
 
-import oopang.model.BallColor;
 import oopang.model.gameobjects.Pickup;
-import oopang.model.powers.Power;
 import oopang.model.powers.PowerTag;
 import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Sprite;
