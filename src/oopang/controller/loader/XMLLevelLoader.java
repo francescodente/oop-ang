@@ -55,7 +55,7 @@ public class XMLLevelLoader implements LevelLoader {
         super();
         this.dbFactory = DocumentBuilderFactory.newInstance();
         this.dBuilder = dbFactory.newDocumentBuilder();
-        this.path = "/res/levels/";
+        this.path = "/levels/";
         this.powerFactory = factory;
         this.powerList = new LinkedList<>();
     }
