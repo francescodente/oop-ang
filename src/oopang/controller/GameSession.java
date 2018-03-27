@@ -29,6 +29,7 @@ public abstract class GameSession {
     private final View scene;
     private final Model world;
     private final LevelLoader loader;
+    private final Event<LevelData> levelCreatedEvent;
     private final Event<Boolean> shouldEnd;
 
     private int score;
@@ -50,6 +51,7 @@ public abstract class GameSession {
         this.scene = view;
         this.loader = new TestLevelLoader();
         this.shouldEnd = new Event<>();
+        this.levelCreatedEvent = new Event<>();
     }
 
     /**
@@ -151,5 +153,14 @@ public abstract class GameSession {
      */
     public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
         this.currentLevel.registerObjectCreatedEvent(handler);
+    }
+
+    /**
+     * Registers a new {@link EventHandler} to the level started event.
+     * @param handler
+     *      the {@link EventHandler} object.
+     */
+    public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
+        this.levelCreatedEvent.registerHandler(handler);
     }
 }

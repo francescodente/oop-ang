@@ -2,6 +2,7 @@ package oopang.controller;
 
 import oopang.commons.Command;
 import oopang.commons.events.EventHandler;
+import oopang.controller.loader.LevelData;
 import oopang.model.gameobjects.GameObject;
 
 /**
@@ -61,4 +62,11 @@ public interface Controller {
      *      the {@link EventHandler} object.
      */
     void registerObjectCreatedEvent(EventHandler<GameObject> handler);
+
+    /**
+     * Registers a new {@link EventHandler} to the level started event.
+     * @param handler
+     *      the {@link EventHandler} object.
+     */
+    void registerLevelStartedEvent(EventHandler<LevelData> handler);
 }

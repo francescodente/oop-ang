@@ -2,6 +2,7 @@ package oopang.controller;
 
 import oopang.commons.Command;
 import oopang.commons.events.EventHandler;
+import oopang.controller.loader.LevelData;
 import oopang.model.Model;
 import oopang.model.gameobjects.GameObject;
 import oopang.view.GameScene;
@@ -77,6 +78,11 @@ public class ControllerImpl implements Controller {
     @Override
     public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
         this.gameSession.registerObjectCreatedEvent(handler);
+    }
+
+    @Override
+    public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
+        this.gameSession.registerLevelStartedEvent(handler);
     }
 
 }
