@@ -25,6 +25,10 @@ public enum ImageID {
      */
     WALL("/wall/walltexture"),
     /**
+     * The image for Pickup.
+     */
+    PICKUP("/powers/Powers"),
+    /**
      * The background with Angkor Wat.
      */
     ANGKOR_WAT("/background/AngkorWat.png"),

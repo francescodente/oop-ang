@@ -27,6 +27,11 @@ public interface Power {
      *      the enhancement active state.
      */
     boolean isActive();
-
+    /**
+     * Return the PowerTag.
+     * @return
+     *      The PowerTag.
+     */
+    PowerTag getPowertag();
 
 }
