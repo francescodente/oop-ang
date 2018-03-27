@@ -1,15 +1,11 @@
 package oopang.view.javafx.controllers;
 
-import java.awt.event.KeyEvent;
-
+import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import oopang.controller.PlayerTag;
-import oopang.model.gameobjects.GameObject;
-import oopang.model.input.InputDirection;
-import oopang.model.input.InputWriter;
+import oopang.controller.Controller;
+import oopang.view.View;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.Renderer;
-import oopang.view.rendering.gameobject.GameObjectRenderer;
 import oopang.view.rendering.javafx.JavaFXCanvasDrawer;
 
 /**
@@ -17,25 +13,14 @@ import oopang.view.rendering.javafx.JavaFXCanvasDrawer;
  */
 public class GameController extends SceneController {
 
+    @FXML
+    private Canvas canvas;
     private CanvasDrawer canvasDrawer;
-    private InputWriter input;
 
-    /**
-     * Constructor of the GameGuiSceneController.
-     * @param input
-     *      The {@link InputWriter}
-     */
-    public GameController(final InputWriter input) {
-        super();
-        //this.canvasDrawer = new JavaFXCanvasDrawer();
-        this.input = input;
-        this.init();
-    }
-
-    /**
-     * Method that register all {@link GameObject} created and create the {@link GameObjectRenderer} related.
-     */
-    private void init() {
+    @Override
+    public void init(final Controller controller, final View view) {
+        super.init(controller, view);
+        this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas);
         this.getController().registerObjectCreatedEvent((e) -> {
             final Renderer object = canvasDrawer.getRendererFactory().createGameObjectRenderer(e);
             canvasDrawer.addRenderer(object);
@@ -51,34 +36,9 @@ public class GameController extends SceneController {
     }
 
     /**
-     * Actions of the user.
-     * @param event
-     *      The Key pressed
-     */
-    private void handleInput(final KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.VK_LEFT) {
-            this.getController().sendCommand((e) -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
-        }
-        if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
-            this.getController().sendCommand((e) -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_ONE);
-        }
-        if (event.getKeyCode() == KeyEvent.VK_D) {
-            this.getController().sendCommand((e) -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
-        }
-        if (event.getKeyCode() == KeyEvent.VK_A) {
-            this.getController().sendCommand((e) -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_TWO);
-        }
-        if (event.getKeyCode() == KeyEvent.VK_SPACE) {
-            this.getController().sendCommand((e) -> e.setShooting(true), PlayerTag.PLAYER_ONE);
-        }
-        if (event.getKeyCode() == KeyEvent.VK_W) {
-            this.getController().sendCommand((e) -> e.setShooting(true), PlayerTag.PLAYER_TWO);
-        }
-    }
-
-    /**
      * Renders the Scene.
      */
+    @Override
     public void render() {
         canvasDrawer.draw();
     }
