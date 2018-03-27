@@ -2,7 +2,11 @@ package oopang.view.javafx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
+import oopang.controller.PlayerTag;
+import oopang.model.input.InputDirection;
 import oopang.view.GameScene;
 import oopang.view.View;
 import oopang.view.rendering.CanvasDrawer;
@@ -32,8 +36,43 @@ public final class GameController extends SceneController {
             });
         });
     }
-    
-    public void handleInput() {
+
+    /**
+     * Method to handle input from players.
+     * @param event
+     *      the key pressed
+     */
+    public void handlePressed(final KeyEvent event) {
+        if (event.getCode() == KeyCode.LEFT) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
+        } else if (event.getCode() == KeyCode.RIGHT) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_ONE);
+        } else if (event.getCode() == KeyCode.SPACE) {
+            this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_ONE);
+        } else if (event.getCode() == KeyCode.A) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_TWO);
+        } else if (event.getCode() == KeyCode.D) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
+        } else if (event.getCode() == KeyCode.W) {
+            this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_TWO);
+        }
+    }
+
+    /**
+     * Method to handle the ReleasedKeyEvent.
+     * @param event
+     *      the key released
+     */
+    public void handleReleased(final KeyEvent event) {
+        if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_ONE);
+        } else if (event.getCode() == KeyCode.SPACE) {
+            this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_ONE);
+        } else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.D) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_TWO);
+        } else if (event.getCode() == KeyCode.W) {
+            this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_TWO);
+        }
     }
 
     /**
