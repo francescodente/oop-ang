@@ -1,6 +1,8 @@
 package oopang.view.javafx.controllers;
 
+import javafx.fxml.FXML;
 import oopang.controller.Controller;
+import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
@@ -33,23 +35,38 @@ public abstract class SceneController {
     }
 
     /**
-     * Method getter of the View.
-     * @return
-     *      the view.
+     * Redraws the menu on the screen.
      */
-    protected View getView() {
-        return this.view;
+    public void render() {
     }
-
-    /**
-     * Abstract Method that renders the menu.
-     * The implementation is empty because no all the class uses this method.
-     */
-    public void render() { }
 
     /**
      * Abstract method that depends on the scene selected.
      */
-    protected abstract void nextScene(); 
+    @FXML
+    public void nextScene() {
+        this.view.loadScene(this.getNextScene());
+    }
 
+    /**
+     * Returns the GameScene that needs to be loaded after this one.
+     * @return
+     *      The next {@link GameScene}.
+     */
+    protected abstract GameScene getNextScene();
+
+    /**
+     * Go to the previous scene.
+     */
+    @FXML
+    public void back() {
+        this.view.loadScene(this.getPreviousScene());
+    }
+
+    /**
+     * Returns the GameScene that needs to be loaded when back is clicked.
+     * @return
+     *      The {@link GameScene} to load on back call.
+     */
+    protected abstract GameScene getPreviousScene();
 }

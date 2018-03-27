@@ -7,11 +7,14 @@ import oopang.view.GameScene;
  */
 public final class MainMenuController extends SceneController {
 
-    /**
-     * Method that load the next scene from the View.
-     */
-    public void nextScene() {
-        this.getView().loadScene(GameScene.SELECT_PLAYERS);
+    @Override
+    protected GameScene getNextScene() {
+        return GameScene.SELECT_PLAYERS;
+    }
+
+    @Override
+    protected GameScene getPreviousScene() {
+        return GameScene.MAIN_MENU;
     }
 
 }

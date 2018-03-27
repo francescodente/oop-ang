@@ -1,5 +1,6 @@
 package oopang.view.javafx.controllers;
 
+import javafx.fxml.FXML;
 import oopang.view.GameParameters;
 import oopang.view.GameScene;
 
@@ -8,14 +9,10 @@ import oopang.view.GameScene;
  */
 public final class SelectPlayersController extends SceneController {
 
-    @Override
-    protected void nextScene() {
-        this.getView().loadScene(GameScene.SELECT_MODE);
-    }
-
     /**
      * Method that load the next scene from the selection Single Player.
      */
+    @FXML
     public void selectSinglePlayer() {
         GameParameters.setMultiplayer(false);
         this.nextScene();
@@ -24,9 +21,20 @@ public final class SelectPlayersController extends SceneController {
     /**
      * Method that load the next scene from the selection MultiPlayer.
      */
+    @FXML
     public void selectMultiPlayer() {
         GameParameters.setMultiplayer(true);
         this.nextScene();
+    }
+
+    @Override
+    protected GameScene getNextScene() {
+        return GameScene.SELECT_MODE;
+    }
+
+    @Override
+    protected GameScene getPreviousScene() {
+        return GameScene.MAIN_MENU;
     }
 
 }
