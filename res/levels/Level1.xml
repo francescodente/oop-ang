@@ -6,7 +6,7 @@
         <Vector x = "0" y = "-1"/>
     </Gravity>
     <AvailablePower>
-        <Power id = "SHIELD"/>
+        <Power id = "TIMEDSHIELD"/>
         <Power id = "DOUBLESHOOT"/>
     </AvailablePower>
     <GameObject>
