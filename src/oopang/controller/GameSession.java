@@ -146,16 +146,6 @@ public abstract class GameSession {
     }
 
     /**
-     * Registers a new {@link EventHandler} to the object created event for the
-     * current level.
-     * @param handler
-     *      the {@link EventHandler} object.
-     */
-    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.currentLevel.registerObjectCreatedEvent(handler);
-    }
-
-    /**
      * Registers a new {@link EventHandler} to the level started event.
      * @param handler
      *      the {@link EventHandler} object.

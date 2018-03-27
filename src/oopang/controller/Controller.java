@@ -56,14 +56,6 @@ public interface Controller {
     void sendCommand(Command cmd, PlayerTag player);
 
     /**
-     * Registers a new {@link EventHandler} to the object created event for the
-     * current level.
-     * @param handler
-     *      the {@link EventHandler} object.
-     */
-    void registerObjectCreatedEvent(EventHandler<GameObject> handler);
-
-    /**
      * Registers a new {@link EventHandler} to the level started event.
      * @param handler
      *      the {@link EventHandler} object.
