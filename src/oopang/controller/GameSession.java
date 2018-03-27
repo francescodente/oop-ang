@@ -97,9 +97,10 @@ public abstract class GameSession {
             this.currentLevel = new SinglePlayerLevel(this.currentLevel, inputPlayerTwo);
         }
         this.currentLevel.registerGameOverEvent(this::handleGameOver);
-        this.gameloop = new GameLoop(this.scene, this.world, inputMap);
-        this.scene.loadScene(GameScene.GAME_GUI);
+        this.levelCreatedEvent.trigger(levelData.get());
         this.world.setCurrentLevel(this.currentLevel);
+        this.gameloop = new GameLoop(this.scene, this.world, inputMap);
+        this.gameloop.start();
     }
 
     /**

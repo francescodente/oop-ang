@@ -1,6 +1,5 @@
 package oopang.view.javafx;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import oopang.controller.Controller;
@@ -14,18 +13,23 @@ import oopang.view.javafx.controllers.SceneController;
 /**
  * This is the concrete implementation of the view Interface.
  */
-public class JavaFXView extends Application implements View {
+public class JavaFXView implements View {
 
     private Controller control;
     private SceneController currentScene;
-    private Stage stage;
+    private final Stage stage;
     private DialogFactory dialogfactory;
+
+    public JavaFXView(final Stage stage) {
+        this.stage = stage;
+    }
 
     @Override
     public final void launch(final Controller controller) {
         this.control = controller;
         this.dialogfactory = new JavaFXDialogFactory(this);
-        launch(new String[0]);
+        this.stage.show();
+        this.loadScene(GameScene.MAIN_MENU);
     }
 
     @Override
@@ -35,7 +39,7 @@ public class JavaFXView extends Application implements View {
 
     @Override
     public final void loadScene(final GameScene scene) {
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             try {
                 final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
                 stage.setScene(wrapper.getScene());
@@ -44,18 +48,12 @@ public class JavaFXView extends Application implements View {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        //});
     }
 
     @Override
     public void showPauseMenu() {
         // TODO Auto-generated method stub
-    }
-
-    @Override
-    public final void start(final Stage primaryStage) throws Exception {
-        this.stage = primaryStage; 
-        this.loadScene(GameScene.MAIN_MENU);
     }
 
     @Override

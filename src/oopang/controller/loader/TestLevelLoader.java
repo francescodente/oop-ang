@@ -1,5 +1,9 @@
 package oopang.controller.loader;
 
+import oopang.model.levels.BaseLevel;
+import oopang.model.levels.Level;
+import oopang.view.rendering.ImageID;
+
 /**
  * Class to try some test for the game.
  */
@@ -13,8 +17,8 @@ public class TestLevelLoader implements LevelLoader {
 
     @Override
     public LevelData loadStoryLevel(final int index) {
-        // TODO Auto-generated method stub
-        return null;
+        final Level level = new BaseLevel();
+        return new LevelData(ImageID.TAJ_MAHAL, level);
     }
 
     @Override

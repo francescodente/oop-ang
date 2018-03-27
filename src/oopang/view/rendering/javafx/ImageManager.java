@@ -1,5 +1,6 @@
 package oopang.view.rendering.javafx;
 
+import java.io.InputStream;
 import java.util.EnumMap;
 import java.util.Map;
 import javafx.scene.image.Image;
@@ -30,7 +31,9 @@ public class ImageManager {
      *      The real {@link Image} object.
      */
     public Image getImage(final ImageID id) {
-        return new Image(id.getPath());
+        final String path = id.getPath();
+        final InputStream is = this.getClass().getResourceAsStream(path);
+        return new Image(is);
     }
 
     private static class ImageManagerProxy extends ImageManager {
@@ -43,7 +46,7 @@ public class ImageManager {
 
         @Override
         public Image getImage(final ImageID id) {
-            if (this.imageMap.containsKey(id)) {
+            if (!this.imageMap.containsKey(id)) {
                 final Image img = super.getImage(id);
                 this.imageMap.put(id, img);
                 return img;

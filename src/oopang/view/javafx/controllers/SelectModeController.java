@@ -17,6 +17,7 @@ public final class SelectModeController extends SceneController {
     @FXML
     public void startInfiniteGameChoose() {
         this.getController().startInifiniteGameSession(GameParameters.isMultiplayer());
+        this.nextScene();
     }
 
     /**
@@ -26,6 +27,7 @@ public final class SelectModeController extends SceneController {
     public void storyModeChoose() {
         GameParameters.setLevelindex(START_LEVEL_INDEX);
         this.getController().startStoryGameSession(GameParameters.getLevelindex(), GameParameters.isMultiplayer());
+        this.nextScene();
     }
 
     @Override

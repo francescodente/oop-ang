@@ -34,7 +34,6 @@ public class ControllerImpl implements Controller {
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, levelIndex);
         this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
-        this.gameSession.startNextLevel();
     }
 
     @Override

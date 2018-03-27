@@ -27,7 +27,7 @@ public enum ImageID {
     /**
      * The background with Angkor Wat.
      */
-    ANGKOR_WAT("/background/AngkorWat.png"),
+    ANGKOR_WAT("/background/AngkorWat"),
     /**
      * The background with Antartica.
      */
