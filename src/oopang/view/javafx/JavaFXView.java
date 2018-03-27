@@ -1,6 +1,7 @@
 package oopang.view.javafx;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import oopang.controller.Controller;
 import oopang.view.GameScene;
@@ -29,19 +30,21 @@ public class JavaFXView extends Application implements View {
 
     @Override
     public final void render() {
-        this.currentScene.render();
+        Platform.runLater(() -> this.currentScene.render());
     }
 
     @Override
     public final void loadScene(final GameScene scene) {
-        try {
-            final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
-            stage.setScene(wrapper.getScene());
-            wrapper.getController().init(control, this);
-            this.currentScene = wrapper.getController();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Platform.runLater(() -> {
+            try {
+                final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
+                stage.setScene(wrapper.getScene());
+                wrapper.getController().init(control, this);
+                this.currentScene = wrapper.getController();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -57,7 +60,7 @@ public class JavaFXView extends Application implements View {
 
     @Override
     public void showDialog(final Dialog dialog) {
-        dialog.show();
+        Platform.runLater(dialog::show);
     }
 
     @Override
