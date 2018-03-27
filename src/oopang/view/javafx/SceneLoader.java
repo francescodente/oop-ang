@@ -1,4 +1,4 @@
-package oopang.view;
+package oopang.view.javafx;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -6,6 +6,7 @@ import java.util.Locale;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import oopang.view.GameScene;
 
 /**
  * This class loads the given GameScene to its corresponding fxml file.

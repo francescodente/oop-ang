@@ -1,5 +1,6 @@
-package oopang.view;
+package oopang.view.javafx.controllers;
 
+import oopang.view.GameScene;
 
 /**
  * This class implements the scene MainMenu.

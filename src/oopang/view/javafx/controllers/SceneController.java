@@ -1,6 +1,7 @@
-package oopang.view;
+package oopang.view.javafx.controllers;
 
 import oopang.controller.Controller;
+import oopang.view.View;
 
 /**
  * This represent the Abstract Class that define different Menu scenes.

@@ -1,6 +1,7 @@
-package oopang.view;
+package oopang.view.javafx;
 
 import javafx.scene.Scene;
+import oopang.view.javafx.controllers.SceneController;
 
 /**
  * This object wraps a Scene with its associated controller.

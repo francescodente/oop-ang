@@ -1,4 +1,4 @@
-package oopang.view;
+package oopang.view.javafx.controllers;
 
 import java.awt.event.KeyEvent;
 

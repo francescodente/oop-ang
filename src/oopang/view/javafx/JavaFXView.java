@@ -1,11 +1,14 @@
-package oopang.view;
+package oopang.view.javafx;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 import oopang.controller.Controller;
+import oopang.view.GameScene;
+import oopang.view.View;
 import oopang.view.dialogs.Dialog;
 import oopang.view.dialogs.DialogFactory;
 import oopang.view.dialogs.JavaFXDialogFactory;
+import oopang.view.javafx.controllers.SceneController;
 
 /**
  * This is the concrete implementation of the view Interface.
