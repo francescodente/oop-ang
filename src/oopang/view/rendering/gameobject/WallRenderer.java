@@ -12,7 +12,7 @@ import oopang.view.rendering.Sprite;
 public class WallRenderer extends GameObjectRenderer<Wall> {
 
     private static final double MAX_WALL_SIZE = 100;
-    private static final int WALL_LAYER = 1; // TODO: almost certainly wrong.
+    private static final int WALL_LAYER = 1;
     /**
      * Creates a new {@link Wall} Renderer given its Wall {@link GameObject}.
      * @param sprite

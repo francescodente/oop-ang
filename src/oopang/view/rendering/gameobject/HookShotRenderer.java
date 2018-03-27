@@ -15,8 +15,7 @@ import oopang.view.rendering.Sprite;
 public class HookShotRenderer extends GameObjectRenderer<HookShot> {
 
     private static final double MAX_SHOT_HEIGHT = 100;
-    private static final int SHOT_LAYER = 1; 
-    //TODO almost certainly wrong.
+    private static final int SHOT_LAYER = 2;
 
     /**
      * Creates a new {@link Shot} Renderer given its Shot {@link GameObject}.

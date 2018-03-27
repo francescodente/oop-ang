@@ -10,7 +10,7 @@ import oopang.view.rendering.Sprite;
  */
 public class PlayerRenderer extends GameObjectRenderer<Player> {
 
-    private static final int PLAYER_LAYER = 1;
+    private static final int PLAYER_LAYER = 3;
     /**
      * Constructor of the {@link Player} Renderer.
      * @param sprite
