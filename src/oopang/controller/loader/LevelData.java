@@ -1,5 +1,6 @@
 package oopang.controller.loader;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import oopang.controller.DayTime;
@@ -12,8 +13,8 @@ import oopang.view.rendering.ImageID;
  */
 public class LevelData {
 
-    private static final Double MORNING = 12.00;
-    private static final Double AFTERNOON = 19.00;
+    private static final int MORNING = 12;
+    private static final int AFTERNOON = 19;
 
     private final ImageID background;
     private final DayTime time;
@@ -29,17 +30,17 @@ public class LevelData {
     public LevelData(final ImageID background, final Level level) {
         super();
         this.background = background;
-        this.time = findDayTime(new Date());
+        this.time = findDayTime(Calendar.getInstance());
         this.level = level;
     }
 
     /**
      * Utility method to set the DayTime.
      */
-    private DayTime findDayTime(final Date currentTime) {
-        if (currentTime.getTime() < MORNING) {
+    private DayTime findDayTime(final Calendar rightNow) {
+        if (rightNow.get(Calendar.HOUR_OF_DAY) < MORNING) {
             return DayTime.MORNING;
-        } else if (currentTime.getTime() > MORNING && currentTime.getTime() < AFTERNOON) {
+        } else if (rightNow.get(Calendar.HOUR_OF_DAY) > MORNING && rightNow.get(Calendar.HOUR_OF_DAY) < AFTERNOON) {
             return DayTime.AFTERNOON;
         }
         return DayTime.NIGHT;
