@@ -12,6 +12,8 @@ import oopang.view.rendering.ImageID;
  */
 public class TestLevelLoader implements LevelLoader {
 
+    private static final double XSPEED = 22.5;
+
     @Override
     public LevelData loadInfiniteLevel() {
         // TODO Auto-generated method stub
@@ -21,8 +23,8 @@ public class TestLevelLoader implements LevelLoader {
     @Override
     public LevelData loadStoryLevel(final int index) {
         final Level level = new BaseLevel();
-        level.getGameObjectFactory().createBall(3, Vectors2D.LEFT.multiply(10), BallColor.BLUE).setPosition(Points2D.of(0, 50));
-        return new LevelData(ImageID.FUJI, level);
+        level.getGameObjectFactory().createBall(3, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(Points2D.of(70, 50));
+        return new LevelData(ImageID.TAJ_MAHAL, level);
     }
 
     @Override

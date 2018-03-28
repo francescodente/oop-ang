@@ -25,8 +25,7 @@ public class Ball extends AbstractGameObject {
     private static final double BOUNCE_SPEED = 5;
     private static final double SIZE_MULTIPLIER = 1.5;
     private static final int MIN_BALL_SIZE = 1;
-    private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
-    private static final Vector2D VECTORSX = Vectors2D.of(-1, 1);
+    private static double CONST;
 
     private final GravityComponent gravity;
     private final MovementComponent movement;
@@ -49,6 +48,7 @@ public class Ball extends AbstractGameObject {
         this.size = size;
         this.radius = calculateRadius(size);
         this.gravity = new GravityComponent(this);
+        Ball.CONST = -this.gravity.getGravity().getY() / 2;
         this.movement = new MovementComponent(this);
         this.movement.setVelocity(vector);
         this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
@@ -95,7 +95,7 @@ public class Ball extends AbstractGameObject {
      */
     private void bounce() {
         final Vector2D vector = this.movement.getVelocity();
-        this.movement.setVelocity(Vectors2D.of(vector.getX(), BOUNCE_SPEED * radius));
+        this.movement.setVelocity(Vectors2D.of(vector.getX(), this.radius * BOUNCE_SPEED + CONST));
     }
 
     /**
@@ -119,9 +119,9 @@ public class Ball extends AbstractGameObject {
      */
     private void generate() {
         if (this.size > MIN_BALL_SIZE) {
-            final double module = this.movement.getVelocity().getX();
-            final GameObject balldx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORDX.multiply(module), this.color);
-            final GameObject ballsx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORSX.multiply(module), this.color);
+            final double xmodule = this.movement.getVelocity().getX();
+            final GameObject balldx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, Vectors2D.of(xmodule, CONST), this.color);
+            final GameObject ballsx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, Vectors2D.of(-xmodule, CONST), this.color);
             balldx.setPosition(this.getPosition());
             ballsx.setPosition(this.getPosition());
         }
