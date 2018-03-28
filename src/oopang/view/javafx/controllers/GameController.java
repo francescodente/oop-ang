@@ -43,6 +43,7 @@ public final class GameController extends SceneController {
      * @param event
      *      the key pressed
      */
+    @FXML
     public void handlePressed(final KeyEvent event) {
         if (event.getCode() == KeyCode.LEFT) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
@@ -64,6 +65,7 @@ public final class GameController extends SceneController {
      * @param event
      *      the key released
      */
+    @FXML
     public void handleReleased(final KeyEvent event) {
         if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_ONE);
