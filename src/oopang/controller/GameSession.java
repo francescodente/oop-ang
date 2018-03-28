@@ -11,12 +11,10 @@ import oopang.controller.loader.LevelLoader;
 import oopang.controller.loader.TestLevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.Model;
-import oopang.model.gameobjects.GameObject;
 import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
 import oopang.model.levels.Level;
 import oopang.model.levels.SinglePlayerLevel;
-import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
@@ -25,7 +23,6 @@ import oopang.view.View;
 public abstract class GameSession {
 
     private GameLoop gameloop;
-    private Level currentLevel;
     private final View scene;
     private final Model world;
     private final LevelLoader loader;
@@ -86,19 +83,19 @@ public abstract class GameSession {
             this.shouldEnd.trigger(true);
             return;
         }
-        this.currentLevel = levelData.get().getLevel();
+        Level currentLevel = levelData.get().getLevel();
         final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
         final InputController input = new InputController();
         inputMap.put(PlayerTag.PLAYER_ONE, input);
-        this.currentLevel = new SinglePlayerLevel(this.currentLevel, input);
+        currentLevel = new SinglePlayerLevel(currentLevel, input);
         if (this.isMultiPlayer) {
             final InputController inputPlayerTwo = new InputController();
             inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
-            this.currentLevel = new SinglePlayerLevel(this.currentLevel, inputPlayerTwo);
+            currentLevel = new SinglePlayerLevel(currentLevel, inputPlayerTwo);
         }
-        this.currentLevel.registerGameOverEvent(this::handleGameOver);
+        currentLevel.registerGameOverEvent(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
-        this.world.setCurrentLevel(this.currentLevel);
+        this.world.setCurrentLevel(currentLevel);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
         this.gameloop.start();
     }
