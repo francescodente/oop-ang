@@ -1,7 +1,9 @@
 package oopang.view.rendering.javafx;
 
 import javafx.scene.canvas.Canvas;
+import oopang.controller.DayTime;
 import oopang.view.rendering.AbstractRendererFactory;
+import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Renderer;
 import oopang.view.rendering.Sprite;
 
@@ -28,8 +30,8 @@ public class JavaFXRendererFactory extends AbstractRendererFactory {
     }
 
     @Override
-    public final Renderer createBackgroundRenderer() {
-        return null;
+    public final Renderer createBackgroundRenderer(final DayTime time, final ImageID id) {
+        return new JavaFXBackgroundRenderer(this.createSprite(), time, id);
     }
 
 }

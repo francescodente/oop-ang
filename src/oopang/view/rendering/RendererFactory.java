@@ -1,5 +1,6 @@
 package oopang.view.rendering;
 
+import oopang.controller.DayTime;
 import oopang.model.gameobjects.GameObject;
 
 /**
@@ -29,5 +30,5 @@ public interface RendererFactory {
      * @return
      *      the renderer.
      */
-    Renderer createBackgroundRenderer();
+    Renderer createBackgroundRenderer(DayTime time, ImageID id );
 }
