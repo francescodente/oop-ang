@@ -6,10 +6,19 @@ import oopang.model.levels.Level;
  * Model of the application.
  */
 public interface Model {
-    public static final double WORLD_WIDTH = 200;
-    public static final double WORLD_HEIGHT = 100;
-    public static final double WALL_WIDTH = 4;
-    
+    /**
+     * Default width for the levels.
+     */
+    double WORLD_WIDTH = 200;
+    /**
+     * Default height for the levels.
+     */
+    double WORLD_HEIGHT = 100;
+    /**
+     * Default wall width for external walls.
+     */
+    double WALL_WIDTH = 4;
+
     /**
      * Updates the model's state.
      * @param deltaTime
