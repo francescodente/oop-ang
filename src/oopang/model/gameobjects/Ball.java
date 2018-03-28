@@ -22,7 +22,7 @@ import oopang.model.physics.CollisionTag;
  */
 public class Ball extends AbstractGameObject {
 
-    private static final double BOUNCE_SPEED = 1;
+    private static final double BOUNCE_SPEED = 10;
     private static final double SIZE_MULTIPLIER = 1.5;
     private static final int MIN_BALL_SIZE = 1;
     private static final Vector2D VECTORDX = Vectors2D.of(1, 1);
@@ -119,8 +119,10 @@ public class Ball extends AbstractGameObject {
      */
     private void generate() {
         if (this.size > MIN_BALL_SIZE) {
-            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORDX, this.color);
-            LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORSX, this.color);
+            final GameObject balldx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORDX, this.color);
+            final GameObject ballsx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, VECTORSX, this.color);
+            balldx.setPosition(this.getPosition());
+            ballsx.setPosition(this.getPosition());
         }
         this.destroy();
     }
