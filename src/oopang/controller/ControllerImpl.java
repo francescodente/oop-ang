@@ -4,7 +4,6 @@ import oopang.commons.Command;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.model.Model;
-import oopang.model.gameobjects.GameObject;
 import oopang.view.GameScene;
 import oopang.view.View;
 

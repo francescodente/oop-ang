@@ -3,7 +3,6 @@ package oopang.controller;
 import oopang.commons.Command;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
-import oopang.model.gameobjects.GameObject;
 
 /**
  * Controller of the application.
