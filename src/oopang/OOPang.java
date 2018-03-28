@@ -10,11 +10,16 @@ import oopang.view.View;
 import oopang.view.javafx.JavaFXView;
 
 /**
- * THE GOD CLASS.
+ * The class containing the main method.
  */
 public class OOPang extends Application {
 
-    public static void main(String[] args) {
+    /**
+     * The main entry point of the application.
+     * @param args
+     *      CLI arguments.
+     */
+    public static void main(final String[] args) {
         launch(args);
     }
 
