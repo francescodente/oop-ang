@@ -17,7 +17,7 @@ public interface Model {
     /**
      * Default wall width for external walls.
      */
-    double WALL_WIDTH = 4;
+    double WALL_WIDTH = 5;
 
     /**
      * Updates the model's state.

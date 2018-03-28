@@ -29,6 +29,7 @@ public final class GameController extends SceneController {
         super.init(controller, view);
         this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas);
         this.resetGameCanvasCoordinates();
+        this.canvas.requestFocus();
         this.getController().registerLevelStartedEvent(i -> {
             final Renderer background = canvasDrawer.getRendererFactory().createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);

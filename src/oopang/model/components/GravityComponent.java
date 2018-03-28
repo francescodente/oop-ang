@@ -9,13 +9,13 @@ import oopang.model.gameobjects.GameObject;
  */
 public class GravityComponent extends AbstractComponent {
 
-    private static final Vector2D DEFAULT_GRAVITY_ACC = Vectors2D.of(0, -9.81);
+    private static final Vector2D DEFAULT_GRAVITY_ACC = Vectors2D.of(0, -50);
 
     private final Vector2D gravity;
     private MovementComponent movement;
 
     /**
-     * Creates a new GravityComponent instance with default gravity acceleration (0, -9.81).
+     * Creates a new GravityComponent instance with default gravity acceleration (0, -50).
      * @param obj
      *      the game object this component is attached to.
      */

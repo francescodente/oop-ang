@@ -28,7 +28,7 @@ public class Player extends AbstractGameObject {
 
     private static final double WIDTH = 12;
     private static final double HEIGHT = 15;
-    private static final double DEFAULT_SPEED = 1;
+    private static final double DEFAULT_SPEED = 30;
     private static final Supplier<Shot> DEFAULT_SHOT = 
             () -> LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
 
@@ -63,6 +63,7 @@ public class Player extends AbstractGameObject {
      */
     @Override
     public void start() {
+        super.start();
         this.collision.registerCollisionEvent(this::checkCollission);
     }
 

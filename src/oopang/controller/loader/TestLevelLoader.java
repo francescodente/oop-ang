@@ -1,5 +1,8 @@
 package oopang.controller.loader;
 
+import oopang.commons.space.Points2D;
+import oopang.commons.space.Vectors2D;
+import oopang.model.BallColor;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.Level;
 import oopang.view.rendering.ImageID;
@@ -18,7 +21,8 @@ public class TestLevelLoader implements LevelLoader {
     @Override
     public LevelData loadStoryLevel(final int index) {
         final Level level = new BaseLevel();
-        return new LevelData(ImageID.TAJ_MAHAL, level);
+        level.getGameObjectFactory().createBall(3, Vectors2D.LEFT.multiply(10), BallColor.BLUE).setPosition(Points2D.of(0, 50));
+        return new LevelData(ImageID.FUJI, level);
     }
 
     @Override

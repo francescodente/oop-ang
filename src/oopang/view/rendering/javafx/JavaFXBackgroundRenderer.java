@@ -1,6 +1,8 @@
 package oopang.view.rendering.javafx;
 
+import oopang.commons.space.Points2D;
 import oopang.controller.DayTime;
+import oopang.model.Model;
 import oopang.view.rendering.GenericBackgroundRenderer;
 import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Sprite;
@@ -37,6 +39,9 @@ public class JavaFXBackgroundRenderer extends GenericBackgroundRenderer {
             sheet.setCell(2, 0);
         }
         this.setLayer(BACKGROUND_LAYER);
+        sprite.setPosition(Points2D.of(0, Model.WORLD_HEIGHT / 2));
+        sprite.setWidth(Model.WORLD_WIDTH + Model.WALL_WIDTH * 2);
+        sprite.setHeight(Model.WORLD_HEIGHT + Model.WALL_WIDTH * 2);
     }
 
 }

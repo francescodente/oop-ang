@@ -21,7 +21,7 @@ public abstract class Shot extends AbstractGameObject {
     /**
      * Standard Speed for all Shot objects.
      */
-    protected static final double SPEED = 1;
+    protected static final double SPEED = 70;
 
     private final MovementComponent movementComponent;
     private final CollisionComponent collisionComponent;
