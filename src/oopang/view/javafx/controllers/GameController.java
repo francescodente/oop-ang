@@ -2,10 +2,12 @@ package oopang.view.javafx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
 import oopang.controller.PlayerTag;
+import oopang.model.Model;
 import oopang.model.input.InputDirection;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -26,6 +28,7 @@ public final class GameController extends SceneController {
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
         this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas);
+        this.resetGameCanvasCoordinates();
         this.getController().registerLevelStartedEvent(i -> {
             final Renderer background = canvasDrawer.getRendererFactory().createBackgroundRenderer();
             //this.canvasDrawer.addRenderer(background);
@@ -94,5 +97,17 @@ public final class GameController extends SceneController {
     @Override
     protected GameScene getPreviousScene() {
         return GameScene.MAIN_MENU;
+    }
+
+    private void resetGameCanvasCoordinates() {
+        final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        final double canvasWidth = this.canvas.getWidth();
+        final double canvasHeight = this.canvas.getHeight();
+        gc.fillRect(0, 0, canvasWidth, canvasHeight);
+        gc.scale(1, -1);
+        gc.translate(canvasWidth / 2, -canvasHeight);
+        gc.scale(canvasWidth / (Model.WORLD_WIDTH + Model.WALL_WIDTH * 2),
+                canvasHeight / (Model.WORLD_HEIGHT + Model.WALL_WIDTH * 2));
+        gc.translate(0, Model.WALL_WIDTH);
     }
 }
