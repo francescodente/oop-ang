@@ -32,15 +32,16 @@ public final class JavaFXImageSprite extends GenericSprite {
     @Override
     public void render() {
         this.gc.translate(
-                this.getPivot().getX() * this.getWidth(),
-                this.getPivot().getY() * this.getHeight());
+                this.getPosition().getX(),
+                this.getPosition().getY());
+        this.gc.scale(1, -1);
         this.gc.drawImage(this.image,
                 this.getSourceTopLeftCorner().getX(),
                 this.getSourceTopLeftCorner().getY(),
                 this.getSourceOffset().getX(),
                 this.getSourceOffset().getY(),
-                this.getPosition().getX(),
-                this.getPosition().getY(),
+                (this.getPivot().getX() - 1) * this.getWidth() / 2,
+                (this.getPivot().getY() - 1) * this.getHeight() / 2,
                 this.getWidth(),
                 this.getHeight());
     }
