@@ -16,7 +16,7 @@ public final class Freeze extends PowerTimed {
     private static final PowerTag TAG = PowerTag.FREEZE;
     private static final int INITIALVALUE = 3;
     private static final double TIMEFEE = 0.5;
-    
+
     private final EventHandler<GameObject> freezer;
 /**
  * This constructor set time.

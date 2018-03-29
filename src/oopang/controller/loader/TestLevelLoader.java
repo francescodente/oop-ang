@@ -31,8 +31,9 @@ public class TestLevelLoader implements LevelLoader {
     public LevelData loadInfiniteLevel() {
         Level level = new BaseLevel();
         final Supplier<Power> freeze = () -> factory.createFreeze();
-        level = new InfiniteLevel(new PickUpGeneratingLevel(level, Arrays.asList(freeze)));
-        return new LevelData(ImageID.ANGKOR_WAT, level);
+        final Supplier<Power> doubleShoot = () -> factory.createDoubleShot();
+        level = new InfiniteLevel(new PickUpGeneratingLevel(level, Arrays.asList(freeze, doubleShoot)));
+        return new LevelData(ImageID.ULURU, level);
     }
 
     @Override

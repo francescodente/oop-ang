@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import org.dyn4j.geometry.Circle;
 
 import oopang.commons.LevelManager;
+import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
@@ -127,11 +128,12 @@ public class Ball extends AbstractGameObject {
      */
     private void generate() {
         if (this.size > MIN_BALL_SIZE) {
-            final double xmodule = this.movement.getVelocity().getX();
+            final double xmodule = Math.abs(this.movement.getVelocity().getX());
+            final double deltaX = Ball.calculateRadius(this.size - 1);
             final GameObject balldx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, Vectors2D.of(xmodule, gConst / 2), this.color);
             final GameObject ballsx = LevelManager.getCurrentLevel().getGameObjectFactory().createBall(this.size - 1, Vectors2D.of(-xmodule, gConst / 2), this.color);
-            balldx.setPosition(this.getPosition());
-            ballsx.setPosition(this.getPosition());
+            balldx.setPosition(this.getPosition().translate(Vectors2D.of(deltaX, 0)));
+            ballsx.setPosition(this.getPosition().translate(Vectors2D.of(-deltaX, 0)));
         }
         this.destroy();
     }
