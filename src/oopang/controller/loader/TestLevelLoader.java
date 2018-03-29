@@ -10,6 +10,7 @@ import oopang.model.levels.BaseLevel;
 import oopang.model.levels.InfiniteLevel;
 import oopang.model.levels.Level;
 import oopang.model.levels.PickUpGeneratingLevel;
+import oopang.model.levels.TimedLevel;
 import oopang.model.powers.BasicPowerFactory;
 import oopang.model.powers.Power;
 import oopang.model.powers.PowerFactory;
@@ -33,8 +34,8 @@ public class TestLevelLoader implements LevelLoader {
 
     @Override
     public LevelData loadStoryLevel(final int index) {
-        final Level level = new BaseLevel();
-        level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(Points2D.of(70, 50));
+        final Level level = new TimedLevel(new BaseLevel(), 100);
+        level.getGameObjectFactory().createBall(2, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(Points2D.of(70, 50));
         return new LevelData(ImageID.TAJ_MAHAL, level);
     }
 

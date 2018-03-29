@@ -16,7 +16,7 @@ public interface LevelLoader {
      * @throws IOException 
      * @throws SAXException 
      */
-    LevelData loadInfiniteLevel() throws SAXException, IOException;
+    LevelData loadInfiniteLevel() throws IOException;
 
     /**
      * Method that load a level of the story mode.
@@ -27,7 +27,7 @@ public interface LevelLoader {
      * @throws IOException 
      * @throws SAXException 
      */
-    LevelData loadStoryLevel(int index) throws SAXException, IOException;
+    LevelData loadStoryLevel(int index) throws IOException;
 
     /**
      * Method that load the Tutorial.
