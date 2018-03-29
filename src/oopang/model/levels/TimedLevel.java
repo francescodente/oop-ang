@@ -1,8 +1,11 @@
 package oopang.model.levels;
 
+import oopang.commons.space.Vector2D;
+import oopang.model.BallColor;
 import oopang.model.LevelResult;
-import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.GameObjectFactory;
+import oopang.model.gameobjects.GameObjectFactoryDecorator;
 
 /**
  * Represents a decorator for level that adds timeout functionality. Specifically, the GameOver event
@@ -23,16 +26,6 @@ public class TimedLevel extends GameOverLevelDecorator {
     public TimedLevel(final Level baseLevel, final double time) {
         super(baseLevel);
         this.timeLeft = time;
-        this.ballCount = baseLevel.getAllObjects().filter(obj -> obj instanceof Ball).mapToInt(o -> 1).sum();
-    }
-
-    @Override
-    public void addGameObject(final GameObject obj) {
-        super.addGameObject(obj);
-        if (obj instanceof Ball) {
-            this.ballCount++;
-            obj.registerDestroyedEvent(o -> this.ballCount--);
-        }
     }
 
     @Override
@@ -45,5 +38,18 @@ public class TimedLevel extends GameOverLevelDecorator {
         if (this.ballCount == 0) {
             this.endLevel(LevelResult.LEVEL_COMPLETE);
         }
+    }
+
+    @Override
+    public GameObjectFactory getGameObjectFactory() {
+        return new GameObjectFactoryDecorator(super.getGameObjectFactory()) {
+            @Override
+            public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
+                final GameObject ball = super.createBall(size, velocity, color);
+                ballCount++;
+                ball.registerDestroyedEvent(b -> ballCount--);
+                return ball;
+            }
+        };
     }
 }
