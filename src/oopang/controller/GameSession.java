@@ -1,5 +1,6 @@
 package oopang.controller;
 
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
 import oopang.model.levels.Level;
 import oopang.model.levels.SinglePlayerLevel;
+import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
@@ -107,14 +109,27 @@ public abstract class GameSession {
      * @throws Exception
      *      when the level is not loaded correctly.
      */
-    protected abstract Optional<LevelData> getNextLevel() throws Exception;
+    protected abstract Optional<LevelData> getNextLevel() throws IOException;
 
     /**
      * Contains the logic for when the level ends.
      * @param status
      *      the status of the level.
      */
-    protected abstract void handleGameOver(GameOverStatus status);
+    protected void handleGameOver(final GameOverStatus status) {
+        this.gameloop.stopLoop();
+        switch (status.getResult()) {
+        case LEVEL_COMPLETE:
+            this.scene.loadScene(GameScene.LEVEL_STEP);
+            break;
+        case PLAYER_DEAD:
+        case OUT_OF_TIME:
+            this.scene.loadScene(GameScene.GAMEOVER); // TODO: Change to LEVEL_RESET.
+            break;
+        default:
+            break;
+        }
+    }
 
     /**
      * Add the given score to the global score.

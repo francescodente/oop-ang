@@ -1,5 +1,6 @@
 package oopang.controller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import oopang.controller.loader.LevelData;
@@ -30,14 +31,15 @@ public final class InfiniteGameSession extends GameSession {
 
     @Override
     protected void handleGameOver(final GameOverStatus status) {
-       final LevelResult result = status.getResult();
-       if (result == LevelResult.PLAYER_DEAD) {
-           super.addScore(status.getScore());
-       }
+        super.handleGameOver(status);
+        final LevelResult result = status.getResult();
+        if (result == LevelResult.PLAYER_DEAD) {
+            super.addScore(status.getScore());
+        }
     }
 
     @Override
-    protected Optional<LevelData> getNextLevel() throws Exception {
+    protected Optional<LevelData> getNextLevel() throws IOException {
         if (this.levelStarted) {
             return Optional.empty();
         }
