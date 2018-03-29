@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 import org.dyn4j.geometry.Circle;
 
 import oopang.commons.LevelManager;
-import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;

@@ -1,6 +1,5 @@
 package oopang.model.powers;
 
-
 import oopang.commons.LevelManager;
 import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
@@ -9,6 +8,7 @@ import oopang.model.components.MovementComponent;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.Player;
+
 /**
  * This enhancement freezes all the balls in the level for a certain period of time.
  */
@@ -16,19 +16,19 @@ public final class Freeze extends PowerTimed {
     private static final PowerTag TAG = PowerTag.FREEZE;
     private static final int INITIALVALUE = 3;
     private static final double TIMEFEE = 0.5;
-
     private final EventHandler<GameObject> freezer;
-/**
- * This constructor set time.
- * @param timeout
- *       Is the duration of enhancements.
- */
+
+    /**
+     * This constructor set time.
+     * @param timeout
+     *       Is the duration of enhancements.
+     */
     private Freeze(final double timeout) {
         super(timeout, TAG);
         this.freezer = obj -> {
-            if (Ball.class.isInstance(obj)) {
-            obj.getComponent(MovementComponent.class).ifPresent(c -> c.disable());
-            obj.getComponent(GravityComponent.class).ifPresent(c -> c.disable());
+            if (obj instanceof Ball) {
+                obj.getComponent(MovementComponent.class).ifPresent(c -> c.disable());
+                obj.getComponent(GravityComponent.class).ifPresent(c -> c.disable());
             }
         };
     }
@@ -47,7 +47,7 @@ public final class Freeze extends PowerTimed {
     protected void deactivate() {
         super.deactivate();
         LevelManager.getCurrentLevel().getAllObjects()
-        .filter(obj -> Ball.class.isInstance(obj))
+        .filter(obj -> obj instanceof Ball)
         .forEach(obj -> {
             obj.getComponent(MovementComponent.class).ifPresent(c -> c.enable());
             obj.getComponent(GravityComponent.class).ifPresent(c -> c.enable());
@@ -67,7 +67,7 @@ public final class Freeze extends PowerTimed {
      *      The freeze power.
      */
     public static Power create(final int powerlevel) {
-       return  new Freeze(calculateTimeout(powerlevel));
+       return new Freeze(calculateTimeout(powerlevel));
     }
 
 }
