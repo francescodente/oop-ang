@@ -6,6 +6,7 @@ import org.dyn4j.geometry.Convex;
 
 import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
+import oopang.commons.space.Vector2D;
 import oopang.model.gameobjects.GameObject;
 
 /**
@@ -26,6 +27,13 @@ public interface Collidable {
      *      the position.
      */
     Point2D getPosition();
+
+    /**
+     * Translates the position of this object by the given amount.
+     * @param offset
+     *      the offset vector.
+     */
+    void translate(Vector2D offset);
 
     /**
      * Returns the {@link CollisionTag} for this collidable.

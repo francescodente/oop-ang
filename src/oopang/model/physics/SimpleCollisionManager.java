@@ -35,12 +35,24 @@ public class SimpleCollisionManager implements CollisionManager {
             for (int j = i + 1; j < this.collidables.size(); j++) {
                 final Collidable c1 = this.collidables.get(i);
                 final Collidable c2 = this.collidables.get(j);
-                if (c1.getCollisionTag().canCollideWith(c2.getCollisionTag())) {
+                final CollisionTag tag1 = c1.getCollisionTag();
+                final CollisionTag tag2 = c2.getCollisionTag();
+                if (tag1.canCollideWith(tag2)) {
                     final Transform t1 = getTransform(c1);
                     final Transform t2 = getTransform(c2);
                     final Penetration p = new Penetration();
                     if (this.narrowPhase.detect(c1.getShape(), t1, c2.getShape(), t2, p)) {
                         final Vector2D normal = Vectors2D.of(p.getNormal().x, p.getNormal().y).normalized();
+                        double depth = p.getDepth();
+                        if (!tag1.isStaticWith(tag2) && !tag2.isStaticWith(tag1)) {
+                            depth /= 2;
+                        }
+                        if (!tag1.isStaticWith(tag2)) {
+                            c1.translate(normal.multiply(-depth));
+                        }
+                        if (!tag2.isStaticWith(tag1)) {
+                            c2.translate(normal.multiply(depth));
+                        }
                         c1.notifyCollision(new Collision(c2, normal.multiply(-1)));
                         c2.notifyCollision(new Collision(c1, normal));
                     }

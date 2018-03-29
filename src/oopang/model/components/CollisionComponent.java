@@ -8,6 +8,7 @@ import oopang.commons.LevelManager;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
+import oopang.commons.space.Vector2D;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.physics.Collidable;
 import oopang.model.physics.Collision;
@@ -90,5 +91,10 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     @Override
     public Optional<GameObject> getAttachedGameObject() {
         return Optional.of(this.getGameObject());
+    }
+
+    @Override
+    public void translate(final Vector2D offset) {
+        this.getGameObject().setPosition(this.getPosition().translate(offset));
     }
 }
