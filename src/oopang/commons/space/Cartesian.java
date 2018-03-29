@@ -109,4 +109,9 @@ public class Cartesian implements Vector2D, Point2D {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.x + ", " + this.y + ")";
+    }
 }
