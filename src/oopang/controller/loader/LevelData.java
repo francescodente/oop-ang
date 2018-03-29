@@ -1,10 +1,8 @@
 package oopang.controller.loader;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import oopang.controller.DayTime;
-import oopang.model.BallColor;
 import oopang.model.levels.Level;
 import oopang.view.rendering.ImageID;
 
