@@ -3,10 +3,12 @@ package oopang.view.rendering;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.HookShot;
+import oopang.model.gameobjects.Pickup;
 import oopang.model.gameobjects.Player;
 import oopang.model.gameobjects.Wall;
 import oopang.view.rendering.gameobject.BallRenderer;
 import oopang.view.rendering.gameobject.HookShotRenderer;
+import oopang.view.rendering.gameobject.PickupRenderer;
 import oopang.view.rendering.gameobject.PlayerRenderer;
 import oopang.view.rendering.gameobject.WallRenderer;
 
@@ -25,6 +27,8 @@ public abstract class AbstractRendererFactory implements RendererFactory {
             return new WallRenderer(this.createSprite(), (Wall) obj);
         } else if (obj instanceof HookShot) {
             return new HookShotRenderer(this.createSprite(), (HookShot) obj);
+        } else if (obj instanceof Pickup) {
+            return new PickupRenderer(this.createSprite(), (Pickup) obj);
         }
         return null;
     }

@@ -3,6 +3,7 @@ package oopang.controller.loader;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
+import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
@@ -22,6 +23,7 @@ import oopang.view.rendering.ImageID;
 public class TestLevelLoader implements LevelLoader {
 
     private static final double XSPEED = 15;
+    private static final Point2D BALL_POS = Points2D.of(70, 50);
 
     @Override
     public LevelData loadInfiniteLevel() {
@@ -34,8 +36,10 @@ public class TestLevelLoader implements LevelLoader {
 
     @Override
     public LevelData loadStoryLevel(final int index) {
+        final PowerFactory factory = new BasicPowerFactory();
         final Level level = new TimedLevel(new BaseLevel(), 100);
-        level.getGameObjectFactory().createBall(2, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(Points2D.of(70, 50));
+        level.getGameObjectFactory().createBall(2, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(BALL_POS);
+        level.getGameObjectFactory().createPickup(factory.createDoubleShot()).setPosition(BALL_POS);
         return new LevelData(ImageID.TAJ_MAHAL, level);
     }
 
