@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
 import oopang.model.physics.Collision;
@@ -34,7 +35,9 @@ public class HookShot extends Shot {
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
-        this.getCollisionComponent().setShape(new Rectangle(WIDTH, this.getPosition().getY() - startY));
+        final Convex newShape = new Rectangle(WIDTH, this.getHeight());
+        newShape.translate(0, -this.getHeight() / 2);
+        this.getCollisionComponent().setShape(newShape);
     }
 
     @Override
