@@ -20,6 +20,11 @@ public class JavaFXView implements View {
     private final Stage stage;
     private DialogFactory dialogfactory;
 
+    /**
+     * Creates a new javaFX specific view.
+     * @param stage
+     *      the primary stage of the application.
+     */
     public JavaFXView(final Stage stage) {
         this.stage = stage;
     }
@@ -39,7 +44,7 @@ public class JavaFXView implements View {
 
     @Override
     public final void loadScene(final GameScene scene) {
-        //Platform.runLater(() -> {
+        Platform.runLater(() -> {
             try {
                 final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
                 stage.setScene(wrapper.getScene());
@@ -48,7 +53,7 @@ public class JavaFXView implements View {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        //});
+        });
     }
 
     @Override
