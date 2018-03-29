@@ -33,9 +33,9 @@ public class BallRenderer extends GameObjectRenderer<Ball> {
         } else if (color == BallColor.YELLOW) {
             spriteSheet.setCell(0, 1);
         } else if (color == BallColor.RED) {
-            spriteSheet.setCell(0, 2);
+            spriteSheet.setCell(2, 0);
         } else if (color == BallColor.GREEN) {
-            spriteSheet.setCell(1, 2);
+            spriteSheet.setCell(2, 1);
         } else if (color == BallColor.ORANGE) {
             spriteSheet.setCell(1, 0);
         } else if (color == BallColor.PURPLE) {
