@@ -27,6 +27,7 @@ public class Pickup extends AbstractGameObject {
     private final CollisionComponent collisioncomponent;
     private double time;
     private final Power power;
+    private boolean inCollision;
 
     /**
      * Create a Pick-Up GameObject.
@@ -40,11 +41,19 @@ public class Pickup extends AbstractGameObject {
         this.gravitycomponent = new GravityComponent(this);
         final Convex pickup = new Rectangle(WIDTH, HEIGHT);
         this.collisioncomponent = new CollisionComponent(this, pickup, CollisionTag.PICKUP);
+        this.inCollision = false;
+        this.collisioncomponent.registerCollisionEvent(c -> this.inCollision = true);
     }
 
     @Override
     public final void update(final double deltaTime) {
         super.update(deltaTime);
+        if (inCollision) {
+            this.inCollision = false;
+            this.gravitycomponent.disable();
+        } else {
+            this.gravitycomponent.enable();
+        }
         this.time += deltaTime;
         if (this.time > TIMEOUT) {
             destroy();
