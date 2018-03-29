@@ -42,7 +42,7 @@ public class TestLevelLoader implements LevelLoader {
         final List<Supplier<Power>> powerList = Arrays.asList(freeze, doubleShoot);
         final Level level = new TimedLevel(new PickUpGeneratingLevel(new BaseLevel(), powerList), 100);
         level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(BALL_POS);
-        level.getGameObjectFactory().createPickup(factory.createDoubleShot()).setPosition(BALL_POS);
+        level.getGameObjectFactory().createPickup(factory.createFreeze()).setPosition(BALL_POS);
         return new LevelData(ImageID.TAJ_MAHAL, level);
     }
 
