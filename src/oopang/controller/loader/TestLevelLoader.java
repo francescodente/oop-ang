@@ -1,6 +1,7 @@
 package oopang.controller.loader;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 import oopang.commons.space.Point2D;
@@ -24,11 +25,11 @@ public class TestLevelLoader implements LevelLoader {
 
     private static final double XSPEED = 15;
     private static final Point2D BALL_POS = Points2D.of(70, 50);
+    private final PowerFactory factory = new BasicPowerFactory();
 
     @Override
     public LevelData loadInfiniteLevel() {
         Level level = new BaseLevel();
-        final PowerFactory factory = new BasicPowerFactory();
         final Supplier<Power> freeze = () -> factory.createFreeze();
         level = new InfiniteLevel(new PickUpGeneratingLevel(level, Arrays.asList(freeze)));
         return new LevelData(ImageID.ANGKOR_WAT, level);
@@ -36,9 +37,11 @@ public class TestLevelLoader implements LevelLoader {
 
     @Override
     public LevelData loadStoryLevel(final int index) {
-        final PowerFactory factory = new BasicPowerFactory();
-        final Level level = new TimedLevel(new BaseLevel(), 100);
-        level.getGameObjectFactory().createBall(2, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(BALL_POS);
+        final Supplier<Power> freeze = () -> factory.createFreeze();
+        final Supplier<Power> doubleShoot = () -> factory.createDoubleShot();
+        final List<Supplier<Power>> powerList = Arrays.asList(freeze, doubleShoot);
+        final Level level = new TimedLevel(new PickUpGeneratingLevel(new BaseLevel(), powerList), 100);
+        level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.BLUE).setPosition(BALL_POS);
         level.getGameObjectFactory().createPickup(factory.createDoubleShot()).setPosition(BALL_POS);
         return new LevelData(ImageID.TAJ_MAHAL, level);
     }

@@ -10,6 +10,13 @@ import oopang.model.gameobjects.Shot;
 public interface Shooter {
 
     /**
+     * Updates the Shooter.
+     * @param deltaTime
+     *      the time elapsed from last update.
+     */
+    void update(double deltaTime);
+
+    /**
      * Check if the shooting action can be performed.
      * @return
      *      if the shooter can shoot

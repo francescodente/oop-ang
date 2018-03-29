@@ -11,6 +11,10 @@ public class ShooterComponent extends AbstractComponent {
 
     private Shooter shooter;
 
+    @Override
+    public void update(final double deltaTime) {
+        this.shooter.update(deltaTime);
+    }
     /**
      * Create a new ShooterComponent object.
      * @param obj
