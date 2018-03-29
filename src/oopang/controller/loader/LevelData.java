@@ -11,8 +11,9 @@ import oopang.view.rendering.ImageID;
  */
 public class LevelData {
 
-    private static final int MORNING = 12;
-    private static final int AFTERNOON = 19;
+    private static final int MORNING = 8;
+    private static final int AFTERNOON = 14;
+    private static final int NIGHT = 20;
 
     private final ImageID background;
     private final DayTime time;
@@ -28,17 +29,17 @@ public class LevelData {
     public LevelData(final ImageID background, final Level level) {
         super();
         this.background = background;
-        this.time = findDayTime(Calendar.getInstance());
+        this.time = findDayTime(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         this.level = level;
     }
 
     /**
      * Utility method to set the DayTime.
      */
-    private DayTime findDayTime(final Calendar rightNow) {
-        if (rightNow.get(Calendar.HOUR_OF_DAY) < MORNING) {
+    private DayTime findDayTime(final int hour) {
+        if (hour > MORNING && hour < AFTERNOON) {
             return DayTime.MORNING;
-        } else if (rightNow.get(Calendar.HOUR_OF_DAY) > MORNING && rightNow.get(Calendar.HOUR_OF_DAY) < AFTERNOON) {
+        } else if (hour > AFTERNOON && hour < NIGHT) {
             return DayTime.AFTERNOON;
         }
         return DayTime.NIGHT;
