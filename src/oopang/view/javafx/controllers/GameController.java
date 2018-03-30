@@ -23,6 +23,8 @@ public final class GameController extends SceneController {
     @FXML
     private Canvas canvas;
     private CanvasDrawer canvasDrawer;
+    private boolean[] rightPressed = {false, false};
+    private boolean[] leftPressed = {false, false};
 
     @Override
     public void init(final Controller controller, final View view) {
@@ -51,15 +53,19 @@ public final class GameController extends SceneController {
     public void handlePressed(final KeyEvent event) {
         if (event.getCode() == KeyCode.LEFT) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
+            this.leftPressed[0] = true;
         } else if (event.getCode() == KeyCode.RIGHT) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_ONE);
+            this.rightPressed[0] = true;
         } else if (event.getCode() == KeyCode.SPACE) {
             this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_ONE);
         } else if (event.getCode() == KeyCode.A) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_TWO);
+            this.leftPressed[1] = true;
         } else if (event.getCode() == KeyCode.D) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.W) {
+            this.leftPressed[1] = true;
+        } else if (event.getCode() == KeyCode.CONTROL) {
             this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_TWO);
         }
     }
@@ -71,14 +77,24 @@ public final class GameController extends SceneController {
      */
     @FXML
     public void handleReleased(final KeyEvent event) {
-        if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.RIGHT) {
-            this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_ONE);
+        if (event.getCode() == KeyCode.LEFT) {
+            this.leftPressed[0] = false;
+        } else if (event.getCode() == KeyCode.RIGHT) {
+            this.rightPressed[0] = false;
         } else if (event.getCode() == KeyCode.SPACE) {
             this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.D) {
-            this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.W) {
+        } else if (event.getCode() == KeyCode.A) {
+           this.leftPressed[1] = false;
+        } else if (event.getCode() == KeyCode.W) { 
+            this.leftPressed[0] = false;
+        } else if (event.getCode() == KeyCode.CONTROL) {
             this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_TWO);
+        }
+        if (!(this.leftPressed[0] || this.rightPressed[0])) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_ONE);
+        }
+        if (!(this.leftPressed[1] || this.rightPressed[1])) {
+            this.getController().sendCommand(e -> e.setDirection(InputDirection.NONE), PlayerTag.PLAYER_TWO);
         }
     }
 

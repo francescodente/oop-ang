@@ -64,7 +64,11 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void sendCommand(final Command cmd, final PlayerTag player) {
-        this.gameSession.getGameLoop().addCommand(cmd, player);
+        if (this.gameSession.isMultiplayer()) {
+            this.gameSession.getGameLoop().addCommand(cmd, player);
+        } else if (player == PlayerTag.PLAYER_ONE) {
+            this.gameSession.getGameLoop().addCommand(cmd, player);
+        }
     }
 
     private void handleSessionResult(final Boolean shouldEnd) {

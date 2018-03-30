@@ -217,4 +217,6 @@ public class XMLLevelLoader implements LevelLoader {
     }
 
    //TODO TO FIX BUG "POSITION" 
+
 }
+

@@ -32,7 +32,7 @@ public abstract class GameSession {
     private final Event<Boolean> shouldEnd;
 
     private int score;
-    private final boolean isMultiPlayer;
+    private final boolean multiplayer;
 
     /**
      * Initializes a new GameSession object.
@@ -45,7 +45,7 @@ public abstract class GameSession {
      */
     public GameSession(final View view, final Model model, final boolean isMultiPlayer) {
         this.score = 0;
-        this.isMultiPlayer = isMultiPlayer;
+        this.multiplayer = isMultiPlayer;
         this.world = model;
         this.scene = view;
         this.loader = new TestLevelLoader();
@@ -90,7 +90,7 @@ public abstract class GameSession {
         final InputController input = new InputController();
         inputMap.put(PlayerTag.PLAYER_ONE, input);
         currentLevel = new SinglePlayerLevel(currentLevel, input);
-        if (this.isMultiPlayer) {
+        if (this.multiplayer) {
             final InputController inputPlayerTwo = new InputController();
             inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
             currentLevel = new SinglePlayerLevel(currentLevel, inputPlayerTwo);
@@ -165,5 +165,14 @@ public abstract class GameSession {
      */
     public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
         this.levelCreatedEvent.registerHandler(handler);
+    }
+
+    /**
+     * Wether the session is multiplayer or not.
+     * @return
+     *      true if the session is multiplayer
+     */
+    public boolean isMultiplayer() {
+        return this.multiplayer;
     }
 }
