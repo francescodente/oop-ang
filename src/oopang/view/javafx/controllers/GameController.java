@@ -94,6 +94,7 @@ public final class GameController extends SceneController {
      */
     @Override
     public void render() {
+        this.resizeCanvas();
         canvasDrawer.draw();
     }
 
@@ -107,8 +108,26 @@ public final class GameController extends SceneController {
         return GameScene.MAIN_MENU;
     }
 
+    private void resizeCanvas() {
+        final double parentWidth = this.canvasContainer.getWidth();
+        final double parentHeight = this.canvasContainer.getHeight();
+        final double ratio = parentWidth / parentHeight;
+        final double expectedRatio = Model.TOTAL_WIDTH / Model.TOTAL_HEIGHT;
+        if (ratio < expectedRatio) {
+            this.canvas.setWidth(parentWidth);
+            this.canvas.setHeight(parentWidth / expectedRatio);
+        } else {
+            this.canvas.setHeight(parentHeight);
+            this.canvas.setWidth(parentHeight * expectedRatio);
+        }
+        this.canvas.getGraphicsContext2D().restore();
+        this.resetGameCanvasCoordinates();
+        //this.render();
+    }
+
     private void resetGameCanvasCoordinates() {
         final GraphicsContext gc = this.canvas.getGraphicsContext2D();
+        gc.save();
         final double canvasWidth = this.canvas.getWidth();
         final double canvasHeight = this.canvas.getHeight();
         gc.fillRect(0, 0, canvasWidth, canvasHeight);

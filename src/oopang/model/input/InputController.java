@@ -21,28 +21,28 @@ public final class InputController implements InputReader, InputWriter {
     }
 
     @Override
-    public InputDirection getDirection() {
+    public synchronized InputDirection getDirection() {
         return this.direction.get(this.direction.size() - 1);
     }
 
     @Override
-    public boolean isShooting() {
+    public synchronized boolean isShooting() {
         return shooting;
     }
 
     @Override
-    public void setDirection(final InputDirection dir) {
+    public synchronized void setDirection(final InputDirection dir) {
         this.removeDirection(dir);
         this.direction.add(dir);
     }
 
     @Override
-    public void setShooting(final boolean status) {
+    public synchronized void setShooting(final boolean status) {
         this.shooting = status;
     }
 
     @Override
-    public void removeDirection(final InputDirection dir) {
+    public synchronized void removeDirection(final InputDirection dir) {
         if (dir != InputDirection.NONE && this.direction.contains(dir)) {
             this.direction.remove(dir);
         }

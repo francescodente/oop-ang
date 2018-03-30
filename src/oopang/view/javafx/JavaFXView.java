@@ -15,6 +15,8 @@ import oopang.view.javafx.controllers.SceneController;
  */
 public class JavaFXView implements View {
 
+    private static final double MIN_WIDTH = 384;
+    private static final double MIN_HEIGHT = 200;
     private Controller control;
     private SceneController currentScene;
     private final Stage stage;
@@ -34,6 +36,8 @@ public class JavaFXView implements View {
         this.control = controller;
         this.dialogfactory = new JavaFXDialogFactory(this);
         this.stage.show();
+        this.stage.setMinWidth(MIN_WIDTH);
+        this.stage.setMinHeight(MIN_HEIGHT);
         this.loadScene(GameScene.MAIN_MENU);
     }
 
@@ -47,7 +51,11 @@ public class JavaFXView implements View {
         Platform.runLater(() -> {
             try {
                 final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
-                stage.setScene(wrapper.getScene());
+                final double oldWidth = this.stage.getWidth();
+                final double oldHeight = this.stage.getHeight();
+                this.stage.setScene(wrapper.getScene());
+                this.stage.setWidth(oldWidth);
+                this.stage.setHeight(oldHeight);
                 wrapper.getController().init(control, this);
                 this.currentScene = wrapper.getController();
             } catch (Exception e) {
