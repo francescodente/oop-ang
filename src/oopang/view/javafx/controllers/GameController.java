@@ -42,6 +42,8 @@ public final class GameController extends SceneController {
                 o.registerDestroyedEvent(r -> this.canvasDrawer.removeRenderer(object));
             });
         });
+        this.canvasContainer.widthProperty().addListener(w -> this.resizeCanvas());
+        this.canvasContainer.heightProperty().addListener(h -> this.resizeCanvas());
         this.getController().continueGameSession();
     }
 
@@ -94,7 +96,6 @@ public final class GameController extends SceneController {
      */
     @Override
     public void render() {
-        this.resizeCanvas();
         canvasDrawer.draw();
     }
 
