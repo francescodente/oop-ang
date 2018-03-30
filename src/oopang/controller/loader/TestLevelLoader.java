@@ -44,7 +44,7 @@ public class TestLevelLoader implements LevelLoader {
         final Level level = new TimedLevel(new PickUpGeneratingLevel(new BaseLevel(), powerList), 100);
         level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.GREEN).setPosition(BALL_POS);
         level.getGameObjectFactory().createPickup(factory.createTimedShield()).setPosition(BALL_POS);
-        return new LevelData(ImageID.TAJ_MAHAL, level);
+        return new LevelData(ImageID.getRandomBackground(), level);
     }
 
     @Override
