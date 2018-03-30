@@ -26,9 +26,29 @@ public enum ImageID {
      */
     STICKYSHOT("/shot/sticky", false),
     /**
-     * The image for the walls.
+     * The image for blue walls.
      */
-    WALL("/wall/walltexture", false),
+    BLUE_WALL("/wall/blue", false),
+    /**
+     * The image for red walls.
+     */
+    RED_WALL("/wall/red", false),
+    /**
+     * The image for yellow walls.
+     */
+    YELLOW_WALL("/wall/yellow", false),
+    /**
+     * The image for green walls.
+     */
+    GREEN_WALL("/wall/green", false),
+    /**
+     * The image for purple walls.
+     */
+    PURPLE_WALL("/wall/purple", false),
+    /**
+     * The image for orange walls.
+     */
+    ORANGE_WALL("/wall/orange", false),
     /**
      * The image for Pickup.
      */
