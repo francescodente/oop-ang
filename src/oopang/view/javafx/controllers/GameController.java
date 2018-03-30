@@ -64,7 +64,7 @@ public final class GameController extends SceneController {
             this.leftPressed[1] = true;
         } else if (event.getCode() == KeyCode.D) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
-            this.leftPressed[1] = true;
+            this.rightPressed[1] = true;
         } else if (event.getCode() == KeyCode.CONTROL) {
             this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_TWO);
         }
@@ -85,8 +85,8 @@ public final class GameController extends SceneController {
             this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_ONE);
         } else if (event.getCode() == KeyCode.A) {
            this.leftPressed[1] = false;
-        } else if (event.getCode() == KeyCode.W) { 
-            this.leftPressed[0] = false;
+        } else if (event.getCode() == KeyCode.D) { 
+            this.rightPressed[1] = false;
         } else if (event.getCode() == KeyCode.CONTROL) {
             this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_TWO);
         }
