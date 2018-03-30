@@ -120,9 +120,9 @@ public class BaseLevel implements Level {
 
     private void createWalls() {
         final GameObjectFactory factory = LevelManager.getCurrentLevel().getGameObjectFactory();
-        final GameObject horizontal1 = factory.createWall(Model.WORLD_WIDTH, Model.WALL_WIDTH);
+        final GameObject horizontal1 = factory.createWall(Model.WORLD_WIDTH + Model.WALL_WIDTH * 2, Model.WALL_WIDTH);
         horizontal1.setPosition(Points2D.of(0, -Model.WALL_WIDTH / 2));
-        final GameObject horizontal2 = factory.createWall(Model.WORLD_WIDTH, Model.WALL_WIDTH);
+        final GameObject horizontal2 = factory.createWall(Model.WORLD_WIDTH + Model.WALL_WIDTH * 2, Model.WALL_WIDTH);
         horizontal2.setPosition(Points2D.of(0, Model.WORLD_HEIGHT + (Model.WALL_WIDTH / 2)));
         final GameObject vertical1 = factory.createWall(Model.WALL_WIDTH, Model.WORLD_HEIGHT);
         vertical1.setPosition(Points2D.of(-((Model.WORLD_WIDTH / 2) + (Model.WALL_WIDTH / 2)), Model.WORLD_HEIGHT / 2));
