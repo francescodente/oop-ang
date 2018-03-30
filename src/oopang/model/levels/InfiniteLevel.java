@@ -16,7 +16,7 @@ import oopang.model.gameobjects.GameObject;
  */
 public class InfiniteLevel extends LevelDecorator {
 
-    private static final int BALL_START_SIZE = 4;
+    private static final int BALL_START_SIZE = 3;
     private static final Vector2D BALL_START_VELOCITY = Vectors2D.of(15, 0);
     private static final double INITIAL_WAIT_TIME = 20;
     private static final double DECREASE_RATE = 0.9;
