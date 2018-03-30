@@ -18,6 +18,14 @@ public interface Model {
      * Default wall width for external walls.
      */
     double WALL_WIDTH = 5;
+    /**
+     * Total width of the world counting walls.
+     */
+    double TOTAL_WIDTH = WORLD_WIDTH + WALL_WIDTH * 2;
+    /**
+     * Total height of the world counting walls.
+     */
+    double TOTAL_HEIGHT = WORLD_HEIGHT + WALL_WIDTH * 2;
 
     /**
      * Updates the model's state.

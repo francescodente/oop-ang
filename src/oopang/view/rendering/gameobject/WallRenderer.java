@@ -12,7 +12,7 @@ import oopang.view.rendering.Sprite;
  */
 public class WallRenderer extends GameObjectRenderer<Wall> {
 
-    private static final double MAX_WALL_SIZE = Model.WORLD_WIDTH + 2 * Model.WALL_WIDTH;
+    private static final double MAX_WALL_SIZE = Model.TOTAL_WIDTH;
     private static final int WALL_LAYER = 1;
     /**
      * Creates a new {@link Wall} Renderer given its Wall {@link GameObject}.
