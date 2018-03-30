@@ -15,6 +15,10 @@
     <RowConstraints maxHeight="196.0" minHeight="10.0" percentHeight="20.0" prefHeight="121.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Canvas fx:id="canvas" height="301.0" width="586.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+      <BorderPane fx:id="canvasContainer" minHeight="0.0" minWidth="0.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <center>
+            <Canvas fx:id="canvas" height="281.0" width="580.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
    </children>
 </GridPane>
