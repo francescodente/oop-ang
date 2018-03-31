@@ -28,11 +28,4 @@ public interface LevelLoader {
      * @throws SAXException 
      */
     LevelData loadStoryLevel(int index) throws IOException;
-
-    /**
-     * Method that load the Tutorial.
-     * @return
-     *      Information about the tutorial level
-     */
-    LevelData loadTutorial();
 }
