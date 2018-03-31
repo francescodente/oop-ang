@@ -3,6 +3,7 @@ package oopang.view.rendering.javafx;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import oopang.view.rendering.GenericCanvasDrawer;
+import oopang.view.rendering.ImageID;
 import oopang.view.rendering.RendererFactory;
 
 /**
@@ -33,7 +34,7 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
     }
 
     @Override
-    public RendererFactory getRendererFactory() {
-        return new JavaFXRendererFactory(this.canvas);
+    public RendererFactory getRendererFactory(final ImageID walltexture) {
+        return new JavaFXRendererFactory(this.canvas, walltexture);
     }
 }

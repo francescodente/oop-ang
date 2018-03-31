@@ -1,5 +1,6 @@
 package oopang.view.rendering;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -158,6 +159,17 @@ public enum ImageID {
     public static ImageID getRandomBackground() {
         final Random rand = new Random();
         final List<ImageID> list = Stream.of(ImageID.values()).filter(id -> id.isBackground()).collect(Collectors.toList());
+        return list.get(rand.nextInt(list.size()));
+    }
+
+    /**
+     * Returns a random ImageID representig a wall texture.
+     * @return
+     *      a random wall texture imageId
+     */
+    public static ImageID getRandomWallTexture() {
+        final Random rand = new Random();
+        final List<ImageID> list = Arrays.asList(BLUE_WALL, RED_WALL, YELLOW_WALL, GREEN_WALL, ORANGE_WALL, PURPLE_WALL);
         return list.get(rand.nextInt(list.size()));
     }
 }

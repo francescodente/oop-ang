@@ -17,6 +17,17 @@ import oopang.view.rendering.gameobject.WallRenderer;
  */
 public abstract class AbstractRendererFactory implements RendererFactory {
 
+    private final ImageID walltexture;
+
+    /**
+     * Create a new factory and sets the texture.
+     * @param walltexture
+     *      the wall texture to be used
+     */
+    public AbstractRendererFactory(final ImageID walltexture) {
+        this.walltexture = walltexture;
+    }
+
     @Override
     public final Renderer createGameObjectRenderer(final GameObject obj) {
         if (obj instanceof Player) {
@@ -24,7 +35,7 @@ public abstract class AbstractRendererFactory implements RendererFactory {
         } else if (obj instanceof Ball) {
             return new BallRenderer(this.createSprite(), (Ball) obj);
         } else if (obj instanceof Wall) {
-            return new WallRenderer(this.createSprite(), (Wall) obj);
+            return new WallRenderer(this.createSprite(), (Wall) obj, this.walltexture);
         } else if (obj instanceof HookShot) {
             return new HookShotRenderer(this.createSprite(), (HookShot) obj);
         } else if (obj instanceof Pickup) {

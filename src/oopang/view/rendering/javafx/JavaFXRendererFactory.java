@@ -18,9 +18,11 @@ public class JavaFXRendererFactory extends AbstractRendererFactory {
      * Creates a new factory of renderers for a {@link javafx.scene.canvas.Canvas}.
      * @param gc
      *      the graphics context of the canvas.
+     * @param walltexture
+     *      the wall texture to be used.
      */
-    public JavaFXRendererFactory(final Canvas gc) {
-        super();
+    public JavaFXRendererFactory(final Canvas gc, final ImageID walltexture) {
+        super(walltexture);
         this.canvas = gc;
     }
 

@@ -16,6 +16,7 @@ public class LevelData {
     private static final int NIGHT = 20;
 
     private final ImageID background;
+    private final ImageID walltexture;
     private final DayTime time;
     private final Level level;
 
@@ -23,12 +24,15 @@ public class LevelData {
      * Constructor of the class.
      * @param background
      *      The background of the level.
+     *@param walltexture
+     *      The wall texture of the level.
      * @param level
      *      the new level created from loader
      */
-    public LevelData(final ImageID background, final Level level) {
+    public LevelData(final ImageID background, final ImageID walltexture, final Level level) {
         super();
         this.background = background;
+        this.walltexture = walltexture;
         this.time = findDayTime(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         this.level = level;
     }
@@ -52,6 +56,14 @@ public class LevelData {
      */
     public ImageID getBackground() {
         return this.background;
+    }
+    /**
+     * Getter of the wall texture.
+     * @return
+     *      The wall texture of the level.
+     */
+    public ImageID getWallTexture() {
+        return this.walltexture;
     }
 
     /**
