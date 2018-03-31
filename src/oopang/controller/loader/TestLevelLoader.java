@@ -51,10 +51,4 @@ public class TestLevelLoader implements LevelLoader {
         level.getGameObjectFactory().createWall(30, Model.WALL_WIDTH).setPosition(Points2D.of(0, 50));
         return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), level);
     }
-
-    @Override
-    public LevelData loadTutorial() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }
