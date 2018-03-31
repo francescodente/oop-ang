@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -21,7 +22,6 @@ import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
-import oopang.model.gameobjects.Wall;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.InfiniteLevel;
 import oopang.model.levels.Level;
@@ -37,14 +37,9 @@ import oopang.view.rendering.ImageID;
  */
 public class XMLLevelLoader implements LevelLoader {
 
-    private final DocumentBuilderFactory dbFactory;
-    private final DocumentBuilder dBuilder;
-    private Level level;
-    private String path;
-    private File file;
-    private Document doc;
+    private static final String PATH = "/levels/";
+
     private PowerFactory powerFactory;
-    private List<Supplier<Power>> powerList;
 
     /**
      * Constructor of the Class setting the base path.
@@ -54,43 +49,52 @@ public class XMLLevelLoader implements LevelLoader {
      *      Exception of the XML parsing.
      */
     public XMLLevelLoader(final PowerFactory factory) throws ParserConfigurationException {
-        super();
-        this.dbFactory = DocumentBuilderFactory.newInstance();
-        this.dBuilder = dbFactory.newDocumentBuilder();
-        this.path = "/levels/";
         this.powerFactory = factory;
-        this.powerList = new LinkedList<>();
     }
 
     @Override
-    public LevelData loadInfiniteLevel() throws SAXException, IOException {
-        this.level = new InfiniteLevel(new BaseLevel());
-        this.path += "InfiniteLevel.xml";
-        this.file = new File(this.path);
-        this.doc = dBuilder.parse(file);
-        this.doc.getDocumentElement().normalize();
-        final ImageID background = this.loadLevelData(this.level);
-        this.getPowers(this.level);
-        return new LevelData(background, this.level);
+    public LevelData loadInfiniteLevel() {
+        return loadLevel(Optional.empty());
     }
 
     @Override
-    public LevelData loadStoryLevel(final int index) throws SAXException, IOException {
-        this.path += "Level" + index + ".xml";
-        final File file = new File(this.path);
-        this.doc = dBuilder.parse(file);
-        this.doc.getDocumentElement().normalize();
-        final ImageID background = this.loadLevelData(this.level);
-        this.getPowers(this.level);
-        this.loadBall(this.level);
-        this.loadWalls(this.level);
-        return new LevelData(background, this.level);
+    public LevelData loadStoryLevel(final int index) {
+        return loadLevel(Optional.of(index));
     }
 
-    @Override
-    public LevelData loadTutorial() {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * Method that loads informations from XML file an decorate the appropriate {@link Level}. 
+     * @param index
+     *      the index of the {@link StoryModeGameSession}
+     * @return
+     *      A {@link LevelData} decorated
+     */
+    private LevelData loadLevel(final Optional<Integer> index) {
+        Level level = new BaseLevel();
+        final String path;
+        if (index.isPresent()) {
+            path = PATH + "Level" + index.get() + ".xml";
+        } else {
+            path = PATH + "InfiniteLevel.xml";
+        }
+        final File file = new File(path);
+        final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder dBuilder;
+        Document doc = null;
+        try {
+            dBuilder = dBFactory.newDocumentBuilder();
+            doc = dBuilder.parse(file);
+            doc.getDocumentElement().normalize();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        final ImageID background = this.loadLevelData(level, doc);
+        final ImageID wallTexture = this.loadWallTexture(level, doc);
+        this.getPowers(level, doc);
+        this.loadBall(level, doc);
+        this.loadWalls(level, doc);
+        return new LevelData(background, wallTexture, level);
     }
 
     /**
@@ -98,8 +102,9 @@ public class XMLLevelLoader implements LevelLoader {
      * @param level
      *      The level to decorate.
      */
-    private void getPowers(final Level level) {
-        final NodeList powers = this.doc.getElementsByTagName("AvailablePower");
+    private void getPowers(Level level, final Document doc) {
+        List<Supplier<Power>> powerList = new LinkedList<>();
+        final NodeList powers = doc.getElementsByTagName("AvailablePower");
         final Node availablePowers = powers.item(0);
         final Element powerField = (Element) availablePowers;
         final int length = powerField.getElementsByTagName("Power").getLength();
@@ -107,37 +112,38 @@ public class XMLLevelLoader implements LevelLoader {
             final Element power = (Element) powerField.getElementsByTagName("Power").item(i);
             PowerTag pow = PowerTag.valueOf(power.getAttribute("id"));
             if (pow == PowerTag.ADHESIVESHOT) {
-                this.powerList.add(() -> powerFactory.createAdhesiveShot());
+                powerList.add(() -> powerFactory.createAdhesiveShot());
             }
             if (pow == PowerTag.DOUBLESHOT) {
-                this.powerList.add(() -> powerFactory.createDoubleShot());
+                powerList.add(() -> powerFactory.createDoubleShot());
             }
             if (pow == PowerTag.DOUBLESPEED) {
-                this.powerList.add(() -> powerFactory.createDoubleSpeed());
+                powerList.add(() -> powerFactory.createDoubleSpeed());
             }
             if (pow == PowerTag.FREEZE) {
-                this.powerList.add(() -> powerFactory.createFreeze());
+                powerList.add(() -> powerFactory.createFreeze());
             }
             if (pow == PowerTag.TIMEDSHIELD) {
-                this.powerList.add(() -> powerFactory.createTimedShield());
+                powerList.add(() -> powerFactory.createTimedShield());
             }
         }
-        this.level = new PickUpGeneratingLevel(this.level, this.powerList);
+        level = new PickUpGeneratingLevel(level, powerList);
     }
+
     /**
      * Get the {@link Ball} attributes and use the {@link GameObjectFactory} to generate new balls.
      * @param level
      *      The reference of the {@link Level}
      * @param doc
      */
-    private void loadBall(final Level level) {
-        final NodeList balls = this.doc.getElementsByTagName("Ball");
+    private void loadBall(final Level level, final Document doc) {
+        final NodeList balls = doc.getElementsByTagName("Ball");
         for (int k = 0; k < balls.getLength(); k++) {
             final Node ball = balls.item(k);
             final Element attr = (Element) ball;
             final BallColor color = BallColor.valueOf(attr.getAttribute("color"));
             final int size = Integer.parseInt(attr.getAttribute("size"));
-            level.getGameObjectFactory().createBall(size, getVector(k, "Velocity", "Ball"), color).setPosition(this.getPoint(k, "Position", "Ball"));
+            level.getGameObjectFactory().createBall(size, getVector(k, "Velocity", "Ball", doc), color).setPosition(this.getPoint(k, "Position", "Ball", doc));
         }
     }
 
@@ -151,8 +157,8 @@ public class XMLLevelLoader implements LevelLoader {
      *      The name of the TreeNode.
      * @return
      */
-    private Vector2D getVector(final int item, final String target, final String source) {
-        final NodeList nList = this.doc.getElementsByTagName(source);
+    private Vector2D getVector(final int item, final String target, final String source, final Document doc) {
+        final NodeList nList = doc.getElementsByTagName(source);
         final Node nNode = nList.item(item);
         final Element objectElement = (Element) nNode;
         final NodeList vector = objectElement.getElementsByTagName(target);
@@ -171,8 +177,8 @@ public class XMLLevelLoader implements LevelLoader {
      * @return
      *      The {@link Point2D} of the {@link Ball}
      */
-    private Point2D getPoint(final int item, final String target, final String source) {
-        final NodeList nList = this.doc.getElementsByTagName(source);
+    private Point2D getPoint(final int item, final String target, final String source, final Document doc) {
+        final NodeList nList = doc.getElementsByTagName(source);
         final Node nNode = nList.item(item);
         final Element objectElement = (Element) nNode;
         final NodeList position = objectElement.getElementsByTagName(target);
@@ -191,13 +197,33 @@ public class XMLLevelLoader implements LevelLoader {
      * @return
      *      The {@link ImageID} loaded.
      */
-    private ImageID loadLevelData(final Level level) {
-        final NodeList nList = this.doc.getElementsByTagName("Level");
+    private ImageID loadLevelData(Level level, final Document doc) {
+        final NodeList nList = doc.getElementsByTagName("Level");
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
         final ImageID background = ImageID.valueOf(eElement.getElementsByTagName("Background").item(0).getTextContent());
-        this.level = new TimedLevel(new BaseLevel(), Double.parseDouble(eElement.getElementsByTagName("Time").item(0).getTextContent()));
+        if (eElement.getElementsByTagName("Time").getLength() > 0) {
+            level = new TimedLevel(level, Double.parseDouble(eElement.getElementsByTagName("Time").item(0).getTextContent()));
+        } else {
+            level = new InfiniteLevel(level);
+        }
         return background;
+    }
+
+    /**
+     * Method to load the {@link ImageID} of the {@link Wall} in this {@link Level}.
+     * @param level
+     *      the {@link Level} to decorate
+     * @param doc
+     *      The XML File
+     * @return
+     *      The texture of the walls.
+     */
+    private ImageID loadWallTexture(final Level level, final Document doc) {
+        final NodeList nList = doc.getElementsByTagName("Level");
+        final Node nNode = nList.item(0);
+        final Element eElement = (Element) nNode;
+        return ImageID.valueOf(eElement.getElementsByTagName("WallTexture").item(0).getTextContent());
     }
 
     /**
@@ -205,18 +231,15 @@ public class XMLLevelLoader implements LevelLoader {
      * @param level
      *      The instance of {@link Level} where create {@link Wall}
      */
-    private void loadWalls(final Level level) {
-        final NodeList wallList = this.doc.getElementsByTagName("Wall");
+    private void loadWalls(final Level level, final Document doc) {
+        final NodeList wallList = doc.getElementsByTagName("Wall");
         for (int i = 0; i < wallList.getLength(); i++) {
             final Node wall = wallList.item(i);
             final Element attr = (Element) wall;
             final double height = Double.parseDouble(attr.getAttribute("height"));
             final double width = Double.parseDouble(attr.getAttribute("width"));
-            level.getGameObjectFactory().createWall(width, height).setPosition(this.getPoint(i, "Position", "Wall"));
+            level.getGameObjectFactory().createWall(width, height).setPosition(this.getPoint(i, "Position", "Wall", doc));
         }
     }
-
-   //TODO TO FIX BUG "POSITION" 
-
 }
 
