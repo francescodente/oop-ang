@@ -101,6 +101,8 @@ public class XMLLevelLoader implements LevelLoader {
      * Utility method to get Powers form file and decorate the level.
      * @param level
      *      The level to decorate.
+     * @param doc
+     *      The Document to load
      */
     private void getPowers(Level level, final Document doc) {
         List<Supplier<Power>> powerList = new LinkedList<>();
@@ -135,6 +137,7 @@ public class XMLLevelLoader implements LevelLoader {
      * @param level
      *      The reference of the {@link Level}
      * @param doc
+     *      The document to load
      */
     private void loadBall(final Level level, final Document doc) {
         final NodeList balls = doc.getElementsByTagName("Ball");
@@ -155,6 +158,8 @@ public class XMLLevelLoader implements LevelLoader {
      *      The number of {@link Vectors2D} tag in the TreeNode
      * @param node
      *      The name of the TreeNode.
+     * @param doc
+     *      The document to load
      * @return
      */
     private Vector2D getVector(final int item, final String target, final String source, final Document doc) {
