@@ -18,13 +18,16 @@ public class InfiniteLevel extends LevelDecorator {
 
     private static final int BALL_START_SIZE = 3;
     private static final Vector2D BALL_START_VELOCITY = Vectors2D.of(15, 0);
-    private static final double INITIAL_WAIT_TIME = 20;
+    private static final double INITIAL_WAIT_TIME = 15;
     private static final double DECREASE_RATE = 0.9;
-    private static final double SPAWN_HEIGHT = 70;
+    private static final double SPAWN_HEIGHT = 90;
     private static final double WORLD_OFFSET = 20;
+    private static final double ENABLE_TIMEOUT = 1;
 
     private double currentWaitTime;
     private double nextBallTimeLeft;
+    private double enableTime;
+    private GameObject nextBall;
 
     /**
      * Creates a new infinite level based on the given level instance.
@@ -35,11 +38,20 @@ public class InfiniteLevel extends LevelDecorator {
         super(baseLevel);
         this.currentWaitTime = INITIAL_WAIT_TIME;
         this.nextBallTimeLeft = 0;
+        this.enableTime = ENABLE_TIMEOUT;
     }
 
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
+        if (this.nextBall != null) {
+            this.enableTime -= deltaTime;
+            if (this.enableTime <= 0) {
+                this.nextBall.getAllComponents().forEach(c -> c.enable());
+                enableTime = ENABLE_TIMEOUT;
+                nextBall = null;
+            }
+        }
         this.nextBallTimeLeft -= deltaTime;
         if (this.nextBallTimeLeft <= 0) {
             this.spawnBall();
@@ -49,10 +61,11 @@ public class InfiniteLevel extends LevelDecorator {
     }
 
     private void spawnBall() {
-        final GameObject newBall = LevelManager.getCurrentLevel()
+        this.nextBall = LevelManager.getCurrentLevel()
                 .getGameObjectFactory()
                 .createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
-        newBall.setPosition(this.randomPosition());
+        nextBall.setPosition(this.randomPosition());
+        nextBall.getAllComponents().forEach(c -> c.disable());
     }
 
     private Point2D randomPosition() {
