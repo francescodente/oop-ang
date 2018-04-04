@@ -123,7 +123,7 @@ public final class GameController extends SceneController {
         }
         this.canvas.getGraphicsContext2D().restore();
         this.resetGameCanvasCoordinates();
-        //this.render();
+        this.render();
     }
 
     private void resetGameCanvasCoordinates() {
