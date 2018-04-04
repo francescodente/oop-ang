@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import oopang.controller.loader.LevelData;
+import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
@@ -27,11 +28,13 @@ public final class StoryModeGameSession extends GameSession {
      *      the model reference
      * @param isMultiPlayer
      *      true if is a multiplayer session
+     * @param loader
+     *      the object used to create levels
      * @param levelIndex
      *      the first level to be loaded
      */
-    public StoryModeGameSession(final View view, final Model model, final boolean isMultiPlayer, final int levelIndex) {
-        super(view, model, isMultiPlayer);
+    public StoryModeGameSession(final View view, final Model model, final boolean isMultiPlayer, final LevelLoader loader, final int levelIndex) {
+        super(view, model, isMultiPlayer, loader);
         this.currentLevel = levelIndex;
         this.lives = FULL_LIFE;
     }

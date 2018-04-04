@@ -9,8 +9,8 @@ import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
-import oopang.controller.loader.TestLevelLoader;
 import oopang.model.GameOverStatus;
+import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
@@ -29,9 +29,10 @@ public abstract class GameSession {
     private final Model world;
     private final LevelLoader loader;
     private final Event<LevelData> levelCreatedEvent;
-    private final Event<Boolean> shouldEnd;
+    private final Event<LevelResult> shouldEnd;
 
     private int score;
+    private LevelResult lastResult;
     private final boolean multiplayer;
 
     /**
@@ -42,13 +43,15 @@ public abstract class GameSession {
      *      the {@link Model} of the application.
      * @param isMultiPlayer
      *      indicates if the game is single or multi player.
+     * @param loader
+     *      the object used to create levels.
      */
-    public GameSession(final View view, final Model model, final boolean isMultiPlayer) {
+    public GameSession(final View view, final Model model, final boolean isMultiPlayer, final LevelLoader loader) {
         this.score = 0;
         this.multiplayer = isMultiPlayer;
         this.world = model;
         this.scene = view;
-        this.loader = new TestLevelLoader();
+        this.loader = loader;
         this.shouldEnd = new Event<>();
         this.levelCreatedEvent = new Event<>();
     }
@@ -82,7 +85,7 @@ public abstract class GameSession {
             this.scene.getDialogFactory().createLevelNotLoaded(e).show();
         }
         if (!levelData.isPresent()) {
-            this.shouldEnd.trigger(true);
+            this.shouldEnd.trigger(this.lastResult);
             return;
         }
         Level currentLevel = levelData.get().getLevel();
@@ -106,7 +109,7 @@ public abstract class GameSession {
      * Asks subclasses what is the next level to start.
      * @return
      *      An optional describing the level data or an empty optional if the game session should end.
-     * @throws Exception
+     * @throws IOException
      *      when the level is not loaded correctly.
      */
     protected abstract Optional<LevelData> getNextLevel() throws IOException;
@@ -118,7 +121,8 @@ public abstract class GameSession {
      */
     protected void handleGameOver(final GameOverStatus status) {
         this.gameloop.stopLoop();
-        switch (status.getResult()) {
+        this.lastResult = status.getResult();
+        switch (this.lastResult) {
         case LEVEL_COMPLETE:
             this.scene.loadScene(GameScene.LEVEL_STEP);
             break;
@@ -154,7 +158,7 @@ public abstract class GameSession {
      * @param handler
      *      The handler of GameSession to register
      */
-    public void registerShouldEndEvent(final EventHandler<Boolean> handler) {
+    public void registerShouldEndEvent(final EventHandler<LevelResult> handler) {
         this.shouldEnd.registerHandler(handler);
     }
 
