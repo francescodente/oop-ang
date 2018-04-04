@@ -41,9 +41,9 @@ public class LevelData {
      * Utility method to set the DayTime.
      */
     private DayTime findDayTime(final int hour) {
-        if (hour > MORNING && hour < AFTERNOON) {
+        if (hour >= MORNING && hour < AFTERNOON) {
             return DayTime.MORNING;
-        } else if (hour > AFTERNOON && hour < NIGHT) {
+        } else if (hour >= AFTERNOON && hour < NIGHT) {
             return DayTime.AFTERNOON;
         }
         return DayTime.NIGHT;

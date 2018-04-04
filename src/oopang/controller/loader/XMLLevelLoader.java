@@ -1,7 +1,6 @@
 package oopang.controller.loader;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -9,13 +8,11 @@ import java.util.function.Supplier;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
@@ -39,16 +36,14 @@ public class XMLLevelLoader implements LevelLoader {
 
     private static final String PATH = "/levels/";
 
-    private PowerFactory powerFactory;
+    private final PowerFactory powerFactory;
 
     /**
      * Constructor of the Class setting the base path.
      * @param factory
      *      The power Factory
-     * @throws ParserConfigurationException
-     *      Exception of the XML parsing.
      */
-    public XMLLevelLoader(final PowerFactory factory) throws ParserConfigurationException {
+    public XMLLevelLoader(final PowerFactory factory) {
         this.powerFactory = factory;
     }
 
@@ -70,31 +65,29 @@ public class XMLLevelLoader implements LevelLoader {
      *      A {@link LevelData} decorated
      */
     private LevelData loadLevel(final Optional<Integer> index) {
-        Level level = new BaseLevel();
+        final Level level = new BaseLevel();
         final String path;
         if (index.isPresent()) {
             path = PATH + "Level" + index.get() + ".xml";
         } else {
             path = PATH + "InfiniteLevel.xml";
         }
-        final File file = new File(path);
-        final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
-        final DocumentBuilder dBuilder;
-        Document doc = null;
         try {
-            dBuilder = dBFactory.newDocumentBuilder();
-            doc = dBuilder.parse(file);
+            final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
+            final File file = new File(this.getClass().getResource(path).toURI());
+            final DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            // TODO Auto-generated catch block
+            final ImageID background = this.loadLevelData(level, doc);
+            final ImageID wallTexture = this.loadWallTexture(level, doc);
+            this.getPowers(level, doc);
+            this.loadBall(level, doc);
+            this.loadWalls(level, doc);
+            return new LevelData(background, wallTexture, level);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        final ImageID background = this.loadLevelData(level, doc);
-        final ImageID wallTexture = this.loadWallTexture(level, doc);
-        this.getPowers(level, doc);
-        this.loadBall(level, doc);
-        this.loadWalls(level, doc);
-        return new LevelData(background, wallTexture, level);
+        return null;
     }
 
     /**
@@ -189,7 +182,7 @@ public class XMLLevelLoader implements LevelLoader {
         final NodeList position = objectElement.getElementsByTagName(target);
         final Node positionField = position.item(0);
         final Element point = (Element) positionField;
-        final Element pointElement = (Element) point.getElementsByTagName("Vector").item(0);
+        final Element pointElement = (Element) point.getElementsByTagName("Point").item(0);
         return Points2D.of(Double.valueOf(pointElement.getAttribute("x")), Double.valueOf(pointElement.getAttribute("y")));
     }
 
