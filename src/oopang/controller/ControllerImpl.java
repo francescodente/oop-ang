@@ -34,13 +34,13 @@ public class ControllerImpl implements Controller {
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, new TestLevelLoader(), levelIndex);
-        this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
+        this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
     }
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, new TestLevelLoader());
-        this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
+        this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
-        this.gameSession.registerLevelStartedEvent(handler);
+        this.gameSession.getLevelStartedEvent().register(handler);
     }
 
 }

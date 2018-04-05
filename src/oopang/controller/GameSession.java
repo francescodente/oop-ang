@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import oopang.commons.events.EventSource;
+import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
@@ -154,21 +155,21 @@ public abstract class GameSession {
     }
 
     /**
-     * Register the status of the GameSession.
-     * @param handler
-     *      The handler of GameSession to register
+     * Returns the event which triggers when the GameSession should end.
+     * @return
+     *      the should end event.
      */
-    public void registerShouldEndEvent(final EventHandler<LevelResult> handler) {
-        this.shouldEnd.register(handler);
+    public Event<LevelResult> getShouldEndEvent() {
+        return this.shouldEnd;
     }
 
     /**
-     * Registers a new {@link EventHandler} to the level started event.
-     * @param handler
-     *      the {@link EventHandler} object.
+     * Returns the event which triggers when a new level is created.
+     * @return
+     *      the level created event.
      */
-    public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
-        this.levelCreatedEvent.register(handler);
+    public Event<LevelData> getLevelStartedEvent() {
+        return this.levelCreatedEvent;
     }
 
     /**
