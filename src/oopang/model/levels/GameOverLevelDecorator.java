@@ -1,7 +1,7 @@
 package oopang.model.levels;
 
+import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 
@@ -10,7 +10,7 @@ import oopang.model.LevelResult;
  */
 public abstract class GameOverLevelDecorator extends LevelDecorator {
 
-    private final Event<GameOverStatus> gameOverEvent;
+    private final EventSource<GameOverStatus> gameOverEvent;
 
     /**
      * Creates a new game over level based on the given level instance.
@@ -19,13 +19,12 @@ public abstract class GameOverLevelDecorator extends LevelDecorator {
      */
     public GameOverLevelDecorator(final Level baseLevel) {
         super(baseLevel);
-        this.gameOverEvent = new Event<>();
+        this.gameOverEvent = new EventSource<>();
     }
 
     @Override
-    public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
-        this.gameOverEvent.registerHandler(handler);
-        super.registerGameOverEvent(handler);
+    public Event<GameOverStatus> getGameOverStatusEvent() {
+        return this.gameOverEvent;
     }
 
     /**

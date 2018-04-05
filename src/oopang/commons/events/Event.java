@@ -1,49 +1,22 @@
 package oopang.commons.events;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Represents an event which accepts a {@link EventHandler} as an observer.
+ * This interface is used to give a protected access from outside the class that holds the {@link EventSource}.
  * @param <T>
- *      The type of the argument sent to all {@link EventHandler} objects registered
- *      to this event.
+ *      the type of the Event
  */
-public class Event<T> {
-
-    private final List<EventHandler<T>> registeredHandlers;
+public interface Event<T> {
 
     /**
-     * Creates a new Event object with no handlers.
-     */
-    public Event() {
-        this.registeredHandlers = new ArrayList<>();
-    }
-
-    /**
-     * Registers a new {@link EventHandler} to this event.
+     * Register the given {@link EventHandler} to this Event.
      * @param handler
-     *      the handler for the event.
+     *      the handler to be registered.
      */
-    public void registerHandler(final EventHandler<T> handler) {
-        this.registeredHandlers.add(handler);
-    }
+    void register(EventHandler<T> handler);
 
     /**
-     * Removes the specified {@link EventHandler} from the list of handlers.
+     * Unregister the given {@link EventHandler} to this Event.
      * @param handler
-     *      the handler to remove.
+     *      the handler to be unregistered.
      */
-    public void unregisterHandler(final EventHandler<T> handler) {
-        this.registeredHandlers.remove(handler);
-    }
-
-    /**
-     * Triggers the event, causing all registered handlers to be notified.
-     * @param arg
-     *      the argument of the event.
-     */
-    public void trigger(final T arg) {
-        this.registeredHandlers.stream().forEach(h -> h.handle(arg));
-    }
+    void unregister(EventHandler<T> handler);
 }

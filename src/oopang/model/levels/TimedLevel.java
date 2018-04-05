@@ -47,7 +47,7 @@ public class TimedLevel extends GameOverLevelDecorator {
             public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
                 final GameObject ball = super.createBall(size, velocity, color);
                 ballCount++;
-                ball.registerDestroyedEvent(b -> ballCount--);
+                ball.getDestroyedEvent().register(b -> ballCount--);
                 return ball;
             }
         };

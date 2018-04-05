@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
-import oopang.commons.events.Event;
+import oopang.commons.events.EventSource;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
@@ -28,8 +28,8 @@ public abstract class GameSession {
     private final View scene;
     private final Model world;
     private final LevelLoader loader;
-    private final Event<LevelData> levelCreatedEvent;
-    private final Event<LevelResult> shouldEnd;
+    private final EventSource<LevelData> levelCreatedEvent;
+    private final EventSource<LevelResult> shouldEnd;
 
     private int score;
     private LevelResult lastResult;
@@ -52,8 +52,8 @@ public abstract class GameSession {
         this.world = model;
         this.scene = view;
         this.loader = loader;
-        this.shouldEnd = new Event<>();
-        this.levelCreatedEvent = new Event<>();
+        this.shouldEnd = new EventSource<>();
+        this.levelCreatedEvent = new EventSource<>();
     }
 
     /**
@@ -98,7 +98,7 @@ public abstract class GameSession {
             inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
             currentLevel = new SinglePlayerLevel(currentLevel, inputPlayerTwo);
         }
-        currentLevel.registerGameOverEvent(this::handleGameOver);
+        currentLevel.getGameOverStatusEvent().register(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
         this.world.setCurrentLevel(currentLevel);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
@@ -159,7 +159,7 @@ public abstract class GameSession {
      *      The handler of GameSession to register
      */
     public void registerShouldEndEvent(final EventHandler<LevelResult> handler) {
-        this.shouldEnd.registerHandler(handler);
+        this.shouldEnd.register(handler);
     }
 
     /**
@@ -168,7 +168,7 @@ public abstract class GameSession {
      *      the {@link EventHandler} object.
      */
     public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
-        this.levelCreatedEvent.registerHandler(handler);
+        this.levelCreatedEvent.register(handler);
     }
 
     /**

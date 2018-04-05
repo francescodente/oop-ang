@@ -42,7 +42,7 @@ public class Pickup extends AbstractGameObject {
         final Convex pickup = new Rectangle(WIDTH, HEIGHT);
         this.collisioncomponent = new CollisionComponent(this, pickup, CollisionTag.PICKUP);
         this.inCollision = false;
-        this.collisioncomponent.registerCollisionEvent(c -> this.inCollision = true);
+        this.collisioncomponent.getCollisionEvent().register(c -> this.inCollision = true);
     }
 
     @Override

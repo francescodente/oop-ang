@@ -33,7 +33,7 @@ public class BasicFactory implements GameObjectFactory {
     public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
         final GameObject ball = new Ball(size, velocity, color);
         this.currentLevel.addGameObject(ball);
-        ball.registerDestroyedEvent(obj -> this.currentLevel.addScore(SCORE));
+        ball.getDestroyedEvent().register(obj -> this.currentLevel.addScore(SCORE));
         return ball;
     }
 

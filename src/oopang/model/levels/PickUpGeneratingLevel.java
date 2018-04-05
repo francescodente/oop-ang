@@ -60,7 +60,7 @@ public class PickUpGeneratingLevel extends LevelDecorator {
             @Override
             public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
                 final GameObject ball = super.createBall(size, velocity, color);
-                ball.registerDestroyedEvent(b -> {
+                ball.getDestroyedEvent().register(b -> {
                     ballsToNextPickUp--;
                     if (ballsToNextPickUp <= 0) {
                         resetPickUpTimer();

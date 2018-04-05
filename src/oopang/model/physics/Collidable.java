@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.dyn4j.geometry.Convex;
 
-import oopang.commons.events.EventHandler;
+import oopang.commons.events.Event;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
 import oopang.model.gameobjects.GameObject;
@@ -57,16 +57,9 @@ public interface Collidable {
     void notifyCollision(Collision coll);
 
     /**
-     * Registers an {@link EventHandler} for when the object starts colliding with something.
-     * @param handler
-     *      the {@link EventHandler}.
+     * Returns the collision event.
+     * @return
+     *      the collision event
      */
-    void registerCollisionEvent(EventHandler<Collision> handler);
-
-    /**
-     * Unregisters an {@link EventHandler} for when the object starts colliding with something.
-     * @param handler
-     *      the {@link EventHandler} to remove.
-     */
-    void unregisterCollisionEvent(EventHandler<Collision> handler);
+    Event<Collision> getCollisionEvent();
 }
