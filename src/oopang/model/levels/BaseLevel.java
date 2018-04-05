@@ -122,7 +122,7 @@ public class BaseLevel implements Level {
 
     @Override
     public Event<GameOverStatus> getGameOverStatusEvent() {
-        //A BaseLevel is not able to finish.
-        return null;
+        //A base level is not able to end so it returns a useless event.
+        return new EventSource<>();
     }
 }

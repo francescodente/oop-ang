@@ -47,7 +47,7 @@ public class TestLevelLoader implements LevelLoader {
         final List<Supplier<Power>> powerList = Arrays.asList(freeze, doubleShoot, sticky, speed, shield);
         Level level = new BaseLevel();
         level = new TimedLevel(new PickUpGeneratingLevel(new BaseLevel(), powerList), 100);
-        level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.randomColor()).setPosition(BALL_POS);
+        level.getGameObjectFactory().createBall(2, Vectors2D.LEFT.multiply(XSPEED), BallColor.randomColor()).setPosition(BALL_POS);
         level.getGameObjectFactory().createWall(30, Model.WALL_WIDTH).setPosition(Points2D.of(0, 50));
         return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), level);
     }

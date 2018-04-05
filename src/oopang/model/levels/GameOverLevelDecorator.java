@@ -1,6 +1,7 @@
 package oopang.model.levels;
 
 import oopang.commons.events.EventSource;
+import oopang.commons.events.CompositeEvent;
 import oopang.commons.events.Event;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
@@ -24,7 +25,10 @@ public abstract class GameOverLevelDecorator extends LevelDecorator {
 
     @Override
     public Event<GameOverStatus> getGameOverStatusEvent() {
-        return this.gameOverEvent;
+        final CompositeEvent<GameOverStatus> composition = new CompositeEvent<>();
+        composition.addEvent(gameOverEvent);
+        composition.addEvent(super.getGameOverStatusEvent());
+        return composition;
     }
 
     /**
