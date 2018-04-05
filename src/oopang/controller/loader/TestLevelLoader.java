@@ -12,6 +12,7 @@ import oopang.model.Model;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.InfiniteLevel;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelBuilder;
 import oopang.model.levels.PickUpGeneratingLevel;
 import oopang.model.levels.TimedLevel;
 import oopang.model.powers.BasicPowerFactory;
@@ -29,26 +30,31 @@ public class TestLevelLoader implements LevelLoader {
     private final PowerFactory factory = new BasicPowerFactory();
 
     @Override
-    public LevelData loadInfiniteLevel() {
-        Level level = new BaseLevel();
+    public LevelData loadInfiniteLevel(final LevelBuilder builder) {
         final Supplier<Power> freeze = () -> factory.createFreeze();
         final Supplier<Power> doubleShoot = () -> factory.createDoubleShot();
-        level = new InfiniteLevel(new PickUpGeneratingLevel(level, Arrays.asList(freeze, doubleShoot)));
-        return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), level);
+        builder.setSurvival();
+        builder.addAvailablePower(freeze);
+        builder.addAvailablePower(doubleShoot);
+        return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), builder.build());
     }
 
     @Override
-    public LevelData loadStoryLevel(final int index) {
+    public LevelData loadStoryLevel(final int index, final LevelBuilder builder) {
         final Supplier<Power> freeze = () -> factory.createFreeze();
         final Supplier<Power> doubleShoot = () -> factory.createDoubleShot();
         final Supplier<Power> sticky = () -> factory.createAdhesiveShot();
         final Supplier<Power> speed = () -> factory.createDoubleSpeed();
         final Supplier<Power> shield = () -> factory.createTimedShield();
         final List<Supplier<Power>> powerList = Arrays.asList(freeze, doubleShoot, sticky, speed, shield);
-        Level level = new BaseLevel();
-        level = new TimedLevel(new PickUpGeneratingLevel(new BaseLevel(), powerList), 100);
-        level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.randomColor()).setPosition(BALL_POS);
-        level.getGameObjectFactory().createWall(30, Model.WALL_WIDTH).setPosition(Points2D.of(0, 50));
-        return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), level);
+//        Level level = new BaseLevel();
+//        level = new TimedLevel(new PickUpGeneratingLevel(new BaseLevel(), powerList), 100);
+//        level.getGameObjectFactory().createBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.randomColor()).setPosition(BALL_POS);
+//        level.getGameObjectFactory().createWall(30, Model.WALL_WIDTH).setPosition(Points2D.of(0, 50));
+        builder.addAvailablePower(freeze).addAvailablePower(shield).addAvailablePower(sticky);
+        builder.addBall(4, Vectors2D.LEFT.multiply(XSPEED), BallColor.randomColor(), BALL_POS);
+        builder.setTime(60);
+        builder.addWall(30, Model.WALL_WIDTH, Points2D.of(0, 50));
+        return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), builder.build());
     }
 }

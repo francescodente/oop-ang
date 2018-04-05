@@ -22,6 +22,7 @@ import oopang.model.BallColor;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.InfiniteLevel;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelBuilder;
 import oopang.model.levels.PickUpGeneratingLevel;
 import oopang.model.levels.TimedLevel;
 import oopang.model.powers.Power;
@@ -48,12 +49,12 @@ public class XMLLevelLoader implements LevelLoader {
     }
 
     @Override
-    public LevelData loadInfiniteLevel() {
+    public LevelData loadInfiniteLevel(final LevelBuilder builder) {
         return loadLevel(Optional.empty());
     }
 
     @Override
-    public LevelData loadStoryLevel(final int index) {
+    public LevelData loadStoryLevel(final int index, final LevelBuilder builder) {
         return loadLevel(Optional.of(index));
     }
 

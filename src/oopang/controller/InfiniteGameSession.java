@@ -8,6 +8,7 @@ import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
+import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 
 /**
@@ -42,12 +43,12 @@ public final class InfiniteGameSession extends GameSession {
     }
 
     @Override
-    protected Optional<LevelData> getNextLevel() throws IOException {
+    protected Optional<LevelData> getNextLevel(final LevelBuilder builder) throws IOException {
         if (this.levelStarted) {
             return Optional.empty();
         }
         this.levelStarted = true;
-        return Optional.of(this.getLoader().loadInfiniteLevel());
+        return Optional.of(this.getLoader().loadInfiniteLevel(builder));
     }
 
 }

@@ -14,7 +14,9 @@ import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
+import oopang.model.levels.LazyLevelBuilder;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelBuilder;
 import oopang.model.levels.SinglePlayerLevel;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -78,9 +80,19 @@ public abstract class GameSession {
      * Tells the game session to start the next level and create the new game loop.
      */
     public void startNextLevel() {
+        final LevelBuilder builder = new LazyLevelBuilder();
+        final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
+        final InputController input = new InputController();
+        inputMap.put(PlayerTag.PLAYER_ONE, input);
+        builder.addPlayer(input, PlayerTag.PLAYER_ONE);
+        if (this.multiplayer) {
+            final InputController inputPlayerTwo = new InputController();
+            inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
+            builder.addPlayer(inputPlayerTwo, PlayerTag.PLAYER_TWO);
+        }
         Optional<LevelData> levelData = Optional.empty();
         try {
-            levelData = this.getNextLevel();
+            levelData = this.getNextLevel(builder);
         } catch (Exception e) {
             this.scene.getDialogFactory().createLevelNotLoaded(e).show();
         }
@@ -88,16 +100,7 @@ public abstract class GameSession {
             this.shouldEnd.trigger(this.lastResult);
             return;
         }
-        Level currentLevel = levelData.get().getLevel();
-        final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
-        final InputController input = new InputController();
-        inputMap.put(PlayerTag.PLAYER_ONE, input);
-        currentLevel = new SinglePlayerLevel(currentLevel, input);
-        if (this.multiplayer) {
-            final InputController inputPlayerTwo = new InputController();
-            inputMap.put(PlayerTag.PLAYER_TWO, inputPlayerTwo);
-            currentLevel = new SinglePlayerLevel(currentLevel, inputPlayerTwo);
-        }
+        final Level currentLevel = levelData.get().getLevel();
         currentLevel.registerGameOverEvent(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
         this.world.setCurrentLevel(currentLevel);
@@ -107,12 +110,14 @@ public abstract class GameSession {
 
     /**
      * Asks subclasses what is the next level to start.
+     * @param builder
+     *      the builder used to create the level.
      * @return
      *      An optional describing the level data or an empty optional if the game session should end.
      * @throws IOException
      *      when the level is not loaded correctly.
      */
-    protected abstract Optional<LevelData> getNextLevel() throws IOException;
+    protected abstract Optional<LevelData> getNextLevel(LevelBuilder builder) throws IOException;
 
     /**
      * Contains the logic for when the level ends.
