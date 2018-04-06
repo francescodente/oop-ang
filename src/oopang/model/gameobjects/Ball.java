@@ -107,7 +107,7 @@ public class Ball extends AbstractGameObject {
         if (this.size != MIN_BALL_SIZE) {
             yvalue--;
         }
-        return this.size * yvalue - this.getPosition().getY();
+        return this.size * yvalue - this.getPosition().getY() + this.radius;
     }
 
     /**
