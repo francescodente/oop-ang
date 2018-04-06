@@ -1,9 +1,12 @@
 package oopang.model.powers;
+
+import oopang.commons.Timeable;
+
 /**
  * This class represents all the enhancements that have temporary effects.
  *
  */
-public abstract class PowerTimed extends AbstractPower {
+public abstract class PowerTimed extends AbstractPower implements Timeable {
     private double time;
     private final double timeout;
     /**
@@ -30,5 +33,12 @@ public abstract class PowerTimed extends AbstractPower {
             this.deactivate();
         }
     }
+
+    @Override
+    public double getRemainingTimePercentage() {
+        return this.time / this.timeout;
     }
+}
+
+
 
