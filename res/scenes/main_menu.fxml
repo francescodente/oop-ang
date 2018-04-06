@@ -7,12 +7,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.MainMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.MainMenuController" stylesheets="@stylesheet/main_menu_style.css">
    <center>
-      <Button mnemonicParsing="false" onMouseClicked="#nextScene" prefHeight="41.0" prefWidth="231.0" text="Start" textOverrun="CENTER_ELLIPSIS" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <Button id="start-button" mnemonicParsing="false" onMouseClicked="#nextScene" prefHeight="41.0" prefWidth="231.0" text="Start" textOverrun="CENTER_ELLIPSIS" BorderPane.alignment="CENTER"/>
    </center>
 </BorderPane>
