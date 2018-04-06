@@ -17,7 +17,7 @@ import oopang.model.input.InputReader;
 import oopang.model.powers.Power;
 
 /**
- * 
+ * Class that implements the interface {@link LevelBuilder}.
  */
 public final class LazyLevelBuilder implements LevelBuilder {
 
@@ -29,7 +29,7 @@ public final class LazyLevelBuilder implements LevelBuilder {
     private Optional<Vector2D> gravity;
 
     /**
-     * 
+     * Constructor of the class LazyLevelBuilder.
      */
     public LazyLevelBuilder() {
         this.gameObjects = new LinkedList<>();
