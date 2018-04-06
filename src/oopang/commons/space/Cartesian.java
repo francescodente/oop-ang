@@ -75,6 +75,9 @@ public class Cartesian implements Vector2D, Point2D {
 
     @Override
     public Vector2D normalized() {
+        if (this.getModule() == 0) {
+            return Vectors2D.ZERO;
+        }
         return this.multiply(1 / this.getModule());
     }
 
