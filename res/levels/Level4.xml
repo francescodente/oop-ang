@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level id = "4">
+    <Background>ANGKOR_WAT</Background>
+    <WallTexture>YELLOW_WALL</WallTexture>
+    <Time>90</Time>
+    <AvailablePower>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "DOUBLESPEED"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "YELLOW" size = "4">
+            <Velocity>
+                <Vector x = "15" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "85"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "4">
+            <Velocity>
+                <Vector x = "-15" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "85"/>
+            </Position>
+        </Ball>
+        <Wall width ="60" height = "5.5">
+            <Position>
+                <Point x = "0" y = "37"/>
+            </Position>
+        </Wall>
+        <Wall width ="45" height = "5.5">
+            <Position>
+                <Point x = "-75" y = "65"/>
+            </Position>
+        </Wall>
+        <Wall width ="45" height = "5.5">
+            <Position>
+                <Point x = "75" y = "65"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>
