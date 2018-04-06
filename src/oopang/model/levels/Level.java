@@ -2,6 +2,7 @@ package oopang.model.levels;
 
 import java.util.stream.Stream;
 
+import oopang.commons.Timeable;
 import oopang.commons.events.Event;
 import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.GameObject;
@@ -11,7 +12,7 @@ import oopang.model.physics.CollisionManager;
 /**
  * Represents a level containing all GameObjects.
  */
-public interface Level {
+public interface Level extends Timeable {
 
     /**
      * Starts all Level GameObjects and initialize stats.

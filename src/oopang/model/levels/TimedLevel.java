@@ -14,6 +14,7 @@ import oopang.model.gameobjects.GameObjectFactoryDecorator;
 public class TimedLevel extends GameOverLevelDecorator {
 
     private double timeLeft;
+    private double totalTime;
     private int ballCount;
 
     /**
@@ -25,6 +26,7 @@ public class TimedLevel extends GameOverLevelDecorator {
      */
     public TimedLevel(final Level baseLevel, final double time) {
         super(baseLevel);
+        this.totalTime = time;
         this.timeLeft = time;
         this.ballCount = 0;
     }
@@ -52,5 +54,9 @@ public class TimedLevel extends GameOverLevelDecorator {
                 return ball;
             }
         };
+    }
+    @Override
+    public double getRemainingTimePercentage() {
+        return this.timeLeft / this.totalTime;
     }
 }
