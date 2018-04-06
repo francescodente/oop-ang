@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
 import oopang.model.powers.Power;
@@ -10,10 +11,12 @@ import oopang.model.powers.Power;
 public interface GameObjectFactory {
     /**
      * Creates a new player {@link GameObject} and adds it to the level.
+     * @param tag
+     *      the tag used to distinguish the two players
      * @return
      *      the player {@link GameObject}.
      */
-    GameObject createPlayer();
+    GameObject createPlayer(PlayerTag tag);
 
     /**
      * Creates a new bubble {@link GameObject} given its radius and adds it to the level.

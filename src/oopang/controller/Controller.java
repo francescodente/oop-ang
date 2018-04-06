@@ -1,6 +1,7 @@
 package oopang.controller;
 
 import oopang.commons.Command;
+import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 
@@ -60,4 +61,11 @@ public interface Controller {
      *      the {@link EventHandler} object.
      */
     void registerLevelStartedEvent(EventHandler<LevelData> handler);
+
+    /**
+     * Returns the life count.
+     * @return
+     *      the number of lives
+     */
+    int getLifeCount();
 }

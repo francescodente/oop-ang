@@ -60,5 +60,9 @@ public final class StoryModeGameSession extends GameSession {
             this.lives--;
         }
     }
+    @Override
+    public int getLifeCount() {
+        return this.lives;
+    }
 
 }

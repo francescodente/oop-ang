@@ -2,9 +2,9 @@ package oopang.model.levels;
 
 import java.util.function.Supplier;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
-import oopang.controller.PlayerTag;
 import oopang.model.BallColor;
 import oopang.model.input.InputReader;
 import oopang.model.powers.Power;

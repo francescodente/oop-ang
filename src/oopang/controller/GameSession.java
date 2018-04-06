@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import oopang.commons.events.EventSource;
+import oopang.commons.PlayerTag;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
@@ -184,5 +185,14 @@ public abstract class GameSession {
      */
     public boolean isMultiplayer() {
         return this.multiplayer;
+    }
+
+    /**
+     * Returns the life count.
+     * @return
+     *      the number of lives
+     */
+    public int getLifeCount() {
+        return 0;
     }
 }

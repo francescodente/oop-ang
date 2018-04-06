@@ -9,7 +9,9 @@ import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
 import oopang.commons.LevelManager;
+import oopang.commons.PlayerTag;
 import oopang.commons.events.EventSource;
+import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
@@ -38,12 +40,16 @@ public class Player extends AbstractGameObject {
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
+    private final PlayerTag tag;
     private final EventSource<Power> pickupCollected;
     /**
      * Constructor of this class.
+     * @param tag
+     *      the tag used to distinguish the player1 from player2.
      */
-    public Player() {
+    public Player(final PlayerTag tag) {
         super();
+        this.tag = tag;
         final Convex shape = new Rectangle(WIDTH, HEIGHT);
         shape.translate(0, HEIGHT / 2);
         this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
@@ -146,11 +152,20 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Register Pickup collected event.
-     * @param handler
-     *      the {@link EventHandler}.
+     * Getter of the PlayerTag.
+     * @return
+     *      The player tag.
      */
-    public void registerPickupCollectedEvent(final EventHandler<Power> handler) {
-        this.pickupCollected.register(handler);
+    public PlayerTag getPlayerTag() {
+        return this.tag;
+    }
+
+    /**
+     * Returns the event which triggers when a Pickup is collected.
+     * @return
+     *      the pickup collected event
+     */
+    public Event<Power> getPickupCollectedEvent() {
+        return this.pickupCollected;
     }
 }

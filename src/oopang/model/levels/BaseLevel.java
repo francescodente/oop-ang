@@ -125,4 +125,9 @@ public class BaseLevel implements Level {
         //A base level is not able to end so it returns a useless event.
         return new EventSource<>();
     }
+
+    @Override
+    public double getRemainingTimePercentage() {
+        return 0;
+    }
 }

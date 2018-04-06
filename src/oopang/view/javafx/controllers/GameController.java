@@ -6,10 +6,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import oopang.commons.PlayerTag;
+import oopang.commons.Timeable;
 import oopang.controller.Controller;
-import oopang.controller.PlayerTag;
 import oopang.model.Model;
+import oopang.model.gameobjects.Ball;
+import oopang.model.gameobjects.GameObjectVisitor;
+import oopang.model.gameobjects.HookShot;
+import oopang.model.gameobjects.Pickup;
+import oopang.model.gameobjects.Player;
+import oopang.model.gameobjects.Wall;
 import oopang.model.input.InputDirection;
+import oopang.model.powers.Power;
 import oopang.view.GameScene;
 import oopang.view.View;
 import oopang.view.rendering.CanvasDrawer;
@@ -37,6 +45,34 @@ public final class GameController extends SceneController {
             final Renderer background = canvasDrawer.getRendererFactory(i.getWallTexture()).createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);
             i.getLevel().getObjectCreatedEvent().register(o -> {
+                o.accept(new GameObjectVisitor<Boolean>() {
+
+                    @Override
+                    public Boolean visit(final Player player) {
+                        player.getPickupCollectedEvent().register(p -> handlePickupEvent(p, player));
+                        return true;
+                    }
+
+                    @Override
+                    public Boolean visit(final Ball ball) {
+                        return false;
+                    }
+
+                    @Override
+                    public Boolean visit(final Wall wall) {
+                        return false;
+                    }
+
+                    @Override
+                    public Boolean visit(final HookShot shot) {
+                        return false;
+                    }
+
+                    @Override
+                    public Boolean visit(final Pickup pickup) {
+                        return false;
+                    }
+                });
                 final Renderer object = this.canvasDrawer.getRendererFactory(i.getWallTexture()).createGameObjectRenderer(o);
                 this.canvasDrawer.addRenderer(object);
                 o.getDestroyedEvent().register(r -> this.canvasDrawer.removeRenderer(object));
@@ -137,5 +173,11 @@ public final class GameController extends SceneController {
         gc.scale(canvasWidth / (Model.WORLD_WIDTH + Model.WALL_WIDTH * 2),
                 canvasHeight / (Model.WORLD_HEIGHT + Model.WALL_WIDTH * 2));
         gc.translate(0, Model.WALL_WIDTH);
+    }
+
+    private void handlePickupEvent(final Power power, final Player player) {
+        if (power instanceof Timeable) {
+            //do something
+        }
     }
 }

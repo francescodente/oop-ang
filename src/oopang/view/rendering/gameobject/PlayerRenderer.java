@@ -1,5 +1,6 @@
 package oopang.view.rendering.gameobject;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.Player;
 import oopang.view.rendering.ImageID;
@@ -21,7 +22,11 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
     public PlayerRenderer(final Sprite sprite, final Player gameObject) {
         super(sprite, gameObject);
         this.setLayer(PLAYER_LAYER);
-        sprite.setSource(ImageID.PLAYER);
+        if (gameObject.getPlayerTag() == PlayerTag.PLAYER_ONE) {
+            sprite.setSource(ImageID.PLAYER1);
+        } else {
+            sprite.setSource(ImageID.PLAYER2);
+        }
         sprite.setPivot(Vectors2D.of(0, -1));
     }
 

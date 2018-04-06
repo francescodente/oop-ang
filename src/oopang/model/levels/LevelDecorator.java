@@ -80,4 +80,8 @@ public abstract class LevelDecorator implements Level {
     public Event<GameOverStatus> getGameOverStatusEvent() {
         return this.innerLevel.getGameOverStatusEvent();
     }
+    @Override
+    public double getRemainingTimePercentage() {
+        return this.innerLevel.getRemainingTimePercentage();
+    }
 }

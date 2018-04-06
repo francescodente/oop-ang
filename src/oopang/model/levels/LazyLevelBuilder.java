@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
-import oopang.controller.PlayerTag;
 import oopang.model.BallColor;
 import oopang.model.input.InputReader;
 import oopang.model.powers.Power;
@@ -103,7 +103,7 @@ public final class LazyLevelBuilder implements LevelBuilder {
             level = new PickUpGeneratingLevel(level, powers);
         }
         for (final Map.Entry<PlayerTag, InputReader> entry : this.playerInputs.entrySet()) {
-            level = new SinglePlayerLevel(level, entry.getValue());
+            level = new SinglePlayerLevel(level, entry.getValue(), entry.getKey());
         }
         final Level finalLevel = level;
         this.gameObjects.stream().forEach(g -> g.accept(finalLevel));

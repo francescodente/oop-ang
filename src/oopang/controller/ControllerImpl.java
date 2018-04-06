@@ -1,6 +1,7 @@
 package oopang.controller;
 
 import oopang.commons.Command;
+import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.TestLevelLoader;
@@ -84,6 +85,11 @@ public class ControllerImpl implements Controller {
     @Override
     public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
         this.gameSession.getLevelStartedEvent().register(handler);
+    }
+
+    @Override
+    public int getLifeCount() {
+        return this.gameSession.getLifeCount();
     }
 
 }
