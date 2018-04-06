@@ -42,12 +42,12 @@ public class XMLLevelLoader implements LevelLoader {
 
     @Override
     public LevelData loadInfiniteLevel(final LevelBuilder builder) {
-        return loadLevel(Optional.empty());
+        return loadLevel(Optional.empty(), builder);
     }
 
     @Override
     public LevelData loadStoryLevel(final int index, final LevelBuilder builder) {
-        return loadLevel(Optional.of(index));
+        return loadLevel(Optional.of(index), builder);
     }
 
     /**
@@ -57,8 +57,8 @@ public class XMLLevelLoader implements LevelLoader {
      * @return
      *      A {@link LevelData} decorated
      */
-    private LevelData loadLevel(final Optional<Integer> index) {
-        LevelBuilder level = new LazyLevelBuilder();
+    private LevelData loadLevel(final Optional<Integer> index, final LevelBuilder builder) {
+        LevelBuilder level = builder;
         final String path;
         if (index.isPresent()) {
             path = PATH + "Level" + index.get() + ".xml";

@@ -4,8 +4,10 @@ import oopang.commons.Command;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.TestLevelLoader;
+import oopang.controller.loader.XMLLevelLoader;
 import oopang.model.LevelResult;
 import oopang.model.Model;
+import oopang.model.powers.BasicPowerFactory;
 import oopang.view.GameScene;
 import oopang.view.View;
 
@@ -33,7 +35,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
-        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, new TestLevelLoader(), levelIndex);
+        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, new XMLLevelLoader(new BasicPowerFactory()), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
     }
 
