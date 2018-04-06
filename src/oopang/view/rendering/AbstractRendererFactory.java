@@ -6,7 +6,6 @@ import oopang.model.gameobjects.GameObjectVisitor;
 import oopang.model.gameobjects.HookShot;
 import oopang.model.gameobjects.Pickup;
 import oopang.model.gameobjects.Player;
-import oopang.model.gameobjects.Shot;
 import oopang.model.gameobjects.Wall;
 import oopang.view.rendering.gameobject.BallRenderer;
 import oopang.view.rendering.gameobject.HookShotRenderer;
