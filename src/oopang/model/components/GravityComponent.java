@@ -11,11 +11,11 @@ public class GravityComponent extends AbstractComponent {
 
     private static final Vector2D DEFAULT_GRAVITY_ACC = Vectors2D.of(0, -100);
 
-    private final Vector2D gravity;
+    private Vector2D gravity;
     private MovementComponent movement;
 
     /**
-     * Creates a new GravityComponent instance with default gravity acceleration (0, -50).
+     * Creates a new GravityComponent instance with default gravity acceleration (0, -100).
      * @param obj
      *      the game object this component is attached to.
      */
@@ -45,7 +45,7 @@ public class GravityComponent extends AbstractComponent {
         final Vector2D dV = gravity.multiply(deltaTime);
         this.movement.setVelocity(this.movement.getVelocity().sumVector(dV));
     }
-    
+
     /**
      * Gets the gravity value.
      * @return
@@ -53,5 +53,14 @@ public class GravityComponent extends AbstractComponent {
      */
     public Vector2D getGravity() {
         return gravity;
+    }
+
+    /**
+     * Sets a new gravity acceleration for this object.
+     * @param gravity
+     *      the gravity vector.
+     */
+    public void setGravity(final Vector2D gravity) {
+        this.gravity = gravity;
     }
 }

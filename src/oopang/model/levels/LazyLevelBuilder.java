@@ -1,7 +1,6 @@
 package oopang.model.levels;
 
 import java.util.EnumMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +22,9 @@ public final class LazyLevelBuilder implements LevelBuilder {
 
     private boolean built;
     private double time;
-    private Map<PlayerTag, InputReader> playerInputs;
-    private List<Consumer<Level>> gameObjects;
-    private List<Supplier<Power>> powers;
+    private final Map<PlayerTag, InputReader> playerInputs;
+    private final List<Consumer<Level>> gameObjects;
+    private final List<Supplier<Power>> powers;
     private Optional<Vector2D> gravity;
 
     /**
@@ -97,7 +96,7 @@ public final class LazyLevelBuilder implements LevelBuilder {
             level = new TimedLevel(level, this.time);
         }
         if (this.gravity.isPresent()) {
-            //level = new ..
+            level = new GravityLevel(level, this.gravity.get());
         }
         if (!this.powers.isEmpty()) {
             level = new PickUpGeneratingLevel(level, powers);
