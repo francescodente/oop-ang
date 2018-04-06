@@ -1,10 +1,7 @@
 package oopang.controller.loader;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,13 +16,8 @@ import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
-import oopang.model.levels.BaseLevel;
-import oopang.model.levels.InfiniteLevel;
-import oopang.model.levels.Level;
+import oopang.model.levels.LazyLevelBuilder;
 import oopang.model.levels.LevelBuilder;
-import oopang.model.levels.PickUpGeneratingLevel;
-import oopang.model.levels.TimedLevel;
-import oopang.model.powers.Power;
 import oopang.model.powers.PowerFactory;
 import oopang.model.powers.PowerTag;
 import oopang.view.rendering.ImageID;
@@ -66,7 +58,7 @@ public class XMLLevelLoader implements LevelLoader {
      *      A {@link LevelData} decorated
      */
     private LevelData loadLevel(final Optional<Integer> index) {
-        final Level level = new BaseLevel();
+        LevelBuilder level = new LazyLevelBuilder();
         final String path;
         if (index.isPresent()) {
             path = PATH + "Level" + index.get() + ".xml";
@@ -79,12 +71,13 @@ public class XMLLevelLoader implements LevelLoader {
             final DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
             final Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
-            final ImageID background = this.loadLevelData(level, doc);
-            final ImageID wallTexture = this.loadWallTexture(level, doc);
-            this.getPowers(level, doc);
-            this.loadBall(level, doc);
-            this.loadWalls(level, doc);
-            return new LevelData(background, wallTexture, level);
+            level = this.loadLevelData(level, doc);
+            final ImageID wallTexture = this.loadWallTexture(doc);
+            final ImageID background = this.loadBackground(doc);
+            level = this.getPowers(level, doc);
+            level = this.loadBall(level, doc);
+            level = this.loadWalls(level, doc);
+            return new LevelData(background, wallTexture, level.build());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,8 +91,7 @@ public class XMLLevelLoader implements LevelLoader {
      * @param doc
      *      The Document to load
      */
-    private void getPowers(Level level, final Document doc) {
-        List<Supplier<Power>> powerList = new LinkedList<>();
+    private LevelBuilder getPowers(LevelBuilder level, final Document doc) {
         final NodeList powers = doc.getElementsByTagName("AvailablePower");
         final Node availablePowers = powers.item(0);
         final Element powerField = (Element) availablePowers;
@@ -108,22 +100,22 @@ public class XMLLevelLoader implements LevelLoader {
             final Element power = (Element) powerField.getElementsByTagName("Power").item(i);
             PowerTag pow = PowerTag.valueOf(power.getAttribute("id"));
             if (pow == PowerTag.ADHESIVESHOT) {
-                powerList.add(() -> powerFactory.createAdhesiveShot());
+                level = level.addAvailablePower(() -> this.powerFactory.createAdhesiveShot());
             }
             if (pow == PowerTag.DOUBLESHOT) {
-                powerList.add(() -> powerFactory.createDoubleShot());
+                level = level.addAvailablePower(() -> this.powerFactory.createDoubleShot());
             }
             if (pow == PowerTag.DOUBLESPEED) {
-                powerList.add(() -> powerFactory.createDoubleSpeed());
+                level = level.addAvailablePower(() -> this.powerFactory.createDoubleSpeed());
             }
             if (pow == PowerTag.FREEZE) {
-                powerList.add(() -> powerFactory.createFreeze());
+                level = level.addAvailablePower(() -> this.powerFactory.createFreeze());
             }
             if (pow == PowerTag.TIMEDSHIELD) {
-                powerList.add(() -> powerFactory.createTimedShield());
+                level = level.addAvailablePower(() -> this.powerFactory.createTimedShield());
             }
         }
-        level = new PickUpGeneratingLevel(level, powerList);
+        return level;
     }
 
     /**
@@ -133,15 +125,16 @@ public class XMLLevelLoader implements LevelLoader {
      * @param doc
      *      The document to load
      */
-    private void loadBall(final Level level, final Document doc) {
+    private LevelBuilder loadBall(final LevelBuilder level, final Document doc) {
         final NodeList balls = doc.getElementsByTagName("Ball");
         for (int k = 0; k < balls.getLength(); k++) {
             final Node ball = balls.item(k);
             final Element attr = (Element) ball;
             final BallColor color = BallColor.valueOf(attr.getAttribute("color"));
             final int size = Integer.parseInt(attr.getAttribute("size"));
-            level.getGameObjectFactory().createBall(size, getVector(k, "Velocity", "Ball", doc), color).setPosition(this.getPoint(k, "Position", "Ball", doc));
+            level.addBall(size, getVector(k, "Velocity", "Ball", doc), color, getPoint(k, "Position", "Ball", doc));
         }
+        return level;
     }
 
     /**
@@ -196,29 +189,40 @@ public class XMLLevelLoader implements LevelLoader {
      * @return
      *      The {@link ImageID} loaded.
      */
-    private ImageID loadLevelData(Level level, final Document doc) {
+    private LevelBuilder loadLevelData(LevelBuilder level, final Document doc) {
         final NodeList nList = doc.getElementsByTagName("Level");
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
-        final ImageID background = ImageID.valueOf(eElement.getElementsByTagName("Background").item(0).getTextContent());
         if (eElement.getElementsByTagName("Time").getLength() > 0) {
-            level = new TimedLevel(level, Double.parseDouble(eElement.getElementsByTagName("Time").item(0).getTextContent()));
+            level = level.setTime(Double.parseDouble(eElement.getElementsByTagName("Time").item(0).getTextContent()));
         } else {
-            level = new InfiniteLevel(level);
+            level = level.setSurvival();
         }
-        return background;
+        return level;
+    }
+
+    /**
+     * Method to load the {@link ImageID} of the Background in this {@link Level}.
+     * The XML File
+     * @return
+     *      The texture of the walls.
+     */
+    private ImageID loadBackground(final Document doc) {
+        final NodeList nList = doc.getElementsByTagName("Level");
+        final Node nNode = nList.item(0);
+        final Element eElement = (Element) nNode;
+        return ImageID.valueOf(eElement.getElementsByTagName("Background").item(0).getTextContent());
+
     }
 
     /**
      * Method to load the {@link ImageID} of the {@link Wall} in this {@link Level}.
-     * @param level
-     *      the {@link Level} to decorate
      * @param doc
      *      The XML File
      * @return
      *      The texture of the walls.
      */
-    private ImageID loadWallTexture(final Level level, final Document doc) {
+    private ImageID loadWallTexture(final Document doc) {
         final NodeList nList = doc.getElementsByTagName("Level");
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
@@ -230,15 +234,16 @@ public class XMLLevelLoader implements LevelLoader {
      * @param level
      *      The instance of {@link Level} where create {@link Wall}
      */
-    private void loadWalls(final Level level, final Document doc) {
+    private LevelBuilder loadWalls(final LevelBuilder level, final Document doc) {
         final NodeList wallList = doc.getElementsByTagName("Wall");
         for (int i = 0; i < wallList.getLength(); i++) {
             final Node wall = wallList.item(i);
             final Element attr = (Element) wall;
             final double height = Double.parseDouble(attr.getAttribute("height"));
             final double width = Double.parseDouble(attr.getAttribute("width"));
-            level.getGameObjectFactory().createWall(width, height).setPosition(this.getPoint(i, "Position", "Wall", doc));
+            level.addWall(width, height, getPoint(i, "Position", "Wall", doc));
         }
+        return level;
     }
 }
 
