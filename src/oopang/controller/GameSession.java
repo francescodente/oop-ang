@@ -8,7 +8,6 @@ import java.util.Optional;
 import oopang.commons.events.EventSource;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
@@ -19,7 +18,6 @@ import oopang.model.input.InputWriter;
 import oopang.model.levels.LazyLevelBuilder;
 import oopang.model.levels.Level;
 import oopang.model.levels.LevelBuilder;
-import oopang.model.levels.SinglePlayerLevel;
 import oopang.view.GameScene;
 import oopang.view.View;
 
