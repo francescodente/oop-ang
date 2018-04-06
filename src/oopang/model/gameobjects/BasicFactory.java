@@ -26,7 +26,7 @@ public class BasicFactory implements GameObjectFactory {
     public GameObject createPlayer(final PlayerTag tag) {
         final Player player = new Player(tag);
         this.currentLevel.addGameObject(player); 
-        player.registerPickupCollectedEvent(obj -> this.currentLevel.addScore(SCORE));
+        player.getPickupCollectedEvent().register(obj -> this.currentLevel.addScore(SCORE));
         return player;
     }
 

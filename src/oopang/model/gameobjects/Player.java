@@ -11,6 +11,7 @@ import org.dyn4j.geometry.Rectangle;
 import oopang.commons.LevelManager;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventSource;
+import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
@@ -39,7 +40,7 @@ public class Player extends AbstractGameObject {
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
-    private PlayerTag tag;
+    private final PlayerTag tag;
     private final EventSource<Power> pickupCollected;
     /**
      * Constructor of this class.
@@ -160,11 +161,11 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Register Pickup collected event.
-     * @param handler
-     *      the {@link EventHandler}.
+     * Returns the event which triggers when a Pickup is collected.
+     * @return
+     *      the pickup collected event
      */
-    public void registerPickupCollectedEvent(final EventHandler<Power> handler) {
-        this.pickupCollected.register(handler);
+    public Event<Power> getPickupCollectedEvent() {
+        return this.pickupCollected;
     }
 }
