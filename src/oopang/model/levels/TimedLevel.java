@@ -26,6 +26,7 @@ public class TimedLevel extends GameOverLevelDecorator {
     public TimedLevel(final Level baseLevel, final double time) {
         super(baseLevel);
         this.timeLeft = time;
+        this.ballCount = 0;
     }
 
     @Override
