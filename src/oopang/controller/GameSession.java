@@ -186,4 +186,13 @@ public abstract class GameSession {
     public boolean isMultiplayer() {
         return this.multiplayer;
     }
+
+    /**
+     * Returns the life count.
+     * @return
+     *      the number of lives
+     */
+    public int getLifeCount() {
+        return 0;
+    }
 }

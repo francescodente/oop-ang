@@ -61,4 +61,11 @@ public interface Controller {
      *      the {@link EventHandler} object.
      */
     void registerLevelStartedEvent(EventHandler<LevelData> handler);
+
+    /**
+     * Returns the life count.
+     * @return
+     *      the number of lives
+     */
+    int getLifeCount();
 }

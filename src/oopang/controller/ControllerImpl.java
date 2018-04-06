@@ -87,5 +87,10 @@ public class ControllerImpl implements Controller {
         this.gameSession.getLevelStartedEvent().register(handler);
     }
 
+    @Override
+    public int getLifeCount() {
+        return this.gameSession.getLifeCount();
+    }
+
 }
 
