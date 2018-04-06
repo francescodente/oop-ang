@@ -11,9 +11,13 @@ import java.util.stream.Stream;
  */
 public enum ImageID {
     /**
-     * The image for the player character.
+     * The image for the player 1 character.
      */
-    PLAYER("/player/default", false),
+    PLAYER1("/player/player1", false),
+    /**
+     * The image for the player 1 character.
+     */
+    PLAYER2("/player/player2", false),
     /**
      * The image for the balls.
      */
@@ -121,7 +125,11 @@ public enum ImageID {
     /**
      * The background with Uluru.
      */
-    ULURU("/background/Uluru", true);
+    ULURU("/background/Uluru", true),
+    /**
+     * The image for life.
+     */
+    HEART("/heart", false);
 
     private static final String IMAGE_PATH = "/images";
     private static final String FILE_EXTENSION = ".png";

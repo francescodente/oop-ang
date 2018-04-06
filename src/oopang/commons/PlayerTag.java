@@ -1,4 +1,4 @@
-package oopang.controller;
+package oopang.commons;
 
 /**
  * This enum identifies the player.
