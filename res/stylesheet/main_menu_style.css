@@ -1,0 +1,22 @@
+@font-face{
+     src: url("PreschoolBits.ttf");
+ }
+ 
+.root{
+	-fx-font-size: 20px;
+	-fx-background-image: url("pang.jpg");
+	-fx-background-color: rgb(0, 0, 0); 
+	-fx-background-repeat: stretch;
+	-fx-background-size: 900 506;
+    -fx-background-position: center center;
+    -fx-font-family: "Preschool Bits";
+}
+
+#start-button{
+	-fx-background-color: linear-gradient(#000000, #000000);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+	-fx-effect: dropshadow(one-pass-box, black, 8, 0.0, 2, 0);
+	-fx-font-family: "Preschool Bits";
+}
