@@ -16,7 +16,6 @@ import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
-import oopang.model.levels.LazyLevelBuilder;
 import oopang.model.levels.LevelBuilder;
 import oopang.model.powers.PowerFactory;
 import oopang.model.powers.PowerTag;
@@ -28,6 +27,7 @@ import oopang.view.rendering.ImageID;
 public class XMLLevelLoader implements LevelLoader {
 
     private static final String PATH = "/levels/";
+    private static final String ROOT = "Level";
 
     private final PowerFactory powerFactory;
 
@@ -61,7 +61,7 @@ public class XMLLevelLoader implements LevelLoader {
         LevelBuilder level = builder;
         final String path;
         if (index.isPresent()) {
-            path = PATH + "Level" + index.get() + ".xml";
+            path = PATH + ROOT + index.get() + ".xml";
         } else {
             path = PATH + "InfiniteLevel.xml";
         }
@@ -98,7 +98,7 @@ public class XMLLevelLoader implements LevelLoader {
         final int length = powerField.getElementsByTagName("Power").getLength();
         for (int i = 0; i < length; i++) {
             final Element power = (Element) powerField.getElementsByTagName("Power").item(i);
-            PowerTag pow = PowerTag.valueOf(power.getAttribute("id"));
+            final PowerTag pow = PowerTag.valueOf(power.getAttribute("id"));
             if (pow == PowerTag.ADHESIVESHOT) {
                 level = level.addAvailablePower(() -> this.powerFactory.createAdhesiveShot());
             }
@@ -190,7 +190,7 @@ public class XMLLevelLoader implements LevelLoader {
      *      The {@link ImageID} loaded.
      */
     private LevelBuilder loadLevelData(LevelBuilder level, final Document doc) {
-        final NodeList nList = doc.getElementsByTagName("Level");
+        final NodeList nList = doc.getElementsByTagName(ROOT);
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
         if (eElement.getElementsByTagName("Time").getLength() > 0) {
@@ -208,7 +208,7 @@ public class XMLLevelLoader implements LevelLoader {
      *      The texture of the walls.
      */
     private ImageID loadBackground(final Document doc) {
-        final NodeList nList = doc.getElementsByTagName("Level");
+        final NodeList nList = doc.getElementsByTagName(ROOT);
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
         return ImageID.valueOf(eElement.getElementsByTagName("Background").item(0).getTextContent());
@@ -223,7 +223,7 @@ public class XMLLevelLoader implements LevelLoader {
      *      The texture of the walls.
      */
     private ImageID loadWallTexture(final Document doc) {
-        final NodeList nList = doc.getElementsByTagName("Level");
+        final NodeList nList = doc.getElementsByTagName(ROOT);
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
         return ImageID.valueOf(eElement.getElementsByTagName("WallTexture").item(0).getTextContent());
