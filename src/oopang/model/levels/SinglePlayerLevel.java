@@ -28,7 +28,7 @@ public class SinglePlayerLevel extends GameOverLevelDecorator {
     public void start() {
         final GameObject player = this.getGameObjectFactory().createPlayer();
         player.getComponent(InputComponent.class).get().setInputReader(this.playerInput);
-        player.registerDestroyedEvent(p -> this.endLevel(LevelResult.PLAYER_DEAD));
+        player.getDestroyedEvent().register(p -> this.endLevel(LevelResult.PLAYER_DEAD));
         super.start();
     }
 }

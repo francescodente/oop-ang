@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
+import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
@@ -30,8 +31,8 @@ public abstract class GameSession {
     private final View scene;
     private final Model world;
     private final LevelLoader loader;
-    private final Event<LevelData> levelCreatedEvent;
-    private final Event<LevelResult> shouldEnd;
+    private final EventSource<LevelData> levelCreatedEvent;
+    private final EventSource<LevelResult> shouldEnd;
 
     private int score;
     private LevelResult lastResult;
@@ -54,8 +55,8 @@ public abstract class GameSession {
         this.world = model;
         this.scene = view;
         this.loader = loader;
-        this.shouldEnd = new Event<>();
-        this.levelCreatedEvent = new Event<>();
+        this.shouldEnd = new EventSource<>();
+        this.levelCreatedEvent = new EventSource<>();
     }
 
     /**
@@ -101,7 +102,7 @@ public abstract class GameSession {
             return;
         }
         final Level currentLevel = levelData.get().getLevel();
-        currentLevel.registerGameOverEvent(this::handleGameOver);
+        currentLevel.getGameOverStatusEvent().register(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
         this.world.setCurrentLevel(currentLevel);
         this.gameloop = new GameLoop(this.scene, this.world, inputMap);
@@ -159,21 +160,21 @@ public abstract class GameSession {
     }
 
     /**
-     * Register the status of the GameSession.
-     * @param handler
-     *      The handler of GameSession to register
+     * Returns the event which triggers when the GameSession should end.
+     * @return
+     *      the should end event.
      */
-    public void registerShouldEndEvent(final EventHandler<LevelResult> handler) {
-        this.shouldEnd.registerHandler(handler);
+    public Event<LevelResult> getShouldEndEvent() {
+        return this.shouldEnd;
     }
 
     /**
-     * Registers a new {@link EventHandler} to the level started event.
-     * @param handler
-     *      the {@link EventHandler} object.
+     * Returns the event which triggers when a new level is created.
+     * @return
+     *      the level created event.
      */
-    public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
-        this.levelCreatedEvent.registerHandler(handler);
+    public Event<LevelData> getLevelStartedEvent() {
+        return this.levelCreatedEvent;
     }
 
     /**

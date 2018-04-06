@@ -44,7 +44,7 @@ public abstract class Shot extends AbstractGameObject {
     @Override
     public void start() {
         super.start();
-        this.collisionComponent.registerCollisionEvent(c -> handleCollision(c));
+        this.collisionComponent.getCollisionEvent().register(c -> handleCollision(c));
     }
 
     /**

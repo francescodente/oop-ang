@@ -10,13 +10,14 @@ import oopang.model.input.InputReader;
 import oopang.model.powers.Power;
 
 /**
- * 
+ * The interface used to build objects of the type Level.
  */
 public interface LevelBuilder {
 
     /**
-     * 
+     * Method that set the time of the Level.
      * @param time
+     *      the time used to set
      * @return
      */
     LevelBuilder setTime(double time);

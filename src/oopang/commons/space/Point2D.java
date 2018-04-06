@@ -33,14 +33,14 @@ public interface Point2D {
     Point2D setPointY(double value);
 
     /**
-     * Returns the X value of the Vector.
+     * Returns the X value of the Point.
      * @return
      *      X value.
      */
     double getX();
 
     /**
-     * Returns the Y value of the Vector.
+     * Returns the Y value of the Point.
      * @return
      *      Y value.
      */

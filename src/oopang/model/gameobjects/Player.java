@@ -9,7 +9,7 @@ import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
 import oopang.commons.LevelManager;
-import oopang.commons.events.Event;
+import oopang.commons.events.EventSource;
 import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
@@ -38,7 +38,7 @@ public class Player extends AbstractGameObject {
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
-    private final Event<Power> pickupCollected;
+    private final EventSource<Power> pickupCollected;
     /**
      * Constructor of this class.
      */
@@ -54,7 +54,7 @@ public class Player extends AbstractGameObject {
                 e -> this.movement.setVelocity(e.multiply(this.speed)),
                 () -> this.shoot.tryShoot());
         this.powerUps = new LinkedList<>();
-        this.pickupCollected = new Event<Power>();
+        this.pickupCollected = new EventSource<Power>();
         this.speed = DEFAULT_SPEED;
     }
 
@@ -64,7 +64,7 @@ public class Player extends AbstractGameObject {
     @Override
     public void start() {
         super.start();
-        this.collision.registerCollisionEvent(this::checkCollission);
+        this.collision.getCollisionEvent().register(this::checkCollission);
     }
 
     /**
@@ -146,6 +146,6 @@ public class Player extends AbstractGameObject {
      *      the {@link EventHandler}.
      */
     public void registerPickupCollectedEvent(final EventHandler<Power> handler) {
-        this.pickupCollected.registerHandler(handler);
+        this.pickupCollected.register(handler);
     }
 }

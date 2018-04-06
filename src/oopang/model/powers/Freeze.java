@@ -40,7 +40,7 @@ public final class Freeze extends PowerTimed {
         LevelManager.getCurrentLevel().getAllObjects()
             .forEach(obj -> freezer.handle(obj));
         player.getComponent(CollisionComponent.class).ifPresent(c -> c.disable());
-        LevelManager.getCurrentLevel().registerObjectCreatedEvent(this.freezer);
+        LevelManager.getCurrentLevel().getObjectCreatedEvent().register(this.freezer);
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class Freeze extends PowerTimed {
             obj.getComponent(GravityComponent.class).ifPresent(c -> c.enable());
         });
         this.getPlayer().getComponent(CollisionComponent.class).ifPresent(c -> c.enable());
-        LevelManager.getCurrentLevel().unregisterObjectCreatedEvent(freezer);
+        LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(freezer);
     }
 
     private static double calculateTimeout(final int powerlevel) {

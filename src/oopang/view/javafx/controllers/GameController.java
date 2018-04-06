@@ -36,10 +36,10 @@ public final class GameController extends SceneController {
         this.getController().registerLevelStartedEvent(i -> {
             final Renderer background = canvasDrawer.getRendererFactory(i.getWallTexture()).createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);
-            i.getLevel().registerObjectCreatedEvent(o -> {
+            i.getLevel().getObjectCreatedEvent().register(o -> {
                 final Renderer object = this.canvasDrawer.getRendererFactory(i.getWallTexture()).createGameObjectRenderer(o);
                 this.canvasDrawer.addRenderer(object);
-                o.registerDestroyedEvent(r -> this.canvasDrawer.removeRenderer(object));
+                o.getDestroyedEvent().register(r -> this.canvasDrawer.removeRenderer(object));
             });
         });
         this.canvasContainer.widthProperty().addListener(w -> this.resizeCanvas());

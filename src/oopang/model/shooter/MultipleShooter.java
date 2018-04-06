@@ -52,7 +52,7 @@ public class MultipleShooter implements Shooter {
         this.currentShotNumber++;
         this.cooldownTime = COOLDOWN;
 
-        newShot.registerDestroyedEvent(s -> this.currentShotNumber--);
+        newShot.getDestroyedEvent().register(s -> this.currentShotNumber--);
         }
     }
 

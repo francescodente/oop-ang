@@ -58,7 +58,7 @@ public class Ball extends AbstractGameObject {
     @Override
     public void start() {
         super.start();
-        this.collision.registerCollisionEvent(c -> handleCollision(c));
+        this.collision.getCollisionEvent().register(c -> handleCollision(c));
     }
 
     @Override

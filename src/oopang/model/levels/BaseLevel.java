@@ -7,8 +7,8 @@ import java.util.Queue;
 import java.util.stream.Stream;
 
 import oopang.commons.LevelManager;
+import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.commons.space.Points2D;
 import oopang.model.GameOverStatus;
 import oopang.model.Model;
@@ -32,7 +32,7 @@ public class BaseLevel implements Level {
     private int score;
     private final GameObjectFactory factory;
     private final CollisionManager collisionManager;
-    private final Event<GameObject> objectCreatedEvent;
+    private final EventSource<GameObject> objectCreatedEvent;
 
     /**
      * Creates a new BaseLevel object.
@@ -44,7 +44,7 @@ public class BaseLevel implements Level {
         this.score = INITIAL_SCORE;
         this.factory = new BasicFactory(this);
         this.collisionManager = new SimpleCollisionManager();
-        this.objectCreatedEvent = new Event<>();
+        this.objectCreatedEvent = new EventSource<>();
     }
 
     @Override
@@ -103,21 +103,6 @@ public class BaseLevel implements Level {
         return this.collisionManager;
     }
 
-    @Override
-    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.objectCreatedEvent.registerHandler(handler);
-    }
-
-    @Override
-    public void unregisterObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.objectCreatedEvent.unregisterHandler(handler);
-    }
-
-    @Override
-    public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
-        // A base level is not able to end.
-    }
-
     private void createWalls() {
         final GameObjectFactory factory = LevelManager.getCurrentLevel().getGameObjectFactory();
         final GameObject horizontal1 = factory.createWall(Model.TOTAL_WIDTH, Model.WALL_WIDTH);
@@ -128,5 +113,16 @@ public class BaseLevel implements Level {
         vertical1.setPosition(Points2D.of(-((Model.WORLD_WIDTH / 2) + (Model.WALL_WIDTH / 2)), Model.WORLD_HEIGHT / 2));
         final GameObject vertical2 = factory.createWall(Model.WALL_WIDTH, Model.WORLD_HEIGHT);
         vertical2.setPosition(Points2D.of((Model.WORLD_WIDTH / 2) + (Model.WALL_WIDTH / 2), Model.WORLD_HEIGHT / 2));
+    }
+
+    @Override
+    public Event<GameObject> getObjectCreatedEvent() {
+        return this.objectCreatedEvent;
+    }
+
+    @Override
+    public Event<GameOverStatus> getGameOverStatusEvent() {
+        //A base level is not able to end so it returns a useless event.
+        return new EventSource<>();
     }
 }
