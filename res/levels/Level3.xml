@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level id = "3">
+    <Background>EMERALD_BUDDHA</Background>
+    <WallTexture>ORANGE_WALL</WallTexture>
+    <Time>90</Time>
+    <AvailablePower>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "DOUBLESHOT"/>
+        <Power id = "ADHESIVESHOT"/>
+        <Power id = "FREEZE"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "BLUE" size = "3">
+            <Velocity>
+                <Vector x = "15" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-82" y = "52"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "3">
+            <Velocity>
+                <Vector x = "-15" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "82" y = "52"/>
+            </Position>
+        </Ball>
+        <Ball color = "PURPLE" size = "4">
+            <Velocity>
+                <Vector x = "-15" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "82"/>
+            </Position>
+        </Ball>
+        <Wall width ="5.5" height = "50">
+            <Position>
+                <Point x = "-55" y = "50"/>
+            </Position>
+        </Wall>
+        <Wall width ="5.5" height = "50">
+            <Position>
+                <Point x = "55" y = "50"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>
