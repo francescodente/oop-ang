@@ -48,7 +48,6 @@ public class HookShot extends Shot {
         }
     }
 
-
     @Override
     public double getWidth() {
         return WIDTH;
@@ -58,6 +57,11 @@ public class HookShot extends Shot {
     @Override
     public double getHeight() {
         return this.getPosition().getY() - startY;
+    }
+
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
 }

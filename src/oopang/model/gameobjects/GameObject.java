@@ -86,4 +86,15 @@ public interface GameObject {
      *      the destruction event.
      */
     Event<GameObject> getDestroyedEvent();
+
+    /**
+     * Accepts a new {@link GameObjectVisitor} to perform actions on this object.
+     * @param visitor
+     *      the {@link GameObjectVisitor}.
+     * @param <T>
+     *      the type of result.
+     * @return
+     *      the result of the visit.
+     */
+    <T> T accept(GameObjectVisitor<T> visitor);
 }

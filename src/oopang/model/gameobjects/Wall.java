@@ -47,4 +47,9 @@ public class Wall extends AbstractGameObject {
     public double getHeight() {
         return this.height;
     }
+
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
 }

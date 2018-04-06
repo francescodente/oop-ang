@@ -122,6 +122,11 @@ public class Player extends AbstractGameObject {
         return HEIGHT;
     }
 
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
     /**
      * Setter of speed.
      * @param speed

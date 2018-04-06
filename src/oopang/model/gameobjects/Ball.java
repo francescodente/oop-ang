@@ -99,11 +99,15 @@ public class Ball extends AbstractGameObject {
     }
 
     private double getBounceY() {
+        return Math.sqrt(2 * this.getBounceHeight() * gConst);
+    }
+
+    private double getBounceHeight() {
         double yvalue = MIN_BOUNCE_HEIGHT;
         if (this.size != MIN_BALL_SIZE) {
             yvalue--;
         }
-        return Math.sqrt(2 * size * yvalue * gConst);
+        return this.size * yvalue - this.getPosition().getY();
     }
 
     /**
@@ -145,6 +149,11 @@ public class Ball extends AbstractGameObject {
     @Override
     public double getHeight() {
         return this.radius * 2;
+    }
+
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
     private static double calculateRadius(final int size) {

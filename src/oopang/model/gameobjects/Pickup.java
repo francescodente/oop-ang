@@ -83,4 +83,9 @@ public class Pickup extends AbstractGameObject {
     public final double getHeight() {
         return HEIGHT;
     }
+
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
 }

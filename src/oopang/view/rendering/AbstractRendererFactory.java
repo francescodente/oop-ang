@@ -2,9 +2,11 @@ package oopang.view.rendering;
 
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.GameObjectVisitor;
 import oopang.model.gameobjects.HookShot;
 import oopang.model.gameobjects.Pickup;
 import oopang.model.gameobjects.Player;
+import oopang.model.gameobjects.Shot;
 import oopang.model.gameobjects.Wall;
 import oopang.view.rendering.gameobject.BallRenderer;
 import oopang.view.rendering.gameobject.HookShotRenderer;
@@ -30,17 +32,31 @@ public abstract class AbstractRendererFactory implements RendererFactory {
 
     @Override
     public final Renderer createGameObjectRenderer(final GameObject obj) {
-        if (obj instanceof Player) {
-            return new PlayerRenderer(this.createSprite(), (Player) obj);
-        } else if (obj instanceof Ball) {
-            return new BallRenderer(this.createSprite(), (Ball) obj);
-        } else if (obj instanceof Wall) {
-            return new WallRenderer(this.createSprite(), (Wall) obj, this.walltexture);
-        } else if (obj instanceof HookShot) {
-            return new HookShotRenderer(this.createSprite(), (HookShot) obj);
-        } else if (obj instanceof Pickup) {
-            return new PickupRenderer(this.createSprite(), (Pickup) obj);
-        }
-        return null;
+        return obj.accept(new GameObjectVisitor<Renderer>() {
+            @Override
+            public Renderer visit(final Player player) {
+                return new PlayerRenderer(createSprite(), player);
+            }
+
+            @Override
+            public Renderer visit(final Ball ball) {
+                return new BallRenderer(createSprite(), ball);
+            }
+
+            @Override
+            public Renderer visit(final Wall wall) {
+                return new WallRenderer(createSprite(), wall, walltexture);
+            }
+
+            @Override
+            public Renderer visit(final HookShot shot) {
+                return new HookShotRenderer(createSprite(), shot);
+            }
+
+            @Override
+            public Renderer visit(final Pickup pickup) {
+                return new PickupRenderer(createSprite(), pickup);
+            }
+        });
     }
 }
