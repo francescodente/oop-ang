@@ -13,6 +13,7 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
 
     private final Canvas canvas;
     private final ImageID wallTexture;
+    private final JavaFXRendererFactory factory;
 
     /**
      * Creates a new Canvas drawer that can draw on the given {@link Canvas}.
@@ -25,6 +26,7 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
         super();
         this.canvas = canvas;
         this.wallTexture = wallTexture;
+        this.factory = new JavaFXRendererFactory(this, this.wallTexture);
     }
 
     @Override
@@ -39,7 +41,7 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
 
     @Override
     public RendererFactory getRendererFactory() {
-        return new JavaFXRendererFactory(this, this.wallTexture);
+        return this.factory;
     }
 
     /**

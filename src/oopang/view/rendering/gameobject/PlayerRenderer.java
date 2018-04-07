@@ -13,6 +13,7 @@ import oopang.view.rendering.Sprite;
 public class PlayerRenderer extends GameObjectRenderer<Player> {
 
     private static final int PLAYER_LAYER = 3;
+    private static final double OFFSET = 3;
     /**
      * Constructor of the {@link Player} Renderer.
      * @param sprite
@@ -31,6 +32,14 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
             sprite.setSource(ImageID.PLAYER2);
         }
         sprite.setPivot(Vectors2D.of(0, -1));
+    }
+
+    @Override
+    public void render() {
+        this.getSprite().setPosition(this.getGameObject().getPosition());
+        this.getSprite().setWidth(this.getGameObject().getWidth() + OFFSET);
+        this.getSprite().setHeight(this.getGameObject().getHeight());
+        this.getSprite().render();
     }
 
 }
