@@ -30,5 +30,5 @@ public interface CanvasDrawer {
      * @return
      *      the factory object.
      */
-    RendererFactory getRendererFactory(ImageID walltexture);
+    RendererFactory getRendererFactory();
 }
