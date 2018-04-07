@@ -1,6 +1,5 @@
 package oopang.view.rendering.javafx;
 
-import javafx.scene.canvas.Canvas;
 import oopang.controller.DayTime;
 import oopang.view.rendering.AbstractRendererFactory;
 import oopang.view.rendering.ImageID;

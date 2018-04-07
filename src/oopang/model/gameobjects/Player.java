@@ -12,7 +12,6 @@ import oopang.commons.LevelManager;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.InputComponent;
