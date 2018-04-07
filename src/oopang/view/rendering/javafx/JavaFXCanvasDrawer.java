@@ -12,7 +12,6 @@ import oopang.view.rendering.RendererFactory;
 public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
 
     private final Canvas canvas;
-    private final ImageID wallTexture;
     private final JavaFXRendererFactory factory;
 
     /**
@@ -25,8 +24,7 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
     public JavaFXCanvasDrawer(final Canvas canvas, final ImageID wallTexture) {
         super();
         this.canvas = canvas;
-        this.wallTexture = wallTexture;
-        this.factory = new JavaFXRendererFactory(this, this.wallTexture);
+        this.factory = new JavaFXRendererFactory(this, wallTexture);
     }
 
     @Override
