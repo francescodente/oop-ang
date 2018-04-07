@@ -12,7 +12,7 @@ import oopang.model.gameobjects.Player;
 /**
  * This enhancement freezes all the balls in the level for a certain period of time.
  */
-public final class Freeze extends PowerTimed {
+public final class Freeze extends TimedPower {
     private static final PowerTag TAG = PowerTag.FREEZE;
     private static final int INITIALVALUE = 3;
     private static final double TIMEFEE = 0.5;

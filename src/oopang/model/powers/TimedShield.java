@@ -6,7 +6,7 @@ import oopang.model.gameobjects.Player;
  * This enhancements creates a shield around the player, where the balls can not hit it, disabling the collision component.
  *
  */
-public final class TimedShield extends PowerTimed {
+public final class TimedShield extends TimedPower {
     private static final PowerTag TAG = PowerTag.TIMEDSHIELD;
     private static final int INITIALVALUE = 4;
     private static final double TIMEFEE = 0.5;

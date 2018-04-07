@@ -1,14 +1,17 @@
 package oopang.model.powers;
 
 import oopang.commons.Timeable;
+import oopang.commons.events.Event;
+import oopang.commons.events.EventSource;
 
 /**
  * This class represents all the enhancements that have temporary effects.
  *
  */
-public abstract class PowerTimed extends AbstractPower implements Timeable {
+public abstract class TimedPower extends AbstractPower implements Timeable {
     private double time;
     private final double timeout;
+    private EventSource<Void> timeoutEvent;
     /**
      * This constructor set time.
      * @param timeout 
@@ -16,10 +19,11 @@ public abstract class PowerTimed extends AbstractPower implements Timeable {
      * @param powertag 
      *      The PowerTag.
      */
-    public PowerTimed(final double timeout, final PowerTag powertag) {
+    public TimedPower(final double timeout, final PowerTag powertag) {
        super(powertag);
        this.time = 0;
        this.timeout = timeout;
+       this.timeoutEvent = new EventSource<>();
     }
     /**
      * It must be called in extended methods.
@@ -31,12 +35,18 @@ public abstract class PowerTimed extends AbstractPower implements Timeable {
        }
         if (this.time > this.timeout) {
             this.deactivate();
+            this.timeoutEvent.trigger(null);
         }
     }
 
     @Override
     public double getRemainingTimePercentage() {
         return this.time / this.timeout;
+    }
+
+    @Override
+    public Event<Void> getTimeOutEvent() {
+        return this.timeoutEvent;
     }
 }
 

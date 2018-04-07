@@ -84,4 +84,8 @@ public abstract class LevelDecorator implements Level {
     public double getRemainingTimePercentage() {
         return this.innerLevel.getRemainingTimePercentage();
     }
+    @Override
+    public Event<Void> getTimeOutEvent() {
+        return this.innerLevel.getTimeOutEvent();
+    }
 }
