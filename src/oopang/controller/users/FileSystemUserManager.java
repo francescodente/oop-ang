@@ -21,7 +21,8 @@ import java.io.OutputStream;
 /**
  * 
  */
-public class FileSystemUserManager implements UserManager {
+public final class FileSystemUserManager implements UserManager {
+
     private static final String FIELD_SEPARATOR = " ";
 
     @Override
@@ -41,7 +42,11 @@ public class FileSystemUserManager implements UserManager {
 
     @Override
     public void saveUser(final User user) {
-
+        try {
+            writeUser(user);
+        } catch (IOException e) {
+            
+        }
     }
 
     @Override

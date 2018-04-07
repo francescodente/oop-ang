@@ -1,16 +1,14 @@
 package oopang.controller;
 
-import java.nio.file.Paths;
-
 /**
- * 
+ * Class that contains constants used for the User.
  */
 public class InstallManager {
 
     private static final String SEPARATOR = System.getProperty("file.separator");
 
     /**
-     * 
+     * Static field that contains the route path of the user.
      */
     public static final String APP_PATH = System.getProperty("user.home")
             + SEPARATOR
@@ -18,7 +16,7 @@ public class InstallManager {
             + SEPARATOR;
 
     /**
-     * 
+     * Static field that contains the file of the users list.
      */
     public static final String USER_LIST_FILE = APP_PATH
             + "users"
@@ -26,7 +24,7 @@ public class InstallManager {
             + ".user_list";
 
     /**
-     * 
+     * Static field that contains the file with points of the Story Mode of the user.
      */
     public static final String STORY_FILE = APP_PATH
             + "leaderbord"
@@ -34,7 +32,7 @@ public class InstallManager {
             + "story.bin";
 
     /**
-     * 
+     * Static field that contains the file with points of the user of the Survival Mode.
      */
     public static final String SURVIVAL_FILE = APP_PATH
             + "leaderboard"
@@ -46,7 +44,7 @@ public class InstallManager {
      * @param userName
      *       name of the user.
      * @return
-     *      the 
+     *      the couple userName and hashcode_password of the user.
      */
     public static String getUserFile(final String userName) {
         return APP_PATH
