@@ -12,28 +12,32 @@ import oopang.view.rendering.Sprite;
  */
 public class JavaFXRendererFactory extends AbstractRendererFactory {
 
-    private final Canvas canvas;
+    private final JavaFXCanvasDrawer canvasDrawer;
 
     /**
      * Creates a new factory of renderers for a {@link javafx.scene.canvas.Canvas}.
-     * @param gc
+     * @param canvasdrawer
      *      the graphics context of the canvas.
      * @param walltexture
      *      the wall texture to be used.
      */
-    public JavaFXRendererFactory(final Canvas gc, final ImageID walltexture) {
-        super(walltexture);
-        this.canvas = gc;
+    public JavaFXRendererFactory(final JavaFXCanvasDrawer canvasdrawer, final ImageID walltexture) {
+        super(walltexture, canvasdrawer);
+        this.canvasDrawer = canvasdrawer;
     }
 
     @Override
     public final Sprite createSprite() {
-        return new JavaFXImageSprite(canvas.getGraphicsContext2D());
+        final Sprite sprite = new JavaFXImageSprite(this.canvasDrawer.getCanvas().getGraphicsContext2D());
+        this.canvasDrawer.addRenderer(sprite);
+        return sprite;
     }
 
     @Override
     public final Renderer createBackgroundRenderer(final DayTime time, final ImageID id) {
-        return new JavaFXBackgroundRenderer(this.createSprite(), time, id);
+        final Renderer renderer = new JavaFXBackgroundRenderer(this.createSprite(), time, id);
+        this.canvasDrawer.addRenderer(renderer);
+        return renderer;
     }
 
 }

@@ -39,6 +39,15 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
 
     @Override
     public RendererFactory getRendererFactory() {
-        return new JavaFXRendererFactory(this.canvas, this.wallTexture);
+        return new JavaFXRendererFactory(this, this.wallTexture);
+    }
+
+    /**
+     * Return the canvas object used in this canvasDrawer.
+     * @return
+     *      the canvas
+     */
+    public Canvas getCanvas() {
+        return this.canvas;
     }
 }

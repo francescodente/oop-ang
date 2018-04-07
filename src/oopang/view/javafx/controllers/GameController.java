@@ -74,7 +74,6 @@ public final class GameController extends SceneController {
                     }
                 });
                 final Renderer object = this.canvasDrawer.getRendererFactory().createGameObjectRenderer(o);
-                this.canvasDrawer.addRenderer(object);
                 o.getDestroyedEvent().register(r -> this.canvasDrawer.removeRenderer(object));
             });
         });

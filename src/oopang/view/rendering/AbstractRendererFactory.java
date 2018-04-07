@@ -19,22 +19,26 @@ import oopang.view.rendering.gameobject.WallRenderer;
 public abstract class AbstractRendererFactory implements RendererFactory {
 
     private final ImageID walltexture;
+    private final CanvasDrawer canvasDrawer;
 
     /**
      * Create a new factory and sets the texture.
      * @param walltexture
      *      the wall texture to be used
+     *@param canvasDrawer
+     *      the canvas drawer to be used
      */
-    public AbstractRendererFactory(final ImageID walltexture) {
+    public AbstractRendererFactory(final ImageID walltexture, final CanvasDrawer canvasDrawer) {
         this.walltexture = walltexture;
+        this.canvasDrawer = canvasDrawer;
     }
 
     @Override
     public final Renderer createGameObjectRenderer(final GameObject obj) {
-        return obj.accept(new GameObjectVisitor<Renderer>() {
+        final Renderer renderer = obj.accept(new GameObjectVisitor<Renderer>() {
             @Override
             public Renderer visit(final Player player) {
-                return new PlayerRenderer(createSprite(), player);
+                return new PlayerRenderer(createSprite(), player, canvasDrawer);
             }
 
             @Override
@@ -57,5 +61,7 @@ public abstract class AbstractRendererFactory implements RendererFactory {
                 return new PickupRenderer(createSprite(), pickup);
             }
         });
+        this.canvasDrawer.addRenderer(renderer);
+        return renderer;
     }
 }

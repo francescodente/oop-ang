@@ -3,6 +3,7 @@ package oopang.view.rendering.gameobject;
 import oopang.commons.PlayerTag;
 import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.Player;
+import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Sprite;
 
@@ -18,8 +19,10 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
      *      The Sprite {@link Sprite} used to render
      * @param gameObject
      *      The {@link GameObject} in this case a {@link Player}
+     * @param canvasDrawer
+     *      The {@link CanvasDrawer} used to add sprites.
      */
-    public PlayerRenderer(final Sprite sprite, final Player gameObject) {
+    public PlayerRenderer(final Sprite sprite, final Player gameObject, final CanvasDrawer canvasDrawer) {
         super(sprite, gameObject);
         this.setLayer(PLAYER_LAYER);
         if (gameObject.getPlayerTag() == PlayerTag.PLAYER_ONE) {
