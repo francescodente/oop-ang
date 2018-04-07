@@ -3,6 +3,7 @@ package oopang.view.rendering.gameobject;
 import java.util.Optional;
 
 import oopang.commons.PlayerTag;
+import oopang.commons.Timeable;
 import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.Player;
 import oopang.model.powers.PowerTag;
@@ -47,18 +48,19 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
                 shieldsprite.setLayer(PLAYER_LAYER + 1);
                 shieldsprite.setWidth(this.getGameObject().getWidth() + SHIELD_H_OFFSET);
                 shieldsprite.setHeight(this.getGameObject().getHeight() + SHIELD_V_OFFSET);
-                canvasDrawer.addRenderer(shieldsprite);
                 this.shield = Optional.of(shieldsprite);
+                final Timeable time = (Timeable) p;
+                time.getTimeOutEvent().register(n -> {
+                    canvasDrawer.removeRenderer(shieldsprite);
+                    this.shield = Optional.empty();
+                }); 
             }
         });
     }
 
     @Override
     public void render() {
-        if (shield.isPresent()) {
-            final Sprite shieldsprite = this.shield.get();
-            shieldsprite.setPosition(this.getGameObject().getPosition());
-        }
+        this.shield.ifPresent(s -> s.setPosition(this.getGameObject().getPosition()));
         this.getSprite().setPosition(this.getGameObject().getPosition());
         this.getSprite().setWidth(this.getGameObject().getWidth() + PLAYER_OFFSET);
         this.getSprite().setHeight(this.getGameObject().getHeight());
