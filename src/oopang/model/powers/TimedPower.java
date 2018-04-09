@@ -11,7 +11,7 @@ import oopang.commons.events.EventSource;
 public abstract class TimedPower extends AbstractPower implements Timeable {
     private double time;
     private final double timeout;
-    private EventSource<Void> timeoutEvent;
+    private final EventSource<Void> timeoutEvent;
     /**
      * This constructor set time.
      * @param timeout 

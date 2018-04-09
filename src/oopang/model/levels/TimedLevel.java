@@ -18,7 +18,7 @@ public class TimedLevel extends GameOverLevelDecorator {
     private double timeLeft;
     private final double totalTime;
     private int ballCount;
-    private EventSource<Void> timeOutEvent;
+    private final EventSource<Void> timeOutEvent;
 
     /**
      * Creates a new timed level based on the given level instance.
