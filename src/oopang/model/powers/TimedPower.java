@@ -41,7 +41,7 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
 
     @Override
     public double getRemainingTimePercentage() {
-        return this.time / this.timeout;
+        return (this.timeout - this.time) / this.timeout;
     }
 
     @Override
