@@ -36,6 +36,7 @@ public class JavaFXIconFactory {
         default: break;
         }
         final ProgressBar bar = new ProgressBar(power.getRemainingTimePercentage());
+        imageview.setImage(image);
         box.getChildren().add(imageview);
         box.getChildren().add(bar);
         return box;
@@ -56,7 +57,9 @@ public class JavaFXIconFactory {
         default: break;
         }
         final VBox box = new VBox();
+        imageview.setImage(image);
         box.getChildren().add(imageview);
+        box.setVisible(true);
         return box;
     }
 }
