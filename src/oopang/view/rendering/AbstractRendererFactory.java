@@ -12,7 +12,6 @@ import oopang.view.rendering.gameobject.HookShotRenderer;
 import oopang.view.rendering.gameobject.PickupRenderer;
 import oopang.view.rendering.gameobject.PlayerRenderer;
 import oopang.view.rendering.gameobject.WallRenderer;
-import oopang.view.rendering.javafx.JavaFXImageSprite;
 
 /**
  * Provides a base implementation of the {@link RendererFactory} interface.
