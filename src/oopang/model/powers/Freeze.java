@@ -2,7 +2,6 @@ package oopang.model.powers;
 
 import oopang.commons.LevelManager;
 import oopang.commons.events.EventHandler;
-import oopang.model.components.CollisionComponent;
 import oopang.model.components.GravityComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.gameobjects.Ball;
@@ -39,7 +38,7 @@ public final class Freeze extends TimedPower {
         super.activate(player);
         LevelManager.getCurrentLevel().getAllObjects()
             .forEach(obj -> freezer.handle(obj));
-        player.getComponent(CollisionComponent.class).ifPresent(c -> c.disable());
+        player.setInvulnerable(true);
         LevelManager.getCurrentLevel().getObjectCreatedEvent().register(this.freezer);
     }
 
@@ -52,7 +51,7 @@ public final class Freeze extends TimedPower {
             obj.getComponent(MovementComponent.class).ifPresent(c -> c.enable());
             obj.getComponent(GravityComponent.class).ifPresent(c -> c.enable());
         });
-        this.getPlayer().getComponent(CollisionComponent.class).ifPresent(c -> c.enable());
+        this.getPlayer().setInvulnerable(false);
         LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(freezer);
     }
 

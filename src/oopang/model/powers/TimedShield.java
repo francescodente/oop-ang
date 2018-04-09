@@ -1,6 +1,5 @@
 package oopang.model.powers;
 
-import oopang.model.components.CollisionComponent;
 import oopang.model.gameobjects.Player;
 /**
  * This enhancements creates a shield around the player, where the balls can not hit it, disabling the collision component.
@@ -22,13 +21,13 @@ public final class TimedShield extends TimedPower {
     @Override
     public void activate(final Player player) {
         super.activate(player);
-        player.getComponent(CollisionComponent.class).ifPresent(c -> c.disable());
+        player.setInvulnerable(true);
     }
 
     @Override
     protected void deactivate() {
         super.deactivate();
-        this.getPlayer().getComponent(CollisionComponent.class).ifPresent(c -> c.enable());
+        this.getPlayer().setInvulnerable(false);
     }
     private static double calculateTimeout(final int powerlevel) {
         return INITIALVALUE + (TIMEFEE * (powerlevel - 1));
