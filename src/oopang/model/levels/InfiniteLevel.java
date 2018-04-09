@@ -2,7 +2,6 @@ package oopang.model.levels;
 
 import java.util.Random;
 
-import oopang.commons.LevelManager;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
 import oopang.commons.space.Vector2D;

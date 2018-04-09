@@ -1,11 +1,11 @@
 package oopang.model.gameobjects;
 
-import oopang.commons.LevelManager;
 import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
 import oopang.model.components.Component;
+import oopang.model.levels.LevelManager;
 
 /**
  * This class represents the abstract model for all GameObjects and gives a basic implementation

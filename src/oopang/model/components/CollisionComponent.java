@@ -4,12 +4,12 @@ import java.util.Optional;
 
 import org.dyn4j.geometry.Convex;
 
-import oopang.commons.LevelManager;
 import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.levels.LevelManager;
 import oopang.model.physics.Collidable;
 import oopang.model.physics.Collision;
 import oopang.model.physics.CollisionManager;

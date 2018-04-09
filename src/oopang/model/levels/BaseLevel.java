@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Stream;
 
-import oopang.commons.LevelManager;
 import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
 import oopang.commons.space.Points2D;

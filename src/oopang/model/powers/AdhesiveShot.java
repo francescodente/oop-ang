@@ -2,10 +2,10 @@ package oopang.model.powers;
 
 import java.util.function.Supplier;
 
-import oopang.commons.LevelManager;
 import oopang.model.components.ShooterComponent;
 import oopang.model.gameobjects.Player;
 import oopang.model.gameobjects.Shot;
+import oopang.model.levels.LevelManager;
 import oopang.model.shooter.MultipleShooter;
 /**
  * This enhancement allows the player to fire a shot that attaches to the wall.

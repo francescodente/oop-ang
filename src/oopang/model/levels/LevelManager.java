@@ -1,6 +1,4 @@
-package oopang.commons;
-
-import oopang.model.levels.Level;
+package oopang.model.levels;
 
 /**
  * An helper class for level managing and loading.

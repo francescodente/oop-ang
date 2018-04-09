@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
-import oopang.commons.LevelManager;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
@@ -17,6 +16,7 @@ import oopang.model.components.Component;
 import oopang.model.components.InputComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.components.ShooterComponent;
+import oopang.model.levels.LevelManager;
 import oopang.model.physics.CollisionTag;
 import oopang.model.physics.Collision;
 import oopang.model.powers.Power;

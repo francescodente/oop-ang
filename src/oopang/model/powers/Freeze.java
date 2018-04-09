@@ -1,12 +1,12 @@
 package oopang.model.powers;
 
-import oopang.commons.LevelManager;
 import oopang.commons.events.EventHandler;
 import oopang.model.components.GravityComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.Player;
+import oopang.model.levels.LevelManager;
 
 /**
  * This enhancement freezes all the balls in the level for a certain period of time.

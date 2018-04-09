@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import oopang.commons.LevelManager;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
