@@ -21,6 +21,7 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
     private static final double SHIELD_H_OFFSET = 8;
     private static final double SHIELD_V_OFFSET = 5;
     private Optional<Sprite> shield;
+    private int activeShields;
     /**
      * Constructor of the {@link Player} Renderer.
      * @param sprite
@@ -33,6 +34,7 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
     public PlayerRenderer(final Sprite sprite, final Player gameObject, final CanvasDrawer canvasDrawer) {
         super(sprite, gameObject);
         shield = Optional.empty();
+        this.activeShields = 0;
         this.setLayer(PLAYER_LAYER);
         if (gameObject.getPlayerTag() == PlayerTag.PLAYER_ONE) {
             sprite.setSource(ImageID.PLAYER1);
@@ -42,17 +44,25 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
         sprite.setPivot(Vectors2D.of(0, -1));
         gameObject.getPickupCollectedEvent().register(p -> {
             if (p.getPowertag() == PowerTag.TIMEDSHIELD) {
-                final Sprite shieldsprite = canvasDrawer.getRendererFactory().createSprite();
-                shieldsprite.setSource(ImageID.SHIELD);
-                shieldsprite.setPivot(Vectors2D.of(0, -1));
-                shieldsprite.setLayer(PLAYER_LAYER + 1);
-                shieldsprite.setWidth(this.getGameObject().getWidth() + SHIELD_H_OFFSET);
-                shieldsprite.setHeight(this.getGameObject().getHeight() + SHIELD_V_OFFSET);
-                this.shield = Optional.of(shieldsprite);
+                this.activeShields++;
+                if (!this.shield.isPresent()) {
+                    final Sprite shieldsprite = canvasDrawer.getRendererFactory().createSprite();
+                    shieldsprite.setSource(ImageID.SHIELD);
+                    shieldsprite.setPivot(Vectors2D.of(0, -1));
+                    shieldsprite.setLayer(PLAYER_LAYER + 1);
+                    shieldsprite.setWidth(this.getGameObject().getWidth() + SHIELD_H_OFFSET);
+                    shieldsprite.setHeight(this.getGameObject().getHeight() + SHIELD_V_OFFSET);
+                    this.shield = Optional.of(shieldsprite);
+                }
                 final Timeable time = (Timeable) p;
                 time.getTimeOutEvent().register(n -> {
-                    canvasDrawer.removeRenderer(shieldsprite);
-                    this.shield = Optional.empty();
+                    this.activeShields--;
+                    this.shield.ifPresent(s -> {
+                        if (this.activeShields == 0) {
+                            canvasDrawer.removeRenderer(s);
+                            this.shield = Optional.empty();
+                        }
+                    });
                 }); 
             }
         });
