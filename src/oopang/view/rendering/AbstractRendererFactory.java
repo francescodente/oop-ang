@@ -64,12 +64,13 @@ public abstract class AbstractRendererFactory implements RendererFactory {
         this.canvasDrawer.addRenderer(renderer);
         return renderer;
     }
+
     /**
      * Generate a sprite without adding it to canvas.
      * @return
      *      a sprite
      */
-    public abstract Sprite generateSprite();
+    protected abstract Sprite generateSprite();
 
     @Override
     public final Sprite createSprite() {
