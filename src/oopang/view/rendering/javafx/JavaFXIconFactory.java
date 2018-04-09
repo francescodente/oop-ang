@@ -16,14 +16,14 @@ import oopang.view.rendering.ImageID;
  */
 public class JavaFXIconFactory {
 
-    Parent createHeartIcon() {
+    public Parent createHeartIcon() {
         final VBox box = new VBox();
         final ImageView imageview = new ImageView(ImageID.HEART.getPath());
         box.getChildren().add(imageview);
         return box;
     }
 
-    Parent createTimedIcon(TimedPower power) {
+    public Parent createTimedIcon(TimedPower power) {
         final VBox box = new VBox();
         final ImageView imageview = new ImageView();
         final Image image = new Image(ImageID.PICKUP.getPath());
@@ -41,11 +41,11 @@ public class JavaFXIconFactory {
         return box;
     }
 
-    Parent createLevelTimeBar(Timeable timeable) {
+    public Parent createLevelTimeBar(Timeable timeable) {
         return new ProgressBar(timeable.getRemainingTimePercentage());
     }
 
-    Parent createShooterIcon(PowerTag tag) {
+    public Parent createShooterIcon(PowerTag tag) {
         final ImageView imageview = new ImageView();
         final Image image = new Image(ImageID.PICKUP.getPath());
         final double cellwidth = image.getWidth() / 3;
