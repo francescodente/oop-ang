@@ -45,32 +45,32 @@ public final class GameController extends SceneController {
             final Renderer background = canvasDrawer.getRendererFactory(i.getWallTexture()).createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);
             i.getLevel().getObjectCreatedEvent().register(o -> {
-                o.accept(new GameObjectVisitor<Boolean>() {
+                o.accept(new GameObjectVisitor<Void>() {
 
                     @Override
-                    public Boolean visit(final Player player) {
+                    public Void visit(final Player player) {
                         player.getPickupCollectedEvent().register(p -> handlePickupEvent(p, player));
-                        return true;
+                        return null;
                     }
 
                     @Override
-                    public Boolean visit(final Ball ball) {
-                        return false;
+                    public Void visit(final Ball ball) {
+                        return null;
                     }
 
                     @Override
-                    public Boolean visit(final Wall wall) {
-                        return false;
+                    public Void visit(final Wall wall) {
+                        return null;
                     }
 
                     @Override
-                    public Boolean visit(final HookShot shot) {
-                        return false;
+                    public Void visit(final HookShot shot) {
+                        return null;
                     }
 
                     @Override
-                    public Boolean visit(final Pickup pickup) {
-                        return false;
+                    public Void visit(final Pickup pickup) {
+                        return null;
                     }
                 });
                 final Renderer object = this.canvasDrawer.getRendererFactory(i.getWallTexture()).createGameObjectRenderer(o);
