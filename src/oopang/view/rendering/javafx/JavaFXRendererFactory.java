@@ -26,7 +26,7 @@ public class JavaFXRendererFactory extends AbstractRendererFactory {
     }
 
     @Override
-    public final Sprite generateSprite() {
+    protected final Sprite generateSprite() {
         return new JavaFXImageSprite(this.canvasDrawer.getCanvas().getGraphicsContext2D());
     }
 
