@@ -129,7 +129,11 @@ public enum ImageID {
     /**
      * The image for life.
      */
-    HEART("/heart", false);
+    HEART("/heart", false),
+    /**
+     * The image for the shield sprite.
+     */
+    SHIELD("/powers/bubbleshield", false);
 
     private static final String IMAGE_PATH = "/images";
     private static final String FILE_EXTENSION = ".png";

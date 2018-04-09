@@ -12,15 +12,19 @@ import oopang.view.rendering.RendererFactory;
 public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
 
     private final Canvas canvas;
+    private final JavaFXRendererFactory factory;
 
     /**
      * Creates a new Canvas drawer that can draw on the given {@link Canvas}.
      * @param canvas
      *      the {@link Canvas} object to render on.
+     * @param wallTexture
+     *      the texture to be used for walls
      */
-    public JavaFXCanvasDrawer(final Canvas canvas) {
+    public JavaFXCanvasDrawer(final Canvas canvas, final ImageID wallTexture) {
         super();
         this.canvas = canvas;
+        this.factory = new JavaFXRendererFactory(this, wallTexture);
     }
 
     @Override
@@ -34,7 +38,16 @@ public final class JavaFXCanvasDrawer extends GenericCanvasDrawer {
     }
 
     @Override
-    public RendererFactory getRendererFactory(final ImageID walltexture) {
-        return new JavaFXRendererFactory(this.canvas, walltexture);
+    public RendererFactory getRendererFactory() {
+        return this.factory;
+    }
+
+    /**
+     * Return the canvas object used in this canvasDrawer.
+     * @return
+     *      the canvas
+     */
+    public Canvas getCanvas() {
+        return this.canvas;
     }
 }

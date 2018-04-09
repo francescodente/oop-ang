@@ -130,4 +130,9 @@ public class BaseLevel implements Level {
     public double getRemainingTimePercentage() {
         return 0;
     }
+
+    @Override
+    public Event<Void> getTimeOutEvent() {
+        return new EventSource<Void>();
+    }
 }

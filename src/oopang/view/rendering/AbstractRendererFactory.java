@@ -12,6 +12,7 @@ import oopang.view.rendering.gameobject.HookShotRenderer;
 import oopang.view.rendering.gameobject.PickupRenderer;
 import oopang.view.rendering.gameobject.PlayerRenderer;
 import oopang.view.rendering.gameobject.WallRenderer;
+import oopang.view.rendering.javafx.JavaFXImageSprite;
 
 /**
  * Provides a base implementation of the {@link RendererFactory} interface.
@@ -19,43 +20,62 @@ import oopang.view.rendering.gameobject.WallRenderer;
 public abstract class AbstractRendererFactory implements RendererFactory {
 
     private final ImageID walltexture;
+    private final CanvasDrawer canvasDrawer;
 
     /**
      * Create a new factory and sets the texture.
      * @param walltexture
      *      the wall texture to be used
+     *@param canvasDrawer
+     *      the canvas drawer to be used
      */
-    public AbstractRendererFactory(final ImageID walltexture) {
+    public AbstractRendererFactory(final ImageID walltexture, final CanvasDrawer canvasDrawer) {
         this.walltexture = walltexture;
+        this.canvasDrawer = canvasDrawer;
     }
 
     @Override
     public final Renderer createGameObjectRenderer(final GameObject obj) {
-        return obj.accept(new GameObjectVisitor<Renderer>() {
+        final Renderer renderer = obj.accept(new GameObjectVisitor<Renderer>() {
             @Override
             public Renderer visit(final Player player) {
-                return new PlayerRenderer(createSprite(), player);
+                return new PlayerRenderer(generateSprite(), player, canvasDrawer);
             }
 
             @Override
             public Renderer visit(final Ball ball) {
-                return new BallRenderer(createSprite(), ball);
+                return new BallRenderer(generateSprite(), ball);
             }
 
             @Override
             public Renderer visit(final Wall wall) {
-                return new WallRenderer(createSprite(), wall, walltexture);
+                return new WallRenderer(generateSprite(), wall, walltexture);
             }
 
             @Override
             public Renderer visit(final HookShot shot) {
-                return new HookShotRenderer(createSprite(), shot);
+                return new HookShotRenderer(generateSprite(), shot);
             }
 
             @Override
             public Renderer visit(final Pickup pickup) {
-                return new PickupRenderer(createSprite(), pickup);
+                return new PickupRenderer(generateSprite(), pickup);
             }
         });
+        this.canvasDrawer.addRenderer(renderer);
+        return renderer;
+    }
+    /**
+     * Generate a sprite without adding it to canvas.
+     * @return
+     *      a sprite
+     */
+    public abstract Sprite generateSprite();
+
+    @Override
+    public final Sprite createSprite() {
+        final Sprite sprite = this.generateSprite();
+        this.canvasDrawer.addRenderer(sprite);
+        return sprite;
     }
 }

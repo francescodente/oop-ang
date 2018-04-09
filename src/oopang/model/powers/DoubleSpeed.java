@@ -5,7 +5,7 @@ import oopang.model.gameobjects.Player;
  * 
  *
  */
-public final class DoubleSpeed extends PowerTimed {
+public final class DoubleSpeed extends TimedPower {
     private static final int DOUBLE = 2;
     private static final PowerTag TAG = PowerTag.DOUBLESPEED;
     private static final int INITIALVALUE = 4;

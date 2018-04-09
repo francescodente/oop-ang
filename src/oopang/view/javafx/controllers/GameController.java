@@ -38,11 +38,11 @@ public final class GameController extends SceneController {
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
-        this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas);
         this.resetGameCanvasCoordinates();
         this.canvas.requestFocus();
         this.getController().registerLevelStartedEvent(i -> {
-            final Renderer background = canvasDrawer.getRendererFactory(i.getWallTexture()).createBackgroundRenderer(i.getTime(), i.getBackground());
+            this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas, i.getWallTexture());
+            final Renderer background = canvasDrawer.getRendererFactory().createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);
             i.getLevel().getObjectCreatedEvent().register(o -> {
                 o.accept(new GameObjectVisitor<Void>() {
@@ -73,8 +73,7 @@ public final class GameController extends SceneController {
                         return null;
                     }
                 });
-                final Renderer object = this.canvasDrawer.getRendererFactory(i.getWallTexture()).createGameObjectRenderer(o);
-                this.canvasDrawer.addRenderer(object);
+                final Renderer object = this.canvasDrawer.getRendererFactory().createGameObjectRenderer(o);
                 o.getDestroyedEvent().register(r -> this.canvasDrawer.removeRenderer(object));
             });
         });

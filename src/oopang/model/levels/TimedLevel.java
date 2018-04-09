@@ -1,5 +1,7 @@
 package oopang.model.levels;
 
+import oopang.commons.events.Event;
+import oopang.commons.events.EventSource;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
 import oopang.model.LevelResult;
@@ -14,8 +16,9 @@ import oopang.model.gameobjects.GameObjectFactoryDecorator;
 public class TimedLevel extends GameOverLevelDecorator {
 
     private double timeLeft;
-    private double totalTime;
+    private final double totalTime;
     private int ballCount;
+    private EventSource<Void> timeOutEvent;
 
     /**
      * Creates a new timed level based on the given level instance.
@@ -29,6 +32,7 @@ public class TimedLevel extends GameOverLevelDecorator {
         this.totalTime = time;
         this.timeLeft = time;
         this.ballCount = 0;
+        this.timeOutEvent = new EventSource<>();
     }
 
     @Override
@@ -36,6 +40,7 @@ public class TimedLevel extends GameOverLevelDecorator {
         super.update(deltaTime);
         this.timeLeft -= deltaTime;
         if (this.timeLeft <= 0) {
+            this.timeOutEvent.trigger(null);
             this.endLevel(LevelResult.OUT_OF_TIME);
         }
         if (this.ballCount == 0) {
@@ -58,5 +63,10 @@ public class TimedLevel extends GameOverLevelDecorator {
     @Override
     public double getRemainingTimePercentage() {
         return this.timeLeft / this.totalTime;
+    }
+
+    @Override
+    public Event<Void> getTimeOutEvent() {
+        return this.timeOutEvent;
     }
 }
