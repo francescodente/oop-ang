@@ -5,7 +5,7 @@ package oopang.model.gameobjects;
  * @param <T>
  *      The return type.
  */
-public class AbstractGameObjectVisitor<T> implements GameObjectVisitor<T> {
+public abstract class AbstractGameObjectVisitor<T> implements GameObjectVisitor<T> {
 
     private final T defaultValue;
     /**
