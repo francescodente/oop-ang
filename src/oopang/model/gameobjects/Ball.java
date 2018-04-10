@@ -20,11 +20,14 @@ import oopang.model.physics.CollisionTag;
  * It can collide whit walls.
  *
  */
-public class Ball extends AbstractGameObject {
+public final class Ball extends AbstractGameObject {
 
     private static final double MIN_BOUNCE_HEIGHT = 18;
     private static final double SIZE_MULTIPLIER = 1;
-    private static final int MIN_BALL_SIZE = 1;
+    /**
+     * The min size of ball.
+     */
+    public static final int MIN_BALL_SIZE = 1;
     private final double gConst;
 
     private final GravityComponent gravity;
@@ -86,7 +89,7 @@ public class Ball extends AbstractGameObject {
             }
         }
         if (coll.getOther().getCollisionTag() == CollisionTag.SHOT) {
-            generate();
+            destroy();
         }
     }
 
@@ -138,7 +141,12 @@ public class Ball extends AbstractGameObject {
             balldx.setPosition(this.getPosition().translate(Vectors2D.of(deltaX, 0)));
             ballsx.setPosition(this.getPosition().translate(Vectors2D.of(-deltaX, 0)));
         }
-        this.destroy();
+    }
+
+    @Override
+    public void destroy() {
+        this.generate();
+        super.destroy();
     }
 
     @Override
@@ -167,5 +175,13 @@ public class Ball extends AbstractGameObject {
      */
     public BallColor getColor() {
         return this.color;
+    }
+    /**
+     * Getter of the Ball Size.
+     * @return
+     *      The Ball Size.
+     */
+    public int getSize() {
+        return this.size;
     }
 }

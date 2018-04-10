@@ -11,6 +11,7 @@ import oopang.commons.PlayerTag;
 import oopang.commons.Timeable;
 import oopang.controller.Controller;
 import oopang.model.Model;
+import oopang.model.gameobjects.AbstractGameObjectVisitor;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObjectVisitor;
 import oopang.model.gameobjects.HookShot;
@@ -57,31 +58,10 @@ public final class GameController extends SceneController {
             this.canvasDrawer.addRenderer(background);
             this.level = i.getLevel();
             i.getLevel().getObjectCreatedEvent().register(o -> {
-                o.accept(new GameObjectVisitor<Void>() {
-
+                o.accept(new AbstractGameObjectVisitor<Void>(null) {
                     @Override
                     public Void visit(final Player player) {
                         player.getPickupCollectedEvent().register(p -> handlePickupEvent(p, player));
-                        return null;
-                    }
-
-                    @Override
-                    public Void visit(final Ball ball) {
-                        return null;
-                    }
-
-                    @Override
-                    public Void visit(final Wall wall) {
-                        return null;
-                    }
-
-                    @Override
-                    public Void visit(final HookShot shot) {
-                        return null;
-                    }
-
-                    @Override
-                    public Void visit(final Pickup pickup) {
                         return null;
                     }
                 });

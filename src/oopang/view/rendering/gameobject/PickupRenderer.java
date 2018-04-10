@@ -38,8 +38,9 @@ public class PickupRenderer extends GameObjectRenderer<Pickup> {
             spriteSheet.setCell(2, 1);
         } else if (tag == PowerTag.TIMEDSHIELD) {
             spriteSheet.setCell(1, 0);
-        } /*else if (tag == PowerTag.DYNAMITE) {
-            spriteSheet.setCell(1, 1);*/
+        } else if (tag == PowerTag.DYNAMITE) {
+            spriteSheet.setCell(1, 1);
         }
     }
+}
 
