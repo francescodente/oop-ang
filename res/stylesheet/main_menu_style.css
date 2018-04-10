@@ -1,22 +1,67 @@
 @font-face{
-     src: url("PreschoolBits.ttf");
+	-fx-font-family: 'Preschool Bits';
+	src: url('PreschoolBits.ttf');
  }
  
-.root{
+#mainpanel{
 	-fx-font-size: 20px;
 	-fx-background-image: url("pang.jpg");
 	-fx-background-color: rgb(0, 0, 0); 
 	-fx-background-repeat: stretch;
 	-fx-background-size: 900 506;
     -fx-background-position: center center;
-    -fx-font-family: "Preschool Bits";
+}
+
+#panel{
+	-fx-background-color: rgb(0, 0, 0);
 }
 
 #start-button{
-	-fx-background-color: linear-gradient(#000000, #000000);
-    -fx-background-radius: 30;
+	-fx-background-color: linear-gradient(#EBDF37, #FFFF00);
+    -fx-background-radius: 10;
     -fx-background-insets: 0;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 	-fx-effect: dropshadow(one-pass-box, black, 8, 0.0, 2, 0);
-	-fx-font-family: "Preschool Bits";
+	-fx-font-family: 'Preschool Bits';
+}
+
+#back{
+	-fx-background-color: linear-gradient(#EBDF37, #FFFF00);
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+	-fx-effect: dropshadow(one-pass-box, black, 8, 0.0, 2, 0);
+	-fx-font-family: 'Preschool Bits';
+}
+
+#single{
+	-fx-background-color: black;
+	-fx-background-image: url("singleplayer.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 80% 100%;
+    -fx-background-position: center center;
+}
+
+#multi{
+	-fx-background-color: black;
+	-fx-background-image: url("multiplayer.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 80% 100%;
+    -fx-background-position: center center;
+}
+
+#survival{
+	-fx-background-color: black;
+	-fx-background-image: url("survivalmode.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 80% 100%;
+    -fx-background-position: center center;
+}
+
+#arcade{
+	-fx-background-color: black;
+	-fx-background-image: url("tourmode.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: 80% 100%;
+    -fx-background-position: center center;
 }
