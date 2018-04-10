@@ -13,6 +13,12 @@ public interface Timeable {
      *      the percentage of remaining time.
      */
     double getRemainingTimePercentage();
+    /**
+     * Returns a double that represents the time left.
+     * @return
+     *      the remaining time.
+     */
+    double getRemainingTime();
 
     /**
      * Returns a void event that triggers when time is finished.
@@ -28,4 +34,11 @@ public interface Timeable {
      *      the timeout event
      */
     Event<Double> getTimeChangedEvent();
+
+    /**
+     * Give more time to the power.
+     * @param time
+     *      the time period to be added to this power.
+     */
+    void addTime(double time);
 }

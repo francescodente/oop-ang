@@ -77,4 +77,14 @@ public class TimedLevel extends GameOverLevelDecorator {
     public Event<Double> getTimeChangedEvent() {
         return this.timeChangedEvent;
     }
+
+    @Override
+    public double getRemainingTime() {
+        return this.timeLeft;
+    }
+
+    @Override
+    public void addTime(final double time) {
+        this.timeLeft += time;
+    }
 }

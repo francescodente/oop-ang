@@ -92,4 +92,13 @@ public abstract class LevelDecorator implements Level {
     public Event<Double> getTimeChangedEvent() {
         return this.innerLevel.getTimeChangedEvent();
     }
+    @Override
+    public void addTime(final double time) {
+        this.innerLevel.addTime(time);
+    }
+    @Override
+    public double getRemainingTime() {
+        return this.innerLevel.getRemainingTime();
+    }
 }
+

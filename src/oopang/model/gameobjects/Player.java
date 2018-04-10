@@ -9,6 +9,7 @@ import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
 import oopang.commons.PlayerTag;
+import oopang.commons.Timeable;
 import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
 import oopang.model.components.CollisionComponent;
@@ -108,10 +109,21 @@ public class Player extends AbstractGameObject {
      * @param pow
      *      Power to add and activate.
      */
-    private void addPower(final Power pow) {
-        powerUps.add(pow);
-        this.pickupCollected.trigger(pow);
-        pow.activate(this);
+    private void addPower(final Power power) {
+        boolean found = false;
+        for (final Power p : powerUps) {
+            if (p.getPowertag() == power.getPowertag()) {
+                if (p instanceof Timeable) {
+                    ((Timeable) power).addTime(((Timeable) p).getRemainingTime());
+                }
+                found = true;
+            }
+        }
+        if (!found) {
+            powerUps.add(power);
+            this.pickupCollected.trigger(power);
+            power.activate(this);
+        }
     }
 
     @Override

@@ -25,7 +25,7 @@ public final class TimedShield extends TimedPower {
     }
 
     @Override
-    protected void deactivate() {
+    public void deactivate() {
         super.deactivate();
         this.getPlayer().setInvulnerable(false);
     }

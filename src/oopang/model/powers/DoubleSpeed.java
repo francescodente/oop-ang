@@ -26,7 +26,7 @@ public final class DoubleSpeed extends TimedPower {
     }
 
     @Override
-    protected void deactivate() {
+    public void deactivate() {
         super.deactivate();
         this.getPlayer().setSpeed(this.getPlayer().getSpeed() / DOUBLE);
     }

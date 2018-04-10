@@ -34,4 +34,10 @@ public interface Power {
      */
     PowerTag getPowertag();
 
+    /**
+     * Deactivate the power.
+     * 
+     */
+    void deactivate();
+
 }

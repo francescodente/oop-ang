@@ -43,7 +43,7 @@ public final class Freeze extends TimedPower {
     }
 
     @Override
-    protected void deactivate() {
+    public void deactivate() {
         super.deactivate();
         LevelManager.getCurrentLevel().getAllObjects()
         .filter(obj -> obj instanceof Ball)

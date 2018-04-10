@@ -138,4 +138,14 @@ public class BaseLevel implements Level {
     public Event<Double> getTimeChangedEvent() {
         return new EventSource<Double>();
     }
+
+    @Override
+    public double getRemainingTime() {
+        return 0;
+    }
+
+    @Override
+    public void addTime(final double time) {
+        //A base level has no time
+    }
 }
