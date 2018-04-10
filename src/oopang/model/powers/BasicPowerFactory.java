@@ -30,4 +30,8 @@ public class BasicPowerFactory implements PowerFactory {
         return DoubleShot.create(STARTLEVEL);
     }
 
+    @Override
+    public final Power createDynamite() {
+        return Dynamite.create(STARTLEVEL);
+    }
 }

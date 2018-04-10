@@ -41,4 +41,9 @@ public class UpgradePowerFactory implements PowerFactory {
         return DoubleShot.create(this.levelmap.get(PowerTag.DOUBLESHOT));
     }
 
+    @Override
+    public final Power createDynamite() {
+        return Dynamite.create(this.levelmap.get(PowerTag.DYNAMITE));
+    }
+
 }

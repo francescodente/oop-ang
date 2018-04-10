@@ -21,6 +21,10 @@ public enum PowerTag {
      */
     TIMEDSHIELD,
     /**
+     * Tag Dynamite.
+     */
+    DYNAMITE,
+    /**
      * Tag Freeze.
      */
     FREEZE;

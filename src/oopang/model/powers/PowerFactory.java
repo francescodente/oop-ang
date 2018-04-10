@@ -34,4 +34,10 @@ public interface PowerFactory {
     *       DoubleShot.
     */
     Power createDoubleShot();
+    /**
+     * Create a new Dynamite.
+     * @return
+     *      Dynamite.
+     */
+    Power createDynamite();
 }
