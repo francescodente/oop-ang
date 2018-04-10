@@ -17,8 +17,8 @@ import oopang.model.powers.Power;
  */
 public class PickUpGeneratingLevel extends LevelDecorator {
 
-    private static final int MIN_BALLS = 1;
-    private static final int MAX_BALLS = 1;
+    private static final int MIN_BALLS = 4;
+    private static final int MAX_BALLS = 10;
 
     private final List<Supplier<Power>> availablePowers;
     private int ballsToNextPickUp;
