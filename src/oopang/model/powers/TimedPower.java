@@ -10,7 +10,7 @@ import oopang.commons.events.EventSource;
  */
 public abstract class TimedPower extends AbstractPower implements Timeable {
     private double time;
-    private final double timeout;
+    private double timeout;
     private final EventSource<Void> timeoutEvent;
     private final EventSource<Double> timeChangedEvent;
     /**
@@ -69,6 +69,7 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
     @Override
     public void addTime(final double time) {
         this.time += time;
+        this.timeout += time;
     }
 }
 

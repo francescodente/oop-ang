@@ -80,9 +80,12 @@ public class Player extends AbstractGameObject {
      */
     @Override
     public void update(final double deltaTime) {
-        this.powerUps.forEach(c -> {
-            if (c.isActive()) {
-                c.update(deltaTime);
+
+        this.powerUps.forEach(p -> {
+            if (p.isActive()) {
+                p.update(deltaTime);
+            } else {
+                powerUps.remove(p);
             }
         });
         super.update(deltaTime);
@@ -112,10 +115,8 @@ public class Player extends AbstractGameObject {
     private void addPower(final Power power) {
         boolean found = false;
         for (final Power p : powerUps) {
-            if (p.getPowertag() == power.getPowertag()) {
-                if (p instanceof Timeable) {
-                    ((Timeable) power).addTime(((Timeable) p).getRemainingTime());
-                }
+            if (p.getPowertag() == power.getPowertag() &&  (p instanceof Timeable)) {
+                ((Timeable) p).addTime(((Timeable) power).getRemainingTime());
                 found = true;
             }
         }

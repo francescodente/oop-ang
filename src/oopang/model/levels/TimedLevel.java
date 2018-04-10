@@ -16,7 +16,7 @@ import oopang.model.gameobjects.GameObjectFactoryDecorator;
 public class TimedLevel extends GameOverLevelDecorator {
 
     private double timeLeft;
-    private final double totalTime;
+    private double totalTime;
     private int ballCount;
     private final EventSource<Void> timeOutEvent;
     private final EventSource<Double> timeChangedEvent;
@@ -65,7 +65,7 @@ public class TimedLevel extends GameOverLevelDecorator {
     }
     @Override
     public double getRemainingTimePercentage() {
-        return this.timeLeft / this.totalTime;
+        return Math.min(this.timeLeft / this.totalTime, 1);
     }
 
     @Override
@@ -86,5 +86,6 @@ public class TimedLevel extends GameOverLevelDecorator {
     @Override
     public void addTime(final double time) {
         this.timeLeft += time;
+        this.totalTime +=time;
     }
 }
