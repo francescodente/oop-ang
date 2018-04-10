@@ -1,4 +1,7 @@
 package oopang.controller.leaderboard;
+
+import java.util.Optional;
+
 /**
  * The Leaderboard Manager, keeps track of Leaderboards (Survival and Story mode).
  */
@@ -8,23 +11,25 @@ public interface LeaderboardManager {
      * @return
      *      The story Leaderboard.
      */
-    Leaderboard loadStoryModeLeaderboard();
+    Optional<Leaderboard> loadStoryModeLeaderboard();
     /**
      * Load the survival Leaderboard.
      * @return
      *      The survival Leaderboard.
      */
-    Leaderboard loadSurvivalModeLeaderboard();
+    Optional<Leaderboard> loadSurvivalModeLeaderboard();
     /**
      * Save the story Leaderboard.
      * @param leaderboard
      *      The Leaderboard.
+     * @return 
      */
-    void saveStoryModeLeaderboard(Leaderboard leaderboard);
+    boolean saveStoryModeLeaderboard(Leaderboard leaderboard);
     /**
      * Save the survival Leaderboard.
      * @param leaderboard
      *      The Leaderboard.
+     * @return 
      */
-    void saveSurvivalModeLeaderboard(Leaderboard leaderboard);
+    boolean saveSurvivalModeLeaderboard(Leaderboard leaderboard);
 }

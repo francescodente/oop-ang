@@ -34,7 +34,6 @@ public final class FileSystemUserManager implements UserManager {
                 try {
                     return loadUser(userName);
                 } catch (IOException e) {
-                    
                 }
             })
             .findFirst();
@@ -45,7 +44,6 @@ public final class FileSystemUserManager implements UserManager {
         try {
             writeUser(user);
         } catch (IOException e) {
-            
         }
     }
 
