@@ -134,4 +134,8 @@ public class BaseLevel implements Level {
     public Event<Void> getTimeOutEvent() {
         return new EventSource<Void>();
     }
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return new EventSource<Double>();
+    }
 }

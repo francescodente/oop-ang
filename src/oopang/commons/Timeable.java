@@ -20,4 +20,12 @@ public interface Timeable {
      *      the timeout event
      */
     Event<Void> getTimeOutEvent();
+
+    /**
+     * Returns a void event that triggers when time is changed (every update) and brings the
+     * remaining time percentage.
+     * @return
+     *      the timeout event
+     */
+    Event<Double> getTimeChangedEvent();
 }

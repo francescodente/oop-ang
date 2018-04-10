@@ -71,12 +71,16 @@ public class XMLLevelLoader implements LevelLoader {
             final Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
             this.loadLevelData(builder, doc);
-            final ImageID wallTexture = this.loadWallTexture(doc);
-            final ImageID background = this.loadBackground(doc);
-            this.getPowers(builder, doc);
-            this.loadBall(builder, doc);
-            this.loadWalls(builder, doc);
-            return new LevelData(background, wallTexture, builder.build());
+            if (index.isPresent()) {
+                final ImageID wallTexture = this.loadWallTexture(doc);
+                final ImageID background = this.loadBackground(doc);
+                this.getPowers(builder, doc);
+                this.loadBall(builder, doc);
+                this.loadWalls(builder, doc);
+                return new LevelData(background, wallTexture, builder.build());
+            } else {
+                return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), builder.build());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,16 +139,17 @@ public class XMLLevelLoader implements LevelLoader {
     }
 
     /**
-     * Getter for {@link Vectors2D} field in a XML document.
+     * Getter for {@link Vector2D} field in a XML document.
      * @param doc
      *      The document containing the {@link Level}.
      * @param item
-     *      The number of {@link Vectors2D} tag in the TreeNode
+     *      The number of {@link Vector2D} tag in the TreeNode
      * @param node
      *      The name of the TreeNode.
      * @param doc
      *      The document to load
      * @return
+     *      The {@link Vector2D} searched.
      */
     private Vector2D getVector(final int item, final String target, final String source, final Document doc) {
         final NodeList nList = doc.getElementsByTagName(source);
@@ -183,8 +188,6 @@ public class XMLLevelLoader implements LevelLoader {
      *      Instance of {@link Level} to create
      * @param doc
      *      The document with informations.
-     * @return
-     *      The {@link ImageID} loaded.
      */
     private void loadLevelData(final LevelBuilder level, final Document doc) {
         final NodeList nList = doc.getElementsByTagName(ROOT);
@@ -194,6 +197,9 @@ public class XMLLevelLoader implements LevelLoader {
             level.setTime(Double.parseDouble(eElement.getElementsByTagName("Time").item(0).getTextContent()));
         } else {
             level.setSurvival();
+        }
+        if (eElement.getElementsByTagName("Gravity").getLength() > 0) {
+            level.setBallGravity(getVector(0, "Gravity", "Level", doc));
         }
     }
 
@@ -208,7 +214,6 @@ public class XMLLevelLoader implements LevelLoader {
         final Node nNode = nList.item(0);
         final Element eElement = (Element) nNode;
         return ImageID.valueOf(eElement.getElementsByTagName("Background").item(0).getTextContent());
-
     }
 
     /**

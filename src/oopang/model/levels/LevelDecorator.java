@@ -88,4 +88,8 @@ public abstract class LevelDecorator implements Level {
     public Event<Void> getTimeOutEvent() {
         return this.innerLevel.getTimeOutEvent();
     }
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return this.innerLevel.getTimeChangedEvent();
+    }
 }
