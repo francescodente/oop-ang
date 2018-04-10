@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.SelectModeController" stylesheets="@stylesheet/select_mode.css">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet/select_mode.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.SelectModeController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -31,7 +31,7 @@
       </GridPane>
    </center>
    <bottom>
-      <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" text="BACK" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="32.0" prefWidth="112.0" text="BACK" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" />
          </BorderPane.margin>
