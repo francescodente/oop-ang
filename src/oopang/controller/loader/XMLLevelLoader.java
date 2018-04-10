@@ -79,6 +79,7 @@ public class XMLLevelLoader implements LevelLoader {
                 this.loadWalls(builder, doc);
                 return new LevelData(background, wallTexture, builder.build());
             } else {
+                this.getPowers(builder, doc);
                 return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), builder.build());
             }
         } catch (Exception e) {
