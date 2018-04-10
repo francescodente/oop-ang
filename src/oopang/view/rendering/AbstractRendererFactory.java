@@ -20,6 +20,7 @@ public abstract class AbstractRendererFactory implements RendererFactory {
 
     private final ImageID walltexture;
     private final CanvasDrawer canvasDrawer;
+    private final GameObjectVisitor<Renderer> rendererGenerator;
 
     /**
      * Create a new factory and sets the texture.
@@ -31,11 +32,7 @@ public abstract class AbstractRendererFactory implements RendererFactory {
     public AbstractRendererFactory(final ImageID walltexture, final CanvasDrawer canvasDrawer) {
         this.walltexture = walltexture;
         this.canvasDrawer = canvasDrawer;
-    }
-
-    @Override
-    public final Renderer createGameObjectRenderer(final GameObject obj) {
-        final Renderer renderer = obj.accept(new GameObjectVisitor<Renderer>() {
+        this.rendererGenerator = new GameObjectVisitor<Renderer>() {
             @Override
             public Renderer visit(final Player player) {
                 return new PlayerRenderer(generateSprite(), player, canvasDrawer);
@@ -60,7 +57,12 @@ public abstract class AbstractRendererFactory implements RendererFactory {
             public Renderer visit(final Pickup pickup) {
                 return new PickupRenderer(generateSprite(), pickup);
             }
-        });
+        };
+    }
+
+    @Override
+    public final Renderer createGameObjectRenderer(final GameObject obj) {
+        final Renderer renderer = obj.accept(this.rendererGenerator);
         this.canvasDrawer.addRenderer(renderer);
         return renderer;
     }
