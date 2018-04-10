@@ -12,6 +12,7 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
     private double time;
     private final double timeout;
     private final EventSource<Void> timeoutEvent;
+    private final EventSource<Double> timeChangedEvent;
     /**
      * This constructor set time.
      * @param timeout 
@@ -24,6 +25,7 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
        this.time = 0;
        this.timeout = timeout;
        this.timeoutEvent = new EventSource<>();
+       this.timeChangedEvent = new EventSource<>();
     }
     /**
      * It must be called in extended methods.
@@ -32,6 +34,7 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
     public void update(final double deltaTime) {
        if (this.isActive()) {
            this.time += deltaTime;
+           this.timeChangedEvent.trigger(this.getRemainingTimePercentage());
        }
         if (this.time > this.timeout) {
             this.deactivate();
@@ -47,6 +50,10 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
     @Override
     public Event<Void> getTimeOutEvent() {
         return this.timeoutEvent;
+    }
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return this.timeChangedEvent;
     }
 }
 

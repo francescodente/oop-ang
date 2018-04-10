@@ -19,6 +19,7 @@ public class TimedLevel extends GameOverLevelDecorator {
     private final double totalTime;
     private int ballCount;
     private final EventSource<Void> timeOutEvent;
+    private final EventSource<Double> timeChangedEvent;
 
     /**
      * Creates a new timed level based on the given level instance.
@@ -33,12 +34,14 @@ public class TimedLevel extends GameOverLevelDecorator {
         this.timeLeft = time;
         this.ballCount = 0;
         this.timeOutEvent = new EventSource<>();
+        this.timeChangedEvent = new EventSource<>();
     }
 
     @Override
     public final void update(final double deltaTime) {
         super.update(deltaTime);
         this.timeLeft -= deltaTime;
+        this.timeChangedEvent.trigger(this.getRemainingTimePercentage());
         if (this.timeLeft <= 0) {
             this.timeOutEvent.trigger(null);
             this.endLevel(LevelResult.OUT_OF_TIME);
@@ -68,5 +71,10 @@ public class TimedLevel extends GameOverLevelDecorator {
     @Override
     public Event<Void> getTimeOutEvent() {
         return this.timeOutEvent;
+    }
+
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return this.timeChangedEvent;
     }
 }
