@@ -17,6 +17,7 @@ import oopang.view.View;
 public class GameLoop extends Thread {
 
     private static final long MS_BETWEEN_FRAMES = 20;
+    private static final double MAX_UPDATE_BOUND = 0.04;
     private static final double MSEC_TO_SEC = 0.001;
     private static final int MAXINPUT = 20;
     private static final long INITIAL_WAIT_TIME = 2000;
@@ -69,7 +70,7 @@ public class GameLoop extends Thread {
             }
             final long current = System.currentTimeMillis();
             this.processInput();
-            this.updateGame((current - lastTime) * MSEC_TO_SEC);
+            this.updateGame(Math.min((current - lastTime) * MSEC_TO_SEC, MAX_UPDATE_BOUND));
             this.render();
             this.waitForNextFrame(current);
             lastTime = current;

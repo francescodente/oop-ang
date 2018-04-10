@@ -1,8 +1,10 @@
 package oopang.view.javafx.controllers;
 
+import javafx.beans.binding.StringBinding;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -18,6 +20,7 @@ import oopang.model.gameobjects.Pickup;
 import oopang.model.gameobjects.Player;
 import oopang.model.gameobjects.Wall;
 import oopang.model.input.InputDirection;
+import oopang.model.levels.Level;
 import oopang.model.powers.Power;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -30,10 +33,19 @@ import oopang.view.rendering.javafx.JavaFXCanvasDrawer;
  */
 public final class GameController extends SceneController {
 
+    private Level level;
     @FXML
     private Canvas canvas;
     @FXML
     private Pane canvasContainer;
+    @FXML
+    private Pane player1Powers;
+    @FXML
+    private Pane player2Powers;
+    @FXML
+    private Label score;
+    @FXML
+    private Pane livesContainer;
     private CanvasDrawer canvasDrawer;
 
     @Override
@@ -45,6 +57,7 @@ public final class GameController extends SceneController {
             this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas, i.getWallTexture());
             final Renderer background = canvasDrawer.getRendererFactory().createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);
+            this.level = i.getLevel();
             i.getLevel().getObjectCreatedEvent().register(o -> {
                 o.accept(new AbstractGameObjectVisitor<Void>(null) {
                     @Override
@@ -111,6 +124,7 @@ public final class GameController extends SceneController {
      */
     @Override
     public void render() {
+        this.score.setText(Integer.toString(this.level.getScore()));
         canvasDrawer.draw();
     }
 
