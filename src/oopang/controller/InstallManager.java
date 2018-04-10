@@ -3,7 +3,7 @@ package oopang.controller;
 /**
  * Class that contains constants used for the User.
  */
-public class InstallManager {
+public final class InstallManager {
 
     private static final String SEPARATOR = System.getProperty("file.separator");
 
@@ -38,6 +38,10 @@ public class InstallManager {
             + "leaderboard"
             + SEPARATOR
             + "survaival.bin";
+
+    private InstallManager() {
+        // can not create a InstallManager object.
+    }
 
     /**
      * Static method that get user file.

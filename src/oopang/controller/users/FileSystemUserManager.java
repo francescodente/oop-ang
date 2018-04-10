@@ -27,25 +27,27 @@ public final class FileSystemUserManager implements UserManager {
 
     @Override
     public Optional<User> login(final String userName, final String password) {
-        return getUsersPassword()
-            .filter(x -> x[0].equals(userName))
-            .filter(x -> Integer.toString(password.hashCode()).equals(x[1]))
-            .map(x -> {
-                try {
-                    return loadUser(userName);
-                } catch (IOException e) {
-                    
-                }
-            })
-            .findFirst();
+       final Optional<String[]> logInfo = getUsersPassword()
+                .filter(x -> x[0].equals(userName))
+                .filter(x -> Integer.toString(password.hashCode()).equals(x[1]))
+                .findFirst();
+        if (logInfo.isPresent()) {
+            try {
+                return Optional.of(loadUser(userName));
+            } catch (IOException e) {
+                return Optional.empty();
+            }
+        }
+        return Optional.empty();
     }
 
     @Override
-    public void saveUser(final User user) {
+    public boolean saveUser(final User user) {
         try {
             writeUser(user);
+            return true;
         } catch (IOException e) {
-            
+            return false;
         }
     }
 

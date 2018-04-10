@@ -12,6 +12,7 @@ import oopang.model.powers.PowerTag;
  */
 public class User implements Serializable {
 
+    private static final long serialVersionUID = 6104521551950372404L;
     private final String name;
     private int coins;
     private final Map<PowerTag, Integer> powerLevels;
@@ -79,7 +80,7 @@ public class User implements Serializable {
      * @return
      *      defensive copy of the map.
      */
-    public Map<PowerTag, Integer> getPowerLevels(){
+    public Map<PowerTag, Integer> getPowerLevels() {
         return new EnumMap<>(this.powerLevels);
     }
 }

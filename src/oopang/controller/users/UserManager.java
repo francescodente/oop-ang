@@ -22,8 +22,10 @@ public interface UserManager {
      * Method that save any use modifications.
      * @param user
      *      the object user to save.
+     * @return
+     *      return true or false
      */
-    void saveUser(User user);
+    boolean saveUser(User user);
 
     /**
      * Method that register a new User.
