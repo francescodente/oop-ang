@@ -109,6 +109,13 @@ public abstract class GameSession {
     }
 
     /**
+     * Returns true if a new level is available.
+     * @return
+     *      true if next level is available.
+     */
+    public abstract boolean hasNextLevel();
+
+    /**
      * Asks subclasses what is the next level to start.
      * @param builder
      *      the builder used to create the level.
@@ -127,16 +134,20 @@ public abstract class GameSession {
     protected void handleGameOver(final GameOverStatus status) {
         this.gameloop.stopLoop();
         this.lastResult = status.getResult();
-        switch (this.lastResult) {
-        case LEVEL_COMPLETE:
-            this.scene.loadScene(GameScene.LEVEL_STEP);
-            break;
-        case PLAYER_DEAD:
-        case OUT_OF_TIME:
-            this.scene.loadScene(GameScene.GAMEOVER); // TODO: Change to LEVEL_RESET.
-            break;
-        default:
-            break;
+        if (this.hasNextLevel()) {
+            switch (this.lastResult) {
+            case LEVEL_COMPLETE:
+                this.scene.loadScene(GameScene.LEVEL_STEP);
+                break;
+            case PLAYER_DEAD:
+            case OUT_OF_TIME:
+                this.scene.loadScene(GameScene.LEVEL_RESET);
+                break;
+            default:
+                break;
+            }
+        } else {
+            this.scene.loadScene(GameScene.GAMEOVER);
         }
     }
 

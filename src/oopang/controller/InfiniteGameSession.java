@@ -44,11 +44,15 @@ public final class InfiniteGameSession extends GameSession {
 
     @Override
     protected Optional<LevelData> getNextLevel(final LevelBuilder builder) throws IOException {
-        if (this.levelStarted) {
+        if (!this.hasNextLevel()) {
             return Optional.empty();
         }
         this.levelStarted = true;
         return Optional.of(this.getLoader().loadInfiniteLevel(builder));
     }
 
+    @Override
+    public boolean hasNextLevel() {
+        return !this.levelStarted;
+    }
 }

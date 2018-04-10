@@ -42,7 +42,7 @@ public final class StoryModeGameSession extends GameSession {
 
     @Override
     public Optional<LevelData> getNextLevel(final LevelBuilder builder) throws IOException {
-        if (this.lives <= 0 || this.currentLevel >= MAX_LEVEL) {
+        if (!this.hasNextLevel()) {
             return Optional.empty();
         }
         return Optional.of(this.getLoader().loadStoryLevel(this.currentLevel, builder));
@@ -50,7 +50,6 @@ public final class StoryModeGameSession extends GameSession {
 
     @Override
     protected void handleGameOver(final GameOverStatus status) {
-        super.handleGameOver(status);
         final LevelResult result = status.getResult();
         if (result == LevelResult.LEVEL_COMPLETE) {
             super.addScore(status.getScore());
@@ -59,10 +58,15 @@ public final class StoryModeGameSession extends GameSession {
         if (result == LevelResult.OUT_OF_TIME || result == LevelResult.PLAYER_DEAD) {
             this.lives--;
         }
+        super.handleGameOver(status);
     }
     @Override
     public int getLifeCount() {
         return this.lives;
     }
 
+    @Override
+    public boolean hasNextLevel() {
+        return this.lives > 0 && this.currentLevel <= MAX_LEVEL;
+    }
 }
