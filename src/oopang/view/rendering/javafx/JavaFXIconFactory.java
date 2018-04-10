@@ -1,7 +1,7 @@
 package oopang.view.rendering.javafx;
 
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,26 +16,35 @@ import oopang.view.rendering.ImageID;
  */
 public class JavaFXIconFactory {
 
-    public Node createHeartIcon() {
-        return new ImageView(ImageManager.getManager().getImage(ImageID.HEART));
+    private static final double HEART_SIZE = 40;
+
+    /**
+     * 
+     * @return
+     */
+    public ImageView createHeartIcon() {
+        final ImageView image = new ImageView(ImageManager.getManager().getImage(ImageID.HEART));
+        image.setFitWidth(HEART_SIZE);
+        image.setFitHeight(HEART_SIZE);
+        return image;
     }
 
-    public Node createTimedIcon(TimedPower power) {
+    public VBox createTimedIcon(TimedPower power) {
         final VBox box = new VBox();
-        final Node imageview = this.createPowerIcon(power.getPowertag());
-        final Node bar = this.createTimeBar(power);
+        final ImageView imageview = this.createPowerIcon(power.getPowertag());
+        final ProgressBar bar = this.createTimeBar(power);
         box.getChildren().add(imageview);
         box.getChildren().add(bar);
         return box;
     }
 
-    public Node createTimeBar(Timeable timeable) {
+    public ProgressBar createTimeBar(Timeable timeable) {
         final ProgressBar bar = new ProgressBar(timeable.getRemainingTimePercentage());
-        timeable.getTimeChangedEvent().register(t -> bar.setProgress(t));
+        timeable.getTimeChangedEvent().register(t -> Platform.runLater(() -> bar.setProgress(t)));
         return bar;
     }
 
-    public Node createPowerIcon(PowerTag tag) {
+    public ImageView createPowerIcon(PowerTag tag) {
         final ImageView imageview = new ImageView();
         final Image image = ImageManager.getManager().getImage(ImageID.PICKUP);
         final double cellwidth = image.getWidth() / 3;

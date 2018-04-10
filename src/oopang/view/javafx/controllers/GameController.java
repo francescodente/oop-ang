@@ -1,31 +1,34 @@
 package oopang.view.javafx.controllers;
 
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import oopang.commons.PlayerTag;
-import oopang.commons.Timeable;
 import oopang.controller.Controller;
 import oopang.model.Model;
 import oopang.model.gameobjects.AbstractGameObjectVisitor;
-import oopang.model.gameobjects.Ball;
-import oopang.model.gameobjects.GameObjectVisitor;
-import oopang.model.gameobjects.HookShot;
-import oopang.model.gameobjects.Pickup;
+
 import oopang.model.gameobjects.Player;
-import oopang.model.gameobjects.Wall;
+
 import oopang.model.input.InputDirection;
 import oopang.model.levels.Level;
 import oopang.model.powers.Power;
+import oopang.model.powers.TimedPower;
 import oopang.view.GameScene;
 import oopang.view.View;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.Renderer;
 import oopang.view.rendering.javafx.JavaFXCanvasDrawer;
+import oopang.view.rendering.javafx.JavaFXIconFactory;
 
 /**
  * Class implementing the real scene of the game.
@@ -46,10 +49,17 @@ public final class GameController extends SceneController {
     @FXML
     private Pane livesContainer;
     private CanvasDrawer canvasDrawer;
+    private JavaFXIconFactory iconFactory;
 
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
+        this.iconFactory = new JavaFXIconFactory();
+        for (int j = 0; j < this.getController().getLifeCount(); j++) {
+            final ImageView icon = this.iconFactory.createHeartIcon();
+            icon.setPreserveRatio(true);
+            this.livesContainer.getChildren().add(icon);
+        }
         this.resetGameCanvasCoordinates();
         this.canvas.requestFocus();
         this.getController().registerLevelStartedEvent(i -> {
@@ -168,8 +178,11 @@ public final class GameController extends SceneController {
     }
 
     private void handlePickupEvent(final Power power, final Player player) {
-        if (power instanceof Timeable) {
-            //do something
+        final Pane toBeUsedPane = (player.getPlayerTag() == PlayerTag.PLAYER_ONE) ? player1Powers : player2Powers;
+        if (power instanceof TimedPower) {
+            final Node icon = this.iconFactory.createTimedIcon((TimedPower) power);
+            Platform.runLater(() -> toBeUsedPane.getChildren().add(icon));
+            ((TimedPower) power).getTimeOutEvent().register(n -> Platform.runLater(() -> toBeUsedPane.getChildren().remove(icon)));
         }
     }
 }
