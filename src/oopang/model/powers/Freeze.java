@@ -5,6 +5,8 @@ import oopang.model.components.GravityComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.GameObjectVisitor;
+import oopang.model.gameobjects.AbstractGameObjectVisitor;
 import oopang.model.gameobjects.Player;
 import oopang.model.levels.LevelManager;
 
@@ -26,8 +28,7 @@ public final class Freeze extends TimedPower {
         super(timeout, TAG);
         this.freezer = obj -> {
             if (obj instanceof Ball) {
-                obj.getComponent(MovementComponent.class).ifPresent(c -> c.disable());
-                obj.getComponent(GravityComponent.class).ifPresent(c -> c.disable());
+                this.freezeBall(obj);
             }
         };
     }
@@ -36,28 +37,59 @@ public final class Freeze extends TimedPower {
     @Override
     public void activate(final Player player) {
         super.activate(player);
-        LevelManager.getCurrentLevel().getAllObjects()
-            .forEach(obj -> freezer.handle(obj));
-        player.setInvulnerable(true);
+        final GameObjectVisitor<Void> activator = new AbstractGameObjectVisitor<Void>(null) {
+            @Override
+            public Void visit(final Ball ball) {
+                freezeBall(ball);
+                return null;
+            }
+            @Override
+            public Void visit(final Player player) {
+                player.setInvulnerable(true);
+                return null;
+            }
+        };
+        LevelManager.getCurrentLevel()
+            .getAllObjects()
+            .forEach(o -> o.accept(activator));
         LevelManager.getCurrentLevel().getObjectCreatedEvent().register(this.freezer);
     }
 
     @Override
     public void deactivate() {
         super.deactivate();
-        LevelManager.getCurrentLevel().getAllObjects()
-        .filter(obj -> obj instanceof Ball)
-        .forEach(obj -> {
-            obj.getComponent(MovementComponent.class).ifPresent(c -> c.enable());
-            obj.getComponent(GravityComponent.class).ifPresent(c -> c.enable());
-        });
-        this.getPlayer().setInvulnerable(false);
+        final GameObjectVisitor<Void> deactivator = new AbstractGameObjectVisitor<Void>(null) {
+            @Override
+            public Void visit(final Ball ball) {
+                unlockBall(ball);
+                return null;
+            }
+            @Override
+            public Void visit(final Player player) {
+                player.setInvulnerable(false);
+                return null;
+            }
+        };
+        LevelManager.getCurrentLevel()
+            .getAllObjects()
+            .forEach(o -> o.accept(deactivator));
         LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(freezer);
+    }
+
+    private void freezeBall(final GameObject ball) {
+        ball.getComponent(MovementComponent.class).ifPresent(c -> c.disable());
+        ball.getComponent(GravityComponent.class).ifPresent(c -> c.disable());
+    }
+
+    private void unlockBall(final GameObject ball) {
+        ball.getComponent(MovementComponent.class).ifPresent(c -> c.enable());
+        ball.getComponent(GravityComponent.class).ifPresent(c -> c.enable());
     }
 
     private static double calculateTimeout(final int powerlevel) {
         return INITIALVALUE + (TIMEFEE * (powerlevel - 1));
     }
+
     /**
      * This method return the power upgrade based on level.
      * @param powerlevel
