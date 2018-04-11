@@ -1,7 +1,6 @@
 package oopang.view;
 
 import oopang.controller.Controller;
-import oopang.view.dialogs.Dialog;
 import oopang.view.dialogs.DialogFactory;
 
 /**

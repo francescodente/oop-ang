@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import oopang.controller.Controller;
 import oopang.view.GameScene;
 import oopang.view.View;
-import oopang.view.dialogs.Dialog;
 import oopang.view.dialogs.DialogFactory;
 import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.javafx.controllers.SceneController;
