@@ -1,6 +1,7 @@
 package oopang.view.javafx;
 
 import javafx.application.Platform;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 import oopang.controller.Controller;
 import oopang.view.GameScene;
@@ -58,6 +59,9 @@ public class JavaFXView implements View {
                 this.stage.setHeight(oldHeight);
                 wrapper.getController().init(control, this);
                 this.currentScene = wrapper.getController();
+                final Parent root = wrapper.getScene().getRoot();
+                root.requestFocus();
+                root.setOnKeyPressed(wrapper.getController()::onKeyPressed);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package oopang.view.javafx.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -38,10 +39,11 @@ public abstract class SceneController {
      * Redraws the menu on the screen.
      */
     public void render() {
+        // Left empty to let subclasses free of not overriding this method.
     }
 
     /**
-     * Abstract method that depends on the scene selected.
+     * Loads the following scene.
      */
     @FXML
     public void nextScene() {
@@ -69,4 +71,14 @@ public abstract class SceneController {
      *      The {@link GameScene} to load on back call.
      */
     protected abstract GameScene getPreviousScene();
+
+    /**
+     * Event handler for when a key is pressed in this scene.
+     * @param event
+     *      the information about the event.
+     */
+    @FXML
+    public void onKeyPressed(final KeyEvent event) {
+        // Left empty to let subclasses free of not overriding this method.
+    }
 }

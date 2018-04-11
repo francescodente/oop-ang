@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
 import oopang.model.Model;
@@ -61,7 +60,6 @@ public final class GameController extends SceneController {
             this.livesContainer.getChildren().add(icon);
         }
         this.resetGameCanvasCoordinates();
-        this.canvas.requestFocus();
         this.getController().registerLevelStartedEvent(i -> {
             this.canvasDrawer = new JavaFXCanvasDrawer(this.canvas, i.getWallTexture());
             final Renderer background = canvasDrawer.getRendererFactory().createBackgroundRenderer(i.getTime(), i.getBackground());
@@ -84,13 +82,8 @@ public final class GameController extends SceneController {
         this.getController().continueGameSession();
     }
 
-    /**
-     * Method to handle input from players.
-     * @param event
-     *      the key pressed
-     */
-    @FXML
-    public void handlePressed(final KeyEvent event) {
+    @Override
+    public void onKeyPressed(final KeyEvent event) {
         if (event.getCode() == KeyCode.LEFT) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
         } else if (event.getCode() == KeyCode.RIGHT) {
