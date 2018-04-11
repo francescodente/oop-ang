@@ -3,9 +3,7 @@
 	src: url('PreschoolBits.ttf');
  }
  
- 
 #mainpanel{
-	-fx-font-size: 20px;
 	-fx-background-image: url("pang.jpg");
 	-fx-background-color: rgb(0, 0, 0); 
 	-fx-background-repeat: stretch;
@@ -17,22 +15,14 @@
 	-fx-background-color: rgb(0, 0, 0);
 }
 
-#start-button{
-	-fx-background-color: linear-gradient(#EBDF37, #FFFF00);
-    -fx-background-radius: 10;
-    -fx-background-insets: 0;
-    -fx-text-fill: black;
-	-fx-effect: dropshadow(one-pass-box, black, 8, 0.0, 2, 0);
-	-fx-font-family: 'Preschool Bits';
+#back{
+	-fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
 }
 
-#back{
-	-fx-background-color: linear-gradient(#EBDF37, #FFFF00);
-    -fx-background-radius: 10;
-    -fx-background-insets: 0;
-    -fx-text-fill: black;
-	-fx-effect: dropshadow(one-pass-box, black, 8, 0.0, 2, 0);
-	-fx-font-family: 'Preschool Bits';
+#back:hover{
+	-fx-font-weight: bold;
 }
 
 #single{
@@ -56,6 +46,7 @@
 	-fx-background-size: 65%;
     -fx-background-position: center center;
 }
+
 #multi:hover{
 	-fx-background-size: 60%;
 }
@@ -68,6 +59,7 @@
 	-fx-background-size: 65%;
     -fx-background-position: center center;
 }
+
 #survival:hover{
 	-fx-background-size:60%;
 }
@@ -80,6 +72,7 @@
 	-fx-background-size: 65%;
     -fx-background-position: center center;
 }
+
 #arcade:hover{
 	-fx-background-size: 60%;
 }
