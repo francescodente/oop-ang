@@ -3,6 +3,7 @@
 	src: url('PreschoolBits.ttf');
  }
  
+ 
 #mainpanel{
 	-fx-font-size: 20px;
 	-fx-background-image: url("pang.jpg");
@@ -38,30 +39,48 @@
 	-fx-background-color: black;
 	-fx-background-image: url("singleplayer.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size: 80% 100%;
+	-fx-background-size: cover;
+	-fx-background-size: 65%;
     -fx-background-position: center center;
+}
+
+#single:hover{
+	-fx-background-size: 60%;
 }
 
 #multi{
 	-fx-background-color: black;
 	-fx-background-image: url("multiplayer.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size: 80% 100%;
+	-fx-background-size: cover;
+	-fx-background-size: 65%;
     -fx-background-position: center center;
+}
+#multi:hover{
+	-fx-background-size: 60%;
 }
 
 #survival{
 	-fx-background-color: black;
 	-fx-background-image: url("survivalmode.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size: 80% 100%;
+	-fx-background-size: cover;
+	-fx-background-size: 65%;
     -fx-background-position: center center;
+}
+#survival:hover{
+	-fx-background-size:60%;
 }
 
 #arcade{
 	-fx-background-color: black;
 	-fx-background-image: url("tourmode.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-size: 80% 100%;
+	-fx-background-size: cover;
+	-fx-background-size: 65%;
     -fx-background-position: center center;
 }
+#arcade:hover{
+	-fx-background-size: 60%;
+}
+
