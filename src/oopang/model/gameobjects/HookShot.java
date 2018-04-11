@@ -14,7 +14,7 @@ import oopang.model.physics.CollisionTag;
 public class HookShot extends Shot {
 
     private static final double WIDTH = 2;
-    private static final double START_HEIGHT = 1;
+    private static final double START_HEIGHT = 18;
 
     private double startY;
 
@@ -30,6 +30,7 @@ public class HookShot extends Shot {
     public void start() {
         super.start();
         this.startY = this.getPosition().getY();
+        this.setPosition(this.getPosition().setPointY(START_HEIGHT));
     }
 
     @Override
