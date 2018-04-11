@@ -4,14 +4,12 @@ import oopang.commons.Command;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
-import oopang.controller.loader.TestLevelLoader;
 import oopang.controller.loader.XMLLevelLoader;
 import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
 import oopang.view.GameScene;
 import oopang.view.View;
-
 
 /**
  * This is the concrete implementation of the Controller.
