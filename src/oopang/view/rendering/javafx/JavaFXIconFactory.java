@@ -19,8 +19,9 @@ public class JavaFXIconFactory {
     private static final double HEART_SIZE = 40;
 
     /**
-     * 
+     * Create a icon for the heart.
      * @return
+     *      the icon for the heart.
      */
     public ImageView createHeartIcon() {
         final ImageView image = new ImageView(ImageManager.getManager().getImage(ImageID.HEART));
@@ -29,7 +30,14 @@ public class JavaFXIconFactory {
         return image;
     }
 
-    public VBox createTimedIcon(TimedPower power) {
+    /**
+     * Create a Timed icon.
+     * @param power
+     *      the power to update the icon
+     * @return
+     *      the timed icon for the given power
+     */
+    public VBox createTimedIcon(final TimedPower power) {
         final VBox box = new VBox();
         final ImageView imageview = this.createPowerIcon(power.getPowertag());
         final ProgressBar bar = this.createTimeBar(power);
@@ -38,13 +46,27 @@ public class JavaFXIconFactory {
         return box;
     }
 
-    public ProgressBar createTimeBar(Timeable timeable) {
+    /**
+     * Creates a time bar.
+     * @param timeable
+     *      The timeable to update the progress bar with.
+     * @return
+     *      a progressBar that updates with the given timeable.
+     */
+    public ProgressBar createTimeBar(final Timeable timeable) {
         final ProgressBar bar = new ProgressBar(timeable.getRemainingTimePercentage());
         timeable.getTimeChangedEvent().register(t -> Platform.runLater(() -> bar.setProgress(t)));
         return bar;
     }
 
-    public ImageView createPowerIcon(PowerTag tag) {
+    /**
+     * 
+     * @param tag
+     *      the powerTag to select the icon
+     * @return
+     *      a icon for the given powerTag.
+     */
+    public ImageView createPowerIcon(final PowerTag tag) {
         final ImageView imageview = new ImageView();
         final Image image = ImageManager.getManager().getImage(ImageID.PICKUP);
         final double cellwidth = image.getWidth() / 3;

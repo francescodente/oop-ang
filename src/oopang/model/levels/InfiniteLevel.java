@@ -64,7 +64,7 @@ public class InfiniteLevel extends LevelDecorator {
                 .getGameObjectFactory()
                 .createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
         nextBall.setPosition(this.randomPosition());
-        nextBall.getAllComponents().forEach(c -> c.disable());
+        nextBall.getAllComponents().forEach(c -> c.disable()); //TODO: FIX FREEZE BUG
     }
 
     private Point2D randomPosition() {
