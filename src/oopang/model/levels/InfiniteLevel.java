@@ -16,9 +16,9 @@ import oopang.model.gameobjects.GameObject;
 public class InfiniteLevel extends LevelDecorator {
 
     private static final int BALL_START_SIZE = 3;
-    private static final Vector2D BALL_START_VELOCITY = Vectors2D.of(15, 0);
+    private static final Vector2D BALL_START_VELOCITY = Vectors2D.of(17, 0);
     private static final double INITIAL_WAIT_TIME = 15;
-    private static final double DECREASE_RATE = 0.9;
+    private static final double DECREASE_RATE = 0.95;
     private static final double SPAWN_HEIGHT = 90;
     private static final double WORLD_OFFSET = 20;
     private static final double ENABLE_TIMEOUT = 1;
@@ -60,9 +60,11 @@ public class InfiniteLevel extends LevelDecorator {
     }
 
     private void spawnBall() {
+        final Random random = new Random();
+        final Vector2D velocity = random.nextInt(2) == 0 ? BALL_START_VELOCITY : BALL_START_VELOCITY.flipX();
         this.nextBall = LevelManager.getCurrentLevel()
                 .getGameObjectFactory()
-                .createBall(BALL_START_SIZE, BALL_START_VELOCITY, BallColor.randomColor());
+                .createBall(BALL_START_SIZE, velocity, BallColor.randomColor());
         nextBall.setPosition(this.randomPosition());
         nextBall.getAllComponents().forEach(c -> c.disable()); //TODO: FIX FREEZE BUG
     }

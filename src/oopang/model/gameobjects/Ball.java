@@ -22,7 +22,7 @@ import oopang.model.physics.CollisionTag;
  */
 public final class Ball extends AbstractGameObject {
 
-    private static final double MIN_BOUNCE_HEIGHT = 18;
+    private static final double MIN_BOUNCE_HEIGHT = 19;
     private static final double SIZE_MULTIPLIER = 1;
     /**
      * The min size of ball.
