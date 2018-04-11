@@ -60,4 +60,26 @@ public interface Controller {
      *      the {@link EventHandler} object.
      */
     void registerLevelStartedEvent(EventHandler<LevelData> handler);
+
+    /**
+     * Register a new user.
+     * @param userName
+     *      name of the user.
+     * @param password
+     *      password of the user.
+     * @return 
+     *      true if the user is correctly registered.
+     */
+    boolean registerUser(String userName, String password);
+
+    /**
+     * Login a user that already exist.
+     * @param userName
+     *      name of the user.
+     * @param password
+     *      password of the user.
+     * @return 
+     *      true if the user is correctly loaded.
+     */
+    boolean loginUser(String userName, String password);
 }

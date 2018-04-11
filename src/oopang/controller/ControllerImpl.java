@@ -1,9 +1,13 @@
 package oopang.controller;
 
+import java.util.Optional;
+
 import oopang.commons.Command;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.TestLevelLoader;
+import oopang.controller.users.FileSystemUserManager;
+import oopang.controller.users.User;
 import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.view.GameScene;
@@ -13,11 +17,13 @@ import oopang.view.View;
 /**
  * This is the concrete implementation of the Controller.
  */
-public class ControllerImpl implements Controller {
+public final class ControllerImpl implements Controller {
 
     private final Model model;
     private final View view;
     private GameSession gameSession;
+    private User user;
+    private FileSystemUserManager userManager;
 
     /**
      * Create a new Controller instance.
@@ -29,6 +35,7 @@ public class ControllerImpl implements Controller {
     public ControllerImpl(final Model model, final View view) {
         this.model = model;
         this.view = view;
+        this.userManager = new FileSystemUserManager();
     }
 
     @Override
@@ -82,6 +89,26 @@ public class ControllerImpl implements Controller {
     @Override
     public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
         this.gameSession.getLevelStartedEvent().register(handler);
+    }
+
+    @Override
+    public boolean registerUser(final String userName, final String password) {
+        Optional<User> user = this.userManager.registerUser(userName, password);
+        if (user.isPresent()) {
+            this.user = user.get();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean loginUser(final String userName, final String password) {
+        Optional<User> user = this.userManager.login(userName, password);
+        if (user.isPresent()) {
+            this.user = user.get();
+            return true;
+        }
+        return false;
     }
 
 }
