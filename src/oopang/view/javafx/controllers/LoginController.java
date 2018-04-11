@@ -29,10 +29,12 @@ public final class LoginController extends SceneController {
      * Method that load the user that already exist.
      */
     public void userLogin() {
-        if (this.getController().loginUser(userName.getText(), userPassword.getText())) {
-            nextScene();
-        } else {
-            this.getView().getDialogFactory().createUserNotFound(userName.getText()).show();
+        if (checkfield()) {
+            if (this.getController().loginUser(userName.getText(), userPassword.getText())) {
+                nextScene();
+            } else {
+                this.getView().getDialogFactory().createUserNotFound(userName.getText()).show();
+            }
         }
     }
 
@@ -40,11 +42,29 @@ public final class LoginController extends SceneController {
      * Method that register the new user.
      */
     public void userRegister() {
-        if (this.getController().registerUser(userName.getText(), userPassword.getText())) {
-            nextScene();
-        } else {
-            this.getView().getDialogFactory().createFailedToRegisterUser(userName.getText()).show();
+        if (checkfield()) {
+            if (this.getController().registerUser(userName.getText(), userPassword.getText())) {
+                nextScene();
+            } else {
+                this.getView().getDialogFactory().createFailedToRegisterUser(userName.getText()).show();
+            }
         }
+    }
+
+    /**
+     * Check if the fields are empty.
+     * @return
+     *      true if everything ok
+     */
+    private boolean checkfield() {
+        if (this.userName.getText().equals("")) {
+            this.getView().getDialogFactory().createEmptyFieldError("username");
+            return false;
+        } else if (this.userPassword.getText().equals("")) {
+            this.getView().getDialogFactory().createEmptyFieldError("password");
+            return false;
+        }
+        return true;
     }
 
 }
