@@ -1,79 +1,80 @@
-@font-face{
-	-fx-font-family: 'Preschool Bits';
-	src: url('PreschoolBits.ttf');
- }
+@font-face {
+    font-family: Commodore 64;
+    src: url('Commodore-64-v6.3.TTF');
+}
  
-#mainpanel{
-	-fx-background-image: url("pang.jpg");
-	-fx-background-color: rgb(0, 0, 0); 
-	-fx-background-repeat: stretch;
-	-fx-background-size: 900 506;
+#mainpanel {
+    -fx-background-image: url("pang.jpg");
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 506;
     -fx-background-position: center center;
 }
 
-#panel{
-	-fx-background-color: rgb(0, 0, 0);
+#panel {
+    -fx-background-color: rgb(0, 0, 0);
 }
 
-#back{
-	-fx-background-color: black;
+.button {
+    -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-size: 25px;
+    -fx-font-family: 'Commodore 64';
 }
 
-#back:hover{
-	-fx-font-weight: bold;
+.button:hover {
+    -fx-font-weight: bold;
 }
 
-#single{
-	-fx-background-color: black;
-	-fx-background-image: url("singleplayer.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: cover;
-	-fx-background-size: 65%;
+#single {
+    -fx-background-color: black;
+    -fx-background-image: url("singleplayer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
     -fx-background-position: center center;
 }
 
-#single:hover{
-	-fx-background-size: 60%;
+#single:hover {
+    -fx-background-size: 60%;
 }
 
-#multi{
-	-fx-background-color: black;
-	-fx-background-image: url("multiplayer.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: cover;
-	-fx-background-size: 65%;
+#multi {
+    -fx-background-color: black;
+    -fx-background-image: url("multiplayer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
     -fx-background-position: center center;
 }
 
-#multi:hover{
-	-fx-background-size: 60%;
+#multi:hover {
+    -fx-background-size: 60%;
 }
 
-#survival{
-	-fx-background-color: black;
-	-fx-background-image: url("survivalmode.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: cover;
-	-fx-background-size: 65%;
+#survival {
+    -fx-background-color: black;
+    -fx-background-image: url("survivalmode.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
     -fx-background-position: center center;
 }
 
-#survival:hover{
-	-fx-background-size:60%;
+#survival:hover {
+    -fx-background-size:60%;
 }
 
-#arcade{
-	-fx-background-color: black;
-	-fx-background-image: url("tourmode.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: cover;
-	-fx-background-size: 65%;
+#arcade {
+    -fx-background-color: black;
+    -fx-background-image: url("tourmode.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
     -fx-background-position: center center;
 }
 
-#arcade:hover{
-	-fx-background-size: 60%;
+#arcade:hover {
+    -fx-background-size: 60%;
 }
 
