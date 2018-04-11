@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameOverController">
+<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameOverController">
    <top>
-      <Label text="GAME OVER" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
+      <Label prefHeight="100.0" prefWidth="335.0" text="GAME OVER" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
          <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="System Bold" size="56.0" />
          </font>
          <BorderPane.margin>
             <Insets top="50.0" />
@@ -18,13 +19,13 @@
       </Label>
    </top>
    <center>
-      <Button mnemonicParsing="false" onMouseClicked="#nextScene" prefHeight="49.0" prefWidth="245.0" text="Restart" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="16.0" />
-         </font>
+      <ImageView fitHeight="150.0" fitWidth="536.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@/stylesheet/output_FilGad.gif" />
+         </image>
          <BorderPane.margin>
-            <Insets bottom="30.0" />
+            <Insets bottom="50.0" />
          </BorderPane.margin>
-      </Button>
+      </ImageView>
    </center>
 </BorderPane>
