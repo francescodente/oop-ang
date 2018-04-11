@@ -9,6 +9,7 @@ import java.util.stream.Stream;
  * Class Leaderboard.
  */
 public class Leaderboard implements Serializable {
+    private static final long serialVersionUID = -904319433538008187L;
     private final List<LeaderboardRecord> recordList;
     /**
      * 
