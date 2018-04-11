@@ -1,6 +1,6 @@
 @font-face {
     font-family: Commodore 64;
-    src: url('Commodore-64-v6.3.TTF');
+    src: url('../stylesheet/Commodore-64-v6.3.ttf');
 }
  
 #mainpanel {
