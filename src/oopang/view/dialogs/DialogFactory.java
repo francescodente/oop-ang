@@ -32,4 +32,13 @@ public interface DialogFactory {
      *      a dialog specific for the user registered error.
      */
     Dialog createFailedToRegisterUser(String username);
+
+    /**
+     * Create an Empty Field error dialog.
+     * @param fieldName
+     *      the name of the field left empty
+     * @return
+     *       a dialog specific for the empty field error.
+     */
+    Dialog createEmptyFieldError(String fieldName);
 }

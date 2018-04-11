@@ -90,4 +90,18 @@ public class JavaFXDialogFactory implements DialogFactory {
         };
     }
 
+    @Override
+    public Dialog createEmptyFieldError(final String fieldName) {
+        return new JavaFXDialog(this.view) {
+            private final Alert alert = new Alert(AlertType.WARNING);
+            @Override
+            public void show() {
+                alert.setTitle("Field Empty");
+                alert.setHeaderText("You left  " + fieldName + " empty");
+                alert.setContentText("If you want to login yo should insert a " + fieldName);
+                alert.showAndWait();
+            }
+        };
+    }
+
 }
