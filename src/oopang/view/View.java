@@ -34,13 +34,6 @@ public interface View {
     void showPauseMenu();
 
     /**
-     * Shows the given dialog.
-     * @param dialog
-     *      the dialog to be shown
-     */
-    void showDialog(Dialog dialog);
-
-    /**
      * Returns the DialogFactory.
      * @return
      *      the dialogFactory

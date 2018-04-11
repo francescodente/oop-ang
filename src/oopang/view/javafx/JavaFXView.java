@@ -73,10 +73,6 @@ public class JavaFXView implements View {
         // TODO Auto-generated method stub
     }
 
-    @Override
-    public void showDialog(final Dialog dialog) {
-        Platform.runLater(dialog::show);
-    }
 
     @Override
     public DialogFactory getDialogFactory() {
