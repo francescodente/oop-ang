@@ -118,6 +118,9 @@ public class XMLLevelLoader implements LevelLoader {
             if (pow == PowerTag.TIMEDSHIELD) {
                 level.addAvailablePower(() -> this.powerFactory.createTimedShield());
             }
+            if (pow == PowerTag.DYNAMITE) {
+                level.addAvailablePower(() -> this.powerFactory.createDynamite());
+            }
         }
     }
 
