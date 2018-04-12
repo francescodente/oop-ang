@@ -40,7 +40,7 @@ public class Player extends AbstractGameObject {
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
-    private boolean invulnerable;
+    private int invulnerable;
     private final PlayerTag tag;
     private final EventSource<Power> pickupCollected;
     /**
@@ -63,7 +63,7 @@ public class Player extends AbstractGameObject {
         this.powerUps = new LinkedList<>();
         this.pickupCollected = new EventSource<Power>();
         this.speed = DEFAULT_SPEED;
-        this.invulnerable = false;
+        this.invulnerable = 0;
     }
 
     /**
@@ -97,7 +97,7 @@ public class Player extends AbstractGameObject {
      *      Type of Collision
      */
     private void checkCollission(final Collision c) {
-        if (c.getOther().getCollisionTag() == CollisionTag.BALL && !this.invulnerable) {
+        if (c.getOther().getCollisionTag() == CollisionTag.BALL && this.invulnerable == 0) {
             this.destroy();
         }
         if (c.getOther().getCollisionTag() == CollisionTag.PICKUP) {
@@ -189,6 +189,6 @@ public class Player extends AbstractGameObject {
      *      the invulnerable state.
      */
     public void setInvulnerable(final boolean invulnerable) {
-        this.invulnerable = invulnerable;
+        this.invulnerable = invulnerable ? this.invulnerable + 1 : this.invulnerable - 1;
     }
 }
