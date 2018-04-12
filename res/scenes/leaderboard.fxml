@@ -7,10 +7,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LeaderboardController">
    <center>
-      <TableView BorderPane.alignment="CENTER">
+      <TableView fx:id="table" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="rankColumn" text="Rank" />
           <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="-1.0" text="Name" />
