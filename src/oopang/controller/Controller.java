@@ -42,9 +42,9 @@ public interface Controller {
     void continueGameSession();
 
     /**
-     * Closes the current instance of the {@link GameSession}.
+     * Forces the closing of the current instance of the {@link GameSession} from outside.
      */
-    void closeGameSession();
+    void forceCloseGameSession();
 
     /**
      * Asks the controller to enqueue a new command to be executed.

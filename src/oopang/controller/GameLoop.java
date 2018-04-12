@@ -61,10 +61,12 @@ public class GameLoop extends Thread {
         long lastTime = System.currentTimeMillis();
         while (!this.stopped) {
             if (this.paused) {
-                while (this.paused) {
-                    try {
-                        this.wait();
-                    } catch (InterruptedException e) { }
+                synchronized (this) {
+                    while (this.paused) {
+                        try {
+                            this.wait();
+                        } catch (InterruptedException e) { }
+                    }
                 }
                 lastTime = System.currentTimeMillis() - MS_BETWEEN_FRAMES;
             }
@@ -109,7 +111,7 @@ public class GameLoop extends Thread {
      * @return 
      *      true if the command is successful added
      */
-    public boolean addCommand(final Command cmd, final PlayerTag player) {
+    public synchronized boolean addCommand(final Command cmd, final PlayerTag player) {
         return this.inputQueue.get(player).offer(cmd);
     }
 

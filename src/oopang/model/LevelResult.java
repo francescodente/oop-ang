@@ -15,5 +15,9 @@ public enum LevelResult {
     /**
      * Indicates that the level ended because the player shot all balls.
      */
-    LEVEL_COMPLETE
+    LEVEL_COMPLETE,
+    /**
+     * Indicates that the user decided to end the level through the pause menu.
+     */
+    FORCE_EXIT
 }

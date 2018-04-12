@@ -49,7 +49,7 @@ public final class StoryModeGameSession extends GameSession {
     }
 
     @Override
-    protected void handleGameOver(final GameOverStatus status) {
+    public void handleGameOver(final GameOverStatus status) {
         final LevelResult result = status.getResult();
         if (result == LevelResult.LEVEL_COMPLETE) {
             super.addScore(status.getScore());

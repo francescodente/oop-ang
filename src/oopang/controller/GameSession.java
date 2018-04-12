@@ -131,10 +131,12 @@ public abstract class GameSession {
      * @param status
      *      the status of the level.
      */
-    protected void handleGameOver(final GameOverStatus status) {
+    public void handleGameOver(final GameOverStatus status) {
         this.gameloop.stopLoop();
         this.lastResult = status.getResult();
-        if (this.hasNextLevel()) {
+        if (this.lastResult == LevelResult.FORCE_EXIT) {
+            this.scene.loadScene(GameScene.MAIN_MENU);
+        } else if (this.hasNextLevel()) {
             switch (this.lastResult) {
             case LEVEL_COMPLETE:
                 this.scene.loadScene(GameScene.LEVEL_STEP);

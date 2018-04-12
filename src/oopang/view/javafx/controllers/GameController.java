@@ -93,6 +93,12 @@ public final class GameController extends SceneController {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
         } else if (event.getCode() == KeyCode.CONTROL) {
             this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_TWO);
+        } else if (event.getCode() == KeyCode.P) {
+            this.getController().pauseGame();
+        } else if (event.getCode() == KeyCode.R) {
+            this.getController().resume();
+        } else if (event.getCode() == KeyCode.Q) {
+            this.getController().forceCloseGameSession();
         }
     }
 

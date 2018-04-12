@@ -5,6 +5,7 @@ import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.XMLLevelLoader;
+import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
@@ -60,7 +61,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void closeGameSession() {
+    public void forceCloseGameSession() {
+        this.gameSession.handleGameOver(new GameOverStatus(0, LevelResult.FORCE_EXIT));
         this.gameSession = null;
     }
 
@@ -74,8 +76,8 @@ public class ControllerImpl implements Controller {
     }
 
     private void handleSessionResult(final LevelResult result) {
-        this.closeGameSession();
-        if (result != LevelResult.LEVEL_COMPLETE) {
+        this.gameSession = null;
+        if (result != LevelResult.LEVEL_COMPLETE && result != LevelResult.FORCE_EXIT) {
             this.view.loadScene(GameScene.GAMEOVER);
         }
     }
