@@ -86,6 +86,6 @@ public class TimedLevel extends GameOverLevelDecorator {
     @Override
     public void addTime(final double time) {
         this.timeLeft += time;
-        this.totalTime +=time;
+        this.totalTime += time;
     }
 }

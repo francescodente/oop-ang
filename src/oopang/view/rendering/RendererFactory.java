@@ -27,8 +27,12 @@ public interface RendererFactory {
 
     /**
      * Creates a new renderer for the background of the game.
+     * @param time
+     *      the day time of the background.
+     * @param id
+     *      the image id for the background.
      * @return
      *      the renderer.
      */
-    Renderer createBackgroundRenderer(DayTime time, ImageID id );
+    Renderer createBackgroundRenderer(DayTime time, ImageID id);
 }
