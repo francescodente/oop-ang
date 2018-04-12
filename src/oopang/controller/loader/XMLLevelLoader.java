@@ -1,6 +1,5 @@
 package oopang.controller.loader;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ import oopang.view.rendering.ImageID;
  */
 public class XMLLevelLoader implements LevelLoader {
 
-    private static final String PATH = "levels/";
+    private static final String PATH = "/levels/";
     private static final String ROOT = "Level";
 
     private final PowerFactory powerFactory;
@@ -67,7 +66,7 @@ public class XMLLevelLoader implements LevelLoader {
         }
         try {
             final DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
-            final InputStream file = this.getClass().getClassLoader().getResourceAsStream(path);
+            final InputStream file = this.getClass().getResourceAsStream(path);
             final DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
             final Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
