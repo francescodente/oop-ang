@@ -11,6 +11,9 @@ public final class MainMenuController extends SceneController {
 
     @Override
     protected GameScene getNextScene() {
+        if (this.getController().isUserLoaded()) {
+            return GameScene.SELECT_PLAYERS;
+        }
         return GameScene.LOGIN;
     }
 
