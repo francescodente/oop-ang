@@ -15,14 +15,14 @@
     -fx-background-color: rgb(0, 0, 0);
 }
 
-.button {
+#back {
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-size: 25px;
     -fx-font-family: 'Commodore 64';
 }
 
-.button:hover {
+#back:hover {
     -fx-font-weight: bold;
 }
 
