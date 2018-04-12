@@ -35,11 +35,11 @@ public final class InfiniteGameSession extends GameSession {
 
     @Override
     public void handleGameOver(final GameOverStatus status) {
-        super.handleGameOver(status);
         final LevelResult result = status.getResult();
         if (result == LevelResult.PLAYER_DEAD) {
             super.addScore(status.getScore());
         }
+        super.handleGameOver(status);
     }
 
     @Override

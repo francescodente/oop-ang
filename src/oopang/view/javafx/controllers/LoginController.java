@@ -28,6 +28,7 @@ public final class LoginController extends SceneController {
     /**
      * Method that load the user that already exist.
      */
+    @FXML
     public void userLogin() {
         if (checkfield()) {
             if (this.getController().loginUser(userName.getText(), userPassword.getText())) {
@@ -41,27 +42,23 @@ public final class LoginController extends SceneController {
     /**
      * Method that register the new user.
      */
+    @FXML
     public void userRegister() {
         if (checkfield()) {
             if (this.getController().registerUser(userName.getText(), userPassword.getText())) {
-                nextScene();
+                this.nextScene();
             } else {
                 this.getView().getDialogFactory().createFailedToRegisterUser(userName.getText()).show();
             }
         }
     }
 
-    /**
-     * Check if the fields are empty.
-     * @return
-     *      true if everything ok
-     */
     private boolean checkfield() {
         if (this.userName.getText().equals("")) {
-            this.getView().getDialogFactory().createEmptyFieldError("username");
+            this.getView().getDialogFactory().createEmptyFieldError("username").show();
             return false;
         } else if (this.userPassword.getText().equals("")) {
-            this.getView().getDialogFactory().createEmptyFieldError("password");
+            this.getView().getDialogFactory().createEmptyFieldError("password").show();
             return false;
         }
         return true;

@@ -3,7 +3,9 @@ package oopang.controller;
 import oopang.commons.Command;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
+import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.loader.LevelData;
+import oopang.controller.users.User;
 
 /**
  * Controller of the application.
@@ -90,4 +92,11 @@ public interface Controller {
      *      true if the user is correctly loaded.
      */
     boolean loginUser(String userName, String password);
+
+    /**
+     * Return the {@link User} active {@link Leaderboard}.
+     * @return
+     *      The {@link Leaderboard}
+     */
+    Leaderboard getLeaderboard();
 }

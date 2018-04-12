@@ -47,11 +47,11 @@ public class LeaderboardController extends SceneController {
         this.nameColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
         this.stageColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getStage()));
         this.scoreColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getScore()));
-        this.rankColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(records.indexOf(p.getValue())));
+        this.rankColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(records.indexOf(p.getValue()) + 1));
         this.table.getItems().setAll(records);
     }
 
     private Leaderboard getLeaderboard() {
-        return null;
+        return this.getController().getLeaderboard();
     }
 }

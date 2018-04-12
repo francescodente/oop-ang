@@ -5,11 +5,16 @@ import java.util.Optional;
 import oopang.commons.Command;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
+import oopang.controller.leaderboard.FileSystemLeaderboardManager;
+import oopang.controller.leaderboard.Leaderboard;
+import oopang.controller.leaderboard.LeaderboardManager;
+import oopang.controller.leaderboard.LeaderboardRecord;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.XMLLevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.controller.users.FileSystemUserManager;
 import oopang.controller.users.User;
+import oopang.controller.users.UserManager;
 import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
@@ -25,7 +30,9 @@ public final class ControllerImpl implements Controller {
     private final View view;
     private GameSession gameSession;
     private User user;
-    private FileSystemUserManager userManager;
+    private final UserManager userManager;
+    private final LeaderboardManager leaderboardManager;
+    private Leaderboard leaderboard;
 
     /**
      * Create a new Controller instance.
@@ -38,18 +45,21 @@ public final class ControllerImpl implements Controller {
         this.model = model;
         this.view = view;
         this.userManager = new FileSystemUserManager();
+        this.leaderboardManager = new FileSystemLeaderboardManager();
     }
 
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, new XMLLevelLoader(new BasicPowerFactory()), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
+        this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
     }
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, new XMLLevelLoader(new BasicPowerFactory()));
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
+        this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
     }
 
     @Override
@@ -83,10 +93,11 @@ public final class ControllerImpl implements Controller {
     }
 
     private void handleSessionResult(final LevelResult result) {
-        this.gameSession = null;
         if (result != LevelResult.LEVEL_COMPLETE && result != LevelResult.FORCE_EXIT) {
+            this.leaderboard.addRecord(new LeaderboardRecord(user.getName(), this.gameSession.getTotalScore(), 1));
             this.view.loadScene(GameScene.GAMEOVER);
         }
+        this.gameSession = null;
     }
 
     @Override
@@ -101,7 +112,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public boolean registerUser(final String userName, final String password) {
-        Optional<User> user = this.userManager.registerUser(userName, password);
+        final Optional<User> user = this.userManager.registerUser(userName, password);
         if (user.isPresent()) {
             this.user = user.get();
             return true;
@@ -111,12 +122,17 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public boolean loginUser(final String userName, final String password) {
-        Optional<User> user = this.userManager.login(userName, password);
+        final Optional<User> user = this.userManager.login(userName, password);
         if (user.isPresent()) {
             this.user = user.get();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Leaderboard getLeaderboard() {
+        return this.leaderboard;
     }
 
 }

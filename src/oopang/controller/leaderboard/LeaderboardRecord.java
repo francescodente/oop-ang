@@ -50,7 +50,7 @@ public class LeaderboardRecord implements Serializable, Comparable<LeaderboardRe
 
     @Override
     public int compareTo(final LeaderboardRecord o) {
-        int scoreComparison = Integer.compare(this.score, o.score);
+        final int scoreComparison = Integer.compare(this.score, o.score);
         return scoreComparison == 0 ? Integer.compare(this.stage, o.stage) : scoreComparison;
     }
 }

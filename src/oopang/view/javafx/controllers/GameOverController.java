@@ -11,7 +11,7 @@ public final class GameOverController extends SceneController {
 
     @Override
     protected GameScene getNextScene() {
-        return GameScene.MAIN_MENU; // TODO: Change to Leaderboard.
+        return GameScene.LEADERBOARD;
     }
 
     @Override

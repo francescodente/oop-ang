@@ -10,6 +10,7 @@ import java.util.stream.Stream;
  */
 public class Leaderboard implements Serializable {
     private static final long serialVersionUID = -904319433538008187L;
+    private static final int MAX_SCORES = 10;
     private final List<LeaderboardRecord> recordList;
     /**
      * 
@@ -25,8 +26,10 @@ public class Leaderboard implements Serializable {
      *      True if the Record is greater than last, False in the other case.
      */
     public boolean addRecord(final LeaderboardRecord record) {
-        if (record.compareTo(recordList.get(recordList.size() - 1)) > 0) {
+        if (recordList.size() >= MAX_SCORES && record.compareTo(recordList.get(recordList.size() - 1)) > 0) {
             recordList.remove(recordList.size() - 1);
+        }
+        if (recordList.size() < MAX_SCORES) {
             recordList.add(record);
             Collections.sort(recordList);
             return true;

@@ -96,10 +96,6 @@ public abstract class GameSession {
         } catch (Exception e) {
             this.scene.getDialogFactory().createLevelNotLoaded(e).show();
         }
-        if (!levelData.isPresent()) {
-            this.shouldEnd.trigger(this.lastResult);
-            return;
-        }
         final Level currentLevel = levelData.get().getLevel();
         currentLevel.getGameOverStatusEvent().register(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
@@ -134,6 +130,7 @@ public abstract class GameSession {
     public void handleGameOver(final GameOverStatus status) {
         this.gameloop.stopLoop();
         this.lastResult = status.getResult();
+        this.shouldEnd.trigger(lastResult);
         if (this.lastResult == LevelResult.FORCE_EXIT) {
             this.scene.loadScene(GameScene.MAIN_MENU);
         } else if (this.hasNextLevel()) {

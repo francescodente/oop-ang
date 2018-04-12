@@ -18,6 +18,8 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 /**
  * 
  */
@@ -57,8 +59,8 @@ public final class FileSystemUserManager implements UserManager {
             return Optional.empty();
         } else {
             try (BufferedWriter write = new BufferedWriter(new FileWriter(InstallManager.USER_LIST_FILE, true))) {
-                write.newLine();
                 write.write(userName + FIELD_SEPARATOR + password.hashCode());
+                write.newLine();
                 final User newUser = new User(userName);
                 this.writeUser(newUser);
                 return Optional.of(newUser);
@@ -69,8 +71,8 @@ public final class FileSystemUserManager implements UserManager {
     }
 
     private Stream<String[]> getUsersPassword() {
-        try (BufferedReader read = new BufferedReader(new FileReader(InstallManager.USER_LIST_FILE))) {
-            return read.lines()
+        try {
+            return Files.lines(Paths.get(InstallManager.USER_LIST_FILE))
                 .map(l -> l.split(FIELD_SEPARATOR));
         } catch (IOException e) {
             return Stream.empty();
