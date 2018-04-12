@@ -93,11 +93,12 @@ public final class ControllerImpl implements Controller {
     }
 
     private void handleSessionResult(final LevelResult result) {
-        if (result != LevelResult.LEVEL_COMPLETE && result != LevelResult.FORCE_EXIT) {
+        if (result == LevelResult.PLAYER_DEAD || result == LevelResult.OUT_OF_TIME) {
             this.leaderboard.addRecord(new LeaderboardRecord(user.getName(), this.gameSession.getTotalScore(), 1));
-            this.view.loadScene(GameScene.GAMEOVER);
+            this.gameSession = null;
+        } else if (result == LevelResult.FORCE_EXIT) {
+            this.gameSession = null;
         }
-        this.gameSession = null;
     }
 
     @Override
