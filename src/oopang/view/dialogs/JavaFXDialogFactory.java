@@ -62,4 +62,46 @@ public class JavaFXDialogFactory implements DialogFactory {
         };
     }
 
+    @Override
+    public Dialog createUserNotFound(final String username) {
+        return new JavaFXDialog(this.view) {
+            private final Alert alert = new Alert(AlertType.ERROR);
+            @Override
+            public void show() {
+                alert.setTitle("Login Error");
+                alert.setHeaderText("User not found!");
+                alert.setContentText("Could not load user " + username);
+                alert.showAndWait();
+            }
+        };
+    }
+
+    @Override
+    public Dialog createFailedToRegisterUser(final String username) {
+        return new JavaFXDialog(this.view) {
+            private final Alert alert = new Alert(AlertType.ERROR);
+            @Override
+            public void show() {
+                alert.setTitle("Registration Error");
+                alert.setHeaderText("Failed to register " + username);
+                alert.setContentText("Can not register, maybe the username is already taken");
+                alert.showAndWait();
+            }
+        };
+    }
+
+    @Override
+    public Dialog createEmptyFieldError(final String fieldName) {
+        return new JavaFXDialog(this.view) {
+            private final Alert alert = new Alert(AlertType.WARNING);
+            @Override
+            public void show() {
+                alert.setTitle("Field Empty");
+                alert.setHeaderText("You left  " + fieldName + " empty");
+                alert.setContentText("If you want to login yo should insert a " + fieldName);
+                alert.showAndWait();
+            }
+        };
+    }
+
 }

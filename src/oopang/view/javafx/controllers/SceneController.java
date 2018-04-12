@@ -36,6 +36,15 @@ public abstract class SceneController {
     }
 
     /**
+     * Method getter of the View.
+     * @return
+     *      the view.
+     */
+    protected View getView() {
+        return this.view;
+    }
+
+    /**
      * Redraws the menu on the screen.
      */
     public void render() {
