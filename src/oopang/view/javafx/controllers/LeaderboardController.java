@@ -8,6 +8,8 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardRecord;
@@ -49,6 +51,13 @@ public class LeaderboardController extends SceneController {
         this.scoreColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getScore()));
         this.rankColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(records.indexOf(p.getValue()) + 1));
         this.table.getItems().setAll(records);
+    }
+
+    @Override
+    public void onKeyPressed(final KeyEvent event) {
+        if (event.getCode() == KeyCode.Q) {
+            this.nextScene();
+        }
     }
 
     private Leaderboard getLeaderboard() {
