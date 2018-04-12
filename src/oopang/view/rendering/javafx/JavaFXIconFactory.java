@@ -2,10 +2,11 @@ package oopang.view.rendering.javafx;
 
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import oopang.commons.Timeable;
 import oopang.model.powers.PowerTag;
 import oopang.model.powers.TimedPower;
@@ -17,13 +18,14 @@ import oopang.view.rendering.ImageID;
 public class JavaFXIconFactory {
 
     private static final double HEART_SIZE = 40;
+    private static final double BAR_HEIGHT_PERCENTAGE = 0.3;
 
     /**
      * Create a icon for the heart.
      * @return
      *      the icon for the heart.
      */
-    public ImageView createHeartIcon() {
+    public Node createHeartIcon() {
         final ImageView image = new ImageView(ImageManager.getManager().getImage(ImageID.HEART));
         image.setFitWidth(HEART_SIZE);
         image.setFitHeight(HEART_SIZE);
@@ -37,13 +39,20 @@ public class JavaFXIconFactory {
      * @return
      *      the timed icon for the given power
      */
-    public VBox createTimedIcon(final TimedPower power) {
-        final VBox box = new VBox();
-        final ImageView imageview = this.createPowerIcon(power.getPowertag());
+    public Node createTimedIcon(final TimedPower power) {
+        final BorderPane pane = new BorderPane();
+        pane.setMinHeight(0);
+        pane.setMinWidth(0);
+        final ImageView imageView = this.createPowerIcon(power.getPowertag());
         final ProgressBar bar = this.createTimeBar(power);
-        box.getChildren().add(imageview);
-        box.getChildren().add(bar);
-        return box;
+        pane.setCenter(imageView);
+        pane.setBottom(bar);
+        bar.setMinHeight(0);
+        bar.prefHeightProperty().bind(pane.heightProperty().multiply(BAR_HEIGHT_PERCENTAGE));
+        pane.prefWidthProperty().bind(pane.heightProperty().subtract(bar.heightProperty()));
+        imageView.fitWidthProperty().bind(pane.widthProperty());
+        imageView.fitHeightProperty().bind(pane.widthProperty());
+        return pane;
     }
 
     /**
@@ -60,7 +69,7 @@ public class JavaFXIconFactory {
     }
 
     /**
-     * 
+     * Creates an icon for the given power tag.
      * @param tag
      *      the powerTag to select the icon
      * @return

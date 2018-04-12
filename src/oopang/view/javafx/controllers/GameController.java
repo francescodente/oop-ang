@@ -1,13 +1,11 @@
 package oopang.view.javafx.controllers;
 
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -55,8 +53,7 @@ public final class GameController extends SceneController {
         super.init(controller, view);
         this.iconFactory = new JavaFXIconFactory();
         for (int j = 0; j < this.getController().getLifeCount(); j++) {
-            final ImageView icon = this.iconFactory.createHeartIcon();
-            icon.setPreserveRatio(true);
+            final Node icon = this.iconFactory.createHeartIcon();
             this.livesContainer.getChildren().add(icon);
         }
         this.resetGameCanvasCoordinates();
