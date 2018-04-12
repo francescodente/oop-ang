@@ -135,6 +135,14 @@ public final class ControllerImpl implements Controller {
     public Leaderboard getLeaderboard() {
         return this.leaderboard;
     }
+    
+    @Override
+    public boolean isUserLoaded() {
+        if (this.user != null) {
+            return true;
+        }
+        return false;
+    }
 
 }
 

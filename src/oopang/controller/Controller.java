@@ -99,4 +99,11 @@ public interface Controller {
      *      The {@link Leaderboard}
      */
     Leaderboard getLeaderboard();
+
+    /**
+     * Check if the {@link User} was previously loaded during the Game.
+     * @return
+     *      True if was already loaded.
+     */
+    boolean isUserLoaded();
 }
