@@ -65,6 +65,7 @@ public class JavaFXIconFactory {
     public ProgressBar createTimeBar(final Timeable timeable) {
         final ProgressBar bar = new ProgressBar(timeable.getRemainingTimePercentage());
         timeable.getTimeChangedEvent().register(t -> Platform.runLater(() -> bar.setProgress(t)));
+        bar.setMaxWidth(Double.MAX_VALUE);
         return bar;
     }
 
@@ -89,6 +90,7 @@ public class JavaFXIconFactory {
         default: break;
         }
         imageview.setImage(image);
+        imageview.setPreserveRatio(true);
         return imageview;
     }
 }
