@@ -1,10 +1,13 @@
 package oopang.view.javafx.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import oopang.controller.Controller;
 import oopang.view.GameScene;
+import oopang.view.View;
 
 /**
  *
@@ -16,6 +19,12 @@ public final class LoginController extends SceneController {
     @FXML
     private TextField userPassword;
 
+
+    @Override
+    public void init(final Controller controller, final View view) {
+        super.init(controller, view);
+        Platform.runLater(() -> this.userName.requestFocus());
+    }
 
     @Override
     protected GameScene getNextScene() {
