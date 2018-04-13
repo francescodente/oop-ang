@@ -18,7 +18,6 @@ import oopang.controller.users.UserManager;
 import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
-import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
@@ -135,13 +134,10 @@ public final class ControllerImpl implements Controller {
     public Leaderboard getLeaderboard() {
         return this.leaderboard;
     }
-    
+
     @Override
     public boolean isUserLoaded() {
-        if (this.user != null) {
-            return true;
-        }
-        return false;
+        return this.user != null;
     }
 
 }
