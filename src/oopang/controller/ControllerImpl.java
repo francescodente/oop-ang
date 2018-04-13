@@ -53,9 +53,10 @@ public final class ControllerImpl implements Controller {
     }
 
     private PowerFactory getPowerFactory() {
-        return this.user.isPresent()
-            ? new UpgradePowerFactory(this.user.get().getPowerLevels())
-            : new BasicPowerFactory();
+//        return this.user.isPresent()
+//            ? new UpgradePowerFactory(this.user.get().getPowerLevels())
+//            : new BasicPowerFactory();
+        return new BasicPowerFactory();
     }
 
     @Override
@@ -151,6 +152,11 @@ public final class ControllerImpl implements Controller {
     @Override
     public boolean isUserLoaded() {
         return this.user.isPresent();
+    }
+
+    @Override
+    public int getCurrentTotalScore() {
+        return this.gameSession.getTotalScore();
     }
 
 }
