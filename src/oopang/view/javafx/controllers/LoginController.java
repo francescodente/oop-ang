@@ -10,7 +10,7 @@ import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
- *
+ * This class implements the scene Login.
  */
 public final class LoginController extends SceneController {
 
