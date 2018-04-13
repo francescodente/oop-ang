@@ -29,7 +29,7 @@ public final class ControllerImpl implements Controller {
     private final Model model;
     private final View view;
     private GameSession gameSession;
-    private User user;
+    private Optional<User> user;
     private final UserManager userManager;
     private final LeaderboardManager leaderboardManager;
     private Leaderboard leaderboard;
@@ -47,6 +47,7 @@ public final class ControllerImpl implements Controller {
         this.view = view;
         this.userManager = new FileSystemUserManager();
         this.leaderboardManager = new FileSystemLeaderboardManager();
+        this.user = Optional.empty();
     }
 
     @Override
@@ -96,13 +97,13 @@ public final class ControllerImpl implements Controller {
     }
 
     private void handleSessionResult(final LevelResult result) {
-        if (result == LevelResult.PLAYER_DEAD || result == LevelResult.OUT_OF_TIME) {
-            this.leaderboard.addRecord(new LeaderboardRecord(user.getName(), this.gameSession.getTotalScore(), 1));
-            this.gameSession = null;
-            this.saveAction.accept(this.leaderboard);
-        } else if (result == LevelResult.FORCE_EXIT) {
-            this.gameSession = null;
+        if (result != LevelResult.FORCE_EXIT) {
+            this.user.ifPresent(u -> {
+                this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), 1));
+                this.saveAction.accept(this.leaderboard);
+            });
         }
+        this.gameSession = null;
     }
 
     @Override
@@ -118,21 +119,20 @@ public final class ControllerImpl implements Controller {
     @Override
     public boolean registerUser(final String userName, final String password) {
         final Optional<User> user = this.userManager.registerUser(userName, password);
-        if (user.isPresent()) {
-            this.user = user.get();
-            return true;
-        }
-        return false;
+        this.user = user;
+        return this.user.isPresent();
     }
 
     @Override
     public boolean loginUser(final String userName, final String password) {
         final Optional<User> user = this.userManager.login(userName, password);
-        if (user.isPresent()) {
-            this.user = user.get();
-            return true;
-        }
-        return false;
+        this.user = user;
+        return this.user.isPresent(); 
+    }
+
+    @Override
+    public void logoutUser() {
+        this.user = Optional.empty();
     }
 
     @Override
@@ -142,7 +142,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public boolean isUserLoaded() {
-        return this.user != null;
+        return this.user.isPresent();
     }
 
 }

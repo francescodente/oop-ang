@@ -94,6 +94,11 @@ public interface Controller {
     boolean loginUser(String userName, String password);
 
     /**
+     * Logout the user.
+     */
+    void logoutUser();
+
+    /**
      * Return the {@link User} active {@link Leaderboard}.
      * @return
      *      The {@link Leaderboard}
