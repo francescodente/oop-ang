@@ -6,8 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
@@ -19,6 +21,7 @@ import oopang.model.gameobjects.Player;
 import oopang.model.input.InputDirection;
 import oopang.model.levels.Level;
 import oopang.model.powers.Power;
+import oopang.model.powers.PowerTag;
 import oopang.model.powers.TimedPower;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -37,6 +40,8 @@ public final class GameController extends SceneController {
     private Canvas canvas;
     @FXML
     private Pane root;
+    @FXML
+    private BorderPane timebarContainer;
     @FXML
     private Pane canvasContainer;
     @FXML
@@ -68,7 +73,7 @@ public final class GameController extends SceneController {
             final Renderer background = canvasDrawer.getRendererFactory().createBackgroundRenderer(i.getTime(), i.getBackground());
             this.canvasDrawer.addRenderer(background);
             this.level = i.getLevel();
-            i.getLevel().getObjectCreatedEvent().register(o -> {
+            this.level.getObjectCreatedEvent().register(o -> {
                 o.accept(new AbstractGameObjectVisitor<Void>(null) {
                     @Override
                     public Void visit(final Player player) {
@@ -79,7 +84,10 @@ public final class GameController extends SceneController {
                 final Renderer object = this.canvasDrawer.getRendererFactory().createGameObjectRenderer(o);
                 o.getDestroyedEvent().register(r -> this.canvasDrawer.removeRenderer(object));
             });
-        });
+            if (this.level.getRemainingTime() != 0) {
+                Platform.runLater(() -> this.timebarContainer.setCenter(iconFactory.createTimeBar(this.level)));
+            }
+        }); 
         this.canvasContainer.widthProperty().addListener(w -> this.resizeCanvas());
         this.canvasContainer.heightProperty().addListener(h -> this.resizeCanvas());
         this.getController().continueGameSession();
@@ -180,11 +188,17 @@ public final class GameController extends SceneController {
     }
 
     private void handlePickupEvent(final Power power, final Player player) {
-        final Pane toBeUsedPane = (player.getPlayerTag() == PlayerTag.PLAYER_ONE) ? player1Powers : player2Powers;
+        final Pane toBeUsedPowerPane = (player.getPlayerTag() == PlayerTag.PLAYER_ONE) ? player1Powers : player2Powers;
         if (power instanceof TimedPower) {
             final Node icon = this.iconFactory.createTimedIcon((TimedPower) power);
-            Platform.runLater(() -> toBeUsedPane.getChildren().add(icon));
-            ((TimedPower) power).getTimeOutEvent().register(n -> Platform.runLater(() -> toBeUsedPane.getChildren().remove(icon)));
+            Platform.runLater(() -> toBeUsedPowerPane.getChildren().add(icon));
+            ((TimedPower) power).getTimeOutEvent().register(n -> Platform.runLater(() -> toBeUsedPowerPane.getChildren().remove(icon)));
+        }
+        final Pane toBeUsedShooterPane = (player.getPlayerTag() == PlayerTag.PLAYER_ONE) ? player1Shooter : player2Shooter;
+        if (power.getPowertag() == PowerTag.DOUBLESHOT || power.getPowertag() == PowerTag.ADHESIVESHOT) {
+            final ImageView icon = this.iconFactory.createPowerIcon(power.getPowertag());
+            icon.fitHeightProperty().bind(toBeUsedShooterPane.heightProperty());
+            Platform.runLater(() -> toBeUsedShooterPane.getChildren().add(icon));
         }
     }
 }

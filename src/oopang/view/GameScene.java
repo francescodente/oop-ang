@@ -14,5 +14,6 @@ public enum GameScene {
     LEVEL_RESET,
     LOGIN,
     LEADERBOARD,
+    USER_PROFILE,
     PAUSE;
 }
