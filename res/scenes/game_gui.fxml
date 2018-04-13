@@ -101,6 +101,10 @@
             </BorderPane>
          </children>
       </GridPane>
-      <BorderPane fx:id="timebarContainer" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+      <BorderPane fx:id="timebarContainer" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <padding>
+            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+         </padding>
+      </BorderPane>
    </children>
 </GridPane>
