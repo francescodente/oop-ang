@@ -31,7 +31,7 @@ public class Leaderboard implements Serializable {
         }
         if (recordList.size() < MAX_SCORES) {
             recordList.add(record);
-            Collections.sort(recordList);
+            Collections.sort(recordList, (a, b) -> b.compareTo(a));
             return true;
         }
         return false;
