@@ -1,6 +1,7 @@
 package oopang.controller;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import oopang.commons.Command;
 import oopang.commons.PlayerTag;
@@ -32,6 +33,7 @@ public final class ControllerImpl implements Controller {
     private final UserManager userManager;
     private final LeaderboardManager leaderboardManager;
     private Leaderboard leaderboard;
+    private Consumer<Leaderboard> saveAction;
 
     /**
      * Create a new Controller instance.
@@ -52,6 +54,7 @@ public final class ControllerImpl implements Controller {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, new XMLLevelLoader(new BasicPowerFactory()), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
+        this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboard(l);
     }
 
     @Override
@@ -59,6 +62,7 @@ public final class ControllerImpl implements Controller {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, new XMLLevelLoader(new BasicPowerFactory()));
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
+        this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
     }
 
     @Override
@@ -95,6 +99,7 @@ public final class ControllerImpl implements Controller {
         if (result == LevelResult.PLAYER_DEAD || result == LevelResult.OUT_OF_TIME) {
             this.leaderboard.addRecord(new LeaderboardRecord(user.getName(), this.gameSession.getTotalScore(), 1));
             this.gameSession = null;
+            this.saveAction.accept(this.leaderboard);
         } else if (result == LevelResult.FORCE_EXIT) {
             this.gameSession = null;
         }
