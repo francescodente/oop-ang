@@ -7,18 +7,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import oopang.commons.PlayerTag;
-import oopang.commons.events.Event;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
-import oopang.model.GameOverStatus;
-import oopang.model.gameobjects.GameObject;
-import oopang.model.gameobjects.GameObjectFactory;
 import oopang.model.input.InputReader;
-import oopang.model.physics.CollisionManager;
 import oopang.model.powers.Power;
 
 /**
