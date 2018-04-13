@@ -143,7 +143,7 @@ public final class GameController extends SceneController {
      */
     @Override
     public void render() {
-        this.score.setText(Integer.toString(this.level.getScore()+this.getController().getCurrentTotalScore()));
+        this.score.setText(Integer.toString(this.level.getScore() + this.getController().getCurrentTotalScore()));
         canvasDrawer.draw();
     }
 
