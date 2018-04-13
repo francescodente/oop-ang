@@ -56,7 +56,6 @@ public final class ControllerImpl implements Controller {
         return this.user.isPresent()
             ? new UpgradePowerFactory(this.user.get().getPowerLevels())
             : new BasicPowerFactory();
-        }
     }
 
     @Override
