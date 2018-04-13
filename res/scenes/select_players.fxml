@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.SelectPlayersController">
+<BorderPane id="panel" prefHeight="400.0" prefWidth="600.0" stylesheets="@stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.SelectPlayersController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -28,16 +28,25 @@
                </GridPane.margin>
             </Button>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </GridPane>
    </center>
    <bottom>
-      <Button id="back" mnemonicParsing="false" onMouseClicked="#back" prefHeight="32.0" prefWidth="112.0" text="BACK" BorderPane.alignment="CENTER">
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+         <left>
+            <Button maxHeight="30.0" maxWidth="120.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="30.0" prefWidth="120.0" text="BACK" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Button maxHeight="30.0" maxWidth="120.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="YOUR PROFILE" BorderPane.alignment="CENTER" />
+         </right>
          <BorderPane.margin>
-            <Insets bottom="10.0" />
+            <Insets />
          </BorderPane.margin>
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </BorderPane>
    </bottom>
 </BorderPane>
