@@ -23,6 +23,7 @@ public final class UserProfileController extends SceneController{
      */
     @FXML
     public void logout() {
+        this.getController().logoutUser();
         this.getView().loadScene(GameScene.MAIN_MENU);
     }
 
