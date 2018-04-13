@@ -6,7 +6,7 @@ import oopang.view.GameScene;
 /**
  * This class implements the scene UserProfile.
  */
-public final class UserProfileController extends SceneController{
+public final class UserProfileController extends SceneController {
 
     @Override
     protected GameScene getNextScene() {
@@ -24,7 +24,7 @@ public final class UserProfileController extends SceneController{
     @FXML
     public void logout() {
         this.getController().logoutUser();
-        this.getView().loadScene(GameScene.MAIN_MENU);
+        this.getView().loadScene(GameScene.LOGIN);
     }
 
 }
