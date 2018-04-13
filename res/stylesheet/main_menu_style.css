@@ -1,6 +1,6 @@
 @font-face {
     font-family: Commodore 64;
-    src: url('../stylesheet/Commodore-64-v6.3.ttf');
+    res: url('ka1.ttf');
 }
  
 #mainpanel {
@@ -15,6 +15,23 @@
     -fx-background-color: rgb(0, 0, 0);
 }
 
+#title {
+    -fx-text-fill: white;
+    -fx-font-family: 'Commodore 64';
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: 'Commodore 64';
+}
+
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+
 #back {
     -fx-background-color: black;
     -fx-text-fill: white;
@@ -23,7 +40,7 @@
 }
 
 #back:hover {
-    -fx-font-weight: bold;
+    -fx-text-weight: bold;
 }
 
 #single {
