@@ -39,7 +39,7 @@
             <Button maxHeight="30.0" maxWidth="120.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="30.0" prefWidth="120.0" text="BACK" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Button maxHeight="30.0" maxWidth="120.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0" text="YOUR PROFILE" BorderPane.alignment="CENTER" />
+            <Button maxHeight="30.0" maxWidth="120.0" mnemonicParsing="false" onMouseClicked="#userProfile" prefHeight="30.0" prefWidth="120.0" text="YOUR PROFILE" BorderPane.alignment="CENTER" />
          </right>
          <BorderPane.margin>
             <Insets />
