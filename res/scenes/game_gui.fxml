@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameController">
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -35,14 +35,6 @@
           <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="PLAYER 1">
-               <font>
-                  <Font size="25.0" />
-               </font></Label>
-            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="PLAYER 2" GridPane.columnIndex="2">
-               <font>
-                  <Font size="25.0" />
-               </font></Label>
             <HBox fx:id="livesContainer" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -71,16 +63,30 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <ImageView fx:id="player1Shooter" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fx:id="player2Shooter" fitHeight="30.0" fitWidth="30.0" layoutX="210.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </ImageView>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <right>
+                  <Pane fx:id="player1Shooter" prefHeight="48.0" prefWidth="58.0" BorderPane.alignment="CENTER" />
+               </right>
+               <center>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="PLAYER 1" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+               </center>
+            </BorderPane>
+            <BorderPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+               <center>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="PLAYER 2" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+               </center>
+               <right>
+                  <Pane fx:id="player2Shooter" prefHeight="48.0" prefWidth="58.0" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
          </children>
       </GridPane>
    </children>

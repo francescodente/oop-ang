@@ -36,11 +36,17 @@ public final class GameController extends SceneController {
     @FXML
     private Canvas canvas;
     @FXML
+    private Pane root;
+    @FXML
     private Pane canvasContainer;
     @FXML
     private Pane player1Powers;
     @FXML
     private Pane player2Powers;
+    @FXML
+    private Pane player1Shooter;
+    @FXML
+    private Pane player2Shooter;
     @FXML
     private Label score;
     @FXML

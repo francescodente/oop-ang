@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -9,12 +10,12 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LeaderboardController">
    <center>
-      <TableView fx:id="table" BorderPane.alignment="CENTER">
+      <TableView fx:id="table" disable="true" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="rankColumn" text="Rank" />
-          <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="-1.0" text="Name" />
-            <TableColumn fx:id="stageColumn" minWidth="-1.0" prefWidth="-1.0" text="Stage" />
-            <TableColumn fx:id="scoreColumn" minWidth="-1.0" prefWidth="-1.0" text="Score" />
+          <TableColumn fx:id="rankColumn" editable="false" sortable="false" text="Rank" />
+          <TableColumn fx:id="nameColumn" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Name" />
+            <TableColumn fx:id="stageColumn" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Stage" />
+            <TableColumn fx:id="scoreColumn" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Score" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
