@@ -27,6 +27,14 @@ public final class SelectPlayersController extends SceneController {
         this.nextScene();
     }
 
+    /**
+     * Method that allow to see the user profile.
+     */
+    @FXML
+    public void userProfile() {
+        this.getView().loadScene(GameScene.USER_PROFILE);
+    }
+
     @Override
     protected GameScene getNextScene() {
         return GameScene.SELECT_MODE;
