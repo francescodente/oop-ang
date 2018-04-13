@@ -7,12 +7,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import oopang.commons.PlayerTag;
+import oopang.commons.events.Event;
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
+import oopang.model.GameOverStatus;
+import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.GameObjectFactory;
 import oopang.model.input.InputReader;
+import oopang.model.physics.CollisionManager;
 import oopang.model.powers.Power;
 
 /**
@@ -89,7 +95,7 @@ public final class LazyLevelBuilder implements LevelBuilder {
         if (this.built) {
             throw new IllegalStateException("Object already built");
         }
-        Level level = new BaseLevel();
+        Level level = new ScoreLevelDecorator(new BaseLevel());
         if (this.time < 0) {
             level = new InfiniteLevel(level);
         } else if (this.time > 0) {
