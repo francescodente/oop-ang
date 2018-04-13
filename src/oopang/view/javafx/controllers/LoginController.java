@@ -2,6 +2,8 @@ package oopang.view.javafx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import oopang.view.GameScene;
 
 /**
@@ -62,6 +64,13 @@ public final class LoginController extends SceneController {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onKeyPressed(final KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            this.userLogin();
+        }
     }
 
 }
