@@ -22,12 +22,18 @@ import oopang.model.physics.CollisionTag;
  */
 public final class Ball extends AbstractGameObject {
 
-    private static final double MIN_BOUNCE_HEIGHT = 19;
+    private static final double MAX_BOUNCE_HEIGHT = 82;
+    private static final double MIN_BOUNCE_HEIGHT = 21;
     private static final double SIZE_MULTIPLIER = 1;
     /**
      * The min size of ball.
      */
     public static final int MIN_BALL_SIZE = 1;
+
+    /**
+     *The max size of ball.
+     */
+    public static final int MAX_BALL_SIZE = 4;
     private final double gConst;
 
     private final GravityComponent gravity;
@@ -106,11 +112,9 @@ public final class Ball extends AbstractGameObject {
     }
 
     private double getBounceHeight() {
-        double yvalue = MIN_BOUNCE_HEIGHT;
-        if (this.size != MIN_BALL_SIZE) {
-            yvalue--;
-        }
-        return Math.max(0, this.size * yvalue - this.getPosition().getY() + this.radius);
+        double yvalue;
+        yvalue = MIN_BOUNCE_HEIGHT + ((MAX_BOUNCE_HEIGHT - MIN_BOUNCE_HEIGHT) * (this.size - 1)) / (MAX_BALL_SIZE - MIN_BALL_SIZE);
+        return Math.max(0, yvalue - this.getPosition().getY());
     }
 
     /**
