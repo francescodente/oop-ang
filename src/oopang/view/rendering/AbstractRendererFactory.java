@@ -7,11 +7,16 @@ import oopang.model.gameobjects.HookShot;
 import oopang.model.gameobjects.Pickup;
 import oopang.model.gameobjects.Player;
 import oopang.model.gameobjects.Wall;
+import oopang.model.powers.TimedPower;
 import oopang.view.rendering.gameobject.BallRenderer;
 import oopang.view.rendering.gameobject.HookShotRenderer;
 import oopang.view.rendering.gameobject.PickupRenderer;
 import oopang.view.rendering.gameobject.PlayerRenderer;
 import oopang.view.rendering.gameobject.WallRenderer;
+import oopang.view.rendering.powers.FrozenFrameRenderer;
+import oopang.view.rendering.powers.ShieldRenderer;
+import oopang.view.rendering.powers.TimedPowerRenderer;
+import oopang.view.rendering.powers.UltraInstinctRenderer;
 
 /**
  * Provides a base implementation of the {@link RendererFactory} interface.
@@ -77,5 +82,26 @@ public abstract class AbstractRendererFactory implements RendererFactory {
         final Sprite sprite = this.generateSprite();
         this.canvasDrawer.addRenderer(sprite);
         return sprite;
+    }
+
+    @Override
+    public Renderer createTimedPowerRenderer(final TimedPower power, final Player player) {
+        Renderer renderer;
+        switch (power.getPowertag()) {
+        case TIMEDSHIELD: 
+            renderer = new ShieldRenderer(this.generateSprite(), player, power, this.canvasDrawer);
+            break;
+        case DOUBLESPEED: 
+            renderer = new UltraInstinctRenderer(this.generateSprite(), player, power, this.canvasDrawer);
+            break;
+        case FREEZE: 
+            renderer = new FrozenFrameRenderer(this.generateSprite(), player, power, this.canvasDrawer);
+            break;
+        default:
+            renderer = null;
+            break;
+        }
+        this.canvasDrawer.addRenderer(renderer);
+        return renderer;
     }
 }
