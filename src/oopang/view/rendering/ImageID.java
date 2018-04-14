@@ -13,130 +13,133 @@ public enum ImageID {
     /**
      * The image for the player 1 character.
      */
-    PLAYER1("/player/player1", false),
+    PLAYER1("/player/player1.png", false),
     /**
      * The image for the player 1 character.
      */
-    PLAYER2("/player/player2", false),
+    PLAYER2("/player/player2.png", false),
     /**
      * The image for the balls.
      */
-    BALL("/ball/allball", false),
+    BALL("/ball/allball.png", false),
     /**
      * The image for the HookShot.
      */
-    HOOKSHOT("/shot/hook", false),
+    HOOKSHOT("/shot/hook.png", false),
     /**
      * The image for the StickyShot.
      */
-    STICKYSHOT("/shot/sticky", false),
+    STICKYSHOT("/shot/sticky.png", false),
     /**
      * The image for blue walls.
      */
-    BLUE_WALL("/wall/blue", false),
+    BLUE_WALL("/wall/blue.png", false),
     /**
      * The image for red walls.
      */
-    RED_WALL("/wall/red", false),
+    RED_WALL("/wall/red.png", false),
     /**
      * The image for yellow walls.
      */
-    YELLOW_WALL("/wall/yellow", false),
+    YELLOW_WALL("/wall/yellow.png", false),
     /**
      * The image for green walls.
      */
-    GREEN_WALL("/wall/green", false),
+    GREEN_WALL("/wall/green.png", false),
     /**
      * The image for purple walls.
      */
-    PURPLE_WALL("/wall/purple", false),
+    PURPLE_WALL("/wall/purple.png", false),
     /**
      * The image for orange walls.
      */
-    ORANGE_WALL("/wall/orange", false),
+    ORANGE_WALL("/wall/orange.png", false),
     /**
      * The image for Pickup.
      */
-    PICKUP("/powers/Powers", false),
+    PICKUP("/powers/Powers.png", false),
     /**
      * The background with Angkor Wat.
      */
-    ANGKOR_WAT("/background/AngkorWat", true),
+    ANGKOR_WAT("/background/AngkorWat.png", true),
     /**
      * The background with Antartica.
      */
-    ANTARTICA("/background/Antartica", true),
+    ANTARTICA("/background/Antartica.png", true),
     /**
      * The background with Athens.
      */
-    ATHENS("/background/Athens", true),
+    ATHENS("/background/Athens.png", true),
     /**
      * The background with Barcelona.
      */
-    BARCELONA("/background/Barcelona", true),
+    BARCELONA("/background/Barcelona.png", true),
     /**
      * The background with EasterIsland.
      */
-    EASTER_ISLAND("/background/EasterIsland", true),
+    EASTER_ISLAND("/background/EasterIsland.png", true),
     /**
      * The background with Egypt.
      */
-    EGYPT("/background/Egypt", true),
+    EGYPT("/background/Egypt.png", true),
     /**
      * The background with EmeraldBuddhaTemple.
      */
-    EMERALD_BUDDHA("/background/EmeraldBuddhaTemple", true),
+    EMERALD_BUDDHA("/background/EmeraldBuddhaTemple.png", true),
     /**
      * The background with Fuji.
      */
-    FUJI("/background/Fuji", true),
+    FUJI("/background/Fuji.png", true),
     /**
      * The background with Kerin.
      */
-    KERIN("/background/Kerin", true),
+    KERIN("/background/Kerin.png", true),
     /**
      * The background with Kilimanjaro.
      */
-    KILIMANJARO("/background/Kilimanjaro", true),
+    KILIMANJARO("/background/Kilimanjaro.png", true),
     /**
      * The background with Leningrad.
      */
-    LENINGRAD("/background/Leningrad", true),
+    LENINGRAD("/background/Leningrad.png", true),
     /**
      * The background with London.
      */
-    LONDON("/background/London", true),
+    LONDON("/background/London.png", true),
     /**
      * The background with MayaRuins.
      */
-    MAYA_RUINS("/background/MayaRuins", true),
+    MAYA_RUINS("/background/MayaRuins.png", true),
     /**
      * The background with NewYork.
      */
-    NEW_YORK("/background/NewYork", true),
+    NEW_YORK("/background/NewYork.png", true),
     /**
      * The background with Paris.
      */
-    PARIS("/background/Paris", true),
+    PARIS("/background/Paris.png", true),
     /**
      * The background with TajMahal.
      */
-    TAJ_MAHAL("/background/TajMahal", true),
+    TAJ_MAHAL("/background/TajMahal.png", true),
     /**
      * The background with Uluru.
      */
-    ULURU("/background/Uluru", true),
+    ULURU("/background/Uluru.png", true),
     /**
      * The image for life.
      */
-    HEART("/heart", false),
+    HEART("/heart.png", false),
     /**
      * The image for the shield sprite.
      */
-    SHIELD("/powers/bubbleshield", false);
+    SHIELD("/powers/bubbleshield.png", false),
+    /**
+     * The image for the ultraistinct sprite.
+     */
+    ULTRA_ISTINCT("/powers/auragif.gif", false);
 
     private static final String IMAGE_PATH = "/images";
-    private static final String FILE_EXTENSION = ".png";
     private final String path;
     private final boolean backgroundOK;
 
@@ -151,7 +154,7 @@ public enum ImageID {
      *      the path.
      */
     public String getPath() {
-        return IMAGE_PATH + this.path + FILE_EXTENSION;
+        return IMAGE_PATH + this.path;
     }
 
     /**

@@ -5,6 +5,9 @@ import java.util.stream.Stream;
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
+import oopang.commons.Timeable;
+import oopang.commons.events.Event;
+import oopang.commons.events.EventSource;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.GravityComponent;
@@ -17,11 +20,13 @@ import oopang.model.powers.Power;
  * 
  * 
  */
-public class Pickup extends AbstractGameObject {
+public class Pickup extends AbstractGameObject implements Timeable {
     private static final double WIDTH = 6;
     private static final double HEIGHT = 6;
     private static final double TIMEOUT = 10;
 
+    private final EventSource<Void> timeoutEvent;
+    private final EventSource<Double> timeChangedEvent;
     private final GravityComponent gravitycomponent;
     private final MovementComponent movementcomponent;
     private final CollisionComponent collisioncomponent;
@@ -37,6 +42,9 @@ public class Pickup extends AbstractGameObject {
     public Pickup(final Power power) {
         super();
         this.power = power;
+        this.time = TIMEOUT;
+        this.timeoutEvent = new EventSource<>();
+        this.timeChangedEvent = new EventSource<>();
         this.movementcomponent = new MovementComponent(this);
         this.gravitycomponent = new GravityComponent(this);
         final Convex pickup = new Rectangle(WIDTH, HEIGHT);
@@ -54,8 +62,10 @@ public class Pickup extends AbstractGameObject {
         } else {
             this.gravitycomponent.enable();
         }
-        this.time += deltaTime;
-        if (this.time > TIMEOUT) {
+        this.time -= deltaTime;
+        this.timeChangedEvent.trigger(this.getRemainingTimePercentage());
+        if (this.time < 0) {
+            this.timeoutEvent.trigger(null);
             destroy();
         }
     }
@@ -87,5 +97,30 @@ public class Pickup extends AbstractGameObject {
     @Override
     public <T> T accept(final GameObjectVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public double getRemainingTimePercentage() {
+        return this.time / TIMEOUT;
+    }
+
+    @Override
+    public double getRemainingTime() {
+        return this.time;
+    }
+
+    @Override
+    public Event<Void> getTimeOutEvent() {
+         return this.timeoutEvent;
+    }
+
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return this.timeChangedEvent;
+    }
+
+    @Override
+    public void addTime(final double time) {
+        //The lifetime of a pickup cannot be extend.
     }
 }

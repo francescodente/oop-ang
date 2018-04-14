@@ -1,15 +1,24 @@
 package oopang.model.powers;
 
+import oopang.commons.events.EventHandler;
+import oopang.model.gameobjects.AbstractGameObjectVisitor;
+import oopang.model.gameobjects.Ball;
+import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.GameObjectVisitor;
 import oopang.model.gameobjects.Player;
+import oopang.model.levels.LevelManager;
 /**
  * 
  *
  */
 public final class DoubleSpeed extends TimedPower {
-    private static final int DOUBLE = 2;
+    private static final double SLOW_TIME_MULTIPLIER = 0.5;
     private static final PowerTag TAG = PowerTag.DOUBLESPEED;
     private static final int INITIALVALUE = 4;
     private static final double TIMEFEE = 0.5;
+    private final GameObjectVisitor<Void> activator;
+    private final GameObjectVisitor<Void> deactivator;
+    private final EventHandler<GameObject> slower;
     /**
      * This constructor set time.
      * @param timeout 
@@ -17,18 +26,47 @@ public final class DoubleSpeed extends TimedPower {
      */
     public DoubleSpeed(final double timeout) {
         super(timeout, TAG);
+        activator = new AbstractGameObjectVisitor<Void>(null) {
+            @Override
+            public Void visit(final Ball ball) {
+                slowBall(ball);
+                return null;
+            }
+        };
+        deactivator = new AbstractGameObjectVisitor<Void>(null) {
+            @Override
+            public Void visit(final Ball ball) {
+                unlockBall(ball);
+                return null;
+            }
+        };
+        slower = obj -> obj.accept(activator);
 
     }
     @Override
     public void activate(final Player player) {
         super.activate(player);
-        player.setSpeed(player.getSpeed() * DOUBLE);
+        LevelManager.getCurrentLevel()
+        .getAllObjects()
+        .forEach(o -> o.accept(activator));
+        LevelManager.getCurrentLevel().getObjectCreatedEvent().register(slower);
     }
 
     @Override
     public void deactivate() {
         super.deactivate();
-        this.getPlayer().setSpeed(this.getPlayer().getSpeed() / DOUBLE);
+        LevelManager.getCurrentLevel()
+        .getAllObjects()
+        .forEach(o -> o.accept(deactivator));
+        LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(slower);
+    }
+
+    private void slowBall(final Ball ball) {
+        ball.setTimeMultiplier(SLOW_TIME_MULTIPLIER);
+    }
+
+    private void unlockBall(final Ball ball) {
+        ball.setTimeMultiplier(Ball.DEFAULT_TIME_MULTIPLIER);
     }
 
     private static double calculateTimeout(final int powerlevel) {
