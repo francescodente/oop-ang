@@ -24,7 +24,7 @@ public enum CollisionTag {
     BALL {
         @Override
         public boolean canCollideWith(final CollisionTag other) {
-            return other == WALL || other == SHOT;
+            return other == WALL || other == PLAYER || other == SHOT;
         }
 
         @Override
