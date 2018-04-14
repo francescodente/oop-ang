@@ -20,7 +20,6 @@ import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
 import oopang.model.powers.PowerFactory;
-import oopang.model.powers.UpgradePowerFactory;
 import oopang.view.View;
 
 /**
@@ -53,9 +52,10 @@ public final class ControllerImpl implements Controller {
     }
 
     private PowerFactory getPowerFactory() {
-        return this.user.isPresent()
-            ? new UpgradePowerFactory(this.user.get().getPowerLevels())
-            : new BasicPowerFactory();
+//        return this.user.isPresent()
+//            ? new UpgradePowerFactory(this.user.get().getPowerLevels())
+//            : new BasicPowerFactory();
+        return new BasicPowerFactory();
     }
 
     @Override
@@ -108,6 +108,7 @@ public final class ControllerImpl implements Controller {
         if (result != LevelResult.FORCE_EXIT) {
             this.user.ifPresent(u -> {
                 this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), 1));
+                u.addXpPoints(this.gameSession.getTotalScore());
                 this.saveAction.accept(this.leaderboard);
             });
         }
@@ -151,6 +152,11 @@ public final class ControllerImpl implements Controller {
     @Override
     public boolean isUserLoaded() {
         return this.user.isPresent();
+    }
+
+    @Override
+    public int getCurrentTotalScore() {
+        return this.gameSession.getTotalScore();
     }
 
 }

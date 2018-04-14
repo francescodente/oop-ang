@@ -12,6 +12,8 @@ import oopang.commons.space.Vectors2D;
  */
 public abstract class GenericSprite extends GenericRenderer implements Sprite {
     private static final double DEF_DIM = 100;
+    private static final double MAX_ALPHA = 1;
+    private static final double MIN_ALPHA = 0;
 
     private Point2D srcTopLeft;
     private Vector2D srcOffset;
@@ -19,6 +21,7 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
     private Vector2D pivot;
     private double width;
     private double height;
+    private double alpha;
 
     /**
      * Initializes base data for the sprite.
@@ -31,6 +34,7 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
         this.position = Points2D.ZERO;
         this.width = DEF_DIM;
         this.height = DEF_DIM;
+        this.alpha = MAX_ALPHA;
     }
 
     @Override
@@ -97,11 +101,18 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
         return this.height;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setSource(final ImageID sourceID) {
         this.setSourceWindow(Points2D.ZERO, Vectors2D.of(this.getSourceWidth(), this.getSourceHeight()));
+    }
+
+    @Override
+    public void setAlpha(final double alpha) {
+        this.alpha = Math.min(MAX_ALPHA, Math.max(MIN_ALPHA, alpha));
+    }
+
+    @Override
+    public double getAlpha() {
+        return this.alpha;
     }
 }

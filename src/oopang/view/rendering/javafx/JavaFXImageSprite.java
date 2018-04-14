@@ -35,6 +35,7 @@ public final class JavaFXImageSprite extends GenericSprite {
                 this.getPosition().getX(),
                 this.getPosition().getY());
         this.gc.scale(1, -1);
+        this.gc.setGlobalAlpha(this.getAlpha());
         this.gc.drawImage(this.image,
                 this.getSourceTopLeftCorner().getX(),
                 this.getSourceTopLeftCorner().getY(),

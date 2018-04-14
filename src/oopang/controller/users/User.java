@@ -3,7 +3,6 @@ package oopang.controller.users;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -14,7 +13,14 @@ import oopang.model.powers.PowerTag;
  */
 public final class User implements Serializable {
 
-    private static final int MAX_LEVEL = 0;
+    private static final int MAX_LEVEL = 10;
+    private static final double LIMIT_MULTIPLIER = 1.5;
+    private static final int MIN_XP_LIMIT = 100000;
+    private static final int REWARD_LEVEL_8_9_10 = 2000;
+    private static final int REWARD_LEVEL_5_6_7 = 1500;
+    private static final int REWARD_LEVEL_1_2 = 100;
+    private static final int REWARD_LEVEL_3_4 = 500;
+    private static final int RANK_LEVEL_5 = 5;
     private static final long serialVersionUID = 6104521551950372404L;
 
     private final String name;
@@ -63,8 +69,16 @@ public final class User implements Serializable {
      * @param rank
      *      the value to calculate the reward.
      */
-    private void addCoins(final int rank) {
-        this.coins += rank;
+    private void addCoins() {
+        if (this.rank >= 8) {
+            this.coins += REWARD_LEVEL_8_9_10;
+        } else if (this.rank >= RANK_LEVEL_5) {
+            this.coins += REWARD_LEVEL_5_6_7;
+        } else if (this.rank <= 2) {
+            this.coins += this.rank * REWARD_LEVEL_1_2;
+        } else {
+            this.coins += (this.rank - 2) * REWARD_LEVEL_3_4;
+        }
     }
 
     /**
@@ -122,10 +136,14 @@ public final class User implements Serializable {
     }
 
     /**
-     * 
+     * Method that check if the rank is reached up with the current xpPoints.
      */
     private void checkRank() {
-
+        int nextRankLimit = (MIN_XP_LIMIT * ((int) (Math.pow(LIMIT_MULTIPLIER, this.rank)) / 10) * 10);
+        if (this.xpPoints >= nextRankLimit) {
+            this.xpPoints = this.xpPoints - nextRankLimit;
+            addRank();
+        }
     }
 
     /**
@@ -133,7 +151,7 @@ public final class User implements Serializable {
      */
     private void addRank() {
         this.rank += 1;
-        addCoins(this.rank);
+        addCoins();
     }
 
     /**
