@@ -40,8 +40,8 @@ public class JavaFXBackgroundRenderer extends GenericBackgroundRenderer {
         }
         this.setLayer(BACKGROUND_LAYER);
         sprite.setPosition(Points2D.of(0, Model.WORLD_HEIGHT / 2));
-        sprite.setWidth(Model.WORLD_WIDTH + Model.WALL_WIDTH * 2);
-        sprite.setHeight(Model.WORLD_HEIGHT + Model.WALL_WIDTH * 2);
+        sprite.setWidth(Model.TOTAL_WIDTH);
+        sprite.setHeight(Model.TOTAL_HEIGHT);
     }
 
 }

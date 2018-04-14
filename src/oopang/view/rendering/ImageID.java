@@ -137,7 +137,11 @@ public enum ImageID {
     /**
      * The image for the ultraistinct sprite.
      */
-    ULTRA_ISTINCT("/powers/auragif.gif", false);
+    ULTRA_INSTINCT("/powers/auragif.gif", false),
+    /**
+     * The image for the frozen power effect.
+     */
+    FROZEN_FRAME("/powers/frozenFrame.png", false);
 
     private static final String IMAGE_PATH = "/images";
     private final String path;

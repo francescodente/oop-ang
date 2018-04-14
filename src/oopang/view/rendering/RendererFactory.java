@@ -2,6 +2,8 @@ package oopang.view.rendering;
 
 import oopang.controller.DayTime;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.gameobjects.Player;
+import oopang.model.powers.TimedPower;
 
 /**
  * A factory for objects that can be rendered by a specific {@link CanvasDrawer}.
@@ -24,6 +26,17 @@ public interface RendererFactory {
      *      the Sprite object.
      */
     Sprite createSprite();
+
+    /**
+     * Creates a new {@link TimedPower} renderer.
+     * @param power
+     *      the power to be rendered
+     * @param player
+     *      the player who picked up the power
+     * @return
+     *      a new {@link TimedPower} renderer
+     */
+    Renderer createTimedPowerRenderer(TimedPower power, Player player);
 
     /**
      * Creates a new renderer for the background of the game.
