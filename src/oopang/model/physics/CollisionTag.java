@@ -29,7 +29,7 @@ public enum CollisionTag {
 
         @Override
         public boolean isStaticWith(final CollisionTag other) {
-            return other == PLAYER;
+            return other == PLAYER || other == SHOT;
         }
     },
     /**
