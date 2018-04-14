@@ -111,4 +111,11 @@ public interface Controller {
      *      True if was already loaded.
      */
     boolean isUserLoaded();
+    
+    /**
+     * Return the current total Score taken from the current GameSession.
+     * @return
+     *      the corrent total score.
+     */
+    int getCurrentTotalScore();
 }

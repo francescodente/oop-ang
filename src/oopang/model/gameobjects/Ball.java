@@ -26,6 +26,10 @@ public final class Ball extends AbstractGameObject {
     private static final double MIN_BOUNCE_HEIGHT = 21;
     private static final double SIZE_MULTIPLIER = 1;
     /**
+     * The default delta time multiplier.
+     */
+    public static final double DEFAULT_TIME_MULTIPLIER = 1;
+    /**
      * The min size of ball.
      */
     public static final int MIN_BALL_SIZE = 1;
@@ -42,6 +46,7 @@ public final class Ball extends AbstractGameObject {
     private final double radius;
     private final int size;
     private final BallColor color;
+    private double timeMultiplier;
 
     /**
      * Creates the GameObject of the type Ball.
@@ -62,12 +67,17 @@ public final class Ball extends AbstractGameObject {
         this.movement.setVelocity(vector);
         this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
         this.color = color;
+        this.timeMultiplier = DEFAULT_TIME_MULTIPLIER;
     }
 
     @Override
     public void start() {
         super.start();
         this.collision.getCollisionEvent().register(c -> handleCollision(c));
+    }
+    @Override
+    public void update(final double deltaTime) {
+        super.update(deltaTime * this.timeMultiplier);
     }
 
     @Override
@@ -187,5 +197,13 @@ public final class Ball extends AbstractGameObject {
      */
     public int getSize() {
         return this.size;
+    }
+    /**
+     * Sets the time multiplier to the given value to slow down or block update.
+     * @param value
+     *      the new value of the time multiplier.
+     */
+    public void setTimeMultiplier(final double value) {
+        this.timeMultiplier = value;
     }
 }

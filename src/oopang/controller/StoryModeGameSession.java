@@ -8,6 +8,7 @@ import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
+import oopang.model.levels.Level;
 import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 
@@ -16,7 +17,7 @@ import oopang.view.View;
  */
 public final class StoryModeGameSession extends GameSession {
 
-    private static final int MAX_LEVEL = 17;
+    private static final int MAX_LEVEL = 4;
     private static final int FULL_LIFE = 5;
     private int currentLevel;
     private int lives;
@@ -45,7 +46,8 @@ public final class StoryModeGameSession extends GameSession {
         if (!this.hasNextLevel()) {
             return Optional.empty();
         }
-        return Optional.of(this.getLoader().loadStoryLevel(this.currentLevel, builder));
+        final LevelData nextLevelData = this.getLoader().loadStoryLevel(this.currentLevel, builder);
+        return Optional.of(nextLevelData);
     }
 
     @Override
