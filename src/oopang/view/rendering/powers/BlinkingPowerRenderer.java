@@ -7,7 +7,6 @@ import oopang.view.rendering.Sprite;
 
 /**
  * 
- *
  */
 public class BlinkingPowerRenderer extends TimedPowerRenderer {
 
