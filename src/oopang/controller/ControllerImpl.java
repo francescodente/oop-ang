@@ -20,7 +20,6 @@ import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
 import oopang.model.powers.PowerFactory;
-import oopang.model.powers.UpgradePowerFactory;
 import oopang.view.View;
 
 /**
@@ -109,6 +108,7 @@ public final class ControllerImpl implements Controller {
         if (result != LevelResult.FORCE_EXIT) {
             this.user.ifPresent(u -> {
                 this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), 1));
+                u.addXpPoints(this.gameSession.getTotalScore());
                 this.saveAction.accept(this.leaderboard);
             });
         }
