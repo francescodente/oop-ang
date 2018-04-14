@@ -3,7 +3,6 @@ package oopang.controller.users;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -14,7 +13,9 @@ import oopang.model.powers.PowerTag;
  */
 public final class User implements Serializable {
 
-    private static final int MAX_LEVEL = 0;
+    private static final int MAX_LEVEL = 10;
+    private static final double LIMIT_MULTIPLIER = 1.5;
+    private static final int MIN_XP_LIMIT = 100000;
     private static final long serialVersionUID = 6104521551950372404L;
 
     private final String name;
@@ -64,7 +65,15 @@ public final class User implements Serializable {
      *      the value to calculate the reward.
      */
     private void addCoins(final int rank) {
-        this.coins += rank;
+        if (this.rank >= 8) {
+            this.coins += 2000;
+        } else if (this.rank >= 5 || this.rank <= 7) {
+            this.coins += 1500;
+        } else if (this.rank <= 2) {
+            this.coins += this.rank * 100;
+        } else if(this.rank <= 4) {
+            this.coins += (this.rank - 2) * 500;
+        }
     }
 
     /**
@@ -125,7 +134,11 @@ public final class User implements Serializable {
      * 
      */
     private void checkRank() {
-
+        int nextRankLimit = (MIN_XP_LIMIT * ((int) (Math.pow(LIMIT_MULTIPLIER, this.rank)) / 10) * 10);
+        if (this.xpPoints >= nextRankLimit) {
+            this.xpPoints = this.xpPoints - nextRankLimit;
+            addRank();
+        }
     }
 
     /**
