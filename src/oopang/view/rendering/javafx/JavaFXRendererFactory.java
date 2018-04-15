@@ -1,8 +1,6 @@
 package oopang.view.rendering.javafx;
 
 import oopang.controller.DayTime;
-import oopang.model.gameobjects.Player;
-import oopang.model.powers.TimedPower;
 import oopang.view.rendering.AbstractRendererFactory;
 import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Renderer;

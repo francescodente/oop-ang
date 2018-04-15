@@ -15,7 +15,6 @@ import oopang.view.rendering.gameobject.PlayerRenderer;
 import oopang.view.rendering.gameobject.WallRenderer;
 import oopang.view.rendering.powers.FrozenFrameRenderer;
 import oopang.view.rendering.powers.ShieldRenderer;
-import oopang.view.rendering.powers.TimedPowerRenderer;
 import oopang.view.rendering.powers.UltraInstinctRenderer;
 
 /**
