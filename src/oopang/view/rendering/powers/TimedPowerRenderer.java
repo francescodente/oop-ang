@@ -29,6 +29,7 @@ public abstract class TimedPowerRenderer extends GenericRenderer {
     *      the current canvasDrawer
     */
     public TimedPowerRenderer(final Sprite sprite, final Player player, final TimedPower power, final CanvasDrawer drawer) {
+        super();
         this.sprite = sprite;
         this.player = player;
         this.power = power;
