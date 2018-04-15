@@ -11,17 +11,18 @@ import oopang.model.gameobjects.Player;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
- * MIGATTENOGOKUI.
+ * This class is a renderer that displays an aura around the player when the doublespeed pickup
+ * is activated and add a fading trail to the player.
  *
  */
 public class UltraInstinctRenderer extends BlinkingPowerRenderer {
 
     private static final double H_OFFSET = 8;
     private static final double V_OFFSET = 5;
-    private static final int AURA_LAYER = 2;
     private static final int TRAIL_SPRITES = 5;
     private static final int FRAMES_SKIPPED = 7;
 
@@ -47,7 +48,7 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
                 .map(a -> {
                     final Sprite s = drawer.getRendererFactory().createSprite();
                     s.setAlpha(a);
-                    s.setLayer(AURA_LAYER - 1);
+                    s.setLayer(Layers.AURA_LAYER - 1);
                     s.setHeight(player.getHeight());
                     s.setWidth(player.getWidth());
                     s.setPivot(Vectors2D.of(0, -1));
@@ -64,7 +65,7 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
                 .collect(Collectors.toList());
         sprite.setSource(ImageID.ULTRA_INSTINCT);
         sprite.setPivot(Vectors2D.of(0, -1));
-        this.setLayer(AURA_LAYER);
+        this.setLayer(Layers.AURA_LAYER);
         sprite.setWidth(player.getWidth() + H_OFFSET);
         sprite.setHeight(player.getHeight() + V_OFFSET);
         sprite.setAlpha(0.5);

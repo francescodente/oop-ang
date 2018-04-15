@@ -3,6 +3,7 @@ package oopang.view.rendering.gameobject;
 import oopang.model.BallColor;
 import oopang.model.gameobjects.Ball;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 import oopang.view.rendering.SpriteSheet;
 
@@ -11,7 +12,6 @@ import oopang.view.rendering.SpriteSheet;
  */
 public class BallRenderer extends GameObjectRenderer<Ball> {
 
-    private static final int BALL_LAYER = 4;
     private static final int COLUMNS = 3;
     private static final int ROWS = 2;
 
@@ -24,7 +24,7 @@ public class BallRenderer extends GameObjectRenderer<Ball> {
      */
     public BallRenderer(final Sprite sprite, final Ball gameObject) {
         super(sprite, gameObject);
-        this.setLayer(BALL_LAYER);
+        this.setLayer(Layers.BALL_LAYER);
         final BallColor color = gameObject.getColor();
         sprite.setSource(ImageID.BALL);
         final SpriteSheet spriteSheet = new SpriteSheet(sprite, COLUMNS, ROWS);

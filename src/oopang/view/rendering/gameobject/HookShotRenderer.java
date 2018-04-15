@@ -5,6 +5,7 @@ import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.HookShot;
 import oopang.model.gameobjects.StickyShot;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
@@ -15,7 +16,6 @@ import oopang.view.rendering.Sprite;
 public class HookShotRenderer extends GameObjectRenderer<HookShot> {
 
     private static final double MAX_SHOT_HEIGHT = 100;
-    private static final int SHOT_LAYER = 2;
     private static final double OFFSET = 4;
 
     /**
@@ -27,7 +27,7 @@ public class HookShotRenderer extends GameObjectRenderer<HookShot> {
      */
     public HookShotRenderer(final Sprite sprite, final HookShot gameObject) {
         super(sprite, gameObject);
-        this.setLayer(SHOT_LAYER);
+        this.setLayer(Layers.SHOT_LAYER);
 
         if (gameObject instanceof StickyShot) {
             sprite.setSource(ImageID.STICKYSHOT);

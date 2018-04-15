@@ -10,7 +10,6 @@ import oopang.view.rendering.SpriteSheet;
 
 /**
  * This is a Renderer for background in javaFX.
-
  */
 public class JavaFXBackgroundRenderer extends GenericBackgroundRenderer {
 

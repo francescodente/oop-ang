@@ -5,6 +5,7 @@ import oopang.commons.space.Vectors2D;
 import oopang.model.Model;
 import oopang.model.gameobjects.Wall;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
@@ -13,7 +14,6 @@ import oopang.view.rendering.Sprite;
 public class WallRenderer extends GameObjectRenderer<Wall> {
 
     private static final double MAX_WALL_SIZE = Model.TOTAL_WIDTH;
-    private static final int WALL_LAYER = 1;
     /**
      * Creates a new {@link Wall} Renderer given its Wall {@link GameObject}.
      * @param sprite
@@ -25,7 +25,7 @@ public class WallRenderer extends GameObjectRenderer<Wall> {
      */
     public WallRenderer(final Sprite sprite, final Wall gameObject, final ImageID walltexture) {
         super(sprite, gameObject);
-        this.setLayer(WALL_LAYER);
+        this.setLayer(Layers.WALL_LAYER);
         sprite.setSource(walltexture);
         final double width = gameObject.getWidth() * sprite.getSourceWidth() / MAX_WALL_SIZE;
         final double height = gameObject.getHeight() * sprite.getSourceHeight() / MAX_WALL_SIZE;

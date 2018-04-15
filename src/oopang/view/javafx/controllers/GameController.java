@@ -28,7 +28,7 @@ import oopang.view.View;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.Renderer;
 import oopang.view.rendering.javafx.JavaFXCanvasDrawer;
-import oopang.view.rendering.javafx.JavaFXIconFactory;
+import oopang.view.rendering.javafx.JavaFXUIFactory;
 
 /**
  * Class implementing the real scene of the game.
@@ -57,12 +57,12 @@ public final class GameController extends SceneController {
     @FXML
     private Pane livesContainer;
     private CanvasDrawer canvasDrawer;
-    private JavaFXIconFactory iconFactory;
+    private JavaFXUIFactory iconFactory;
 
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
-        this.iconFactory = new JavaFXIconFactory();
+        this.iconFactory = new JavaFXUIFactory();
         for (int j = 0; j < this.getController().getLifeCount(); j++) {
             final Node icon = this.iconFactory.createHeartIcon();
             this.livesContainer.getChildren().add(icon);

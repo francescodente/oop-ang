@@ -6,8 +6,7 @@ import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.Sprite;
 
 /**
- * 
- *
+ * This is an abstract class for power renderers that has to blink before disappear.
  */
 public class BlinkingPowerRenderer extends TimedPowerRenderer {
 

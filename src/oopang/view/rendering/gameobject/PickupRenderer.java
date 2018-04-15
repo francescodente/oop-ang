@@ -4,6 +4,7 @@ import oopang.commons.Timeable;
 import oopang.model.gameobjects.Pickup;
 import oopang.model.powers.PowerTag;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 import oopang.view.rendering.SpriteSheet;
 
@@ -12,7 +13,6 @@ import oopang.view.rendering.SpriteSheet;
  */
 public class PickupRenderer extends GameObjectRenderer<Pickup> {
 
-    private static final int PICKUP_LAYER = 5;
     private static final int COLUMNS = 3;
     private static final int ROWS = 2;
     private static final double BLINK_START = 2;
@@ -37,7 +37,7 @@ public class PickupRenderer extends GameObjectRenderer<Pickup> {
                 this.blink = false;
             }
         });
-        this.setLayer(PICKUP_LAYER);
+        this.setLayer(Layers.PICKUP_LAYER);
         final PowerTag tag = gameObject.getPower().getPowertag();
         sprite.setSource(ImageID.PICKUP);
         final SpriteSheet spriteSheet = new SpriteSheet(sprite, COLUMNS, ROWS);

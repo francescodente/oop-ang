@@ -82,12 +82,20 @@ public final class User implements Serializable {
     }
 
     /**
+     * 
      * Method that spend coins.
      * @param amount
      *      the value to spend to the field.
+     * @return
+     *      true if there are enough coins false otherwise.
+
      */
-    public void spendCoins(final int amount) {
-        this.coins -= amount;
+    public boolean spendCoins(final int amount) {
+        if (this.coins >= amount) {
+            this.coins -= amount;
+            return true;
+        } 
+            return false;
     }
 
     /**
@@ -148,10 +156,16 @@ public final class User implements Serializable {
 
     /**
      * Method that increases the current rank.
+     * @return
+     *      true if is possible to increase the rank false otherwise.
      */
-    private void addRank() {
-        this.rank += 1;
-        addCoins();
+    private boolean addRank() {
+        if (this.rank < 10) {
+            this.rank += 1;
+            addCoins();
+            return true;
+        }
+        return false;
     }
 
     /**
