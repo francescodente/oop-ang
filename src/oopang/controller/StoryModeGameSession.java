@@ -8,7 +8,6 @@ import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
-import oopang.model.levels.Level;
 import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 
