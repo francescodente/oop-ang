@@ -80,14 +80,15 @@ public class Player extends AbstractGameObject {
      */
     @Override
     public void update(final double deltaTime) {
-
+        final List<Power> toBeRemoved = new LinkedList<>();
         this.powerUps.forEach(p -> {
             if (p.isActive()) {
                 p.update(deltaTime);
             } else {
-                powerUps.remove(p);
+                toBeRemoved.add(p);
             }
         });
+        powerUps.removeAll(toBeRemoved);
         super.update(deltaTime);
     }
 

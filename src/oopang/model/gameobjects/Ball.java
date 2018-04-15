@@ -206,4 +206,13 @@ public final class Ball extends AbstractGameObject {
     public void setTimeMultiplier(final double value) {
         this.timeMultiplier = value;
     }
+
+    /**
+     * Returns the current time multiplier.
+     * @return
+     *      the current time multiplier.
+     */
+    public double getTimeMultiplier() {
+        return this.timeMultiplier;
+    }
 }

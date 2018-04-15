@@ -12,7 +12,7 @@ import oopang.model.levels.LevelManager;
  *
  */
 public final class DoubleSpeed extends TimedPower {
-    private static final double SLOW_TIME_MULTIPLIER = 0.5;
+    private static final double SLOW_TIME_MULTIPLIER = 0.3;
     private static final PowerTag TAG = PowerTag.DOUBLESPEED;
     private static final int INITIALVALUE = 4;
     private static final double TIMEFEE = 0.5;
@@ -62,11 +62,15 @@ public final class DoubleSpeed extends TimedPower {
     }
 
     private void slowBall(final Ball ball) {
-        ball.setTimeMultiplier(SLOW_TIME_MULTIPLIER);
+        if (ball.getTimeMultiplier() != 0) {
+            ball.setTimeMultiplier(SLOW_TIME_MULTIPLIER);
+        }
     }
 
     private void unlockBall(final Ball ball) {
-        ball.setTimeMultiplier(Ball.DEFAULT_TIME_MULTIPLIER);
+        if (ball.getTimeMultiplier() != 0) {
+            ball.setTimeMultiplier(Ball.DEFAULT_TIME_MULTIPLIER);
+        }
     }
 
     private static double calculateTimeout(final int powerlevel) {
