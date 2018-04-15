@@ -1,6 +1,5 @@
 package oopang.view.rendering.powers;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -17,7 +16,8 @@ import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Sprite;
 
 /**
- * MIGATTENOGOKUI.
+ * This class is a renderer that displays an aura around the player when the doublespeed pickup
+ * is activated and add a fading trail to the player.
  *
  */
 public class UltraInstinctRenderer extends BlinkingPowerRenderer {

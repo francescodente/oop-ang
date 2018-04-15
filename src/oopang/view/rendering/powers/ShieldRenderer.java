@@ -8,9 +8,8 @@ import oopang.view.rendering.ImageID;
 import oopang.view.rendering.Sprite;
 
 /**
- * 
- * @author samu
- *
+ * This class is a renderer that displays a ball around the player when the shield power
+ * is activated.
  */
 public class ShieldRenderer extends BlinkingPowerRenderer {
 
