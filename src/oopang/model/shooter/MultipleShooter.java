@@ -47,12 +47,11 @@ public class MultipleShooter implements Shooter {
     @Override
     public final void shoot() {
         if (canShoot()) {
-        final Shot newShot = supplier.get();
-        newShot.setPosition(player.getPosition());
-        this.currentShotNumber++;
-        this.cooldownTime = COOLDOWN;
-
-        newShot.getDestroyedEvent().register(s -> this.currentShotNumber--);
+            final Shot newShot = supplier.get();
+            newShot.setPosition(player.getPosition());
+            this.currentShotNumber++;
+            this.cooldownTime = COOLDOWN;
+            newShot.getDestroyedEvent().register(s -> this.currentShotNumber--);
         }
     }
 
