@@ -33,18 +33,28 @@ public enum PowerTag {
      */
     FREEZE(Arrays.asList(100, 200, 500, 1000));
 
-    private  final List<Integer> list;
-    PowerTag(final List<Integer> list) {
-        this.list = list;
+    private final List<Integer> costs;
+
+    PowerTag(final List<Integer> costs) {
+        this.costs = costs;
     }
     /**
-     * Getter for list.
-     * @param x
-     *      Index
+     * Getter for the cost.
+     * @param level
+     *      current level of the power
      * @return 
-     *      Index.
+     *      the cost to upgrade to next level
      */
-    public int getCost(int x) {
-        return list.get(x - 1);
+    public int getCost(final int level) {
+        return costs.get(level - 1);
+    }
+
+    /**
+     * Return the maxLevel of this power.
+     * @return
+     *      the max level
+     */
+    public int getMaxLevel() {
+        return this.costs.size() +  1;
     }
 }

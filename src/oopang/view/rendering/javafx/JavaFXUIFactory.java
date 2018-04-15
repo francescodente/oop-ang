@@ -3,11 +3,15 @@ package oopang.view.rendering.javafx;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import oopang.commons.Timeable;
+import oopang.controller.users.User;
 import oopang.model.powers.PowerTag;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.ImageID;
@@ -15,7 +19,7 @@ import oopang.view.rendering.ImageID;
 /**
  * This is a factory that creates icon to be add to a javaFX scene.
  */
-public class JavaFXIconFactory {
+public class JavaFXUIFactory {
 
     private static final double HEART_SIZE = 40;
     private static final double BAR_HEIGHT_PERCENTAGE = 0.3;
@@ -92,5 +96,37 @@ public class JavaFXIconFactory {
         imageview.setImage(image);
         imageview.setPreserveRatio(true);
         return imageview;
+    }
+
+
+    /**
+     * Create a node for the interface to upgrade a power.
+     * @param user
+     *      the active user
+     * @param tag
+     *      the powerTag to be displayed and upgraded
+     * @return
+     *      the interface to upgrade a power
+     */
+    public Node createUpdatePowerLevelBlock(final User user, final PowerTag tag) {
+        final int powerLevel = user.getPowerLevels().get(tag);
+        final Label levelLabel = new Label("Level " + powerLevel);
+        final ImageView icon = this.createPowerIcon(tag);
+        final ProgressBar bar = new ProgressBar(powerLevel / tag.getMaxLevel());
+        final String upgradeString = powerLevel == tag.getMaxLevel() ? "maxed" : tag.getCost(powerLevel) + " coins";
+        final Button upgradeButton = new Button(upgradeString);
+        if (powerLevel == tag.getMaxLevel()) {
+            upgradeButton.setDisable(true);
+        }
+        upgradeButton.setOnMouseClicked(e -> {
+            if (user.spendCoins(tag.getCost(powerLevel))) {
+                user.setPowerLevel(tag, powerLevel + 1);
+            }
+        });
+        final BorderPane mainPane = new BorderPane();
+        mainPane.setLeft(icon);
+        mainPane.setRight(upgradeButton);
+        mainPane.setCenter(new VBox(levelLabel, bar));
+        return mainPane;
     }
 }
