@@ -1,9 +1,6 @@
 package oopang.view.rendering.powers;
 
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,9 +22,10 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
     private static final double H_OFFSET = 8;
     private static final double V_OFFSET = 5;
     private static final int AURA_LAYER = 2;
-    private static final int LAST_POSITIONS_SAVED = 10;
+    private static final int TRAIL_SPRITES = 5;
+    private static final int FRAMES_SKIPPED = 7;
 
-    private final Queue<Point2D> lastPositions;
+    private final List<Point2D> lastPositions;
     private final List<Sprite> fadingSprites;
 
     /** 
@@ -43,8 +41,9 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
     */
     public UltraInstinctRenderer(final Sprite sprite, final Player player, final TimedPower power, final CanvasDrawer drawer) {
         super(sprite, player, power, drawer);
-        this.fadingSprites = Stream.iterate(1, a -> a - 1 / LAST_POSITIONS_SAVED)
-                .limit(LAST_POSITIONS_SAVED)
+        this.fadingSprites = Stream.iterate(0, i -> i + 1)
+                .limit(TRAIL_SPRITES)
+                .map(i -> i * 1.0 / TRAIL_SPRITES)
                 .map(a -> {
                     final Sprite s = drawer.getRendererFactory().createSprite();
                     s.setAlpha(a);
@@ -60,20 +59,27 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
                     return s;
                 })
                 .collect(Collectors.toList());
-        this.lastPositions = new LinkedList<>();
-        sprite.setSource(ImageID.SHIELD);
+        this.lastPositions = Stream.generate(() -> player.getPosition())
+                .limit(TRAIL_SPRITES * FRAMES_SKIPPED)
+                .collect(Collectors.toList());
+        sprite.setSource(ImageID.ULTRA_INSTINCT);
         sprite.setPivot(Vectors2D.of(0, -1));
         this.setLayer(AURA_LAYER);
         sprite.setWidth(player.getWidth() + H_OFFSET);
         sprite.setHeight(player.getHeight() + V_OFFSET);
-        for (int i = 0; i < this.fadingSprites.size(); i++) {
-            this.lastPositions.add(player.getPosition());
-        }
+        sprite.setAlpha(0.5);
+        power.getTimeOutEvent().register(
+                n -> this.fadingSprites.forEach(drawer::removeRenderer));
     }
 
     @Override
     public void render() {
         this.getSprite().setPosition(this.getPlayer().getPosition());
+        Stream.iterate(0, i -> i + 1)
+            .limit(this.fadingSprites.size())
+            .forEach(i -> this.fadingSprites.get(i).setPosition(this.lastPositions.get(i * FRAMES_SKIPPED)));
+        this.lastPositions.remove(0);
+        this.lastPositions.add(this.getPlayer().getPosition());
         super.render();
     }
 
