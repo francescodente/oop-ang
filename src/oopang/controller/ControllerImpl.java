@@ -11,6 +11,8 @@ import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardManager;
 import oopang.controller.leaderboard.LeaderboardRecord;
 import oopang.controller.loader.LevelData;
+import oopang.controller.loader.LevelLoader;
+import oopang.controller.loader.TestLevelLoader;
 import oopang.controller.loader.XMLLevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.controller.users.FileSystemUserManager;
@@ -58,9 +60,14 @@ public final class ControllerImpl implements Controller {
         return new BasicPowerFactory();
     }
 
+    private LevelLoader getLevelLoader() {
+        return new XMLLevelLoader(this.getPowerFactory());
+        //return new TestLevelLoader();
+    }
+
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
-        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, new XMLLevelLoader(this.getPowerFactory()), levelIndex);
+        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, this.getLevelLoader(), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboard(l);
@@ -68,7 +75,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
-        this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, new XMLLevelLoader(this.getPowerFactory()));
+        this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, this.getLevelLoader());
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
