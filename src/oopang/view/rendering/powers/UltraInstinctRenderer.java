@@ -13,6 +13,7 @@ import oopang.model.gameobjects.Player;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
@@ -24,7 +25,6 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
 
     private static final double H_OFFSET = 8;
     private static final double V_OFFSET = 5;
-    private static final int AURA_LAYER = 2;
     private static final int LAST_POSITIONS_SAVED = 10;
 
     private final Queue<Point2D> lastPositions;
@@ -48,7 +48,7 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
                 .map(a -> {
                     final Sprite s = drawer.getRendererFactory().createSprite();
                     s.setAlpha(a);
-                    s.setLayer(AURA_LAYER - 1);
+                    s.setLayer(Layers.AURA_LAYER - 1);
                     s.setHeight(player.getHeight());
                     s.setWidth(player.getWidth());
                     s.setPivot(Vectors2D.of(0, -1));
@@ -63,7 +63,7 @@ public class UltraInstinctRenderer extends BlinkingPowerRenderer {
         this.lastPositions = new LinkedList<>();
         sprite.setSource(ImageID.SHIELD);
         sprite.setPivot(Vectors2D.of(0, -1));
-        this.setLayer(AURA_LAYER);
+        this.setLayer(Layers.AURA_LAYER);
         sprite.setWidth(player.getWidth() + H_OFFSET);
         sprite.setHeight(player.getHeight() + V_OFFSET);
         for (int i = 0; i < this.fadingSprites.size(); i++) {

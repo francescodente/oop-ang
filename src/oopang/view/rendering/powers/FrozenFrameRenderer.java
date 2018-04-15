@@ -6,6 +6,7 @@ import oopang.model.gameobjects.Player;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
@@ -14,7 +15,6 @@ import oopang.view.rendering.Sprite;
  */
 public class FrozenFrameRenderer extends TimedPowerRenderer {
 
-    private static final int FRAME_LAYER = Integer.MAX_VALUE;
     private static final double FADE_TIME = 1;
     private static final double ALPHA_MAX = 0.85;
     private static final double EPSILON = 0.01;
@@ -37,7 +37,7 @@ public class FrozenFrameRenderer extends TimedPowerRenderer {
         super(sprite, player, power, drawer);
         sprite.setSource(ImageID.FROZEN_FRAME);
         sprite.setPosition(Points2D.of(0, Model.WORLD_HEIGHT / 2));
-        this.setLayer(FRAME_LAYER);
+        this.setLayer(Layers.FROZEN_FRAME_LAYER);
         sprite.setAlpha(0);
         power.getTimeChangedEvent().register(t -> {
             final double time = power.getRemainingTime();

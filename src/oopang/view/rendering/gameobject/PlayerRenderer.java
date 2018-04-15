@@ -7,6 +7,7 @@ import oopang.model.gameobjects.Player;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
@@ -14,7 +15,6 @@ import oopang.view.rendering.Sprite;
  */
 public class PlayerRenderer extends GameObjectRenderer<Player> {
 
-    private static final int PLAYER_LAYER = 3;
     private static final double PLAYER_OFFSET = 3;
     /**
      * Constructor of the {@link Player} Renderer.
@@ -27,7 +27,7 @@ public class PlayerRenderer extends GameObjectRenderer<Player> {
      */
     public PlayerRenderer(final Sprite sprite, final Player gameObject, final CanvasDrawer canvasDrawer) {
         super(sprite, gameObject);
-        this.setLayer(PLAYER_LAYER);
+        this.setLayer(Layers.PLAYER_LAYER);
         if (gameObject.getPlayerTag() == PlayerTag.PLAYER_ONE) {
             sprite.setSource(ImageID.PLAYER1);
         } else {

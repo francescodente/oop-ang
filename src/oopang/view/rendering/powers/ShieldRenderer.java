@@ -5,6 +5,7 @@ import oopang.model.gameobjects.Player;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.ImageID;
+import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
@@ -15,7 +16,6 @@ public class ShieldRenderer extends BlinkingPowerRenderer {
 
     private static final double SHIELD_H_OFFSET = 8;
     private static final double SHIELD_V_OFFSET = 5;
-    private static final int SHIELD_LAYER = 4;
 
     /**
      * Creates a new Shield renderer.
@@ -32,7 +32,7 @@ public class ShieldRenderer extends BlinkingPowerRenderer {
         super(sprite, player, power, drawer);
         sprite.setSource(ImageID.SHIELD);
         sprite.setPivot(Vectors2D.of(0, -1));
-        this.setLayer(SHIELD_LAYER);
+        this.setLayer(Layers.SHIELD_LAYER);
         sprite.setWidth(player.getWidth() + SHIELD_H_OFFSET);
         sprite.setHeight(player.getHeight() + SHIELD_V_OFFSET);
     }
