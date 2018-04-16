@@ -6,6 +6,8 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import oopang.commons.events.Event;
+import oopang.commons.events.EventSource;
 import oopang.model.powers.PowerTag;
 
 /**
@@ -30,6 +32,7 @@ public final class User implements Serializable {
     private int arcadeMaxStage;
     private int xpPoints;
     private final Map<PowerTag, Integer> powerLevels;
+    private final transient EventSource<Void> coinsEvent;
 
     /**
      * Constructor of the class User.
@@ -44,6 +47,34 @@ public final class User implements Serializable {
         this.setSurvivalMaxStage(0);
         this.xpPoints = 0;
         this.name = name;
+        this.coinsEvent = new EventSource<>();
+    }
+
+    /**
+     * Method that get the value of the rank.
+     * @return
+     *      the level of the rank.
+     */
+    public int getRank() {
+        return this.rank;
+    }
+
+    /**
+     * Method that get the percentage of the XpPoints.
+     * @return
+     *      a double between 0 and 1.
+     */
+    public double getXpLevelPercentage() {
+        return this.xpPoints / this.computeNextRankLimit();
+    }
+
+    /**
+     * Method that return the coin event which triggers every time you spend some coins.
+     * @return
+     *      the coin event.
+     */
+    public Event<Void> getCoinsEvent() {
+        return this.coinsEvent;
     }
 
     /**
@@ -93,7 +124,8 @@ public final class User implements Serializable {
     public boolean spendCoins(final int amount) {
         if (this.coins >= amount) {
             this.coins -= amount;
-            return true;
+            this.coinsEvent.trigger(null);
+            return true; 
         } 
             return false;
     }
@@ -140,18 +172,25 @@ public final class User implements Serializable {
      *      value to add to the current xpPoints.
      */
     public void addXpPoints(final int score) {
-        this.xpPoints += score;
+        if (this.rank != MAX_LEVEL) {
+            this.xpPoints += score;
+            this.checkRank();
+        }
     }
 
     /**
      * Method that check if the rank is reached up with the current xpPoints.
      */
     private void checkRank() {
-        int nextRankLimit = (MIN_XP_LIMIT * ((int) (Math.pow(LIMIT_MULTIPLIER, this.rank)) / 10) * 10);
+        final int nextRankLimit = computeNextRankLimit();
         if (this.xpPoints >= nextRankLimit) {
             this.xpPoints = this.xpPoints - nextRankLimit;
             addRank();
         }
+    }
+
+    private int computeNextRankLimit() {
+        return (MIN_XP_LIMIT * ((int) (Math.pow(LIMIT_MULTIPLIER, this.rank))) * 10);
     }
 
     /**
@@ -160,7 +199,7 @@ public final class User implements Serializable {
      *      true if is possible to increase the rank false otherwise.
      */
     private boolean addRank() {
-        if (this.rank < 10) {
+        if (this.rank < MAX_LEVEL) {
             this.rank += 1;
             addCoins();
             return true;
