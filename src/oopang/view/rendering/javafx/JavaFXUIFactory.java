@@ -91,6 +91,7 @@ public class JavaFXUIFactory {
         case TIMEDSHIELD: imageview.setViewport(new Rectangle2D(cellwidth, 0, cellwidth, cellheight)); break;
         case DOUBLESHOT: imageview.setViewport(new Rectangle2D(0, 0, cellwidth, cellheight)); break;
         case ADHESIVESHOT: imageview.setViewport(new Rectangle2D(0, cellheight, cellwidth, cellheight)); break;
+        case DYNAMITE: imageview.setViewport(new Rectangle2D(cellwidth, cellheight, cellwidth, cellheight)); break;
         default: break;
         }
         imageview.setImage(image);
