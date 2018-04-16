@@ -59,7 +59,7 @@ public class Player extends AbstractGameObject {
         this.shoot.setShooter(new MultipleShooter(1, this, DEFAULT_SHOT));
         this.input = new InputComponent(this,
                 e -> this.movement.setVelocity(e.multiply(this.speed)),
-                () -> this.shoot.tryShoot());
+                b -> this.shoot.setState(b));
         this.powerUps = new LinkedList<>();
         this.pickupCollected = new EventSource<Power>();
         this.speed = DEFAULT_SPEED;

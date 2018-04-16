@@ -34,10 +34,12 @@ public class ShooterComponent extends AbstractComponent {
     }
 
     /**
-     * Asks the shooter to shoot. It's not sure that canShoot is enabled.
+     * Set the state of the shooter to true o false.
+     * @param state
+     *      true if the shooter should shoot.
      */
-    public void tryShoot() {
-        this.shooter.shoot();
+    public void setState(final boolean state) {
+        this.shooter.setShootingState(state);
     }
 
 }
