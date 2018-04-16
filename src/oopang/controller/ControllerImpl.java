@@ -114,7 +114,7 @@ public final class ControllerImpl implements Controller {
     private void handleSessionResult(final LevelResult result) {
         if (result != LevelResult.FORCE_EXIT) {
             this.user.ifPresent(u -> {
-                this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), 1));
+                this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), this.gameSession.getStage()));
                 u.addXpPoints(this.gameSession.getTotalScore());
                 this.saveAction.accept(this.leaderboard);
             });

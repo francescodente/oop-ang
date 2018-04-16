@@ -8,6 +8,10 @@ import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.model.LevelResult;
 import oopang.model.Model;
+import oopang.model.gameobjects.AbstractGameObjectVisitor;
+import oopang.model.gameobjects.Ball;
+import oopang.model.gameobjects.GameObjectVisitor;
+import oopang.model.levels.Level;
 import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 
@@ -16,6 +20,8 @@ import oopang.view.View;
  */
 public final class InfiniteGameSession extends GameSession {
     private boolean levelStarted;
+    private int stageCounter;
+    private static final int BALL_SIZE = 3;
 
     /**
      * Constructor of the infinite {@link GameSession).
@@ -48,11 +54,29 @@ public final class InfiniteGameSession extends GameSession {
             return Optional.empty();
         }
         this.levelStarted = true;
-        return Optional.of(this.getLoader().loadInfiniteLevel(builder));
+        final GameObjectVisitor<Void> stageCheck = new AbstractGameObjectVisitor<Void>(null) {
+            @Override
+            public Void visit(final Ball ball) {
+                if (ball.getSize() == BALL_SIZE) {
+                    stageCounter++;
+                }
+                return super.visit(ball);
+            }
+        };
+        final LevelData lvl = this.getLoader().loadInfiniteLevel(builder);
+        lvl.getLevel().getObjectCreatedEvent().register(obj -> {
+            obj.accept(stageCheck);
+        });
+        return Optional.of(lvl);
     }
 
     @Override
     public boolean hasNextLevel() {
         return !this.levelStarted;
+    }
+
+    @Override
+    public int getStage() {
+        return stageCounter;
     }
 }
