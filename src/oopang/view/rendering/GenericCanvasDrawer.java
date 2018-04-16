@@ -1,7 +1,7 @@
 package oopang.view.rendering;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.stream.Stream;
 
 /**
@@ -9,13 +9,13 @@ import java.util.stream.Stream;
  */
 public abstract class GenericCanvasDrawer implements CanvasDrawer {
 
-    private final List<Renderer> renderers;
+    private final Queue<Renderer> renderers;
 
     /**
      * Creates a new Canvas drawer with generic.
      */
     public GenericCanvasDrawer() {
-        this.renderers = new ArrayList<>();
+        this.renderers = new PriorityQueue<>();
     }
 
     @Override
@@ -39,6 +39,6 @@ public abstract class GenericCanvasDrawer implements CanvasDrawer {
      *      the stream of all renderers.
      */
     protected Stream<Renderer> getRenderers() {
-        return this.renderers.stream().sorted();
+        return this.renderers.stream();
     }
 }
