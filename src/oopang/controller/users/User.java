@@ -1,5 +1,6 @@
 package oopang.controller.users;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -32,7 +33,7 @@ public final class User implements Serializable {
     private int arcadeMaxStage;
     private int xpPoints;
     private final Map<PowerTag, Integer> powerLevels;
-    private final transient EventSource<Void> coinsEvent;
+    private transient EventSource<Void> coinsEvent;
 
     /**
      * Constructor of the class User.
@@ -227,4 +228,15 @@ public final class User implements Serializable {
         return new EnumMap<>(this.powerLevels);
     }
 
+    /**
+     * Method used to read the object without losing transient fields.
+     * @param in
+     *      input stream.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.coinsEvent = new EventSource<>();
+    }
 }
