@@ -22,6 +22,7 @@ import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
 import oopang.model.powers.PowerFactory;
+import oopang.model.powers.UpgradePowerFactory;
 import oopang.view.View;
 
 /**
@@ -54,15 +55,13 @@ public final class ControllerImpl implements Controller {
     }
 
     private PowerFactory getPowerFactory() {
-//        return this.user.isPresent()
-//            ? new UpgradePowerFactory(this.user.get().getPowerLevels())
-//            : new BasicPowerFactory();
-        return new BasicPowerFactory();
+        return this.user.isPresent()
+        ? new UpgradePowerFactory(this.user.get().getPowerLevels())
+        : new BasicPowerFactory();
     }
 
     private LevelLoader getLevelLoader() {
         return new XMLLevelLoader(this.getPowerFactory());
-        //return new TestLevelLoader();
     }
 
     @Override
@@ -157,8 +156,8 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public boolean isUserLoaded() {
-        return this.user.isPresent();
+    public Optional<User> getUser() {
+        return this.user;
     }
 
     @Override
