@@ -12,7 +12,7 @@
     <GameObject>
         <Ball color = "GREEN" size = "4">
             <Velocity>
-                <Vector x = "-15" y = "0"/>
+                <Vector x = "-17" y = "0"/>
             </Velocity>
             <Position>
                 <Point x = "0" y = "85"/>

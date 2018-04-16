@@ -16,7 +16,7 @@ import oopang.view.View;
  */
 public final class StoryModeGameSession extends GameSession {
 
-    private static final int MAX_LEVEL = 4;
+    private static final int MAX_LEVEL = 17;
     private static final int FULL_LIFE = 5;
     private int currentLevel;
     private int lives;
