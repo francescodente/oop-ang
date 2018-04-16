@@ -1,5 +1,7 @@
 package oopang.controller;
 
+import java.util.Optional;
+
 import oopang.commons.Command;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
@@ -106,12 +108,12 @@ public interface Controller {
     Leaderboard getLeaderboard();
 
     /**
-     * Check if the {@link User} was previously loaded during the Game.
+     * Method that get the user.
      * @return
-     *      True if was already loaded.
+     *      an Optional of user.
      */
-    boolean isUserLoaded();
-    
+    Optional<User> getUser();
+
     /**
      * Return the current total Score taken from the current GameSession.
      * @return
