@@ -11,7 +11,6 @@ import oopang.model.Model;
 import oopang.model.gameobjects.AbstractGameObjectVisitor;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObjectVisitor;
-import oopang.model.levels.Level;
 import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 

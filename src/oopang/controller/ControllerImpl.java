@@ -12,7 +12,6 @@ import oopang.controller.leaderboard.LeaderboardManager;
 import oopang.controller.leaderboard.LeaderboardRecord;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
-import oopang.controller.loader.TestLevelLoader;
 import oopang.controller.loader.XMLLevelLoader;
 import oopang.model.GameOverStatus;
 import oopang.controller.users.FileSystemUserManager;
