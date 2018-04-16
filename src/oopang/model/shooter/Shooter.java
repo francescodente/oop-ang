@@ -24,9 +24,11 @@ public interface Shooter {
     boolean canShoot();
 
     /**
-     * Shoot the projectile if possible otherwise do nothing.
+     * Sets the shooter state to shooting or not shooting.
+     * @param state
+     *      true if the shooter should try to shoot.
      */
-    void shoot();
+    void setShootingState(boolean state);
 
     /**
      * Change max shootable.

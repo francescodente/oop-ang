@@ -68,6 +68,13 @@ public abstract class GameSession {
     }
 
     /**
+     * This is the getter of the stage.
+     * @return
+     *      The current stage.
+     */
+    public abstract int getStage();
+
+    /**
      * Returns the current score of the session.
      * @return
      *      the current score value.

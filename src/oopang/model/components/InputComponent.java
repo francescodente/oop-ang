@@ -15,7 +15,7 @@ public class InputComponent extends AbstractComponent {
 
     private InputReader controller;
     private final Consumer<Vector2D> velocityApplier;
-    private final Runnable shootHandler;
+    private final Consumer<Boolean> shootHandler;
     /**
      * Create a new Input Component for the specified GameObject.
      * @param obj
@@ -25,7 +25,7 @@ public class InputComponent extends AbstractComponent {
      * @param shootHandler
      *      the runnable controlling the shoot.
      */
-    public InputComponent(final GameObject obj, final Consumer<Vector2D> velocityApplier, final Runnable shootHandler) {
+    public InputComponent(final GameObject obj, final Consumer<Vector2D> velocityApplier, final Consumer<Boolean> shootHandler) {
         super(obj);
         this.velocityApplier = velocityApplier;
         this.shootHandler = shootHandler;
@@ -43,9 +43,7 @@ public class InputComponent extends AbstractComponent {
      *      boolean representing the shooting status
      */
     private void handleInput(final InputDirection direction, final boolean shoot) {
-        if (shoot) {
-            shootHandler.run();
-        }
+        shootHandler.accept(shoot);
         velocityApplier.accept(Vectors2D.RIGHT.multiply(direction.getDirection()));
     }
 

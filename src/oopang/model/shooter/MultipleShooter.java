@@ -15,13 +15,12 @@ import oopang.model.gameobjects.Shot;
 
 public class MultipleShooter implements Shooter {
 
-    private static final double COOLDOWN = 0.1;
-
     private int currentShotNumber;
-    private double cooldownTime;
     private int max;
     private final GameObject player;
     private Supplier<Shot> supplier;
+    private boolean lastShootingState;
+    private boolean currentShootingState;
 
     /**
      * Create a new MultipleShooter instance.
@@ -37,20 +36,23 @@ public class MultipleShooter implements Shooter {
         this.max = max;
         this.player = player;
         this.supplier = supplier;
+        this.currentShootingState = false;
+        this.lastShootingState = false;
     }
 
     @Override
-    public final boolean canShoot() {
-        return currentShotNumber < max && this.cooldownTime <= 0;
+    public boolean canShoot() {
+        return currentShotNumber < max 
+                && this.currentShootingState 
+                && this.currentShootingState != lastShootingState;
     }
 
-    @Override
-    public final void shoot() {
+
+    private void shoot() {
         if (canShoot()) {
             final Shot newShot = supplier.get();
             newShot.setPosition(player.getPosition());
             this.currentShotNumber++;
-            this.cooldownTime = COOLDOWN;
             newShot.getDestroyedEvent().register(s -> this.currentShotNumber--);
         }
     }
@@ -68,7 +70,13 @@ public class MultipleShooter implements Shooter {
 
     @Override
     public void update(final double deltaTime) {
-        this.cooldownTime -= deltaTime;
+        this.shoot();
+    }
+
+    @Override
+    public void setShootingState(final boolean state) {
+        this.lastShootingState = this.currentShootingState;
+        this.currentShootingState = state;
     }
 
 }
