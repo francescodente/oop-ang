@@ -70,4 +70,9 @@ public final class StoryModeGameSession extends GameSession {
     public boolean hasNextLevel() {
         return this.lives > 0 && this.currentLevel <= MAX_LEVEL;
     }
+
+    @Override
+    public int getStage() {
+        return this.currentLevel;
+    }
 }
