@@ -14,6 +14,8 @@ import oopang.commons.Timeable;
 import oopang.controller.users.User;
 import oopang.model.powers.PowerTag;
 import oopang.model.powers.TimedPower;
+import oopang.view.dialogs.DialogFactory;
+import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.rendering.ImageID;
 
 /**
@@ -119,9 +121,12 @@ public class JavaFXUIFactory {
         if (powerLevel == tag.getMaxLevel()) {
             upgradeButton.setDisable(true);
         }
+        final DialogFactory factory = new JavaFXDialogFactory();
         upgradeButton.setOnMouseClicked(e -> {
             if (user.spendCoins(tag.getCost(powerLevel))) {
                 user.setPowerLevel(tag, powerLevel + 1);
+            } else {
+                factory.createNotEnoughCoins().show();
             }
         });
         final BorderPane mainPane = new BorderPane();

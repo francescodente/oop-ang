@@ -34,7 +34,7 @@ public class JavaFXView implements View {
     @Override
     public final void launch(final Controller controller) {
         this.control = controller;
-        this.dialogfactory = new JavaFXDialogFactory(this);
+        this.dialogfactory = new JavaFXDialogFactory();
         this.stage.show();
         this.stage.setMinWidth(MIN_WIDTH);
         this.stage.setMinHeight(MIN_HEIGHT);

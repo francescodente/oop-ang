@@ -41,4 +41,11 @@ public interface DialogFactory {
      *       a dialog specific for the empty field error.
      */
     Dialog createEmptyFieldError(String fieldName);
+
+    /**
+     * Create a Not Enough Coins dialog.
+     * @return
+     *       a dialog specific for the not enough coins error.
+     */
+    Dialog createNotEnoughCoins();
 }

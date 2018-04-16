@@ -18,20 +18,9 @@ import oopang.view.View;
  */
 public class JavaFXDialogFactory implements DialogFactory {
 
-    private final View view;
-
-    /**
-     * Create a new JavaFXDialogFactory.
-     * @param view
-     *      the view Reference.
-     */
-    public JavaFXDialogFactory(final View view) {
-        this.view = view;
-    }
-
     @Override
     public Dialog createLevelNotLoaded(final Exception ex) {
-        return new JavaFXDialog(this.view) {
+        return new Dialog() {
             private final Alert alert = new Alert(AlertType.ERROR);
 
             @Override
@@ -64,7 +53,7 @@ public class JavaFXDialogFactory implements DialogFactory {
 
     @Override
     public Dialog createUserNotFound(final String username) {
-        return new JavaFXDialog(this.view) {
+        return new Dialog() {
             private final Alert alert = new Alert(AlertType.ERROR);
             @Override
             public void show() {
@@ -78,7 +67,7 @@ public class JavaFXDialogFactory implements DialogFactory {
 
     @Override
     public Dialog createFailedToRegisterUser(final String username) {
-        return new JavaFXDialog(this.view) {
+        return new Dialog() {
             private final Alert alert = new Alert(AlertType.ERROR);
             @Override
             public void show() {
@@ -92,7 +81,7 @@ public class JavaFXDialogFactory implements DialogFactory {
 
     @Override
     public Dialog createEmptyFieldError(final String fieldName) {
-        return new JavaFXDialog(this.view) {
+        return new Dialog() {
             private final Alert alert = new Alert(AlertType.WARNING);
             @Override
             public void show() {
@@ -104,4 +93,18 @@ public class JavaFXDialogFactory implements DialogFactory {
         };
     }
 
+    @Override
+    public Dialog createNotEnoughCoins() {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.WARNING);
+            @Override
+            public void show() {
+                alert.setTitle("Not enough coins");
+                alert.setHeaderText("You don't have enough coins");
+                alert.setContentText("You can't upgrade this power because you don't have the right amount of coins");
+                alert.showAndWait();
+            }
+
+        };
+    }
 }
