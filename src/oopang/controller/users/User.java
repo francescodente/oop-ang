@@ -61,6 +61,15 @@ public final class User implements Serializable {
     }
 
     /**
+     * Returns the xpPoints.
+     * @return
+     *      the xpPoints
+     */
+    public int getXpPoints() {
+        return this.xpPoints;
+    }
+
+    /**
      * Method that get the percentage of the XpPoints.
      * @return
      *      a double between 0 and 1.

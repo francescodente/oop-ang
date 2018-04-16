@@ -41,6 +41,7 @@ public final class UserProfileController extends SceneController {
         super.init(controller, view);
         this.user = controller.getUser().get();
         this.userName.setText(this.user.getName());
+        this.xpPoints.setText(user.getXpPoints() + " xp");
         this.levelRank.setText("Rank: " + this.user.getRank());
         this.xpBar.setProgress(this.user.getXpLevelPercentage());
         this.factory = new JavaFXUIFactory();
