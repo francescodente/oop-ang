@@ -1,6 +1,8 @@
 package oopang.controller.users;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -16,6 +18,7 @@ import oopang.model.powers.PowerTag;
  */
 public final class User implements Serializable {
 
+    private static final long serialVersionUID = -3367060662398059536L;
     private static final int MAX_LEVEL = 10;
     private static final double LIMIT_MULTIPLIER = 1.5;
     private static final int MIN_XP_LIMIT = 100000;
@@ -24,7 +27,6 @@ public final class User implements Serializable {
     private static final int REWARD_LEVEL_1_2 = 100;
     private static final int REWARD_LEVEL_3_4 = 500;
     private static final int RANK_LEVEL_5 = 5;
-    private static final long serialVersionUID = 6104521551950372404L;
 
     private final String name;
     private int coins;
@@ -75,7 +77,7 @@ public final class User implements Serializable {
      *      a double between 0 and 1.
      */
     public double getXpLevelPercentage() {
-        return this.xpPoints / this.computeNextRankLimit();
+        return this.xpPoints / (double) this.computeNextRankLimit();
     }
 
     /**
@@ -242,10 +244,23 @@ public final class User implements Serializable {
      * @param in
      *      input stream.
      * @throws IOException
+     *      if a problem occurred during I/O operations.
      * @throws ClassNotFoundException
+     *      if the class is not present.
      */
-    private void readObject(final java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         this.coinsEvent = new EventSource<>();
+    }
+
+    /**
+     * Method used to write the object on an output stream.
+     * @param out
+     *      output stream.
+     * @throws IOException
+     *      if a problem occurred during I/O operations.
+     */
+    private void writeObject(final ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
     }
 }
