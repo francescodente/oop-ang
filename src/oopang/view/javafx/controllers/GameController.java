@@ -1,18 +1,15 @@
 package oopang.view.javafx.controllers;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
 import oopang.model.Model;
@@ -20,13 +17,16 @@ import oopang.model.gameobjects.AbstractGameObjectVisitor;
 
 import oopang.model.gameobjects.Player;
 
-import oopang.model.input.InputDirection;
 import oopang.model.levels.Level;
 import oopang.model.powers.Power;
 import oopang.model.powers.PowerTag;
 import oopang.model.powers.TimedPower;
 import oopang.view.GameScene;
 import oopang.view.View;
+import oopang.view.javafx.controllers.gamestate.GameGUIState;
+import oopang.view.javafx.controllers.gamestate.IdleState;
+import oopang.view.javafx.controllers.gamestate.InGameState;
+import oopang.view.javafx.controllers.gamestate.PausedState;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.Renderer;
 import oopang.view.rendering.javafx.JavaFXCanvasDrawer;
@@ -37,7 +37,6 @@ import oopang.view.rendering.javafx.JavaFXUIFactory;
  */
 public final class GameController extends SceneController {
 
-    private Level level;
     @FXML
     private Canvas canvas;
     @FXML
@@ -59,14 +58,21 @@ public final class GameController extends SceneController {
     @FXML
     private Pane livesContainer;
     @FXML
-    private StackPane stackpanel;
+    private Pane pausePane;
     private CanvasDrawer canvasDrawer;
     private JavaFXUIFactory iconFactory;
-    private boolean isInPause;
+    private Level level;
+    private GameGUIState currentState;
+    private GameGUIState idleState;
+    private GameGUIState inGameState;
+    private GameGUIState pausedState;
 
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
+        this.idleState = new IdleState(this, controller);
+        this.inGameState = new InGameState(this, controller);
+        this.pausedState = new PausedState(this, controller, this.pausePane);
         this.iconFactory = new JavaFXUIFactory();
         for (int j = 0; j < this.getController().getLifeCount(); j++) {
             final Node icon = this.iconFactory.createHeartIcon();
@@ -92,45 +98,17 @@ public final class GameController extends SceneController {
             if (this.level.getRemainingTime() != 0) {
                 Platform.runLater(() -> this.timebarContainer.setCenter(iconFactory.createTimeBar(this.level)));
             }
-        }); 
+        });
         this.canvasContainer.widthProperty().addListener(w -> this.resizeCanvas());
         this.canvasContainer.heightProperty().addListener(h -> this.resizeCanvas());
         this.statusBarContainer.prefWidthProperty().bind(this.canvas.widthProperty());
         this.getController().continueGameSession();
-        this.isInPause = false;
+        this.setState(this.idleState);
     }
 
     @Override
-    @FXML
     public void onKeyPressed(final KeyEvent event) {
-        if (event.getCode() == KeyCode.LEFT) {
-            this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.RIGHT) {
-            this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.SPACE) {
-            this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.A) {
-            this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.D) {
-            this.getController().sendCommand(e -> e.setDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.CONTROL) {
-            this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.P) {
-            final ObservableList<Node> childs = stackpanel.getChildren();
-            final Node topNode = childs.get(childs.size() - 1);
-            topNode.toBack();
-            if (!this.isInPause) {
-                this.getController().pauseGame();
-                childs.get(childs.size() - 1).setVisible(true);
-                this.isInPause = true;
-            } else {
-                this.getController().resume();
-                childs.get(0).setVisible(false);
-                this.isInPause = false;
-            }
-        } else if (event.getCode() == KeyCode.Q) {
-            this.getController().forceCloseGameSession();
-        }
+        this.currentState.onKeyPressed(event);
     }
 
     /**
@@ -140,19 +118,7 @@ public final class GameController extends SceneController {
      */
     @FXML
     public void handleReleased(final KeyEvent event) {
-        if (event.getCode() == KeyCode.LEFT) {
-            this.getController().sendCommand(e -> e.removeDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.RIGHT) {
-            this.getController().sendCommand(e -> e.removeDirection(InputDirection.RIGHT), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.SPACE) {
-            this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_ONE);
-        } else if (event.getCode() == KeyCode.A) {
-            this.getController().sendCommand(e -> e.removeDirection(InputDirection.LEFT), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.D) {
-            this.getController().sendCommand(e -> e.removeDirection(InputDirection.RIGHT), PlayerTag.PLAYER_TWO);
-        } else if (event.getCode() == KeyCode.CONTROL) {
-            this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_TWO);
-        }
+        this.currentState.onKeyReleased(event);
     }
 
     /**
@@ -161,7 +127,7 @@ public final class GameController extends SceneController {
     @Override
     public void render() {
         this.score.setText(Integer.toString(this.level.getScore() + this.getController().getCurrentTotalScore()));
-        canvasDrawer.draw();
+        this.canvasDrawer.draw();
     }
 
     @Override
@@ -217,5 +183,46 @@ public final class GameController extends SceneController {
             icon.fitHeightProperty().bind(toBeUsedShooterPane.heightProperty());
             Platform.runLater(() -> toBeUsedShooterPane.getChildren().add(icon));
         }
+    }
+
+    /**
+     * Sets the current state of the game gui. This causes the onStateEntry() and onStateExit()
+     * methods to be called on the new and old state respectively.
+     * @param state
+     *      the new state.
+     */
+    public void setState(final GameGUIState state) {
+        if (this.currentState != null) {
+            this.currentState.onStateExit();
+        }
+        this.currentState = state;
+        this.currentState.onStateEntry();
+    }
+
+    /**
+     * Returns the idle state of the game gui.
+     * @return
+     *      the idleState
+     */
+    public GameGUIState getIdleState() {
+        return this.idleState;
+    }
+
+    /**
+     * Returns the in game state of the game gui.
+     * @return
+     *      the inGameState
+     */
+    public GameGUIState getInGameState() {
+        return this.inGameState;
+    }
+
+    /**
+     * Returns the paused state of the game gui.
+     * @return
+     *      the pausedState
+     */
+    public GameGUIState getPausedState() {
+        return this.pausedState;
     }
 }
