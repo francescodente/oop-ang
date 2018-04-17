@@ -17,6 +17,7 @@ public class JavaFXView implements View {
 
     private static final double MIN_WIDTH = 384;
     private static final double MIN_HEIGHT = 200;
+    private static final String TITLE = "OOPang";
     private Controller control;
     private SceneController currentScene;
     private final Stage stage;
@@ -38,6 +39,8 @@ public class JavaFXView implements View {
         this.stage.show();
         this.stage.setMinWidth(MIN_WIDTH);
         this.stage.setMinHeight(MIN_HEIGHT);
+        this.stage.setMaximized(true);
+        this.stage.setTitle(TITLE);
         this.loadScene(GameScene.MAIN_MENU);
     }
 
