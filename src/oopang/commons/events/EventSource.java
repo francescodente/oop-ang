@@ -36,6 +36,6 @@ public final class EventSource<T> implements Event<T> {
      *      the argument of the event.
      */
     public void trigger(final T arg) {
-        this.registeredHandlers.stream().forEach(h -> h.handle(arg));
+        this.registeredHandlers.forEach(h -> h.handle(arg));
     }
 }
