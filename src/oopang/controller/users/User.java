@@ -202,7 +202,7 @@ public final class User implements Serializable {
     }
 
     private int computeNextRankLimit() {
-        return (MIN_XP_LIMIT * ((int) (Math.pow(LIMIT_MULTIPLIER, this.rank))) * 10);
+        return MIN_XP_LIMIT * (int) Math.pow(LIMIT_MULTIPLIER, this.rank);
     }
 
     /**
