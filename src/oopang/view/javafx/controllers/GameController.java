@@ -1,6 +1,7 @@
 package oopang.view.javafx.controllers;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
 import oopang.model.Model;
@@ -39,11 +41,11 @@ public final class GameController extends SceneController {
     @FXML
     private Canvas canvas;
     @FXML
-    private Pane root;
-    @FXML
     private BorderPane timebarContainer;
     @FXML
     private Pane canvasContainer;
+    @FXML
+    private Pane statusBarContainer;
     @FXML
     private Pane player1Powers;
     @FXML
@@ -56,8 +58,15 @@ public final class GameController extends SceneController {
     private Label score;
     @FXML
     private Pane livesContainer;
+    @FXML
+    private StackPane stackpanel;
     private CanvasDrawer canvasDrawer;
+<<<<<<< HEAD
     private JavaFXUIFactory iconFactory;
+=======
+    private JavaFXIconFactory iconFactory;
+    private boolean isInPause;
+>>>>>>> feature-Pause
 
     @Override
     public void init(final Controller controller, final View view) {
@@ -90,10 +99,13 @@ public final class GameController extends SceneController {
         }); 
         this.canvasContainer.widthProperty().addListener(w -> this.resizeCanvas());
         this.canvasContainer.heightProperty().addListener(h -> this.resizeCanvas());
+        this.statusBarContainer.prefWidthProperty().bind(this.canvas.widthProperty());
         this.getController().continueGameSession();
+        this.isInPause = false;
     }
 
     @Override
+    @FXML
     public void onKeyPressed(final KeyEvent event) {
         if (event.getCode() == KeyCode.LEFT) {
             this.getController().sendCommand(e -> e.setDirection(InputDirection.LEFT), PlayerTag.PLAYER_ONE);
@@ -108,9 +120,18 @@ public final class GameController extends SceneController {
         } else if (event.getCode() == KeyCode.CONTROL) {
             this.getController().sendCommand(e -> e.setShooting(true), PlayerTag.PLAYER_TWO);
         } else if (event.getCode() == KeyCode.P) {
-            this.getController().pauseGame();
-        } else if (event.getCode() == KeyCode.R) {
-            this.getController().resume();
+            final ObservableList<Node> childs = stackpanel.getChildren();
+            final Node topNode = childs.get(childs.size() - 1);
+            topNode.toBack();
+            if (!this.isInPause) {
+                this.getController().pauseGame();
+                childs.get(childs.size() - 1).setVisible(true);
+                this.isInPause = true;
+            } else {
+                this.getController().resume();
+                childs.get(0).setVisible(false);
+                this.isInPause = false;
+            }
         } else if (event.getCode() == KeyCode.Q) {
             this.getController().forceCloseGameSession();
         }
