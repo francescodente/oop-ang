@@ -61,12 +61,8 @@ public final class GameController extends SceneController {
     @FXML
     private StackPane stackpanel;
     private CanvasDrawer canvasDrawer;
-<<<<<<< HEAD
     private JavaFXUIFactory iconFactory;
-=======
-    private JavaFXIconFactory iconFactory;
     private boolean isInPause;
->>>>>>> feature-Pause
 
     @Override
     public void init(final Controller controller, final View view) {
