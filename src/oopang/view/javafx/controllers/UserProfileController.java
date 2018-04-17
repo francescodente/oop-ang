@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import oopang.controller.Controller;
 import oopang.controller.users.User;
@@ -45,7 +44,7 @@ public final class UserProfileController extends SceneController {
         this.levelRank.setText("Rank: " + this.user.getRank());
         this.xpBar.setProgress(this.user.getXpLevelPercentage());
         this.factory = new JavaFXUIFactory();
-        this.user.getCoinsEvent().register(n -> {
+        this.user.getUserModifiedEvent().register(n -> {
             Platform.runLater(() -> refresh());
         });
         refresh();
