@@ -16,7 +16,10 @@ import oopang.view.View;
  */
 public final class StoryModeGameSession extends GameSession {
 
-    private static final int MAX_LEVEL = 17;
+    /**
+     * The total number of available levels in the story mode.
+     */
+    public static final int MAX_LEVEL = 17;
     private static final int FULL_LIFE = 5;
     private int currentLevel;
     private int lives;
@@ -61,6 +64,7 @@ public final class StoryModeGameSession extends GameSession {
         }
         super.handleGameOver(status);
     }
+
     @Override
     public int getLifeCount() {
         return this.lives;
