@@ -121,6 +121,9 @@ public class JavaFXUIFactory {
         final ProgressBar bar = new ProgressBar(powerLevel / (double) tag.getMaxLevel());
         final String upgradeString = powerLevel == tag.getMaxLevel() ? "maxed" : tag.getCost(powerLevel) + " coins";
         final Button upgradeButton = new Button(upgradeString);
+        upgradeButton.setId("upgradeButton");
+        levelLabel.setId("levelLabel");
+        bar.setId("powerLevelBar");
         if (powerLevel == tag.getMaxLevel()) {
             upgradeButton.setDisable(true);
         }
@@ -141,4 +144,5 @@ public class JavaFXUIFactory {
         mainPane.setCenter(centerBox);
         return mainPane;
     }
+
 }
