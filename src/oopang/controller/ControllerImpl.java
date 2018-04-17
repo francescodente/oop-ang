@@ -114,6 +114,7 @@ public final class ControllerImpl implements Controller {
             this.user.ifPresent(u -> {
                 this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), this.gameSession.getStage()));
                 u.addXpPoints(this.gameSession.getTotalScore());
+                this.saveUser();
                 this.saveAction.accept(this.leaderboard);
             });
         }
