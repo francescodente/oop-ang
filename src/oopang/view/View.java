@@ -28,11 +28,6 @@ public interface View {
     void loadScene(GameScene scene);
 
     /**
-     * Shows the pause menu as an overlay of the game view.
-     */
-    void showPauseMenu();
-
-    /**
      * Returns the DialogFactory.
      * @return
      *      the dialogFactory

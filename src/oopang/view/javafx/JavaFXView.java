@@ -20,7 +20,7 @@ public class JavaFXView implements View {
     private Controller control;
     private SceneController currentScene;
     private final Stage stage;
-    private DialogFactory dialogfactory;
+    private final DialogFactory dialogfactory;
 
     /**
      * Creates a new javaFX specific view.
@@ -29,12 +29,12 @@ public class JavaFXView implements View {
      */
     public JavaFXView(final Stage stage) {
         this.stage = stage;
+        this.dialogfactory = new JavaFXDialogFactory();
     }
 
     @Override
     public final void launch(final Controller controller) {
         this.control = controller;
-        this.dialogfactory = new JavaFXDialogFactory();
         this.stage.show();
         this.stage.setMinWidth(MIN_WIDTH);
         this.stage.setMinHeight(MIN_HEIGHT);
@@ -66,12 +66,6 @@ public class JavaFXView implements View {
             }
         });
     }
-
-    @Override
-    public void showPauseMenu() {
-        // TODO Auto-generated method stub
-    }
-
 
     @Override
     public DialogFactory getDialogFactory() {
