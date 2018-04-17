@@ -1,11 +1,19 @@
 @font-face {
-    font-family: Commodore 64;
-    res: url('ka1.ttf');
+    -fx-font-family: Karmatic Arcade;
+    src: url("ka1.ttf");
 }
 
+@font-face {
+    -fx-font-family: Press Start 2P;
+    src: url("PressStart2P.ttf");
+}
+
+
 .root {
+	-fx-font-family: 'Press Start 2P';
 	-fx-background-color: black;
 }
+
 #mainpanel {
     -fx-background-image: url("pang.jpg");
     -fx-background-color: rgb(0, 0, 0);
@@ -19,13 +27,13 @@
 }
 
 #title {
-    -fx-text-fill: white;
-    -fx-font-family: 'Commodore 64';
+	-fx-font-family: 'Karmatic Arcade';
+    -fx-text-fill: yellow;
 }
 
 .label {
+	-fx-font-family: 'Karmatic Arcade';
     -fx-text-fill: white;
-    -fx-font-family: 'Commodore 64';
 }
 
 .text-field {
@@ -35,15 +43,14 @@
     -fx-border-color: white;
 }
 
-#back {
+.button {
     -fx-background-color: black;
     -fx-text-fill: white;
-    -fx-font-size: 25px;
-    -fx-font-family: 'Commodore 64';
+    -fx-font-size: 20px;
 }
 
-#back:hover {
-    -fx-text-weight: bold;
+.button:hover {
+    -fx-font-size: 15px;
 }
 
 #single {
@@ -98,6 +105,7 @@
     -fx-background-size: 60%;
 }
 
+
 .table-view {
     -fx-background-color: black;
 	-fx-font-size: 25px;
@@ -115,5 +123,14 @@
 	-fx-text-fill: yellow;
 }
 
+#pause {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+}
 
+.progress-bar .bar {
+	-fx-background-color: red;
+}
 
+.progress-bar .track {
+	-fx-background-color: transparent;
+}
