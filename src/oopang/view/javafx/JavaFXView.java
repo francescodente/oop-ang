@@ -1,6 +1,5 @@
 package oopang.view.javafx;
 
-import java.util.Arrays;
 
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -11,7 +10,6 @@ import oopang.view.View;
 import oopang.view.dialogs.DialogFactory;
 import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.javafx.controllers.SceneController;
-import oopang.view.rendering.ImageID;
 import oopang.view.rendering.javafx.ImageManager;
 
 /**
