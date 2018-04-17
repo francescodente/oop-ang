@@ -1,0 +1,11 @@
+#pause {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+}
+
+.progress-bar .bar {
+	-fx-background-color: red;
+}
+
+.progress-bar .track {
+	-fx-background-color: transparent;
+}

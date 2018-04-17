@@ -1,0 +1,58 @@
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+
+#single {
+    -fx-background-color: black;
+    -fx-background-image: url("singleplayer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#multi {
+    -fx-background-color: black;
+    -fx-background-image: url("multiplayer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#survival {
+    -fx-background-color: black;
+    -fx-background-image: url("survivalmode.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#arcade {
+    -fx-background-color: black;
+    -fx-background-image: url("tourmode.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#single:hover {
+    -fx-background-size: 60%;
+}
+
+#survival:hover {
+    -fx-background-size:60%;
+}
+
+#arcade:hover {
+    -fx-background-size: 60%;
+}
+
+#multi:hover {
+    -fx-background-size: 60%;
+}
