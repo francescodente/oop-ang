@@ -20,7 +20,6 @@ public class GameLoop extends Thread {
     private static final double MAX_UPDATE_BOUND = 0.04;
     private static final double MSEC_TO_SEC = 0.001;
     private static final int MAXINPUT = 20;
-    private static final long INITIAL_WAIT_TIME = 2000;
 
     private final View scene;
     private final Model world;
@@ -55,9 +54,6 @@ public class GameLoop extends Thread {
     public void run() {
         this.updateGame(0);
         this.render();
-        try {
-            Thread.sleep(INITIAL_WAIT_TIME);
-        } catch (InterruptedException ex) { }
         long lastTime = System.currentTimeMillis();
         while (!this.stopped) {
             if (this.paused) {

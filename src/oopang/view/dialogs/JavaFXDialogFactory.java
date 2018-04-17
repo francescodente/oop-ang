@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import oopang.view.View;
 
 /**
  * This is a JavaFX implementation of the DialogFactory.
@@ -105,6 +104,20 @@ public class JavaFXDialogFactory implements DialogFactory {
                 alert.showAndWait();
             }
 
+        };
+    }
+
+    @Override
+    public Dialog createUserNotSaved(final String username) {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.ERROR);
+            @Override
+            public void show() {
+                alert.setTitle("Saving error");
+                alert.setHeaderText("Failed to save " + username);
+                alert.setContentText("Last changes to user may not be effective in next run");
+                alert.showAndWait();
+            }
         };
     }
 }

@@ -43,8 +43,8 @@ public final class User implements Serializable {
         this.powerLevels = Arrays.stream(PowerTag.values()).collect(Collectors.toMap(p -> p, p -> 1));
         this.coins = 0;
         this.rank = 0;
-        this.setArcadeMaxStage(0);
-        this.setSurvivalMaxStage(0);
+        this.survivalMaxStage = 0;
+        this.arcadeMaxStage = 0;
         this.xpPoints = 0;
         this.name = name;
         this.userModifiedEvent = new EventSource<>();

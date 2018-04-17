@@ -7,6 +7,7 @@ import org.dyn4j.geometry.Circle;
 import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
+import oopang.model.Model;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.GravityComponent;
@@ -23,8 +24,10 @@ import oopang.model.physics.CollisionTag;
 public final class Ball extends AbstractGameObject {
 
     private static final double MAX_BOUNCE_HEIGHT = 82;
+    private static final double MAX_BOUNCE_HEIGHT_REVERSE = MAX_BOUNCE_HEIGHT + 10;
     private static final double MIN_BOUNCE_HEIGHT = 21;
     private static final double SIZE_MULTIPLIER = 1;
+
     /**
      * The default delta time multiplier.
      */
@@ -38,7 +41,7 @@ public final class Ball extends AbstractGameObject {
      *The max size of ball.
      */
     public static final int MAX_BALL_SIZE = 4;
-    private final double gConst;
+    private double gConst;
 
     private final GravityComponent gravity;
     private final MovementComponent movement;
@@ -62,7 +65,6 @@ public final class Ball extends AbstractGameObject {
         this.size = size;
         this.radius = calculateRadius(size);
         this.gravity = new GravityComponent(this);
-        this.gConst = -this.gravity.getGravity().getY();
         this.movement = new MovementComponent(this);
         this.movement.setVelocity(vector);
         this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
@@ -74,6 +76,7 @@ public final class Ball extends AbstractGameObject {
     public void start() {
         super.start();
         this.collision.getCollisionEvent().register(c -> handleCollision(c));
+        this.gConst =  -this.gravity.getGravity().getY();
     }
     @Override
     public void update(final double deltaTime) {
@@ -118,13 +121,25 @@ public final class Ball extends AbstractGameObject {
     }
 
     private double getBounceY() {
-        return Math.sqrt(2 * this.getBounceHeight() * gConst);
+        final double bounceModule = Math.sqrt(2 * this.getBounceHeight() * Math.abs(gConst));
+        return gravity.getGravity().getY() > 0 ? -bounceModule : bounceModule;
     }
 
     private double getBounceHeight() {
-        double yvalue;
-        yvalue = MIN_BOUNCE_HEIGHT + ((MAX_BOUNCE_HEIGHT - MIN_BOUNCE_HEIGHT) * (this.size - 1)) / (MAX_BALL_SIZE - MIN_BALL_SIZE);
-        return Math.max(0, yvalue - this.getPosition().getY());
+        int realSize;
+        double realYPosition;
+        double realMaxHeight;
+        if (gravity.getGravity().getY() > 0) {
+            realSize = MAX_BALL_SIZE - this.size + 1;
+            realYPosition = Model.WORLD_HEIGHT - this.getPosition().getY();
+            realMaxHeight = MAX_BOUNCE_HEIGHT_REVERSE;
+        } else {
+            realSize = this.size;
+            realYPosition = this.getPosition().getY();
+            realMaxHeight = MAX_BOUNCE_HEIGHT;
+        }
+        final double yvalue = MIN_BOUNCE_HEIGHT + ((realMaxHeight - MIN_BOUNCE_HEIGHT) * (realSize - 1)) / (MAX_BALL_SIZE - MIN_BALL_SIZE);
+        return Math.max(0, yvalue - realYPosition);
     }
 
     /**

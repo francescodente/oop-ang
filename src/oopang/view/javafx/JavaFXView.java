@@ -1,5 +1,6 @@
 package oopang.view.javafx;
 
+
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -9,6 +10,7 @@ import oopang.view.View;
 import oopang.view.dialogs.DialogFactory;
 import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.javafx.controllers.SceneController;
+import oopang.view.rendering.javafx.ImageManager;
 
 /**
  * This is the concrete implementation of the view Interface.
@@ -22,6 +24,7 @@ public class JavaFXView implements View {
     private SceneController currentScene;
     private final Stage stage;
     private final DialogFactory dialogfactory;
+    private boolean viewStarted;
 
     /**
      * Creates a new javaFX specific view.
@@ -31,17 +34,19 @@ public class JavaFXView implements View {
     public JavaFXView(final Stage stage) {
         this.stage = stage;
         this.dialogfactory = new JavaFXDialogFactory();
+        this.viewStarted = false;
     }
 
     @Override
     public final void launch(final Controller controller) {
         this.control = controller;
-        this.stage.show();
         this.stage.setMinWidth(MIN_WIDTH);
         this.stage.setMinHeight(MIN_HEIGHT);
         this.stage.setMaximized(true);
         this.stage.setTitle(TITLE);
         this.loadScene(GameScene.MAIN_MENU);
+        final Thread loader = new Thread(() -> ImageManager.getManager().loadAll());
+        loader.start();
     }
 
     @Override
@@ -51,23 +56,27 @@ public class JavaFXView implements View {
 
     @Override
     public final void loadScene(final GameScene scene) {
-        Platform.runLater(() -> {
-            try {
-                final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
+        try {
+            final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
+            wrapper.getController().init(control, this);
+            this.currentScene = wrapper.getController();
+            final Parent root = wrapper.getScene().getRoot();
+            root.requestFocus();
+            root.setOnKeyPressed(wrapper.getController()::onKeyPressed);
+            Platform.runLater(() -> {
                 final double oldWidth = this.stage.getWidth();
                 final double oldHeight = this.stage.getHeight();
                 this.stage.setScene(wrapper.getScene());
                 this.stage.setWidth(oldWidth);
                 this.stage.setHeight(oldHeight);
-                wrapper.getController().init(control, this);
-                this.currentScene = wrapper.getController();
-                final Parent root = wrapper.getScene().getRoot();
-                root.requestFocus();
-                root.setOnKeyPressed(wrapper.getController()::onKeyPressed);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+                if (!this.viewStarted) {
+                    this.stage.show();
+                    this.viewStarted = true;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

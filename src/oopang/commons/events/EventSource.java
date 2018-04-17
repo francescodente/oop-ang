@@ -1,7 +1,7 @@
 package oopang.commons.events;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Represents an event which accepts a {@link EventHandler} as an observer.
@@ -11,13 +11,13 @@ import java.util.List;
  */
 public final class EventSource<T> implements Event<T> {
 
-    private final List<EventHandler<T>> registeredHandlers;
+    private final BlockingQueue<EventHandler<T>> registeredHandlers;
 
     /**
      * Creates a new Event object with no handlers.
      */
     public EventSource() {
-        this.registeredHandlers = new ArrayList<>();
+        this.registeredHandlers = new LinkedBlockingQueue<>();
     }
 
     @Override
@@ -36,6 +36,6 @@ public final class EventSource<T> implements Event<T> {
      *      the argument of the event.
      */
     public void trigger(final T arg) {
-        this.registeredHandlers.stream().forEach(h -> h.handle(arg));
+        this.registeredHandlers.forEach(h -> h.handle(arg));
     }
 }

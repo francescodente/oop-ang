@@ -1,5 +1,6 @@
 package oopang.view.rendering.javafx;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import javafx.scene.image.Image;
@@ -31,6 +32,15 @@ public class ImageManager {
      */
     public Image getImage(final ImageID id) {
         return new Image(ImageManager.class.getResourceAsStream(id.getPath()));
+    }
+
+    /**
+     * Loads all images except backgrounds.
+     */
+    public void loadAll() {
+        Arrays.stream(ImageID.values())
+        .filter(id -> !id.isBackground())
+        .forEach(id -> this.getImage(id));
     }
 
     private static class ImageManagerProxy extends ImageManager {

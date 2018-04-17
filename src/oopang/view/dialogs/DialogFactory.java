@@ -48,4 +48,13 @@ public interface DialogFactory {
      *       a dialog specific for the not enough coins error.
      */
     Dialog createNotEnoughCoins();
+
+    /**
+     * Create a user not saved dialog.
+     * @param username
+     *      the username of the not saved user
+     * @return
+     *       a dialog specific for the user not saved error.
+     */
+    Dialog createUserNotSaved(String username);
 }

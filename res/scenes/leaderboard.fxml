@@ -7,8 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@/stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LeaderboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LeaderboardController">
    <center>
       <TableView fx:id="table" disable="false" BorderPane.alignment="CENTER">
         <columns>
@@ -32,4 +33,8 @@
          </font>
       </Label>
    </top>
+   <stylesheets>
+   	  <URL value="@/stylesheet/leaderboardstyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
 </BorderPane>

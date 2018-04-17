@@ -5,8 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<BorderPane id="panel" prefHeight="400.0" prefWidth="600.0" stylesheets="@/stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.SelectPlayersController">
+<BorderPane id="panel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.SelectPlayersController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -49,4 +50,8 @@
          </padding>
       </BorderPane>
    </bottom>
+   <stylesheets>
+   	  <URL value="@/stylesheet/menustyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
 </BorderPane>

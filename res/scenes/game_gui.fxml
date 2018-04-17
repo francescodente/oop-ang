@@ -8,31 +8,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<StackPane fx:id="stackpanel" onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0" stylesheets="@/stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameController">
+<StackPane onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameController">
    <children>
-      <BorderPane id="pause" prefHeight="200.0" prefWidth="200.0" visible="false">
-         <top>
-            <Label text="PAUSE" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </Label>
-         </top>
-         <center>
-            <Label alignment="CENTER" contentDisplay="TOP" lineSpacing="1.0" text="[P] TO RESUME GAME&#10;[Q] TO QUIT GAME" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <BorderPane.margin>
-                  <Insets bottom="50.0" />
-               </BorderPane.margin>
-            </Label>
-         </center>
-      </BorderPane>
       <GridPane minHeight="0.0" minWidth="0.0" onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -137,5 +116,31 @@
             </BorderPane>
          </children>
       </GridPane>
+      <BorderPane id="pause" fx:id="pausePane" prefHeight="200.0" prefWidth="200.0" visible="false">
+         <top>
+            <Label text="PAUSE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <padding>
+                  <Insets top="50.0" />
+               </padding>
+            </Label>
+         </top>
+         <center>
+            <Label alignment="CENTER" contentDisplay="TOP" lineSpacing="1.0" text="[P] TO RESUME GAME&#10;[Q] TO QUIT GAME" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="50.0" />
+               </BorderPane.margin>
+            </Label>
+         </center>
+      </BorderPane>
    </children>
+   <stylesheets>
+   	  <URL value="@/stylesheet/mainstyle.css" />
+      <URL value="@/stylesheet/guistyle.css" />
+   </stylesheets>
 </StackPane>

@@ -5,8 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@/stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LoginController">
+<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LoginController">
    <top>
       <Label id="title" text="WELCOME" BorderPane.alignment="CENTER">
          <font>
@@ -60,4 +61,8 @@
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
    </padding>
+   <stylesheets>
+   	  <URL value="@/stylesheet/menustyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
 </BorderPane>

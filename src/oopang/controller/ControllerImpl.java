@@ -37,6 +37,7 @@ public final class ControllerImpl implements Controller {
     private final LeaderboardManager leaderboardManager;
     private Leaderboard leaderboard;
     private Consumer<Leaderboard> saveAction;
+    private Consumer<Integer> saveMaxStage;
 
     /**
      * Create a new Controller instance.
@@ -69,6 +70,7 @@ public final class ControllerImpl implements Controller {
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboard(l);
+        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
     }
 
     @Override
@@ -77,6 +79,7 @@ public final class ControllerImpl implements Controller {
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
+        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
     }
 
     @Override
@@ -116,6 +119,7 @@ public final class ControllerImpl implements Controller {
                 u.addXpPoints(this.gameSession.getTotalScore());
                 this.saveUser();
                 this.saveAction.accept(this.leaderboard);
+                this.saveMaxStage.accept(this.gameSession.getStage());
             });
         }
         this.gameSession = null;
@@ -175,7 +179,11 @@ public final class ControllerImpl implements Controller {
 
     private void saveUser() {
         if (!this.userManager.saveUser(this.user.get())) {
+<<<<<<< HEAD
             //TODO: add dialog
+=======
+            this.view.getDialogFactory().createUserNotSaved(this.user.get().getName());
+>>>>>>> 85e4c5fc6b9474cd00bbbdbf890bcd6334abf4ab
         }
     }
 
