@@ -169,8 +169,10 @@ public final class ControllerImpl implements Controller {
         return this.gameSession.getTotalScore();
     }
 
-    private boolean saveUser() {
-        return this.userManager.saveUser(this.user.get());
+    private void saveUser() {
+        if (!this.userManager.saveUser(this.user.get())) {
+            this.view.getDialogFactory().createUserNotSaved(this.user.get().getName());
+        }
     }
 
 }
