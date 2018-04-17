@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level id>
+<Level>
     <Background>LONDON</Background>
     <WallTexture>BLUE_WALL</WallTexture>
     <Time>60</Time>
