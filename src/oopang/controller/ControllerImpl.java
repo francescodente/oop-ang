@@ -179,11 +179,7 @@ public final class ControllerImpl implements Controller {
 
     private void saveUser() {
         if (!this.userManager.saveUser(this.user.get())) {
-<<<<<<< HEAD
-            //TODO: add dialog
-=======
             this.view.getDialogFactory().createUserNotSaved(this.user.get().getName());
->>>>>>> 85e4c5fc6b9474cd00bbbdbf890bcd6334abf4ab
         }
     }
 
