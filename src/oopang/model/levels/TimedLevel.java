@@ -15,6 +15,7 @@ import oopang.model.gameobjects.GameObjectFactoryDecorator;
  */
 public class TimedLevel extends GameOverLevelDecorator {
 
+    private static final int TIME_SCORE_MULTIPLIER = 10000;
     private double timeLeft;
     private double totalTime;
     private int ballCount;
@@ -47,6 +48,7 @@ public class TimedLevel extends GameOverLevelDecorator {
             this.endLevel(LevelResult.OUT_OF_TIME);
         }
         if (this.ballCount == 0) {
+            this.addScore((int) (this.getRemainingTimePercentage() * TIME_SCORE_MULTIPLIER));
             this.endLevel(LevelResult.LEVEL_COMPLETE);
         }
     }
