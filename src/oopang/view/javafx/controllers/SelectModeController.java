@@ -8,9 +8,6 @@ import oopang.view.GameScene;
  * This class implements the scene SelectMode.
  */
 public final class SelectModeController extends SceneController {
-
-    private static final int START_LEVEL_INDEX = 1;
-
     /**
      * Method that loads the game from the selection Infinite Mode.
      */
@@ -25,9 +22,7 @@ public final class SelectModeController extends SceneController {
      */
     @FXML
     public void storyModeChoose() {
-        GameParameters.setLevelindex(START_LEVEL_INDEX);
-        this.getController().startStoryGameSession(GameParameters.getLevelindex(), GameParameters.isMultiplayer());
-        this.nextScene();
+        this.getView().loadScene(GameScene.SELECT_LEVEL);
     }
 
     @Override

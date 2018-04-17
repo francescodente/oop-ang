@@ -15,7 +15,7 @@ public final class GameParameters {
      *      The index of level.
      */
     public static void setLevelindex(final int levelindex) {
-    GameParameters.levelindex = levelindex;
+        GameParameters.levelindex = levelindex;
     }
     /**
      * Set the Multiplayer flag mood.
@@ -23,7 +23,7 @@ public final class GameParameters {
      *      Flag of Multiplayer mood.
      */
     public static void setMultiplayer(final boolean isMultiplayer) {
-    GameParameters.multiplayer = isMultiplayer;
+        GameParameters.multiplayer = isMultiplayer;
     }
     /**
      *  Getter of Level index.
