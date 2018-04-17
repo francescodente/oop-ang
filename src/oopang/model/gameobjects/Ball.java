@@ -24,8 +24,10 @@ import oopang.model.physics.CollisionTag;
 public final class Ball extends AbstractGameObject {
 
     private static final double MAX_BOUNCE_HEIGHT = 82;
+    private static final double MAX_BOUNCE_HEIGHT_REVERSE = MAX_BOUNCE_HEIGHT + 10;
     private static final double MIN_BOUNCE_HEIGHT = 21;
     private static final double SIZE_MULTIPLIER = 1;
+
     /**
      * The default delta time multiplier.
      */
@@ -124,9 +126,19 @@ public final class Ball extends AbstractGameObject {
     }
 
     private double getBounceHeight() {
-        final int realSize = gravity.getGravity().getY() > 0 ? MAX_BALL_SIZE - this.size + 1 : this.size;
-        final double yvalue = MIN_BOUNCE_HEIGHT + ((MAX_BOUNCE_HEIGHT - MIN_BOUNCE_HEIGHT) * (realSize - 1)) / (MAX_BALL_SIZE - MIN_BALL_SIZE);
-        final double realYPosition = gravity.getGravity().getY() > 0 ? Model.WORLD_HEIGHT - this.getPosition().getY() : this.getPosition().getY();
+        int realSize;
+        double realYPosition;
+        double realMaxHeight;
+        if (gravity.getGravity().getY() > 0) {
+            realSize = MAX_BALL_SIZE - this.size + 1;
+            realYPosition = Model.WORLD_HEIGHT - this.getPosition().getY();
+            realMaxHeight = MAX_BOUNCE_HEIGHT_REVERSE;
+        } else {
+            realSize = this.size;
+            realYPosition = this.getPosition().getY();
+            realMaxHeight = MAX_BOUNCE_HEIGHT;
+        }
+        final double yvalue = MIN_BOUNCE_HEIGHT + ((realMaxHeight - MIN_BOUNCE_HEIGHT) * (realSize - 1)) / (MAX_BALL_SIZE - MIN_BALL_SIZE);
         return Math.max(0, yvalue - realYPosition);
     }
 
