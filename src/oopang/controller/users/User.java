@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,7 @@ public final class User implements Serializable {
     private static final int MAX_LEVEL = 10;
     private static final double LIMIT_MULTIPLIER = 1.5;
     private static final int MIN_XP_LIMIT = 100000;
-    private static final int REWARD_LEVEL_8_9_10 = 2000;
-    private static final int REWARD_LEVEL_5_6_7 = 1500;
-    private static final int REWARD_LEVEL_1_2 = 100;
-    private static final int REWARD_LEVEL_3_4 = 500;
-    private static final int RANK_LEVEL_5 = 5;
+    private static final List<Integer> LEVELS_REWARD = Arrays.asList(100, 100, 500, 500, 1500, 1500, 1500, 2000, 2000, 2000); 
 
     private final String name;
     private int coins;
@@ -35,7 +32,7 @@ public final class User implements Serializable {
     private int arcadeMaxStage;
     private int xpPoints;
     private final Map<PowerTag, Integer> powerLevels;
-    private transient EventSource<Void> coinsEvent;
+    private transient EventSource<Void> userModifiedEvent;
 
     /**
      * Constructor of the class User.
@@ -50,7 +47,7 @@ public final class User implements Serializable {
         this.setSurvivalMaxStage(0);
         this.xpPoints = 0;
         this.name = name;
-        this.coinsEvent = new EventSource<>();
+        this.userModifiedEvent = new EventSource<>();
     }
 
     /**
@@ -85,8 +82,8 @@ public final class User implements Serializable {
      * @return
      *      the coin event.
      */
-    public Event<Void> getCoinsEvent() {
-        return this.coinsEvent;
+    public Event<Void> getUserModifiedEvent() {
+        return this.userModifiedEvent;
     }
 
     /**
@@ -113,15 +110,8 @@ public final class User implements Serializable {
      *      the value to calculate the reward.
      */
     private void addCoins() {
-        if (this.rank >= 8) {
-            this.coins += REWARD_LEVEL_8_9_10;
-        } else if (this.rank >= RANK_LEVEL_5) {
-            this.coins += REWARD_LEVEL_5_6_7;
-        } else if (this.rank <= 2) {
-            this.coins += this.rank * REWARD_LEVEL_1_2;
-        } else {
-            this.coins += (this.rank - 2) * REWARD_LEVEL_3_4;
-        }
+        this.coins = LEVELS_REWARD.get(this.rank);
+        this.userModifiedEvent.trigger(null);
     }
 
     /**
@@ -136,7 +126,7 @@ public final class User implements Serializable {
     public boolean spendCoins(final int amount) {
         if (this.coins >= amount) {
             this.coins -= amount;
-            this.coinsEvent.trigger(null);
+            this.userModifiedEvent.trigger(null);
             return true; 
         } 
             return false;
@@ -158,6 +148,7 @@ public final class User implements Serializable {
      */
     public void setSurvivalMaxStage(final int survivalMaxStage) {
         this.survivalMaxStage = survivalMaxStage;
+        this.userModifiedEvent.trigger(null);
     }
 
     /**
@@ -175,7 +166,10 @@ public final class User implements Serializable {
      *      value used to set the Arcade max stage.
      */
     public void setArcadeMaxStage(final int arcadeMaxStage) {
-        this.arcadeMaxStage = arcadeMaxStage;
+        if (arcadeMaxStage > this.arcadeMaxStage) {
+            this.arcadeMaxStage = arcadeMaxStage;
+            this.userModifiedEvent.trigger(null);
+        }
     }
 
     /**
@@ -188,6 +182,7 @@ public final class User implements Serializable {
             this.xpPoints += score;
             this.checkRank();
         }
+        this.userModifiedEvent.trigger(null);
     }
 
     /**
@@ -197,6 +192,7 @@ public final class User implements Serializable {
         final int nextRankLimit = computeNextRankLimit();
         if (this.xpPoints >= nextRankLimit) {
             this.xpPoints = this.xpPoints - nextRankLimit;
+            this.userModifiedEvent.trigger(null);
             addRank();
         }
     }
@@ -212,8 +208,10 @@ public final class User implements Serializable {
      */
     private boolean addRank() {
         if (this.rank < MAX_LEVEL) {
-            this.rank += 1;
             addCoins();
+            this.rank += 1;
+            this.userModifiedEvent.trigger(null);
+
             return true;
         }
         return false;
@@ -228,6 +226,7 @@ public final class User implements Serializable {
      */
     public void setPowerLevel(final PowerTag powerTag, final Integer level) {
         this.powerLevels.put(powerTag, level);
+        this.userModifiedEvent.trigger(null);
     }
 
     /**
@@ -250,7 +249,7 @@ public final class User implements Serializable {
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        this.coinsEvent = new EventSource<>();
+        this.userModifiedEvent = new EventSource<>();
     }
 
     /**
