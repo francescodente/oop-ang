@@ -6,8 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@/stylesheet/main_menu_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameOverController">
+<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameOverController">
    <top>
       <Label prefHeight="100.0" prefWidth="335.0" text="GAME OVER" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
          <font>
@@ -28,4 +29,8 @@
          </BorderPane.margin>
       </ImageView>
    </center>
+   <stylesheets>
+   	  <URL value="@/stylesheet/menustyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
 </BorderPane>

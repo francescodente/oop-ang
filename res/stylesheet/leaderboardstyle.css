@@ -1,7 +1,7 @@
 .table-view {
     -fx-background-color: black;
 	-fx-font-size: 25px;
-	-fx-font-family: 'Commodore 64';
+	-fx-font-family: 'Press Start 2P';
 }
 
 .table-column {
@@ -13,4 +13,5 @@
 
 .table-view .column-header-background .label {
 	-fx-text-fill: yellow;
+	-fx-font-family: 'Karmatic Arcade';
 }
