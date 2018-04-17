@@ -135,6 +135,10 @@ public final class ControllerImpl implements Controller {
     public boolean registerUser(final String userName, final String password) {
         final Optional<User> user = this.userManager.registerUser(userName, password);
         this.user = user;
+        if (this.user.isPresent()) {
+            this.user.get().getUserModifiedEvent()
+            .register(u -> this.saveUser());
+        }
         return this.user.isPresent();
     }
 
@@ -142,6 +146,10 @@ public final class ControllerImpl implements Controller {
     public boolean loginUser(final String userName, final String password) {
         final Optional<User> user = this.userManager.login(userName, password);
         this.user = user;
+        if (this.user.isPresent()) {
+            this.user.get().getUserModifiedEvent()
+            .register(u -> this.saveUser());
+        }
         return this.user.isPresent(); 
     }
 
@@ -165,8 +173,10 @@ public final class ControllerImpl implements Controller {
         return this.gameSession.getTotalScore();
     }
 
-    private boolean saveUser() {
-        return this.userManager.saveUser(this.user.get());
+    private void saveUser() {
+        if (!this.userManager.saveUser(this.user.get())) {
+            //TODO: add dialog
+        }
     }
 
 }
