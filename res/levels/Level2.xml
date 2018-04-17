@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level id = "2">
+<Level>
     <Background>KERIN</Background>
     <WallTexture>PURPLE_WALL</WallTexture>
     <Time>60</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "DOUBLESHOT"/>
-        <Power id = "ADHESIVESHOT"/>
         <Power id = "DOUBLESPEED"/>
     </AvailablePower>
     <GameObject>
-        <Ball color = "GREEN" size = "4">
+        <Ball color = "GREEN" size = "3">
             <Velocity>
                 <Vector x = "-17" y = "0"/>
             </Velocity>
             <Position>
-                <Point x = "0" y = "85"/>
+                <Point x = "82" y = "82"/>
             </Position>
         </Ball>
-        <Wall width ="60" height = "5.5">
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
             <Position>
-                <Point x = "0" y = "37"/>
+                <Point x = "-82" y = "82"/>
             </Position>
-        </Wall>
+        </Ball>
     </GameObject>
 </Level>

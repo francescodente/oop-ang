@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Level id = "4">
     <Background>ANGKOR_WAT</Background>
-    <WallTexture>YELLOW_WALL</WallTexture>
-    <Time>90</Time>
+    <WallTexture>GREEN_WALL</WallTexture>
+    <Time>60</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
-        <Power id = "DOUBLESPEED"/>
+        <Power id = "FREEZE"/>
+        <Power id = "ADHESIVESHOT"/>
     </AvailablePower>
     <GameObject>
-        <Ball color = "YELLOW" size = "4">
+        <Ball color = "PURPLE" size = "3">
             <Velocity>
                 <Vector x = "17" y = "0"/>
             </Velocity>
             <Position>
-                <Point x = "0" y = "85"/>
+                <Point x = "-82" y = "85"/>
             </Position>
         </Ball>
-        <Ball color = "YELLOW" size = "4">
+        <Ball color = "BLUE" size = "3">
             <Velocity>
-                <Vector x = "-17" y = "0"/>
+                <Vector x = "17" y = "0"/>
             </Velocity>
             <Position>
-                <Point x = "0" y = "85"/>
+                <Point x = "0" y = "60"/>
             </Position>
         </Ball>
-        <Wall width ="60" height = "5.5">
+        <Wall width ="45" height = "5.5">
             <Position>
-                <Point x = "0" y = "37"/>
+                <Point x = "0" y = "40"/>
             </Position>
         </Wall>
         <Wall width ="45" height = "5.5">
             <Position>
-                <Point x = "-75" y = "65"/>
+                <Point x = "-75" y = "60"/>
             </Position>
         </Wall>
         <Wall width ="45" height = "5.5">
             <Position>
-                <Point x = "75" y = "65"/>
+                <Point x = "75" y = "20"/>
             </Position>
         </Wall>
     </GameObject>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Level id = "1">
+<Level>
     <Background>FUJI</Background>
     <WallTexture>RED_WALL</WallTexture>
     <Time>60</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
-        <Power id = "DOUBLESHOT"/>
+        <Power id = "DOUBLESPEED"/>
     </AvailablePower>
     <GameObject>
         <Ball color = "RED" size = "4">

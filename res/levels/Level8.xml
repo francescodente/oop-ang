@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>PARIS</Background>
+    <WallTexture>ORANGE_WALL</WallTexture>
+    <Time>60</Time>
+    <AvailablePower>
+        <Power id = "FREEZE"/>
+        <Power id = "ADHESIVESHOT"/>
+        <Power id = "DYNAMITE"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "YELLOW" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "85" y = "45"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-85" y = "45"/>
+            </Position>
+        </Ball>
+        <Wall width ="37" height = "5.5">
+            <Position>
+                <Point x = "0" y = "25"/>
+            </Position>
+        </Wall>
+        <Wall width ="37" height = "5.5">
+            <Position>
+                <Point x = "52" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="37" height = "5.5">
+            <Position>
+                <Point x = "-52" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="15" height = "5.5">
+            <Position>
+                <Point x = "85" y = "25"/>
+            </Position>
+        </Wall>
+        <Wall width ="15" height = "5.5">
+            <Position>
+                <Point x = "-85" y = "25"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>
