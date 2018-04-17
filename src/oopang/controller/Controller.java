@@ -115,6 +115,13 @@ public interface Controller {
     Optional<User> getUser();
 
     /**
+     * Permanently saves changes to the logged user.
+     * @return
+     *      false if the operation could not be done.
+     */
+    boolean saveUser();
+
+    /**
      * Return the current total Score taken from the current GameSession.
      * @return
      *      the corrent total score.

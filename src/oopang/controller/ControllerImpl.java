@@ -164,5 +164,10 @@ public final class ControllerImpl implements Controller {
         return this.gameSession.getTotalScore();
     }
 
+    @Override
+    public boolean saveUser() {
+        return this.userManager.saveUser(this.user.get());
+    }
+
 }
 
