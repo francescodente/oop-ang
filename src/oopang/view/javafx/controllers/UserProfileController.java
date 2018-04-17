@@ -54,6 +54,7 @@ public final class UserProfileController extends SceneController {
      * Refresh all the values in the screen.
      */
     private void refresh() {
+        this.powerContainerBox.getChildren().clear();
         this.coins.setText("Coins: " + this.user.getCoins());
         Arrays.stream(PowerTag.values()).forEach(tag -> {
             this.powerContainerBox.getChildren().add(this.factory.createUpdatePowerLevelBlock(this.user, tag));

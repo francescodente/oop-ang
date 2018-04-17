@@ -1,6 +1,7 @@
 package oopang.view.rendering.javafx;
 
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -25,6 +26,8 @@ public class JavaFXUIFactory {
 
     private static final double HEART_SIZE = 40;
     private static final double BAR_HEIGHT_PERCENTAGE = 0.3;
+    private static final double PADDING_INTERNAL = 5;
+    private static final double PADDING_EXTERNAL = 10;
 
     /**
      * Create a icon for the heart.
@@ -115,7 +118,7 @@ public class JavaFXUIFactory {
         final int powerLevel = user.getPowerLevels().get(tag);
         final Label levelLabel = new Label("Level " + powerLevel);
         final ImageView icon = this.createPowerIcon(tag);
-        final ProgressBar bar = new ProgressBar(powerLevel / tag.getMaxLevel());
+        final ProgressBar bar = new ProgressBar(powerLevel / (double) tag.getMaxLevel());
         final String upgradeString = powerLevel == tag.getMaxLevel() ? "maxed" : tag.getCost(powerLevel) + " coins";
         final Button upgradeButton = new Button(upgradeString);
         if (powerLevel == tag.getMaxLevel()) {
@@ -132,7 +135,10 @@ public class JavaFXUIFactory {
         final BorderPane mainPane = new BorderPane();
         mainPane.setLeft(icon);
         mainPane.setRight(upgradeButton);
-        mainPane.setCenter(new VBox(levelLabel, bar));
+        mainPane.setPadding(new Insets(PADDING_EXTERNAL));
+        final VBox centerBox = new VBox(levelLabel, bar);
+        centerBox.setPadding(new Insets(PADDING_INTERNAL));
+        mainPane.setCenter(centerBox);
         return mainPane;
     }
 }
