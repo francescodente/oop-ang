@@ -1,5 +1,7 @@
 package oopang.view.javafx;
 
+import java.util.Arrays;
+
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -9,6 +11,8 @@ import oopang.view.View;
 import oopang.view.dialogs.DialogFactory;
 import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.javafx.controllers.SceneController;
+import oopang.view.rendering.ImageID;
+import oopang.view.rendering.javafx.ImageManager;
 
 /**
  * This is the concrete implementation of the view Interface.
@@ -43,6 +47,8 @@ public class JavaFXView implements View {
         this.stage.setMaximized(true);
         this.stage.setTitle(TITLE);
         this.loadScene(GameScene.MAIN_MENU);
+        final Thread loader = new Thread(() -> ImageManager.getManager().loadAll());
+        loader.start();
     }
 
     @Override
