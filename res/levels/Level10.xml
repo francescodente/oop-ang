@@ -26,7 +26,7 @@
         </Ball>
         <Ball color = "RED" size = "2">
             <Velocity>
-                <Vector x = "17" y = "0"/>
+                <Vector x = "-17" y = "0"/>
             </Velocity>
             <Position>
                 <Point x = "-80" y = "85"/>
@@ -50,7 +50,7 @@
         </Ball>
         <Ball color = "RED" size = "2">
             <Velocity>
-                <Vector x = "-17" y = "0"/>
+                <Vector x = "17" y = "0"/>
             </Velocity>
             <Position>
                 <Point x = "80" y = "85"/>
