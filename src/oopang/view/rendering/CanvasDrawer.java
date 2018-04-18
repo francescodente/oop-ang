@@ -25,8 +25,6 @@ public interface CanvasDrawer {
 
     /**
      * Returns the factory that should be used to generate compatible renderers for this canvas drawer.
-     * @param walltexture
-     *      the wall texture to be used.
      * @return
      *      the factory object.
      */
