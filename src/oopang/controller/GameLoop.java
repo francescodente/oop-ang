@@ -42,6 +42,7 @@ public class GameLoop extends Thread {
     public GameLoop(final View view, final Model model, final Map<PlayerTag, InputWriter> input) {
         super();
         this.setName("Game Loop");
+        this.setDaemon(true);
         this.scene = view;
         this.world = model;
         this.paused = false;
