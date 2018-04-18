@@ -4,7 +4,6 @@
     <WallTexture>YELLOW_WALL</WallTexture>
     <Time>30</Time>
     <AvailablePower>
-        <Power id = "DOUBLESPEED"/>
         <Power id = "DOUBLESHOT"/>
     </AvailablePower>
     <GameObject>
