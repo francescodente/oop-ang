@@ -29,6 +29,10 @@ public class WallRenderer extends GameObjectRenderer<Wall> {
         sprite.setSource(walltexture);
         final double width = gameObject.getWidth() * sprite.getSourceWidth() / MAX_WALL_SIZE;
         final double height = gameObject.getHeight() * sprite.getSourceHeight() / MAX_WALL_SIZE;
-        sprite.setSourceWindow(Points2D.ZERO, Vectors2D.of(width, height));
+        double x = gameObject.getPosition().getX() + Model.TOTAL_WIDTH / 2 - gameObject.getWidth() / 2;
+        double y = Model.TOTAL_HEIGHT - (gameObject.getPosition().getY() - Model.WALL_WIDTH + gameObject.getHeight() / 2);
+        x *= sprite.getSourceWidth() / MAX_WALL_SIZE;
+        y *= sprite.getSourceHeight() / MAX_WALL_SIZE;
+        sprite.setSourceWindow(Points2D.of(x, y), Vectors2D.of(width, height));
     }
 }
