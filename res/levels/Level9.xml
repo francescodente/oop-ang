@@ -4,7 +4,6 @@
     <WallTexture>BLUE_WALL</WallTexture>
     <Time>60</Time>
     <AvailablePower>
-        <Power id = "DYNAMITE"/>
         <Power id = "ADHESIVESHOT"/>
         <Power id = "FREEZE"/>
     </AvailablePower>
