@@ -15,3 +15,15 @@
     -fx-border-width: 3px;
     -fx-border-color: white;
 }
+
+#username {
+    -fx-border-style: dotted;
+    -fx-border-width: 3; 
+    -fx-border-color: white white black white;
+}
+
+#password {
+    -fx-border-style: dotted;
+    -fx-border-width: 3; 
+    -fx-border-color: black white white white;
+}
