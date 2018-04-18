@@ -5,6 +5,12 @@
     -fx-border-color: white;
 }
 
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
 #single {
     -fx-background-color: black;
     -fx-background-image: url("singleplayer.png");

@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import oopang.controller.Controller;
 import oopang.controller.users.User;
@@ -78,6 +80,12 @@ public final class UserProfileController extends SceneController {
     public void logout() {
         this.getController().logoutUser();
         this.getView().loadScene(GameScene.LOGIN);
+    }
+    
+    public void onKeyPressed(final KeyEvent event) {
+        if (event.getCode() == KeyCode.Q) {
+            this.nextScene();
+        }
     }
 
 }

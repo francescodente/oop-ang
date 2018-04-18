@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LevelSelectorController">
    <bottom>
       <FlowPane alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="BACK" />
+            <Button id="back" mnemonicParsing="false" onMouseClicked="#back" text="BACK">
+               <FlowPane.margin>
+                  <Insets left="22.0" />
+               </FlowPane.margin></Button>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -36,23 +41,35 @@
          <children>
             <Label id="easy" text="Easy">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </Label>
             <Label id="medium" layoutX="48.0" layoutY="39.0" text="Medium" GridPane.rowIndex="1">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </Label>
             <Label id="hard" layoutX="38.0" layoutY="114.0" text="Hard" GridPane.rowIndex="2">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </Label>
             <Label id="hell" layoutX="38.0" layoutY="39.0" text="Hell" GridPane.rowIndex="3">
                <font>
-                  <Font size="20.0" />
+                  <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </Label>
          </children>
          <BorderPane.margin>
@@ -61,10 +78,20 @@
       </GridPane>
    </center>
    <top>
-      <Label text="Choose a Level" BorderPane.alignment="CENTER">
+      <Label id="choose" text="Choose a Level" BorderPane.alignment="CENTER">
          <font>
             <Font size="40.0" />
          </font>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="35.0" top="35.0" />
+         </padding>
       </Label>
    </top>
+   <stylesheets>
+      <URL value="@/stylesheet/mainstyle.css" />
+      <URL value="@/stylesheet/levelstyle.css" />
+   </stylesheets>
 </BorderPane>
