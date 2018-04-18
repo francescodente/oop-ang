@@ -1,5 +1,7 @@
 package oopang.model.powers;
 
+import java.util.function.Supplier;
+
 import oopang.commons.events.EventHandler;
 import oopang.model.gameobjects.AbstractGameObjectVisitor;
 import oopang.model.gameobjects.Ball;
@@ -16,6 +18,7 @@ public final class DoubleSpeed extends TimedPower {
     private static final PowerTag TAG = PowerTag.DOUBLESPEED;
     private static final int INITIALVALUE = 4;
     private static final double TIMEFEE = 0.5;
+    private static final Supplier<Double> MULTIPLIER = () -> SLOW_TIME_MULTIPLIER;
     private final GameObjectVisitor<Void> activator;
     private final GameObjectVisitor<Void> deactivator;
     private final EventHandler<GameObject> slower;
@@ -47,8 +50,8 @@ public final class DoubleSpeed extends TimedPower {
     public void activate(final Player player) {
         super.activate(player);
         LevelManager.getCurrentLevel()
-        .getAllObjects()
-        .forEach(o -> o.accept(activator));
+            .getAllObjects()
+            .forEach(o -> o.accept(activator));
         LevelManager.getCurrentLevel().getObjectCreatedEvent().register(slower);
     }
 
@@ -56,21 +59,17 @@ public final class DoubleSpeed extends TimedPower {
     public void deactivate() {
         super.deactivate();
         LevelManager.getCurrentLevel()
-        .getAllObjects()
-        .forEach(o -> o.accept(deactivator));
+            .getAllObjects()
+            .forEach(o -> o.accept(deactivator));
         LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(slower);
     }
 
     private void slowBall(final Ball ball) {
-        if (ball.getTimeMultiplier() != 0) {
-            ball.setTimeMultiplier(SLOW_TIME_MULTIPLIER);
-        }
+        ball.addTimeMultiplier(MULTIPLIER);
     }
 
     private void unlockBall(final Ball ball) {
-        if (ball.getTimeMultiplier() != 0) {
-            ball.setTimeMultiplier(Ball.DEFAULT_TIME_MULTIPLIER);
-        }
+        ball.removeTimeMultiplier(MULTIPLIER);
     }
 
     private static double calculateTimeout(final int powerlevel) {

@@ -1,5 +1,7 @@
 package oopang.model.powers;
 
+import java.util.function.Supplier;
+
 import oopang.commons.events.EventHandler;
 import oopang.model.gameobjects.Ball;
 import oopang.model.gameobjects.GameObject;
@@ -15,7 +17,7 @@ public final class Freeze extends TimedPower {
     private static final PowerTag TAG = PowerTag.FREEZE;
     private static final int INITIALVALUE = 3;
     private static final double TIMEFEE = 0.5;
-    private static final double FREEZE_MULTIPLIER = 0;
+    private static final Supplier<Double> FREEZE_MULTIPLIER = () -> 0.0;
     private final GameObjectVisitor<Void> activator;
     private final GameObjectVisitor<Void> deactivator;
     private final EventHandler<GameObject> frieza;
@@ -74,11 +76,11 @@ public final class Freeze extends TimedPower {
     }
 
     private void freezeBall(final Ball ball) {
-        ball.setTimeMultiplier(FREEZE_MULTIPLIER);
+        ball.addTimeMultiplier(FREEZE_MULTIPLIER);
     }
 
     private void unlockBall(final Ball ball) {
-        ball.setTimeMultiplier(Ball.DEFAULT_TIME_MULTIPLIER);
+        ball.removeTimeMultiplier(FREEZE_MULTIPLIER);
     }
 
     private static double calculateTimeout(final int powerlevel) {

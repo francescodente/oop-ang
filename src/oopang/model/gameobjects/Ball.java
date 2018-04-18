@@ -1,5 +1,8 @@
 package oopang.model.gameobjects;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.dyn4j.geometry.Circle;
@@ -41,14 +44,15 @@ public final class Ball extends AbstractGameObject {
      *The max size of ball.
      */
     public static final int MAX_BALL_SIZE = 4;
-    private double gConst;
 
+    private double gConst;
     private final GravityComponent gravity;
     private final MovementComponent movement;
     private final CollisionComponent collision;
     private final double radius;
     private final int size;
     private final BallColor color;
+    private final Set<Supplier<Double>> timeMultipliers;
     private double timeMultiplier;
 
     /**
@@ -70,6 +74,7 @@ public final class Ball extends AbstractGameObject {
         this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
         this.color = color;
         this.timeMultiplier = DEFAULT_TIME_MULTIPLIER;
+        this.timeMultipliers = new HashSet<>();
     }
 
     @Override
@@ -80,7 +85,7 @@ public final class Ball extends AbstractGameObject {
     }
     @Override
     public void update(final double deltaTime) {
-        super.update(deltaTime * this.timeMultiplier);
+        super.update(deltaTime * this.getTimeMultiplier());
     }
 
     @Override
@@ -223,11 +228,26 @@ public final class Ball extends AbstractGameObject {
     }
 
     /**
+     * Adds a new time multiplier to this object.
+     * @param value
+     *      the supplier of the multiplier value.
+     */
+    public void addTimeMultiplier(final Supplier<Double> value) {
+        this.timeMultipliers.add(value);
+    }
+
+    public void removeTimeMultiplier(final Supplier<Double> value) {
+        this.timeMultipliers.remove(value);
+    }
+
+    /**
      * Returns the current time multiplier.
      * @return
      *      the current time multiplier.
      */
     public double getTimeMultiplier() {
-        return this.timeMultiplier;
+        return this.timeMultipliers.stream()
+                .mapToDouble(Supplier::get)
+                .reduce(1, (a, b) -> a * b);
     }
 }
