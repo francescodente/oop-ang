@@ -1,0 +1,17 @@
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#howto {
+    -fx-border-width: 3px;
+    -fx-border-color: white;
+}

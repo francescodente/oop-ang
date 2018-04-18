@@ -14,14 +14,8 @@
 	-fx-background-color: black;
 }
 
-.button {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 20px;
-}
-
 .button:hover {
-    -fx-font-size: 15px;
+    -fx-text-fill: yellow;
 }
 
 .label {
