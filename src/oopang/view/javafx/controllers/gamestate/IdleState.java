@@ -1,6 +1,7 @@
 package oopang.view.javafx.controllers.gamestate;
 
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import oopang.controller.Controller;
 import oopang.view.javafx.controllers.GameController;
 
@@ -11,24 +12,28 @@ import oopang.view.javafx.controllers.GameController;
 public class IdleState extends GameGUIState {
 
     private boolean keyPressed;
+    private final Pane startMessage;
     /**
      * 
      * @param gameGui
      * @param controller
      */
-    public IdleState(final GameController gameGui, final Controller controller) {
+    public IdleState(final GameController gameGui, final Controller controller, final Pane startMessage) {
         super(gameGui, controller);
         this.keyPressed = false;
+        this.startMessage = startMessage;
     }
 
     @Override
     public void onStateEntry() {
         this.getController().pauseGame();
+        this.startMessage.setVisible(true);
     }
 
     @Override
     public void onStateExit() {
         this.getController().resume();
+        this.startMessage.setVisible(false);
     }
 
     @Override

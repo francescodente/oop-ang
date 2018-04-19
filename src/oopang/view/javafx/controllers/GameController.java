@@ -58,6 +58,8 @@ public final class GameController extends SceneController {
     @FXML
     private Pane livesContainer;
     @FXML
+    private Pane startMessage;
+    @FXML
     private Pane pausePane;
     private CanvasDrawer canvasDrawer;
     private JavaFXUIFactory iconFactory;
@@ -70,7 +72,7 @@ public final class GameController extends SceneController {
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
-        this.idleState = new IdleState(this, controller);
+        this.idleState = new IdleState(this, controller, this.startMessage);
         this.inGameState = new InGameState(this, controller);
         this.pausedState = new PausedState(this, controller, this.pausePane);
         this.iconFactory = new JavaFXUIFactory();
