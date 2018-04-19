@@ -61,6 +61,8 @@ public final class GameController extends SceneController {
     private Pane startMessage;
     @FXML
     private Pane pausePane;
+    @FXML
+    private Label stage;
     private CanvasDrawer canvasDrawer;
     private JavaFXUIFactory iconFactory;
     private Level level;
@@ -129,6 +131,7 @@ public final class GameController extends SceneController {
     @Override
     public void render() {
         this.score.setText(Integer.toString(this.level.getScore() + this.getController().getCurrentTotalScore()));
+        this.stage.setText(Integer.toString(this.getController().getCurrentStage()));
         this.canvasDrawer.draw();
     }
 

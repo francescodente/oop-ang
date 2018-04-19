@@ -124,6 +124,9 @@
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
                         </Label>
                         <Label fx:id="stage" alignment="BOTTOM_RIGHT" layoutX="232.0" layoutY="86.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="&lt;STAGE&gt;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
@@ -132,6 +135,9 @@
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
                         </Label>
                      </children>
                   </GridPane>

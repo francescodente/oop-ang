@@ -183,5 +183,10 @@ public final class ControllerImpl implements Controller {
         }
     }
 
+    @Override
+    public int getCurrentStage() {
+        return this.gameSession.getStage();
+    }
+
 }
 

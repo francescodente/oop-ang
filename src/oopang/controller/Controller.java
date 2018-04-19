@@ -120,4 +120,9 @@ public interface Controller {
      *      the corrent total score.
      */
     int getCurrentTotalScore();
+    
+    /**
+     * Get current stage.
+     */
+    int getCurrentStage();
 }
