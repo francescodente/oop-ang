@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardRecord;
+import oopang.view.GameParameters;
 import oopang.view.GameScene;
 import oopang.view.View;
 
@@ -62,5 +63,17 @@ public class LeaderboardController extends SceneController {
 
     private Leaderboard getLeaderboard() {
         return this.getController().getLeaderboard();
+    }
+
+    @FXML
+    public void checkRestart() {
+        if (GameParameters.getIfStoryMode()) {
+            this.getController().startStoryGameSession(GameParameters.getLevelindex(), GameParameters.isMultiplayer());
+            this.getView().loadScene(GameScene.GAME_GUI);
+        }
+        else {
+            this.getController().startInifiniteGameSession(GameParameters.isMultiplayer());
+            this.getView().loadScene(GameScene.GAME_GUI);
+        }
     }
 }

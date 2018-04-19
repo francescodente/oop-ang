@@ -15,3 +15,13 @@
 	-fx-text-fill: yellow;
 	-fx-font-family: 'Karmatic Arcade';
 }
+
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.button:hover {
+    -fx-text-fill: yellow;
+}
