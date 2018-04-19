@@ -1,7 +1,7 @@
 package oopang.model.gameobjects;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -48,7 +48,7 @@ public final class Ball extends AbstractGameObject {
     private final double radius;
     private final int size;
     private final BallColor color;
-    private final Set<Supplier<Double>> timeMultipliers;
+    private final List<Supplier<Double>> timeMultipliers;
 
     /**
      * Creates the GameObject of the type Ball.
@@ -68,7 +68,7 @@ public final class Ball extends AbstractGameObject {
         this.movement.setVelocity(vector);
         this.collision = new CollisionComponent(this, new Circle(radius), CollisionTag.BALL);
         this.color = color;
-        this.timeMultipliers = new HashSet<>();
+        this.timeMultipliers = new ArrayList<>();
     }
 
     @Override
