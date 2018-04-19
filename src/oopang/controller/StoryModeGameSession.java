@@ -21,6 +21,7 @@ public final class StoryModeGameSession extends GameSession {
      */
     public static final int MAX_LEVEL = 17;
     private static final int FULL_LIFE = 5;
+    private static final int SCORE_TO_GET_LIFE = 100000;
     private int currentLevel;
     private int lives;
 
@@ -56,6 +57,8 @@ public final class StoryModeGameSession extends GameSession {
     public void handleGameOver(final GameOverStatus status) {
         final LevelResult result = status.getResult();
         if (result == LevelResult.LEVEL_COMPLETE) {
+            final int scoreForLife = this.getTotalScore() % SCORE_TO_GET_LIFE + status.getScore();
+            this.lives += scoreForLife / SCORE_TO_GET_LIFE;
             super.addScore(status.getScore());
             this.currentLevel++;
         }
