@@ -2,7 +2,7 @@
 <Level>
     <Background>EMERALD_BUDDHA</Background>
     <WallTexture>ORANGE_WALL</WallTexture>
-    <Time>90</Time>
+    <Time>40</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "DOUBLESPEED"/>

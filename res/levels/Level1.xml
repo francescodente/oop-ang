@@ -2,7 +2,7 @@
 <Level>
     <Background>FUJI</Background>
     <WallTexture>RED_WALL</WallTexture>
-    <Time>60</Time>
+    <Time>40</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "DOUBLESPEED"/>
