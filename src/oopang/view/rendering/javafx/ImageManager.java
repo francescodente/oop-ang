@@ -30,17 +30,17 @@ public class ImageManager {
      * @return
      *      The real {@link Image} object.
      */
-    public Image getImage(final ImageID id) {
+    public synchronized Image getImage(final ImageID id) {
         return new Image(ImageManager.class.getResourceAsStream(id.getPath()));
     }
 
     /**
      * Loads all images except backgrounds.
      */
-    public void loadAll() {
+    public final synchronized void loadAll() {
         Arrays.stream(ImageID.values())
-        .filter(id -> !id.isBackground())
-        .forEach(id -> this.getImage(id));
+            .filter(id -> !id.isBackground())
+            .forEach(id -> this.getImage(id));
     }
 
     private static class ImageManagerProxy extends ImageManager {
@@ -52,7 +52,7 @@ public class ImageManager {
         }
 
         @Override
-        public Image getImage(final ImageID id) {
+        public synchronized Image getImage(final ImageID id) {
             if (!this.imageMap.containsKey(id)) {
                 final Image img = super.getImage(id);
                 this.imageMap.put(id, img);
