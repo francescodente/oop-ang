@@ -6,7 +6,7 @@ public final class GameParameters {
 
     private static int levelindex;
     private static boolean multiplayer;
-    private static boolean isStoryMode;
+    private static boolean storyMode;
 
     private GameParameters() {
     }
@@ -23,13 +23,13 @@ public final class GameParameters {
      * @param gameMode
      *      The gameMode.
      */
-    public static void setIsStoryMode(final boolean gameMode) {
-        GameParameters.isStoryMode = gameMode;
+    public static void setStoryMode(final boolean gameMode) {
+        GameParameters.storyMode = gameMode;
     }
     /**
-     * Set the Multiplayer flag mood.
+     * Set the Multiplayer flag mode.
      * @param isMultiplayer
-     *      Flag of Multiplayer mood.
+     *      Flag of Multiplayer mode.
      */
     public static void setMultiplayer(final boolean isMultiplayer) {
         GameParameters.multiplayer = isMultiplayer;
@@ -55,8 +55,8 @@ public final class GameParameters {
      * @return
      *      the gamemode.
      */
-    public static boolean getIfStoryMode() {
-        return isStoryMode;
+    public static boolean isStoryMode() {
+        return storyMode;
     }
 
 }

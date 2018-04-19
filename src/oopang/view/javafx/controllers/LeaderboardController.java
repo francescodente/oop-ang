@@ -67,7 +67,7 @@ public class LeaderboardController extends SceneController {
 
     @FXML
     public void checkRestart() {
-        if (GameParameters.getIfStoryMode()) {
+        if (GameParameters.isStoryMode()) {
             this.getController().startStoryGameSession(GameParameters.getLevelindex(), GameParameters.isMultiplayer());
             this.getView().loadScene(GameScene.GAME_GUI);
         }
