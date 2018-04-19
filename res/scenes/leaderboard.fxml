@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -37,4 +38,11 @@
    	  <URL value="@/stylesheet/leaderboardstyle.css" />
       <URL value="@/stylesheet/mainstyle.css" />
    </stylesheets>
+   <bottom>
+      <Button id="restart" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#checkRestart" text="RESTART" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
 </BorderPane>

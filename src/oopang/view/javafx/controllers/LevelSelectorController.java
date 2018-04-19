@@ -28,6 +28,7 @@ public final class LevelSelectorController extends SceneController {
             final int levelIndex = i + 1;
             button.setOnMouseClicked(e -> {
                 controller.startStoryGameSession(levelIndex, GameParameters.isMultiplayer());
+                GameParameters.setLevelindex(levelIndex);
                 this.getView().loadScene(GameScene.GAME_GUI);
             });
 //            if (i != 0) {
