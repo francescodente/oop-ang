@@ -1,21 +1,19 @@
-package oopang.view.rendering.javafx;
+package oopang.view.rendering;
 
 import oopang.commons.space.Points2D;
 import oopang.controller.DayTime;
 import oopang.model.Model;
-import oopang.view.rendering.GenericBackgroundRenderer;
-import oopang.view.rendering.ImageID;
-import oopang.view.rendering.Sprite;
-import oopang.view.rendering.SpriteSheet;
 
 /**
  * This is a Renderer for background in javaFX.
  */
-public class JavaFXBackgroundRenderer extends GenericBackgroundRenderer {
+public class BackgroundRenderer extends GenericRenderer {
 
     private static final int ROWS = 1;
     private static final int COLUMS = 3;
     private static final int BACKGROUND_LAYER = 0;
+
+    private final Sprite sprite;
 
     /**
      * Create a new BackgroundRenderer and sets the correct image.
@@ -26,8 +24,9 @@ public class JavaFXBackgroundRenderer extends GenericBackgroundRenderer {
      * @param id
      *      the imageId
      */
-    public JavaFXBackgroundRenderer(final Sprite sprite, final DayTime time, final ImageID id) {
-        super(sprite);
+    public BackgroundRenderer(final Sprite sprite, final DayTime time, final ImageID id) {
+        super();
+        this.sprite = sprite;
         sprite.setSource(id);
         final SpriteSheet sheet = new SpriteSheet(sprite, COLUMS, ROWS);
         if (time == DayTime.MORNING) {
@@ -41,6 +40,11 @@ public class JavaFXBackgroundRenderer extends GenericBackgroundRenderer {
         sprite.setPosition(Points2D.of(0, Model.WORLD_HEIGHT / 2));
         sprite.setWidth(Model.TOTAL_WIDTH);
         sprite.setHeight(Model.TOTAL_HEIGHT);
+    }
+
+    @Override
+    public void render() {
+        this.sprite.render();
     }
 
 }
