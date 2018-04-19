@@ -41,6 +41,6 @@ public abstract class GenericCanvasDrawer implements CanvasDrawer {
      *      the stream of all renderers.
      */
     protected Stream<Renderer> getRenderers() {
-        return this.renderers.stream();
+        return new ArrayList<>(this.renderers).stream();
     }
 }
