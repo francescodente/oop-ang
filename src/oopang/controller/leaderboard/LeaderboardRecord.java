@@ -4,7 +4,7 @@ import java.io.Serializable;
 /**
  * This class keeps track of the user Statistics.
  */
-public class LeaderboardRecord implements Serializable, Comparable<LeaderboardRecord> {
+public final class LeaderboardRecord implements Serializable, Comparable<LeaderboardRecord> {
     private static final long serialVersionUID = -4374863784204719291L;
     private final String name;
     private final int score;
@@ -52,5 +52,30 @@ public class LeaderboardRecord implements Serializable, Comparable<LeaderboardRe
     public int compareTo(final LeaderboardRecord o) {
         final int scoreComparison = Integer.compare(this.score, o.score);
         return scoreComparison == 0 ? Integer.compare(this.stage, o.stage) : scoreComparison;
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + score;
+        result = prime * result + stage;
+        return result;
+    }
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LeaderboardRecord other = (LeaderboardRecord) obj;
+        if (score != other.score) {
+            return false;
+        }
+        return stage == other.stage;
     }
 }
