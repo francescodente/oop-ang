@@ -130,12 +130,12 @@
         </Wall>
         <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-64.25" y = "70"/>
+                <Point x = "-64.5" y = "70"/>
             </Position>
         </Wall>
         <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-84.75" y = "70"/>
+                <Point x = "-84.5" y = "70"/>
             </Position>
         </Wall>
         <Wall width ="11" height = "5.5">
