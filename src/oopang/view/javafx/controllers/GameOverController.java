@@ -24,7 +24,7 @@ public final class GameOverController extends SceneController {
         this.labelScore.setText("Name: " + controller.getUser().get().getName());
         this.labelName.setText("Score: " + controller.getCurrentTotalScore());
     }
-    
+
     @Override
     protected GameScene getNextScene() {
         return GameScene.LEADERBOARD;
@@ -37,7 +37,7 @@ public final class GameOverController extends SceneController {
 
     @Override
     public void onKeyPressed(final KeyEvent event) {
-        if (event.getCode() == KeyCode.SPACE) {
+        if (event.getCode() == KeyCode.ENTER) {
             this.nextScene();
         }
     }

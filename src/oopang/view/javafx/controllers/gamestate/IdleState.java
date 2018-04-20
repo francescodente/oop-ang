@@ -9,14 +9,18 @@ import oopang.view.javafx.controllers.GameController;
  * Represents the idle state of the level, active at the start of the new level to give
  * the user some time to prepare before playing.
  */
-public class IdleState extends GameGUIState {
+public final class IdleState extends GameGUIState {
 
     private boolean keyPressed;
     private final Pane startMessage;
     /**
-     * 
+     * Creates a new idle state object.
      * @param gameGui
+     *      the gui controller.
      * @param controller
+     *      the application controller.
+     * @param startMessage
+     *      the pane containing the "Ready" message.
      */
     public IdleState(final GameController gameGui, final Controller controller, final Pane startMessage) {
         super(gameGui, controller);
