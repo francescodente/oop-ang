@@ -38,6 +38,7 @@ public final class ControllerImpl implements Controller {
     private Leaderboard leaderboard;
     private Consumer<Leaderboard> saveAction;
     private Consumer<Integer> saveMaxStage;
+    private Consumer<Integer> saveMaxScore;
 
     /**
      * Create a new Controller instance.
@@ -71,6 +72,7 @@ public final class ControllerImpl implements Controller {
         this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboard(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
+        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
     }
 
     @Override
@@ -80,6 +82,7 @@ public final class ControllerImpl implements Controller {
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
+        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
     }
 
     @Override
@@ -120,6 +123,7 @@ public final class ControllerImpl implements Controller {
                 this.saveUser();
                 this.saveAction.accept(this.leaderboard);
                 this.saveMaxStage.accept(this.gameSession.getStage());
+                this.saveMaxScore.accept(this.gameSession.getTotalScore());
             });
         }
         this.gameSession = null;
