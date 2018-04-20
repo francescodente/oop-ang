@@ -11,7 +11,7 @@ import oopang.model.physics.CollisionTag;
  */
 public class StickyShot extends HookShot {
 
-    private static final double TIMEOUT = 5;
+    private static final double TIMEOUT = 3;
 
     private boolean isSticked;
     private double time;
