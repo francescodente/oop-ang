@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -13,7 +14,7 @@
          <children>
             <BorderPane>
                <right>
-                  <Button mnemonicParsing="false" onMouseClicked="#logout" text="Logout" BorderPane.alignment="CENTER">
+                  <Button mnemonicParsing="false" onMouseClicked="#logout" text="LOGOUT" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -23,7 +24,7 @@
                   </Button>
                </right>
                <left>
-                  <Label fx:id="userName" text="&lt;UserName&gt;" BorderPane.alignment="CENTER">
+                  <Label id="title" fx:id="userName" text="&lt;UserName&gt;" BorderPane.alignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -33,7 +34,7 @@
                   </Label>
                </left>
                <center>
-                  <Label fx:id="levelRank" text="&lt;Level_RANK&gt;" BorderPane.alignment="CENTER_LEFT">
+                  <Label id="levelrank" fx:id="levelRank" text="&lt;Level_RANK&gt;" BorderPane.alignment="BOTTOM_LEFT">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -43,7 +44,7 @@
                   </Label>
                </center>
             </BorderPane>
-            <Label text="&lt;XpPoints&gt;" fx:id="xpPoints">
+            <Label id="xppoints" text="&lt;XpPoints&gt;" fx:id="xpPoints">
                <font>
                   <Font size="14.0" />
                </font>
@@ -51,12 +52,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <ProgressBar maxWidth="180.0" prefWidth="180.0" progress="0.0" fx:id="xpBar">
+            <ProgressBar id="xpbar" maxWidth="360.0" prefWidth="360.0" progress="0.0" fx:id="xpBar">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
             </ProgressBar>
-            <Label fx:id="coins" text="&lt;Coins&gt;">
+            <Label id="coins" fx:id="coins" text="&lt;Coins&gt;">
                <font>
                   <Font size="14.0" />
                </font>
@@ -71,17 +72,77 @@
       </VBox>
    </top>
    <center>
-      <ScrollPane BorderPane.alignment="CENTER">
+      <GridPane hgap="5.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ScrollPane id="scrollpane" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+               <content>
+                  <VBox fx:id="powerContainerBox" />
+               </content>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ScrollPane>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="15.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <children>
+                  <Label id="stats" text="STATS:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="maxArcadeStage" text="&lt;Max Arcade Stage&gt;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="maxSurvivalStage" text="&lt;Max Survival Stage&gt;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="maxArcadeScore" text="&lt;Max Arcade Score&gt;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="maxSurvivalScore" text="&lt;Max Survival Score&gt;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+         </children>
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets left="10.0" right="10.0" />
          </BorderPane.margin>
-         <content>
-            <VBox fx:id="powerContainerBox" />
-         </content>
-      </ScrollPane>
+      </GridPane>
    </center>
    <stylesheets>
    	  <URL value="@/stylesheet/menustyle.css" />
       <URL value="@/stylesheet/mainstyle.css" />
    </stylesheets>
+   <bottom>
+      <Button mnemonicParsing="false" onMouseClicked="#back" text="BACK" BorderPane.alignment="BOTTOM_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </bottom>
 </BorderPane>
