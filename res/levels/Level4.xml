@@ -2,7 +2,7 @@
 <Level id = "4">
     <Background>ANGKOR_WAT</Background>
     <WallTexture>GREEN_WALL</WallTexture>
-    <Time>60</Time>
+    <Time>50</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "FREEZE"/>

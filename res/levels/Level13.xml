@@ -2,7 +2,7 @@
 <Level>
     <Background>KILIMANJARO</Background>
     <WallTexture>GREEN_WALL</WallTexture>
-    <Time>60</Time>
+    <Time>120</Time>
     <AvailablePower>
         <Power id = "DOUBLESPEED"/>
         <Power id = "TIMEDSHIELD"/>

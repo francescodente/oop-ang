@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>ANTARTICA</Background>
+    <WallTexture>BLUE_WALL</WallTexture>
+    <Time>60</Time>
+    <Gravity>
+        <Vector x = "0" y = "-70"/>
+    </Gravity>
+    <AvailablePower>
+        <Power id = "FREEZE"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "12" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-85" y = "90"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "12" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-51" y = "90"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "12" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-17" y = "90"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-12" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "85" y = "90"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-12" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "51" y = "90"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-12" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "17" y = "90"/>
+            </Position>
+        </Ball>
+
+        <Ball color = "YELLOW" size = "1">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "60"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "1">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-34" y = "60"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "1">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-68" y = "60"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "1">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "60"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "1">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "34" y = "60"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "1">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "68" y = "60"/>
+            </Position>
+        </Ball>
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "85" y = "85"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "51" y = "85"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "17" y = "85"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-17" y = "85"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-51" y = "85"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-85" y = "85"/>
+            </Position>
+        </Wall>
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "68" y = "75"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "34" y = "75"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "0" y = "75"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-34" y = "75"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-68" y = "75"/>
+            </Position>
+        </Wall>
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-51" y = "65"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-17" y = "65"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "17" y = "65"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "51" y = "65"/>
+            </Position>
+        </Wall>
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "68" y = "55"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "34" y = "55"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "0" y = "55"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-34" y = "55"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-68" y = "55"/>
+            </Position>
+        </Wall>
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "85" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "51" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "17" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-17" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-51" y = "45"/>
+            </Position>
+        </Wall>
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-85" y = "45"/>
+            </Position>
+        </Wall>
+
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "34" y = "35"/>
+            </Position>
+        </Wall>
+
+        <Wall width ="8" height = "5.5">
+            <Position>
+                <Point x = "-34" y = "35"/>
+            </Position>
+        </Wall>
+
+
+    </GameObject>
+</Level>

@@ -27,7 +27,7 @@ public enum PowerTag {
     /**
      * Tag Dynamite.
      */
-    DYNAMITE(Arrays.asList(500, 1000, 2000)),
+    DYNAMITE(Arrays.asList(1500, 3000)),
     /**
      * Tag Freeze.
      */

@@ -116,7 +116,7 @@ public class JavaFXUIFactory {
      */
     public Node createUpdatePowerLevelBlock(final User user, final PowerTag tag) {
         final int powerLevel = user.getPowerLevels().get(tag);
-        final Label levelLabel = new Label("Level " + powerLevel);
+        final Label levelLabel = new Label("Level " + powerLevel + "/" + tag.getMaxLevel());
         final ImageView icon = this.createPowerIcon(tag);
         final ProgressBar bar = new ProgressBar(powerLevel / (double) tag.getMaxLevel());
         final String upgradeString = powerLevel == tag.getMaxLevel() ? "maxed" : tag.getCost(powerLevel) + " coins";

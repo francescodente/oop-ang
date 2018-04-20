@@ -2,7 +2,7 @@
 <Level id = "4">
     <Background>ULURU</Background>
     <WallTexture>PURPLE_WALL</WallTexture>
-    <Time>60</Time>
+    <Time>50</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "ADHESIVESHOT"/>

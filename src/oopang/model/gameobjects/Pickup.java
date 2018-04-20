@@ -23,7 +23,7 @@ import oopang.model.powers.Power;
 public class Pickup extends AbstractGameObject implements Timeable {
     private static final double WIDTH = 6;
     private static final double HEIGHT = 6;
-    private static final double TIMEOUT = 10;
+    private static final double TIMEOUT = 7;
 
     private final EventSource<Void> timeoutEvent;
     private final EventSource<Double> timeChangedEvent;

@@ -4,49 +4,42 @@
     <WallTexture>ORANGE_WALL</WallTexture>
     <Time>60</Time>
     <AvailablePower>
-        <Power id = "FREEZE"/>
         <Power id = "ADHESIVESHOT"/>
+        <Power id = "TIMEDSHIELD"/>
     </AvailablePower>
     <GameObject>
-        <Ball color = "YELLOW" size = "3">
+        <Ball color = "PURPLE" size = "3">
             <Velocity>
                 <Vector x = "17" y = "0"/>
             </Velocity>
             <Position>
-                <Point x = "85" y = "45"/>
+                <Point x = "-82" y = "52"/>
             </Position>
         </Ball>
-        <Ball color = "YELLOW" size = "3">
+        <Ball color = "PURPLE" size = "3">
             <Velocity>
                 <Vector x = "-17" y = "0"/>
             </Velocity>
             <Position>
-                <Point x = "-85" y = "45"/>
+                <Point x = "82" y = "52"/>
             </Position>
         </Ball>
-        <Wall width ="37" height = "5.5">
+        <Ball color = "BLUE" size = "4">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
             <Position>
-                <Point x = "0" y = "25"/>
+                <Point x = "0" y = "82"/>
+            </Position>
+        </Ball>
+        <Wall width ="5.5" height = "50">
+            <Position>
+                <Point x = "-65" y = "50"/>
             </Position>
         </Wall>
-        <Wall width ="37" height = "5.5">
+        <Wall width ="5.5" height = "50">
             <Position>
-                <Point x = "52" y = "45"/>
-            </Position>
-        </Wall>
-        <Wall width ="37" height = "5.5">
-            <Position>
-                <Point x = "-52" y = "45"/>
-            </Position>
-        </Wall>
-        <Wall width ="15" height = "5.5">
-            <Position>
-                <Point x = "85" y = "25"/>
-            </Position>
-        </Wall>
-        <Wall width ="15" height = "5.5">
-            <Position>
-                <Point x = "-85" y = "25"/>
+                <Point x = "65" y = "50"/>
             </Position>
         </Wall>
     </GameObject>
