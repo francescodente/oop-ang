@@ -1,0 +1,44 @@
+.button {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-text-fill: black;
+    -fx-background-radius: 3em;
+    -fx-font-size: 20px;
+}
+
+#choose {
+    -fx-font-size: 40px;
+    -fx-font-family: 'Karmatic Arcade';
+}
+
+#hell {
+    -fx-text-fill: red;
+    -fx-font-family: 'Karmatic Arcade';
+    -fx-font-size: 25px;
+}
+
+#easy {
+    -fx-text-fill: #00F700;
+    -fx-font-family: 'Karmatic Arcade';
+    -fx-font-size: 25px;
+}
+
+#hard {
+    -fx-text-fill: orange;
+    -fx-font-family: 'Karmatic Arcade';
+    -fx-font-size: 25px;
+}
+
+#medium {
+    -fx-text-fill: yellow;
+    -fx-font-family: 'Karmatic Arcade';
+    -fx-font-size: 25px;
+}
+
+#back {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+#back:hover {
+    -fx-text-fill: yellow;
+}

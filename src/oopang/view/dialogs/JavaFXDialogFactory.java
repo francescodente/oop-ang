@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import oopang.view.View;
 
 /**
  * This is a JavaFX implementation of the DialogFactory.
@@ -18,20 +17,9 @@ import oopang.view.View;
  */
 public class JavaFXDialogFactory implements DialogFactory {
 
-    private final View view;
-
-    /**
-     * Create a new JavaFXDialogFactory.
-     * @param view
-     *      the view Reference.
-     */
-    public JavaFXDialogFactory(final View view) {
-        this.view = view;
-    }
-
     @Override
     public Dialog createLevelNotLoaded(final Exception ex) {
-        return new JavaFXDialog(this.view) {
+        return new Dialog() {
             private final Alert alert = new Alert(AlertType.ERROR);
 
             @Override
@@ -62,4 +50,74 @@ public class JavaFXDialogFactory implements DialogFactory {
         };
     }
 
+    @Override
+    public Dialog createUserNotFound(final String username) {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.ERROR);
+            @Override
+            public void show() {
+                alert.setTitle("Login Error");
+                alert.setHeaderText("User not found!");
+                alert.setContentText("Could not load user " + username);
+                alert.showAndWait();
+            }
+        };
+    }
+
+    @Override
+    public Dialog createFailedToRegisterUser(final String username) {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.ERROR);
+            @Override
+            public void show() {
+                alert.setTitle("Registration Error");
+                alert.setHeaderText("Failed to register " + username);
+                alert.setContentText("Can not register, maybe the username is already taken");
+                alert.showAndWait();
+            }
+        };
+    }
+
+    @Override
+    public Dialog createEmptyFieldError(final String fieldName) {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.WARNING);
+            @Override
+            public void show() {
+                alert.setTitle("Field Empty");
+                alert.setHeaderText("You left  " + fieldName + " empty");
+                alert.setContentText("If you want to login yo should insert a " + fieldName);
+                alert.showAndWait();
+            }
+        };
+    }
+
+    @Override
+    public Dialog createNotEnoughCoins() {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.WARNING);
+            @Override
+            public void show() {
+                alert.setTitle("Not enough coins");
+                alert.setHeaderText("You don't have enough coins");
+                alert.setContentText("You can't upgrade this power because you don't have the right amount of coins");
+                alert.showAndWait();
+            }
+
+        };
+    }
+
+    @Override
+    public Dialog createUserNotSaved(final String username) {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.ERROR);
+            @Override
+            public void show() {
+                alert.setTitle("Saving error");
+                alert.setHeaderText("Failed to save " + username);
+                alert.setContentText("Last changes to user may not be effective in next run");
+                alert.showAndWait();
+            }
+        };
+    }
 }

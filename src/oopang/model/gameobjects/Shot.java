@@ -21,7 +21,7 @@ public abstract class Shot extends AbstractGameObject {
     /**
      * Standard Speed for all Shot objects.
      */
-    protected static final double SPEED = 1;
+    protected static final double SPEED = 70;
 
     private final MovementComponent movementComponent;
     private final CollisionComponent collisionComponent;
@@ -44,7 +44,7 @@ public abstract class Shot extends AbstractGameObject {
     @Override
     public void start() {
         super.start();
-        this.collisionComponent.registerCollisionEvent(c -> handleCollision(c));
+        this.collisionComponent.getCollisionEvent().register(c -> handleCollision(c));
     }
 
     /**

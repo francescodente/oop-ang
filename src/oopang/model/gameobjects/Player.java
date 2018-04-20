@@ -5,17 +5,19 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import org.dyn4j.geometry.Capsule;
 import org.dyn4j.geometry.Convex;
+import org.dyn4j.geometry.Rectangle;
 
-import oopang.commons.LevelManager;
+import oopang.commons.PlayerTag;
+import oopang.commons.Timeable;
+import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.model.components.CollisionComponent;
 import oopang.model.components.Component;
 import oopang.model.components.InputComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.components.ShooterComponent;
+import oopang.model.levels.LevelManager;
 import oopang.model.physics.CollisionTag;
 import oopang.model.physics.Collision;
 import oopang.model.powers.Power;
@@ -28,7 +30,7 @@ public class Player extends AbstractGameObject {
 
     private static final double WIDTH = 12;
     private static final double HEIGHT = 15;
-    private static final double DEFAULT_SPEED = 1;
+    private static final double DEFAULT_SPEED = 30;
     private static final Supplier<Shot> DEFAULT_SHOT = 
             () -> LevelManager.getCurrentLevel().getGameObjectFactory().createHookShot();
 
@@ -38,13 +40,18 @@ public class Player extends AbstractGameObject {
     private final ShooterComponent shoot;
     private final List<Power> powerUps;
     private double speed;
-    private final Event<Power> pickupCollected;
+    private int invulnerable;
+    private final PlayerTag tag;
+    private final EventSource<Power> pickupCollected;
     /**
      * Constructor of this class.
+     * @param tag
+     *      the tag used to distinguish the player1 from player2.
      */
-    public Player() {
+    public Player(final PlayerTag tag) {
         super();
-        final Convex shape = new Capsule(WIDTH, HEIGHT);
+        this.tag = tag;
+        final Convex shape = new Rectangle(WIDTH, HEIGHT);
         shape.translate(0, HEIGHT / 2);
         this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
@@ -52,10 +59,11 @@ public class Player extends AbstractGameObject {
         this.shoot.setShooter(new MultipleShooter(1, this, DEFAULT_SHOT));
         this.input = new InputComponent(this,
                 e -> this.movement.setVelocity(e.multiply(this.speed)),
-                () -> this.shoot.tryShoot());
+                b -> this.shoot.setState(b));
         this.powerUps = new LinkedList<>();
-        this.pickupCollected = new Event<Power>();
+        this.pickupCollected = new EventSource<Power>();
         this.speed = DEFAULT_SPEED;
+        this.invulnerable = 0;
     }
 
     /**
@@ -63,7 +71,8 @@ public class Player extends AbstractGameObject {
      */
     @Override
     public void start() {
-        this.collision.registerCollisionEvent(this::checkCollission);
+        super.start();
+        this.collision.getCollisionEvent().register(this::checkCollission);
     }
 
     /**
@@ -71,11 +80,15 @@ public class Player extends AbstractGameObject {
      */
     @Override
     public void update(final double deltaTime) {
-        this.powerUps.forEach(c -> {
-            if (c.isActive()) {
-                c.update(deltaTime);
+        final List<Power> toBeRemoved = new LinkedList<>();
+        this.powerUps.forEach(p -> {
+            if (p.isActive()) {
+                p.update(deltaTime);
+            } else {
+                toBeRemoved.add(p);
             }
         });
+        powerUps.removeAll(toBeRemoved);
         super.update(deltaTime);
     }
 
@@ -85,7 +98,7 @@ public class Player extends AbstractGameObject {
      *      Type of Collision
      */
     private void checkCollission(final Collision c) {
-        if (c.getOther().getCollisionTag() == CollisionTag.BALL) {
+        if (c.getOther().getCollisionTag() == CollisionTag.BALL && this.invulnerable == 0) {
             this.destroy();
         }
         if (c.getOther().getCollisionTag() == CollisionTag.PICKUP) {
@@ -100,9 +113,19 @@ public class Player extends AbstractGameObject {
      * @param pow
      *      Power to add and activate.
      */
-    private void addPower(final Power pow) {
-        powerUps.add(pow);
-        pow.activate(this);
+    private void addPower(final Power power) {
+        boolean found = false;
+        for (final Power p : powerUps) {
+            if (p.getPowertag() == power.getPowertag() &&  (p instanceof Timeable)) {
+                ((Timeable) p).addTime(((Timeable) power).getRemainingTime());
+                found = true;
+            }
+        }
+        if (!found) {
+            powerUps.add(power);
+            this.pickupCollected.trigger(power);
+            power.activate(this);
+        }
     }
 
     @Override
@@ -118,6 +141,11 @@ public class Player extends AbstractGameObject {
     @Override
     public double getHeight() {
         return HEIGHT;
+    }
+
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
     /**
@@ -139,11 +167,29 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Register Pickup collected event.
-     * @param handler
-     *      the {@link EventHandler}.
+     * Getter of the PlayerTag.
+     * @return
+     *      The player tag.
      */
-    public void registerPickupCollectedEvent(final EventHandler<Power> handler) {
-        this.pickupCollected.registerHandler(handler);
+    public PlayerTag getPlayerTag() {
+        return this.tag;
+    }
+
+    /**
+     * Returns the event which triggers when a Pickup is collected.
+     * @return
+     *      the pickup collected event
+     */
+    public Event<Power> getPickupCollectedEvent() {
+        return this.pickupCollected;
+    }
+
+    /**
+     * Sets whether to ignore collisions with balls or not.
+     * @param invulnerable
+     *      the invulnerable state.
+     */
+    public void setInvulnerable(final boolean invulnerable) {
+        this.invulnerable = invulnerable ? this.invulnerable + 1 : this.invulnerable - 1;
     }
 }

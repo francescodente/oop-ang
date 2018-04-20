@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
 import oopang.model.levels.Level;
@@ -9,7 +10,6 @@ import oopang.model.powers.Power;
  * This class is a basic implementation of GameObjectFactory.
  */
 public class BasicFactory implements GameObjectFactory {
-    private static final int SCORE = 100;
     private final Level currentLevel;
 
     /**
@@ -22,10 +22,9 @@ public class BasicFactory implements GameObjectFactory {
     }
 
     @Override
-    public GameObject createPlayer() {
-        final Player player = new Player();
-        this.currentLevel.addGameObject(player); 
-        player.registerPickupCollectedEvent(obj -> this.currentLevel.addScore(SCORE));
+    public GameObject createPlayer(final PlayerTag tag) {
+        final Player player = new Player(tag);
+        this.currentLevel.addGameObject(player);
         return player;
     }
 
@@ -33,7 +32,6 @@ public class BasicFactory implements GameObjectFactory {
     public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
         final GameObject ball = new Ball(size, velocity, color);
         this.currentLevel.addGameObject(ball);
-        ball.registerDestroyedEvent(obj -> this.currentLevel.addScore(SCORE));
         return ball;
     }
 

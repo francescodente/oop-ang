@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level id = "4">
+    <Background>ULURU</Background>
+    <WallTexture>PURPLE_WALL</WallTexture>
+    <Time>60</Time>
+    <AvailablePower>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "ADHESIVESHOT"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "YELLOW" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "85"/>
+            </Position>
+        </Ball>
+        <Ball color = "YELLOW" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "85"/>
+            </Position>
+        </Ball>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "0" y = "75"/>
+            </Position>
+        </Wall>
+        <Wall width ="37" height = "5.5">
+            <Position>
+                <Point x = "52" y = "55"/>
+            </Position>
+        </Wall>
+        <Wall width ="37" height = "5.5">
+            <Position>
+                <Point x = "-52" y = "55"/>
+            </Position>
+        </Wall>
+        <Wall width ="15" height = "5.5">
+            <Position>
+                <Point x = "85" y = "35"/>
+            </Position>
+        </Wall>
+        <Wall width ="15" height = "5.5">
+            <Position>
+                <Point x = "-85" y = "35"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>

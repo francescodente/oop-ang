@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameOverController">
+   <top>
+      <Label id="title" alignment="CENTER" text="GAME OVER" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <stylesheets>
+   	  <URL value="@/stylesheet/menustyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
+   <center>
+      <VBox spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label fx:id="labelName" text="Label" />
+               </children>
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" top="100.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Label fx:id="labelScore" text="Label" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="100.0" left="100.0" right="100.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <Label text="PRESS SPACE TO SEE LEADERBOARD" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
+      </Label>
+   </bottom>
+   <stylesheets>
+       <URL value="@/stylesheet/menustyle.css" />
+       <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
+</BorderPane>

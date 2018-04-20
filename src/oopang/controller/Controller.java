@@ -1,8 +1,13 @@
 package oopang.controller;
 
+import java.util.Optional;
+
 import oopang.commons.Command;
+import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
-import oopang.model.gameobjects.GameObject;
+import oopang.controller.leaderboard.Leaderboard;
+import oopang.controller.loader.LevelData;
+import oopang.controller.users.User;
 
 /**
  * Controller of the application.
@@ -41,9 +46,9 @@ public interface Controller {
     void continueGameSession();
 
     /**
-     * Closes the current instance of the {@link GameSession}.
+     * Forces the closing of the current instance of the {@link GameSession} from outside.
      */
-    void closeGameSession();
+    void forceCloseGameSession();
 
     /**
      * Asks the controller to enqueue a new command to be executed.
@@ -55,10 +60,69 @@ public interface Controller {
     void sendCommand(Command cmd, PlayerTag player);
 
     /**
-     * Registers a new {@link EventHandler} to the object created event for the
-     * current level.
+     * Registers a new {@link EventHandler} to the level started event.
      * @param handler
      *      the {@link EventHandler} object.
      */
-    void registerObjectCreatedEvent(EventHandler<GameObject> handler);
+    void registerLevelStartedEvent(EventHandler<LevelData> handler);
+
+    /**
+     * Returns the life count.
+     * @return
+     *      the number of lives
+     */
+    int getLifeCount();
+
+    /**
+     * Register a new user.
+     * @param userName
+     *      name of the user.
+     * @param password
+     *      password of the user.
+     * @return 
+     *      true if the user is correctly registered.
+     */
+    boolean registerUser(String userName, String password);
+
+    /**
+     * Login a user that already exist.
+     * @param userName
+     *      name of the user.
+     * @param password
+     *      password of the user.
+     * @return 
+     *      true if the user is correctly loaded.
+     */
+    boolean loginUser(String userName, String password);
+
+    /**
+     * Logout the user.
+     */
+    void logoutUser();
+
+    /**
+     * Return the {@link User} active {@link Leaderboard}.
+     * @return
+     *      The {@link Leaderboard}
+     */
+    Leaderboard getLeaderboard();
+
+    /**
+     * Method that get the user.
+     * @return
+     *      an Optional of user.
+     */
+    Optional<User> getUser();
+
+    /**
+     * Return the current total Score taken from the current GameSession.
+     * @return
+     *      the corrent total score.
+     */
+    int getCurrentTotalScore();
+    
+    /**
+     * Get current stage.
+     */
+    int getCurrentStage();
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>KERIN</Background>
+    <WallTexture>PURPLE_WALL</WallTexture>
+    <Time>40</Time>
+    <AvailablePower>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "DOUBLESHOT"/>
+        <Power id = "DOUBLESPEED"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "82" y = "82"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-82" y = "82"/>
+            </Position>
+        </Ball>
+    </GameObject>
+</Level>

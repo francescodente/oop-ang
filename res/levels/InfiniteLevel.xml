@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level id="infinite">
+    <AvailablePower>
+        <Power id = "FREEZE"/>
+        <Power id = "DOUBLESHOT"/>
+        <Power id = "DYNAMITE"/>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "DOUBLESPEED"/>
+    </AvailablePower>
+</Level>

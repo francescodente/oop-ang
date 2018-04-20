@@ -6,6 +6,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import oopang.commons.Command;
+import oopang.commons.PlayerTag;
 import oopang.model.Model;
 import oopang.model.input.InputWriter;
 import oopang.view.View;
@@ -16,6 +17,7 @@ import oopang.view.View;
 public class GameLoop extends Thread {
 
     private static final long MS_BETWEEN_FRAMES = 20;
+    private static final double MAX_UPDATE_BOUND = 0.04;
     private static final double MSEC_TO_SEC = 0.001;
     private static final int MAXINPUT = 20;
 
@@ -39,6 +41,8 @@ public class GameLoop extends Thread {
      */
     public GameLoop(final View view, final Model model, final Map<PlayerTag, InputWriter> input) {
         super();
+        this.setName("Game Loop");
+        this.setDaemon(true);
         this.scene = view;
         this.world = model;
         this.paused = false;
@@ -49,19 +53,23 @@ public class GameLoop extends Thread {
 
     @Override
     public void run() {
+        this.updateGame(0);
+        this.render();
         long lastTime = System.currentTimeMillis();
         while (!this.stopped) {
             if (this.paused) {
-                while (this.paused) {
-                    try {
-                        this.wait();
-                    } catch (InterruptedException e) { }
+                synchronized (this) {
+                    while (this.paused) {
+                        try {
+                            this.wait();
+                        } catch (InterruptedException e) { }
+                    }
                 }
                 lastTime = System.currentTimeMillis() - MS_BETWEEN_FRAMES;
             }
             final long current = System.currentTimeMillis();
             this.processInput();
-            this.updateGame((current - lastTime) * MSEC_TO_SEC);
+            this.updateGame(Math.min((current - lastTime) * MSEC_TO_SEC, MAX_UPDATE_BOUND));
             this.render();
             this.waitForNextFrame(current);
             lastTime = current;
@@ -100,7 +108,7 @@ public class GameLoop extends Thread {
      * @return 
      *      true if the command is successful added
      */
-    public boolean addCommand(final Command cmd, final PlayerTag player) {
+    public synchronized boolean addCommand(final Command cmd, final PlayerTag player) {
         return this.inputQueue.get(player).offer(cmd);
     }
 

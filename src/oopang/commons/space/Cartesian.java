@@ -75,6 +75,9 @@ public class Cartesian implements Vector2D, Point2D {
 
     @Override
     public Vector2D normalized() {
+        if (this.getModule() == 0) {
+            return Vectors2D.ZERO;
+        }
         return this.multiply(1 / this.getModule());
     }
 
@@ -98,15 +101,25 @@ public class Cartesian implements Vector2D, Point2D {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Vector2D)) {
+        if (!(obj instanceof Vector2D) && !(obj instanceof Point2D)) {
             return false;
         }
-        final Vector2D other = (Vector2D) obj;
-        if (other.getX() < this.x - EPSILON || other.getX() > this.x + EPSILON) {
+        final double otherX = obj instanceof Vector2D
+                ? ((Vector2D) obj).getX()
+                : ((Point2D) obj).getX();
+        final double otherY = obj instanceof Vector2D
+                ? ((Vector2D) obj).getY()
+                : ((Point2D) obj).getY();
+        if (otherX < this.x - EPSILON || otherX > this.x + EPSILON) {
             return false;
-        } else if (other.getY() < this.y - EPSILON || other.getY() > this.y + EPSILON) {
+        } else if (otherY < this.y - EPSILON || otherY > this.y + EPSILON) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.x + ", " + this.y + ")";
     }
 }

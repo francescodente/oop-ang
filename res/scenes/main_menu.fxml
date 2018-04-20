@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane id="mainpanel" maxHeight="-Infinity" maxWidth="-Infinity"
+	prefHeight="400.0" prefWidth="600.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="oopang.view.javafx.controllers.MainMenuController">
+	<bottom>
+		<ImageView fitHeight="147.0" fitWidth="421.0" pickOnBounds="true"
+			preserveRatio="true" BorderPane.alignment="BASELINE_CENTER">
+			<image>
+				<Image url="@/stylesheet/output_FilGad.gif" />
+			</image>
+		</ImageView>
+	</bottom>
+	<stylesheets>
+   	  <URL value="@/stylesheet/main_menu_style.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
+</BorderPane>

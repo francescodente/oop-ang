@@ -1,7 +1,7 @@
 package oopang.model;
 
-import oopang.commons.LevelManager;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelManager;
 
 /**
  * This class is the concrete implementation of the Model interface.

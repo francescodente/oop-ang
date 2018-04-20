@@ -1,0 +1,31 @@
+@font-face {
+    -fx-font-family: Karmatic Arcade;
+    src: url("ka1.ttf");
+}
+
+@font-face {
+    -fx-font-family: Press Start 2P;
+    src: url("PressStart2P.ttf");
+}
+
+
+.root {
+	-fx-font-family: 'Press Start 2P';
+	-fx-background-color: black;
+}
+
+.button:hover {
+    -fx-text-fill: yellow;
+}
+
+.label {
+	-fx-font-family: 'Press Start 2P';
+	-fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#title {
+    -fx-font-size: 60px;
+    -fx-font-family: 'Karmatic Arcade';
+}

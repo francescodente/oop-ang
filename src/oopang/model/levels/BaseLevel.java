@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Stream;
 
-import oopang.commons.LevelManager;
+import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.commons.space.Points2D;
 import oopang.model.GameOverStatus;
+import oopang.model.Model;
 import oopang.model.gameobjects.BasicFactory;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
@@ -24,9 +24,6 @@ import oopang.model.physics.SimpleCollisionManager;
 public class BaseLevel implements Level {
 
     private static final int INITIAL_SCORE = 0;
-    private static final double WORLD_WIDTH = 200;
-    private static final double WORLD_HEIGHT = 100;
-    private static final double WALL_WIDTH = 4;
 
     private final Queue<GameObject> startQueue;
     private final Queue<GameObject> destroyQueue;
@@ -34,7 +31,7 @@ public class BaseLevel implements Level {
     private int score;
     private final GameObjectFactory factory;
     private final CollisionManager collisionManager;
-    private final Event<GameObject> objectCreatedEvent;
+    private final EventSource<GameObject> objectCreatedEvent;
 
     /**
      * Creates a new BaseLevel object.
@@ -46,7 +43,7 @@ public class BaseLevel implements Level {
         this.score = INITIAL_SCORE;
         this.factory = new BasicFactory(this);
         this.collisionManager = new SimpleCollisionManager();
-        this.objectCreatedEvent = new Event<>();
+        this.objectCreatedEvent = new EventSource<>();
     }
 
     @Override
@@ -63,7 +60,7 @@ public class BaseLevel implements Level {
             objectCreatedEvent.trigger(obj);
         }
         this.gameObjects.forEach(e -> e.update(deltaTime));
-
+        this.collisionManager.step();
         while (destroyQueue.size() > 0) {
             final GameObject obj = destroyQueue.poll();
             this.gameObjects.remove(obj);
@@ -105,29 +102,50 @@ public class BaseLevel implements Level {
         return this.collisionManager;
     }
 
-    @Override
-    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.objectCreatedEvent.registerHandler(handler);
-    }
-
-    @Override
-    public void unregisterObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.objectCreatedEvent.unregisterHandler(handler);
-    }
-
-    @Override
-    public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
-        // A base level is not able to end.
-    }
-
     private void createWalls() {
-        final GameObject horizontal1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
-        horizontal1.setPosition(Points2D.of(0, -WALL_WIDTH / 2));
-        final GameObject horizontal2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WORLD_WIDTH, WALL_WIDTH);
-        horizontal2.setPosition(Points2D.of(0, WORLD_HEIGHT + (WALL_WIDTH / 2)));
-        final GameObject vertical1 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
-        vertical1.setPosition(Points2D.of(-((WORLD_WIDTH / 2) + (WALL_WIDTH / 2)), WORLD_HEIGHT / 2));
-        final GameObject vertical2 = LevelManager.getCurrentLevel().getGameObjectFactory().createWall(WALL_WIDTH, WORLD_HEIGHT);
-        vertical2.setPosition(Points2D.of((WORLD_WIDTH / 2) + (WALL_WIDTH / 2), WORLD_HEIGHT / 2));
+        final GameObjectFactory factory = LevelManager.getCurrentLevel().getGameObjectFactory();
+        final GameObject horizontal1 = factory.createWall(Model.TOTAL_WIDTH, Model.WALL_WIDTH);
+        horizontal1.setPosition(Points2D.of(0, -Model.WALL_WIDTH / 2));
+        final GameObject horizontal2 = factory.createWall(Model.TOTAL_WIDTH, Model.WALL_WIDTH);
+        horizontal2.setPosition(Points2D.of(0, Model.WORLD_HEIGHT + (Model.WALL_WIDTH / 2)));
+        final GameObject vertical1 = factory.createWall(Model.WALL_WIDTH, Model.WORLD_HEIGHT);
+        vertical1.setPosition(Points2D.of(-((Model.WORLD_WIDTH / 2) + (Model.WALL_WIDTH / 2)), Model.WORLD_HEIGHT / 2));
+        final GameObject vertical2 = factory.createWall(Model.WALL_WIDTH, Model.WORLD_HEIGHT);
+        vertical2.setPosition(Points2D.of((Model.WORLD_WIDTH / 2) + (Model.WALL_WIDTH / 2), Model.WORLD_HEIGHT / 2));
+    }
+
+    @Override
+    public Event<GameObject> getObjectCreatedEvent() {
+        return this.objectCreatedEvent;
+    }
+
+    @Override
+    public Event<GameOverStatus> getGameOverStatusEvent() {
+        //A base level is not able to end so it returns a useless event.
+        return new EventSource<>();
+    }
+
+    @Override
+    public double getRemainingTimePercentage() {
+        return 0;
+    }
+
+    @Override
+    public Event<Void> getTimeOutEvent() {
+        return new EventSource<Void>();
+    }
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return new EventSource<Double>();
+    }
+
+    @Override
+    public double getRemainingTime() {
+        return 0;
+    }
+
+    @Override
+    public void addTime(final double time) {
+        //A base level has no time
     }
 }

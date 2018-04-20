@@ -1,7 +1,6 @@
 package oopang.view;
 
 import oopang.controller.Controller;
-import oopang.view.dialogs.Dialog;
 import oopang.view.dialogs.DialogFactory;
 
 /**
@@ -27,18 +26,6 @@ public interface View {
      *      value for the selected scene to be loaded.
      */
     void loadScene(GameScene scene);
-
-    /**
-     * Shows the pause menu as an overlay of the game view.
-     */
-    void showPauseMenu();
-
-    /**
-     * Shows the given dialog.
-     * @param dialog
-     *      the dialog to be shown
-     */
-    void showDialog(Dialog dialog);
 
     /**
      * Returns the DialogFactory.

@@ -1,0 +1,136 @@
+@font-face {
+    -fx-font-family: Karmatic Arcade;
+    src: url("ka1.ttf");
+}
+
+@font-face {
+    -fx-font-family: Press Start 2P;
+    src: url("PressStart2P.ttf");
+}
+
+
+.root {
+	-fx-font-family: 'Press Start 2P';
+	-fx-background-color: black;
+}
+
+#mainpanel {
+    -fx-background-image: url("pang.jpg");
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 506;
+    -fx-background-position: center center;
+}
+
+#panel {
+    -fx-background-color: rgb(0, 0, 0);
+}
+
+#title {
+	-fx-font-family: 'Karmatic Arcade';
+    -fx-text-fill: yellow;
+}
+
+.label {
+	-fx-font-family: 'Karmatic Arcade';
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: white;
+}
+
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.button:hover {
+    -fx-font-size: 15px;
+}
+
+#single {
+    -fx-background-color: black;
+    -fx-background-image: url("singleplayer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#single:hover {
+    -fx-background-size: 60%;
+}
+
+#multi {
+    -fx-background-color: black;
+    -fx-background-image: url("multiplayer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#multi:hover {
+    -fx-background-size: 60%;
+}
+
+#survival {
+    -fx-background-color: black;
+    -fx-background-image: url("survivalmode.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#survival:hover {
+    -fx-background-size:60%;
+}
+
+#arcade {
+    -fx-background-color: black;
+    -fx-background-image: url("tourmode.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-size: 65%;
+    -fx-background-position: center center;
+}
+
+#arcade:hover {
+    -fx-background-size: 60%;
+}
+
+
+.table-view {
+    -fx-background-color: black;
+	-fx-font-size: 25px;
+	-fx-font-family: 'Commodore 64';
+}
+
+.table-column {
+	-fx-text-fill: white;
+	-fx-background-color: black;
+	-fx-alignment: center;
+	-fx-border-color: transparent;
+}
+
+.table-view .column-header-background .label {
+	-fx-text-fill: yellow;
+}
+
+#pause {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+}
+
+.progress-bar .bar {
+	-fx-background-color: red;
+}
+
+.progress-bar .track {
+	-fx-background-color: transparent;
+}

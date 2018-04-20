@@ -1,21 +1,43 @@
 package oopang.controller;
 
-import oopang.commons.Command;
-import oopang.commons.events.EventHandler;
-import oopang.model.Model;
-import oopang.model.gameobjects.GameObject;
-import oopang.view.GameScene;
-import oopang.view.View;
+import java.util.Optional;
+import java.util.function.Consumer;
 
+import oopang.commons.Command;
+import oopang.commons.PlayerTag;
+import oopang.commons.events.EventHandler;
+import oopang.controller.leaderboard.FileSystemLeaderboardManager;
+import oopang.controller.leaderboard.Leaderboard;
+import oopang.controller.leaderboard.LeaderboardManager;
+import oopang.controller.leaderboard.LeaderboardRecord;
+import oopang.controller.loader.LevelData;
+import oopang.controller.loader.LevelLoader;
+import oopang.controller.loader.XMLLevelLoader;
+import oopang.model.GameOverStatus;
+import oopang.controller.users.FileSystemUserManager;
+import oopang.controller.users.User;
+import oopang.controller.users.UserManager;
+import oopang.model.LevelResult;
+import oopang.model.Model;
+import oopang.model.powers.BasicPowerFactory;
+import oopang.model.powers.PowerFactory;
+import oopang.model.powers.UpgradePowerFactory;
+import oopang.view.View;
 
 /**
  * This is the concrete implementation of the Controller.
  */
-public class ControllerImpl implements Controller {
+public final class ControllerImpl implements Controller {
 
     private final Model model;
     private final View view;
     private GameSession gameSession;
+    private Optional<User> user;
+    private final UserManager userManager;
+    private final LeaderboardManager leaderboardManager;
+    private Leaderboard leaderboard;
+    private Consumer<Leaderboard> saveAction;
+    private Consumer<Integer> saveMaxStage;
 
     /**
      * Create a new Controller instance.
@@ -27,19 +49,37 @@ public class ControllerImpl implements Controller {
     public ControllerImpl(final Model model, final View view) {
         this.model = model;
         this.view = view;
+        this.userManager = new FileSystemUserManager();
+        this.leaderboardManager = new FileSystemLeaderboardManager();
+        this.user = Optional.empty();
+    }
+
+    private PowerFactory getPowerFactory() {
+        return this.user.isPresent()
+        ? new UpgradePowerFactory(this.user.get().getPowerLevels())
+        : new BasicPowerFactory();
+    }
+
+    private LevelLoader getLevelLoader() {
+        return new XMLLevelLoader(this.getPowerFactory());
     }
 
     @Override
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
-        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, levelIndex);
-        this.gameSession.registerShouldEndEvent(s -> this.handleSessionResult(s));
-        this.gameSession.loadNewLevel();
+        this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, this.getLevelLoader(), levelIndex);
+        this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
+        this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
+        this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboard(l);
+        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
     }
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
-        this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer);
-        this.gameSession.loadNewLevel();
+        this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, this.getLevelLoader());
+        this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
+        this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
+        this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
+        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
     }
 
     @Override
@@ -54,29 +94,98 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void continueGameSession() {
-        this.gameSession.loadNewLevel();
+        this.gameSession.startNextLevel();
     }
 
     @Override
-    public void closeGameSession() {
+    public void forceCloseGameSession() {
+        this.gameSession.handleGameOver(new GameOverStatus(0, LevelResult.FORCE_EXIT));
         this.gameSession = null;
-        this.view.loadScene(GameScene.GAMEOVER);
     }
 
     @Override
     public void sendCommand(final Command cmd, final PlayerTag player) {
-        this.gameSession.getGameLoop().addCommand(cmd, player);
+        if (this.gameSession.isMultiplayer()) {
+            this.gameSession.getGameLoop().addCommand(cmd, player);
+        } else if (player == PlayerTag.PLAYER_ONE) {
+            this.gameSession.getGameLoop().addCommand(cmd, player);
+        }
     }
 
-    private void handleSessionResult(final Boolean shouldEnd) {
-        if (shouldEnd) {
-            this.closeGameSession();
+    private void handleSessionResult(final LevelResult result) {
+        if (result != LevelResult.FORCE_EXIT) {
+            this.user.ifPresent(u -> {
+                this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), this.gameSession.getStage()));
+                u.addXpPoints(this.gameSession.getTotalScore());
+                this.saveUser();
+                this.saveAction.accept(this.leaderboard);
+                this.saveMaxStage.accept(this.gameSession.getStage());
+            });
+        }
+        this.gameSession = null;
+    }
+
+    @Override
+    public void registerLevelStartedEvent(final EventHandler<LevelData> handler) {
+        this.gameSession.getLevelStartedEvent().register(handler);
+    }
+
+    @Override
+    public int getLifeCount() {
+        return this.gameSession.getLifeCount();
+    }
+
+    @Override
+    public boolean registerUser(final String userName, final String password) {
+        final Optional<User> user = this.userManager.registerUser(userName, password);
+        this.user = user;
+        if (this.user.isPresent()) {
+            this.user.get().getUserModifiedEvent()
+            .register(u -> this.saveUser());
+        }
+        return this.user.isPresent();
+    }
+
+    @Override
+    public boolean loginUser(final String userName, final String password) {
+        final Optional<User> user = this.userManager.login(userName, password);
+        this.user = user;
+        if (this.user.isPresent()) {
+            this.user.get().getUserModifiedEvent()
+            .register(u -> this.saveUser());
+        }
+        return this.user.isPresent(); 
+    }
+
+    @Override
+    public void logoutUser() {
+        this.user = Optional.empty();
+    }
+
+    @Override
+    public Leaderboard getLeaderboard() {
+        return this.leaderboard;
+    }
+
+    @Override
+    public Optional<User> getUser() {
+        return this.user;
+    }
+
+    @Override
+    public int getCurrentTotalScore() {
+        return this.gameSession.getTotalScore();
+    }
+
+    private void saveUser() {
+        if (!this.userManager.saveUser(this.user.get())) {
+            this.view.getDialogFactory().createUserNotSaved(this.user.get().getName());
         }
     }
 
     @Override
-    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.gameSession.registerObjectCreatedEvent(handler);
+    public int getCurrentStage() {
+        return this.gameSession.getStage();
     }
 
 }

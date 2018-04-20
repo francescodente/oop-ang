@@ -45,11 +45,8 @@ public abstract class AbstractPower implements Power {
         return player;
     }
 
-    /**
-     * Deactivate the power.
-     * 
-     */
-    protected void deactivate() {
+    @Override
+    public void deactivate() {
         this.active = false;
     }
     /**

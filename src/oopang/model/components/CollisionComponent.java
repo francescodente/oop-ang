@@ -4,11 +4,12 @@ import java.util.Optional;
 
 import org.dyn4j.geometry.Convex;
 
-import oopang.commons.LevelManager;
+import oopang.commons.events.EventSource;
 import oopang.commons.events.Event;
-import oopang.commons.events.EventHandler;
 import oopang.commons.space.Point2D;
+import oopang.commons.space.Vector2D;
 import oopang.model.gameobjects.GameObject;
+import oopang.model.levels.LevelManager;
 import oopang.model.physics.Collidable;
 import oopang.model.physics.Collision;
 import oopang.model.physics.CollisionManager;
@@ -20,7 +21,7 @@ import oopang.model.physics.CollisionTag;
 public final class CollisionComponent extends AbstractComponent implements Collidable {
 
     private Convex boundingBox;
-    private final Event<Collision> collisionEvent;
+    private final EventSource<Collision> collisionEvent;
     private final CollisionTag collisionTag;
 
     /**
@@ -35,7 +36,7 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     public CollisionComponent(final GameObject obj, final Convex boundingBox, final CollisionTag tag) {
         super(obj);
         this.boundingBox = boundingBox;
-        this.collisionEvent = new Event<>();
+        this.collisionEvent = new EventSource<>();
         this.collisionTag = tag;
     }
 
@@ -43,7 +44,7 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     public void start() {
         final CollisionManager manager = LevelManager.getCurrentLevel().getCollisionManager();
         manager.addCollidable(this);
-        this.getGameObject().registerDestroyedEvent(o -> manager.removeCollidable(this));
+        this.getGameObject().getDestroyedEvent().register(o -> manager.removeCollidable(this));
     }
 
     @Override
@@ -73,16 +74,6 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     }
 
     @Override
-    public void registerCollisionEvent(final EventHandler<Collision> handler) {
-        this.collisionEvent.registerHandler(handler);
-    }
-
-    @Override
-    public void unregisterCollisionEvent(final EventHandler<Collision> handler) {
-        this.collisionEvent.unregisterHandler(handler);
-    }
-
-    @Override
     public CollisionTag getCollisionTag() {
         return this.collisionTag;
     }
@@ -90,5 +81,15 @@ public final class CollisionComponent extends AbstractComponent implements Colli
     @Override
     public Optional<GameObject> getAttachedGameObject() {
         return Optional.of(this.getGameObject());
+    }
+
+    @Override
+    public void translate(final Vector2D offset) {
+        this.getGameObject().setPosition(this.getPosition().translate(offset));
+    }
+
+    @Override
+    public Event<Collision> getCollisionEvent() {
+        return this.collisionEvent;
     }
 }

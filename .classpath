@@ -7,6 +7,8 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="lib" path="lib/dyn4j-3.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/w3c-dom.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

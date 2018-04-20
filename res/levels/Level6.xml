@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>TAJ_MAHAL</Background>
+    <WallTexture>BLUE_WALL</WallTexture>
+    <Time>60</Time>
+    <AvailablePower>
+        <Power id = "FREEZE"/>
+        <Power id = "DOUBLESHOT"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-85" y = "82.25"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "85" y = "82.25"/>
+            </Position>
+        </Ball>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-65" y = "31"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "65" y = "31"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-65" y = "72"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "65" y = "72"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>

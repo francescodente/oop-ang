@@ -2,7 +2,8 @@ package oopang.model.levels;
 
 import java.util.stream.Stream;
 
-import oopang.commons.events.EventHandler;
+import oopang.commons.Timeable;
+import oopang.commons.events.Event;
 import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
@@ -11,7 +12,7 @@ import oopang.model.physics.CollisionManager;
 /**
  * Represents a level containing all GameObjects.
  */
-public interface Level {
+public interface Level extends Timeable {
 
     /**
      * Starts all Level GameObjects and initialize stats.
@@ -75,24 +76,17 @@ public interface Level {
     CollisionManager getCollisionManager();
 
     /**
-     * Registers an {@link EventHandler} for when a new object is created and added to the level.
-     * @param handler
-     *      the {@link EventHandler}.
+     * Returns the Object created event.
+     * @return
+     *      the object created event
      */
-    void registerObjectCreatedEvent(EventHandler<GameObject> handler);
+    Event<GameObject> getObjectCreatedEvent();
 
     /**
-     * Unregisters an {@link EventHandler} for the object created event.
-     * @param handler
-     *      the {@link EventHandler} to remove.
+     * Returns the GameOverStatus event.
+     * @return
+     *      the gameOverStatus event.
      */
-    void unregisterObjectCreatedEvent(EventHandler<GameObject> handler);
-
-    /**
-     * Registers an {@link EventHandler} for when the level ends.
-     * @param handler
-     *      the {@link EventHandler}.
-     */
-    void registerGameOverEvent(EventHandler<GameOverStatus> handler);
+    Event<GameOverStatus> getGameOverStatusEvent();
 
 }

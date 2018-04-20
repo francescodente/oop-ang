@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
 
 import oopang.model.physics.Collision;
@@ -12,8 +13,8 @@ import oopang.model.physics.CollisionTag;
  */
 public class HookShot extends Shot {
 
-    private static final double WIDTH = 5;
-    private static final double START_HEIGHT = 1;
+    private static final double WIDTH = 2;
+    private static final double START_HEIGHT = 18;
 
     private double startY;
 
@@ -29,12 +30,15 @@ public class HookShot extends Shot {
     public void start() {
         super.start();
         this.startY = this.getPosition().getY();
+        this.setPosition(this.getPosition().setPointY(START_HEIGHT));
     }
 
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
-        this.getCollisionComponent().setShape(new Rectangle(WIDTH, this.getPosition().getY() - startY));
+        final Convex newShape = new Rectangle(WIDTH, this.getHeight());
+        newShape.translate(0, -this.getHeight() / 2);
+        this.getCollisionComponent().setShape(newShape);
     }
 
     @Override
@@ -45,7 +49,6 @@ public class HookShot extends Shot {
         }
     }
 
-
     @Override
     public double getWidth() {
         return WIDTH;
@@ -55,6 +58,11 @@ public class HookShot extends Shot {
     @Override
     public double getHeight() {
         return this.getPosition().getY() - startY;
+    }
+
+    @Override
+    public <T> T accept(final GameObjectVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
 }

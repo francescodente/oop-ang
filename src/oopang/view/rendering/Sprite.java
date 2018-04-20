@@ -100,4 +100,21 @@ public interface Sprite extends Renderer {
      *      the new source image identifier.
      */
     void setSource(ImageID sourceID);
+
+    /**
+     * Sets the opacity of the sprite. Values that are not in the range [0, 1] will be
+     * clamped.
+     * @param alpha
+     *      the new alpha value. A value of 1 means full opacity, a value of 0
+     *      means full transparency.
+     */
+    void setAlpha(double alpha);
+
+    /**
+     * Returns the opacity of the sprite.
+     * @return
+     *      the alpha value. A value of 1 means full opacity, a value of 0
+     *      means full transparency.
+     */
+    double getAlpha();
 }

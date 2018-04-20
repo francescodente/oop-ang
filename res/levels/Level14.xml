@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>NEW_YORK</Background>
+    <WallTexture>YELLOW_WALL</WallTexture>
+    <Time>30</Time>
+    <AvailablePower>
+        <Power id = "DOUBLESHOT"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "RED" size = "1">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-90" y = "95"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "75"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "82" y = "75"/>
+            </Position>
+        </Ball>
+        <Wall width ="5.5" height = "82.75">
+            <Position>
+                <Point x = "-40" y = "58.625"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-77.75" y = "90"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-67.75" y = "80"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-77.75" y = "70"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-67.75" y = "60"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-77.75" y = "50"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-67.75" y = "40"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-77.75" y = "30"/>
+            </Position>
+        </Wall>
+        <Wall width ="50" height = "5.5">
+            <Position>
+                <Point x = "-67.75" y = "20"/>
+            </Position>
+        </Wall>
+        <Wall width ="30" height = "5.5">
+            <Position>
+                <Point x = "36" y = "25"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>

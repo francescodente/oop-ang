@@ -2,7 +2,7 @@ package oopang.model.levels;
 
 import java.util.stream.Stream;
 
-import oopang.commons.events.EventHandler;
+import oopang.commons.events.Event;
 import oopang.model.GameOverStatus;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectFactory;
@@ -72,17 +72,33 @@ public abstract class LevelDecorator implements Level {
     }
 
     @Override
-    public void registerObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.innerLevel.registerObjectCreatedEvent(handler);
+    public Event<GameObject> getObjectCreatedEvent() {
+        return this.innerLevel.getObjectCreatedEvent();
     }
 
     @Override
-    public void unregisterObjectCreatedEvent(final EventHandler<GameObject> handler) {
-        this.innerLevel.unregisterObjectCreatedEvent(handler);
+    public Event<GameOverStatus> getGameOverStatusEvent() {
+        return this.innerLevel.getGameOverStatusEvent();
     }
-
     @Override
-    public void registerGameOverEvent(final EventHandler<GameOverStatus> handler) {
-        this.innerLevel.registerGameOverEvent(handler);
+    public double getRemainingTimePercentage() {
+        return this.innerLevel.getRemainingTimePercentage();
+    }
+    @Override
+    public Event<Void> getTimeOutEvent() {
+        return this.innerLevel.getTimeOutEvent();
+    }
+    @Override
+    public Event<Double> getTimeChangedEvent() {
+        return this.innerLevel.getTimeChangedEvent();
+    }
+    @Override
+    public void addTime(final double time) {
+        this.innerLevel.addTime(time);
+    }
+    @Override
+    public double getRemainingTime() {
+        return this.innerLevel.getRemainingTime();
     }
 }
+

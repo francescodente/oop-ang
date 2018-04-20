@@ -10,6 +10,12 @@ public interface InputWriter {
      */
     void setDirection(InputDirection dir);
     /**
+     * Removes the specified direction.
+     * @param dir
+     *      the direction to remove.
+     */
+    void removeDirection(InputDirection dir);
+    /**
      * Set the shoot status.
      * @param status
      *      the status of the shoot

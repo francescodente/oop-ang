@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import oopang.commons.space.Vectors2D;
 import oopang.model.physics.Collision;
 import oopang.model.physics.CollisionTag;
 
@@ -44,6 +45,7 @@ public class StickyShot extends HookShot {
         }
         if (tag == CollisionTag.WALL) {
             isSticked = true;
+            this.getMovementComponent().setVelocity(Vectors2D.ZERO);
         }
     }
 

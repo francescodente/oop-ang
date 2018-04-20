@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>FUJI</Background>
+    <WallTexture>RED_WALL</WallTexture>
+    <Time>40</Time>
+    <AvailablePower>
+        <Power id = "TIMEDSHIELD"/>
+        <Power id = "DOUBLESPEED"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "RED" size = "4">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-82" y = "82"/>
+            </Position>
+        </Ball>
+    </GameObject>
+</Level>

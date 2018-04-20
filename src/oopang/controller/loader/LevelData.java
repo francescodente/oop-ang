@@ -1,9 +1,8 @@
 package oopang.controller.loader;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import oopang.controller.DayTime;
-import oopang.model.BallColor;
 import oopang.model.levels.Level;
 import oopang.view.rendering.ImageID;
 
@@ -12,10 +11,12 @@ import oopang.view.rendering.ImageID;
  */
 public class LevelData {
 
-    private static final Double MORNING = 12.00;
-    private static final Double AFTERNOON = 19.00;
+    private static final int MORNING = 8;
+    private static final int AFTERNOON = 14;
+    private static final int NIGHT = 20;
 
     private final ImageID background;
+    private final ImageID walltexture;
     private final DayTime time;
     private final Level level;
 
@@ -23,23 +24,26 @@ public class LevelData {
      * Constructor of the class.
      * @param background
      *      The background of the level.
+     *@param walltexture
+     *      The wall texture of the level.
      * @param level
      *      the new level created from loader
      */
-    public LevelData(final ImageID background, final Level level) {
+    public LevelData(final ImageID background, final ImageID walltexture, final Level level) {
         super();
         this.background = background;
-        this.time = findDayTime(new Date());
+        this.walltexture = walltexture;
+        this.time = findDayTime(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         this.level = level;
     }
 
     /**
      * Utility method to set the DayTime.
      */
-    private DayTime findDayTime(final Date currentTime) {
-        if (currentTime.getTime() < MORNING) {
+    private DayTime findDayTime(final int hour) {
+        if (hour >= MORNING && hour < AFTERNOON) {
             return DayTime.MORNING;
-        } else if (currentTime.getTime() > MORNING && currentTime.getTime() < AFTERNOON) {
+        } else if (hour >= AFTERNOON && hour < NIGHT) {
             return DayTime.AFTERNOON;
         }
         return DayTime.NIGHT;
@@ -52,6 +56,14 @@ public class LevelData {
      */
     public ImageID getBackground() {
         return this.background;
+    }
+    /**
+     * Getter of the wall texture.
+     * @return
+     *      The wall texture of the level.
+     */
+    public ImageID getWallTexture() {
+        return this.walltexture;
     }
 
     /**

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>ATHENS</Background>
+    <WallTexture>YELLOW_WALL</WallTexture>
+    <Time>60</Time>
+    <AvailablePower>
+        <Power id = "DOUBLESPEED"/>
+        <Power id = "FREEZE"/>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-82.5" y = "20"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-73.5" y = "25"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-64.5" y = "30"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-55.5" y = "35"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "82.5" y = "20"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "73.5" y = "25"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "64.5" y = "30"/>
+            </Position>
+        </Ball>
+        <Ball color = "BLUE" size = "2">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "55.5" y = "35"/>
+            </Position>
+        </Ball>
+    </GameObject>
+</Level>

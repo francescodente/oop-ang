@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LevelResetController">
+   <top>
+      <Label id="title" onMouseClicked="#nextScene" text="YOU LOST" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <stylesheets>
+   	  <URL value="@/stylesheet/menustyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label fx:id="labelName" text="Label">
+                     <VBox.margin>
+                        <Insets left="100.0" right="100.0" top="100.0" />
+                     </VBox.margin></Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label fx:id="labelScore" text="Label" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <Label text="PRESS ENTER TO RESTART" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin></Label>
+   </bottom>
+   <stylesheets>
+   	  <URL value="@/stylesheet/menustyle.css" />
+      <URL value="@/stylesheet/mainstyle.css" />
+   </stylesheets>
+</BorderPane>

@@ -1,5 +1,6 @@
 package oopang.model.gameobjects;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Vector2D;
 import oopang.model.BallColor;
 import oopang.model.powers.Power;
@@ -22,8 +23,8 @@ public abstract class GameObjectFactoryDecorator implements GameObjectFactory {
     }
 
     @Override
-    public GameObject createPlayer() {
-        return this.innerFactory.createPlayer();
+    public GameObject createPlayer(final PlayerTag tag) {
+        return this.innerFactory.createPlayer(tag);
     }
 
     @Override

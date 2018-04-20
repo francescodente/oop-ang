@@ -3,7 +3,7 @@ package oopang.model.gameobjects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import oopang.commons.events.EventHandler;
+import oopang.commons.events.Event;
 import oopang.commons.space.Point2D;
 import oopang.model.components.Component;
 
@@ -81,16 +81,20 @@ public interface GameObject {
     void setPosition(Point2D position);
 
     /**
-     * Registers an {@link EventHandler} for when the object is destroyed.
-     * @param handler
-     *      the {@link EventHandler}.
+     * Returns the event.
+     * @return
+     *      the destruction event.
      */
-    void registerDestroyedEvent(EventHandler<GameObject> handler);
+    Event<GameObject> getDestroyedEvent();
 
     /**
-     * Unregisters an {@link EventHandler} for when the object is destroyed.
-     * @param handler
-     *      the {@link EventHandler} to remove.
+     * Accepts a new {@link GameObjectVisitor} to perform actions on this object.
+     * @param visitor
+     *      the {@link GameObjectVisitor}.
+     * @param <T>
+     *      the type of result.
+     * @return
+     *      the result of the visit.
      */
-    void unregisterDestroyedEvent(EventHandler<GameObject> handler);
+    <T> T accept(GameObjectVisitor<T> visitor);
 }
