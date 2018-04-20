@@ -52,6 +52,10 @@ public class LeaderboardController extends SceneController {
         this.scoreColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getScore()));
         this.rankColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(records.indexOf(p.getValue()) + 1));
         this.table.getItems().setAll(records);
+        leaderboard.getLastIndex().ifPresent(i -> {
+           this.table.getSelectionModel().select(i); 
+           this.table.getSelectionModel().focus(i);
+        });
     }
 
     @Override
