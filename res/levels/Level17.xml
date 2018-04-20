@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level>
+    <Background>EASTER_ISLAND</Background>
+    <WallTexture>PURPLE_WALL</WallTexture>
+    <Time>90</Time>
+    <Gravity>
+        <Vector x = "0" y = "100"/>
+    </Gravity>
+    <AvailablePower>
+    </AvailablePower>
+    <GameObject>
+        <Ball color = "ORANGE" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "50"/>
+            </Position>
+        </Ball>
+        <Ball color = "ORANGE" size = "3">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "75" y = "50"/>
+            </Position>
+        </Ball>
+        <Ball color = "ORANGE" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-75" y = "50"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "2">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-37.5" y = "30"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "2">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "37.5" y = "30"/>
+            </Position>
+        </Ball>
+        <Wall width ="25" height = "5.5">
+            <Position>
+                <Point x = "0" y = "25"/>
+            </Position>
+        </Wall>
+        <Wall width ="25" height = "5.5">
+            <Position>
+                <Point x = "75" y = "25"/>
+            </Position>
+        </Wall>
+        <Wall width ="25" height = "5.5">
+            <Position>
+                <Point x = "-75" y = "25"/>
+            </Position>
+        </Wall>
+        <Wall width ="25" height = "5.5">
+            <Position>
+                <Point x = "-37.5" y = "75"/>
+            </Position>
+        </Wall>
+        <Wall width ="25" height = "5.5">
+            <Position>
+                <Point x = "37.5" y = "75"/>
+            </Position>
+        </Wall>
+    </GameObject>
+</Level>
