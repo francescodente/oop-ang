@@ -1,6 +1,7 @@
 package oopang.view.rendering.javafx;
 
 import javafx.application.Platform;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -10,6 +11,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import oopang.commons.Timeable;
 import oopang.controller.users.User;
@@ -135,13 +138,27 @@ public class JavaFXUIFactory {
                 factory.createNotEnoughCoins().show();
             }
         });
-        final BorderPane mainPane = new BorderPane();
-        mainPane.setLeft(icon);
-        mainPane.setRight(upgradeButton);
-        mainPane.setPadding(new Insets(PADDING_EXTERNAL));
         final VBox centerBox = new VBox(levelLabel, bar);
         centerBox.setPadding(new Insets(PADDING_INTERNAL));
-        mainPane.setCenter(centerBox);
+        bar.setMaxWidth(Double.MAX_VALUE);
+        upgradeButton.setMaxWidth(Double.MAX_VALUE);
+        final GridPane mainPane = new GridPane();
+        mainPane.addRow(0);
+        mainPane.setMaxWidth(Double.MAX_VALUE);
+        mainPane.addColumn(0, icon);
+        mainPane.addColumn(1, centerBox);
+        mainPane.addColumn(2, upgradeButton);
+        final ColumnConstraints c0 = new ColumnConstraints();
+        final ColumnConstraints c1 = new ColumnConstraints();
+        final ColumnConstraints c2 = new ColumnConstraints();
+        c0.setPrefWidth(icon.getFitWidth());
+        c0.setPercentWidth(10);
+        c1.setPercentWidth(50);
+        c2.setPercentWidth(35);
+        c2.setHalignment(HPos.CENTER);
+        mainPane.getColumnConstraints().addAll(c0, c1, c2);
+        mainPane.setPadding(new Insets(PADDING_EXTERNAL));
+
         return mainPane;
     }
 
