@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
 import oopang.model.components.CollisionComponent;
@@ -27,7 +28,7 @@ public class TestGameObjects {
      */
     @Test
     public void testPlayerComponents() {
-        final GameObject player = new Player();
+        final GameObject player = new Player(PlayerTag.PLAYER_ONE);
         assertTrue(player.getComponent(MovementComponent.class).isPresent());
         assertTrue(player.getComponent(InputComponent.class).isPresent());
         assertTrue(player.getComponent(ShooterComponent.class).isPresent());

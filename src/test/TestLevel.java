@@ -10,11 +10,10 @@ import org.junit.Test;
 
 import oopang.commons.space.Vectors2D;
 import oopang.model.BallColor;
-import oopang.model.Model;
-import oopang.model.World;
 import oopang.model.gameobjects.GameObject;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelManager;
 
 /**
  * JUnit test for {@link Level} and {@link GameObject}s management.
@@ -23,17 +22,14 @@ public class TestLevel {
 
     private static final double DELTATIME = 0.1;
     private Level level;
-    private Model model;
-
 
     /**
      * Setting up the test.
      */
     @Before
     public void setUp() {
-        this.model = new World();
         this.level = new BaseLevel();
-        this.model.setCurrentLevel(level);
+        LevelManager.setCurrentLevel(level);
     }
 
     /**

@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import oopang.commons.LevelManager;
+import oopang.commons.PlayerTag;
 import oopang.commons.space.Vectors2D;
 import oopang.model.components.InputComponent;
 import oopang.model.components.MovementComponent;
@@ -19,6 +19,7 @@ import oopang.model.input.InputController;
 import oopang.model.input.InputDirection;
 import oopang.model.levels.BaseLevel;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelManager;
 
 /**
  * JUnit tests for {@link InputReader} and {@link InputWriter} interfaces.
@@ -32,7 +33,7 @@ public class TestInput {
      */
     @Test
     public void testMovementInput() {
-        final Player player = new Player();
+        final Player player = new Player(PlayerTag.PLAYER_ONE);
         player.start();
         final MovementComponent movement = player.getComponent(MovementComponent.class).get();
         final InputController input = new InputController();
@@ -61,10 +62,10 @@ public class TestInput {
         final List<GameObject> shootObjects = new ArrayList<>();
         final Level level = new BaseLevel();
         LevelManager.setCurrentLevel(level);
-        final GameObject player = level.getGameObjectFactory().createPlayer();
+        final GameObject player = level.getGameObjectFactory().createPlayer(PlayerTag.PLAYER_ONE);
         final InputController input = new InputController();
         player.getComponent(InputComponent.class).get().setInputReader(input);
-        level.registerObjectCreatedEvent(o -> {
+        level.getObjectCreatedEvent().register(o -> {
             if (o instanceof Shot) {
                 shootObjects.add(o);
             }

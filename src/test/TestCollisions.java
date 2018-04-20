@@ -127,11 +127,11 @@ public class TestCollisions {
         this.collisionManager.addCollidable(c2);
         this.collisionResA = false;
         this.collisionResB = false;
-        c1.registerCollisionEvent(c -> {
+        c1.getCollisionEvent().register(c -> {
             this.collisionResA = true;
             assertEquals(c.getOther(), c2);
         });
-        c2.registerCollisionEvent(c -> {
+        c2.getCollisionEvent().register(c -> {
             this.collisionResB = true;
             assertEquals(c.getOther(), c1);
         });
@@ -152,8 +152,8 @@ public class TestCollisions {
         this.collisionManager.addCollidable(c2);
         this.collisionResA = false;
         this.collisionResB = false;
-        c1.registerCollisionEvent(c -> assertEquals(c.getNormal(), expected));
-        c2.registerCollisionEvent(c -> assertEquals(c.getNormal().multiply(-1), expected));
+        c1.getCollisionEvent().register(c -> assertEquals(c.getNormal(), expected));
+        c2.getCollisionEvent().register(c -> assertEquals(c.getNormal().multiply(-1), expected));
         this.collisionManager.step();
         this.collisionManager.removeCollidable(c1);
         this.collisionManager.removeCollidable(c2);
