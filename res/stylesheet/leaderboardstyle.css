@@ -1,18 +1,29 @@
 .table-view {
-    -fx-background-color: black;
 	-fx-font-size: 25px;
 	-fx-font-family: 'Press Start 2P';
 }
 
+*:disabled{
+    -fx-opacity: 1;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: red;
+}
+
 .table-column {
 	-fx-text-fill: white;
-	-fx-background-color: black;
 	-fx-alignment: center;
-	-fx-border-color: transparent;
+}
+
+* {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .table-view .column-header-background .label {
 	-fx-text-fill: yellow;
+    -fx-font-size: 35px;
 	-fx-font-family: 'Karmatic Arcade';
 }
 

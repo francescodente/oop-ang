@@ -56,6 +56,7 @@ public final class LeaderboardController extends SceneController {
            this.table.getSelectionModel().select(i); 
            this.table.getSelectionModel().focus(i);
         });
+        this.table.setDisable(true);
     }
 
     @Override
