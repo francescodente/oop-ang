@@ -114,7 +114,7 @@ public final class User implements Serializable {
      *      the value to calculate the reward.
      */
     private void addCoins() {
-        this.coins = LEVELS_REWARD.get(this.rank);
+        this.coins += LEVELS_REWARD.get(this.rank);
         this.userModifiedEvent.trigger(null);
     }
 
