@@ -30,6 +30,8 @@ public final class User implements Serializable {
     private int rank;
     private int survivalMaxStage;
     private int arcadeMaxStage;
+    private int survivalMaxScore;
+    private int arcadeMaxScore;
     private int xpPoints;
     private final Map<PowerTag, Integer> powerLevels;
     private transient EventSource<Void> userModifiedEvent;
@@ -45,6 +47,8 @@ public final class User implements Serializable {
         this.rank = 0;
         this.survivalMaxStage = 0;
         this.arcadeMaxStage = 0;
+        this.survivalMaxScore = 0;
+        this.arcadeMaxScore = 0;
         this.xpPoints = 0;
         this.name = name;
         this.userModifiedEvent = new EventSource<>();
@@ -147,8 +151,10 @@ public final class User implements Serializable {
      *      value used to set the Survival max stage.
      */
     public void setSurvivalMaxStage(final int survivalMaxStage) {
-        this.survivalMaxStage = survivalMaxStage;
-        this.userModifiedEvent.trigger(null);
+        if (survivalMaxStage > this.survivalMaxStage) {
+            this.survivalMaxStage = survivalMaxStage;
+            this.userModifiedEvent.trigger(null);
+        }
     }
 
     /**
@@ -168,6 +174,48 @@ public final class User implements Serializable {
     public void setArcadeMaxStage(final int arcadeMaxStage) {
         if (arcadeMaxStage > this.arcadeMaxStage) {
             this.arcadeMaxStage = arcadeMaxStage;
+            this.userModifiedEvent.trigger(null);
+        }
+    }
+
+    /**
+     * Method that get the value of the Survival max score.
+     * @return
+     *      the value of the Survival max score.
+     */
+    public int getSurvivalMaxScore() {
+        return this.survivalMaxScore;
+    }
+    /**
+     * Method that set the value of the Survival max score.
+     * @param survivalMaxScore
+     *      value used to set the Survival max score.
+     */
+
+    public void setSurvivalMaxScore(final int survivalMaxScore) {
+        if (survivalMaxScore > this.survivalMaxScore) {
+            this.survivalMaxScore = survivalMaxScore;
+            this.userModifiedEvent.trigger(null);
+        }
+    }
+
+    /**
+     * Method that get the value of the Arcade max score.
+     * @return
+     *      the value of the Arcade max score.
+     */
+    public int getArcadeMaxScore() {
+        return this.arcadeMaxScore;
+    }
+
+    /**
+     * Method that set the value of the Arcade max score.
+     * @param arcadeMaxScore
+     *      value used to set the Arcade max score.
+     */
+    public void setArcadeMaxScore(final int arcadeMaxScore) {
+        if (arcadeMaxScore > this.arcadeMaxScore) {
+            this.arcadeMaxScore = arcadeMaxScore;
             this.userModifiedEvent.trigger(null);
         }
     }
