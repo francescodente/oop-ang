@@ -47,7 +47,7 @@
       </VBox>
    </center>
    <bottom>
-      <Label text="PRESS SPACE TO SEE LEADERBOARD" BorderPane.alignment="CENTER">
+      <Label text="PRESS ENTER TO SEE LEADERBOARD" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="50.0" />
          </BorderPane.margin>

@@ -84,7 +84,7 @@ public final class UserProfileController extends SceneController {
 
     @Override
     public void onKeyPressed(final KeyEvent event) {
-        if (event.getCode() == KeyCode.Q) {
+        if (event.getCode() == KeyCode.ENTER) {
             this.nextScene();
         }
     }

@@ -28,10 +28,13 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <top>
-      <Label text="Leaderboard" BorderPane.alignment="CENTER">
+      <Label id="title" text="Leaderboard" BorderPane.alignment="CENTER">
          <font>
             <Font size="40.0" />
          </font>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
       </Label>
    </top>
    <stylesheets>

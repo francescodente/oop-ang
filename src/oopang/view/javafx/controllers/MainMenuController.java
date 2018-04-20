@@ -24,7 +24,7 @@ public final class MainMenuController extends SceneController {
 
     @Override
     public void onKeyPressed(final KeyEvent event) {
-        if (event.getCode() == KeyCode.SPACE) {
+        if (event.getCode() == KeyCode.ENTER) {
             this.nextScene();
         }
     }
