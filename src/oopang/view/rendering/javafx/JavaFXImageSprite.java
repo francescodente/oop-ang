@@ -21,11 +21,12 @@ public final class JavaFXImageSprite extends GenericSprite {
     public JavaFXImageSprite(final GraphicsContext gc) {
         super();
         this.gc = gc;
+        this.image = null;
     }
 
     @Override
     public void setSource(final ImageID sourceID) {
-        this.image = ImageManager.getManager().getImage(sourceID);
+        this.image = ImageLoader.getLoader().getImage(sourceID);
         super.setSource(sourceID);
     }
 
