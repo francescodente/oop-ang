@@ -33,6 +33,14 @@ public final class UserProfileController extends SceneController {
     private ProgressBar xpBar;
     @FXML
     private VBox powerContainerBox;
+    @FXML
+    private Label maxArcadeStage;
+    @FXML
+    private Label maxSurvivalStage;
+    @FXML
+    private Label maxArcadeScore;
+    @FXML
+    private Label maxSurvivalScore;
 
     private JavaFXUIFactory factory;
     private User user;
@@ -44,6 +52,10 @@ public final class UserProfileController extends SceneController {
         this.userName.setText(this.user.getName());
         this.xpPoints.setText(user.getXpPoints() + " xp");
         this.levelRank.setText("Rank: " + this.user.getRank());
+        this.maxArcadeStage.setText("Max Arcade Stage: " + this.user.getArcadeMaxStage());
+        this.maxSurvivalStage.setText("Max Survival Stage: " + this.user.getSurvivalMaxStage());
+        this.maxSurvivalScore.setText("Max Survival Score: " + this.user.getSurvivalMaxScore());
+        this.maxArcadeScore.setText("Max Arcade Score: " + this.user.getArcadeMaxScore());
         this.xpBar.setProgress(this.user.getXpLevelPercentage());
         this.factory = new JavaFXUIFactory();
         this.user.getUserModifiedEvent().register(n -> {
