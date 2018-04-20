@@ -7,14 +7,16 @@ import oopang.model.input.InputDirection;
 import oopang.view.javafx.controllers.GameController;
 
 /**
- * 
+ * Represents the state where the player is interacting with the game.
  */
-public class InGameState extends GameGUIState {
+public final class InGameState extends GameGUIState {
 
     /**
-     * 
+     * Creates a new in game state.
      * @param gameGui
+     *      the gui controller.
      * @param controller
+     *      the application controller.
      */
     public InGameState(final GameController gameGui, final Controller controller) {
         super(gameGui, controller);
@@ -22,12 +24,11 @@ public class InGameState extends GameGUIState {
 
     @Override
     public void onStateEntry() {
-        
+
     }
 
     @Override
     public void onStateExit() {
-        // TODO Auto-generated method stub
 
     }
 
@@ -66,5 +67,4 @@ public class InGameState extends GameGUIState {
             this.getController().sendCommand(e -> e.setShooting(false), PlayerTag.PLAYER_TWO);
         }
     }
-
 }

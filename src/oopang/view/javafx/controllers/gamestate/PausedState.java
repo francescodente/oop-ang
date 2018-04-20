@@ -6,16 +6,20 @@ import oopang.controller.Controller;
 import oopang.view.javafx.controllers.GameController;
 
 /**
- * 
+ * Represents the state in which the game is paused.
  */
-public class PausedState extends GameGUIState {
+public final class PausedState extends GameGUIState {
 
     private final Pane pausePane;
+
     /**
-     * 
+     * Creates a new paused state object.
      * @param gameGui
+     *      the gui controller.
      * @param controller
+     *      the application controller.
      * @param pausePane
+     *      the pane to be showed during the pause state.
      */
     public PausedState(final GameController gameGui, final Controller controller, final Pane pausePane) {
         super(gameGui, controller);
@@ -45,6 +49,6 @@ public class PausedState extends GameGUIState {
 
     @Override
     public void onKeyReleased(final KeyEvent event) {
-    }
 
+    }
 }

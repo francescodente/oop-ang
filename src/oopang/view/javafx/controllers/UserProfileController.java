@@ -81,7 +81,8 @@ public final class UserProfileController extends SceneController {
         this.getController().logoutUser();
         this.getView().loadScene(GameScene.LOGIN);
     }
-    
+
+    @Override
     public void onKeyPressed(final KeyEvent event) {
         if (event.getCode() == KeyCode.Q) {
             this.nextScene();

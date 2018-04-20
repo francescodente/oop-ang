@@ -18,9 +18,9 @@ import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
- *
+ * The controller for the scene showing the leaderboard.
  */
-public class LeaderboardController extends SceneController {
+public final class LeaderboardController extends SceneController {
     @FXML
     private TableView<LeaderboardRecord> table;
     @FXML
@@ -52,11 +52,15 @@ public class LeaderboardController extends SceneController {
         this.scoreColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getScore()));
         this.rankColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(records.indexOf(p.getValue()) + 1));
         this.table.getItems().setAll(records);
+        leaderboard.getLastIndex().ifPresent(i -> {
+           this.table.getSelectionModel().select(i); 
+           this.table.getSelectionModel().focus(i);
+        });
     }
 
     @Override
     public void onKeyPressed(final KeyEvent event) {
-        if (event.getCode() == KeyCode.Q) {
+        if (event.getCode() == KeyCode.ENTER) {
             this.nextScene();
         }
     }
@@ -65,13 +69,15 @@ public class LeaderboardController extends SceneController {
         return this.getController().getLeaderboard();
     }
 
+    /**
+     * Method to be called when the player clicks on the restart button.
+     */
     @FXML
     public void checkRestart() {
         if (GameParameters.isStoryMode()) {
             this.getController().startStoryGameSession(GameParameters.getLevelindex(), GameParameters.isMultiplayer());
             this.getView().loadScene(GameScene.GAME_GUI);
-        }
-        else {
+        } else {
             this.getController().startInifiniteGameSession(GameParameters.isMultiplayer());
             this.getView().loadScene(GameScene.GAME_GUI);
         }

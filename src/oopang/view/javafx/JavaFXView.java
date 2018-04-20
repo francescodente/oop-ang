@@ -9,7 +9,7 @@ import oopang.view.View;
 import oopang.view.dialogs.DialogFactory;
 import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.javafx.controllers.SceneController;
-import oopang.view.rendering.javafx.ImageManager;
+import oopang.view.rendering.javafx.ImageLoader;
 
 /**
  * This is the concrete implementation of the view Interface.
@@ -44,8 +44,7 @@ public class JavaFXView implements View {
         this.stage.setMaximized(true);
         this.stage.setTitle(TITLE);
         this.loadScene(GameScene.MAIN_MENU);
-        final Thread loader = new Thread(() -> ImageManager.getManager().loadAll());
-        loader.start();
+        ImageLoader.getLoader().loadAll();
     }
 
     @Override

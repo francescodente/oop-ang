@@ -35,7 +35,7 @@ public class JavaFXUIFactory {
      *      the icon for the heart.
      */
     public Node createHeartIcon() {
-        final ImageView image = new ImageView(ImageManager.getManager().getImage(ImageID.HEART));
+        final ImageView image = new ImageView(ImageLoader.getLoader().getImage(ImageID.HEART));
         image.setFitWidth(HEART_SIZE);
         image.setFitHeight(HEART_SIZE);
         return image;
@@ -87,7 +87,7 @@ public class JavaFXUIFactory {
      */
     public ImageView createPowerIcon(final PowerTag tag) {
         final ImageView imageview = new ImageView();
-        final Image image = ImageManager.getManager().getImage(ImageID.PICKUP);
+        final Image image = ImageLoader.getLoader().getImage(ImageID.PICKUP);
         final double cellwidth = image.getWidth() / 3;
         final double cellheight = image.getHeight() / 2;
         switch (tag) {
