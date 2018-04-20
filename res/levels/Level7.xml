@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Level>
     <Background>LENINGRAD</Background>
-    <WallTexture>YELLOW_WALL</WallTexture>
+    <WallTexture>RED_WALL</WallTexture>
     <Time>60</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "DOUBLESHOT"/>
     </AvailablePower>
     <GameObject>
-        <Ball color = "RED" size = "4">
+        <Ball color = "BLUE" size = "4">
             <Velocity>
                 <Vector x = "17" y = "0"/>
             </Velocity>

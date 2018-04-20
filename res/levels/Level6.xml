@@ -8,7 +8,7 @@
         <Power id = "DOUBLESHOT"/>
     </AvailablePower>
     <GameObject>
-        <Ball color = "GREEN" size = "3">
+        <Ball color = "RED" size = "3">
             <Velocity>
                 <Vector x = "17" y = "0"/>
             </Velocity>
@@ -16,7 +16,7 @@
                 <Point x = "-85" y = "82.25"/>
             </Position>
         </Ball>
-        <Ball color = "GREEN" size = "3">
+        <Ball color = "RED" size = "3">
             <Velocity>
                 <Vector x = "-17" y = "0"/>
             </Velocity>

@@ -2,72 +2,95 @@
 <Level>
     <Background>EGYPT</Background>
     <WallTexture>PURPLE_WALL</WallTexture>
-    <Time>60</Time>
+    <Time>100</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "ADHESIVESHOT"/>
         <Power id = "DOUBLESPEED"/>
     </AvailablePower>
     <GameObject>
+        <Ball color = "YELLOW" size = "4">
+            <Velocity>
+                <Vector x = "17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "0" y = "30"/>
+            </Position>
+        </Ball>
+        <Ball color = "ORANGE" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "-33" y = "75"/>
+            </Position>
+        </Ball>
         <Ball color = "ORANGE" size = "3">
             <Velocity>
                 <Vector x = "17" y = "0"/>
             </Velocity>
             <Position>
-                <Point x = "-11.25" y = "85"/>
+                <Point x = "33" y = "75"/>
             </Position>
         </Ball>
-        <Ball color = "YELLOW" size = "4">
-            <Velocity>
-                <Vector x = "-17" y = "0"/>
-            </Velocity>
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "82" y = "74.5"/>
-            </Position>
-        </Ball>
-        <Wall width ="7.5" height = "5.5">
-            <Position>
-                <Point x = "-42.5" y = "80"/>
+                <Point x = "0" y = "85"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-50" y = "74.5"/>
+                <Point x = "-25" y = "74"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-57.5" y = "69"/>
+                <Point x = "-50" y = "63"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-65" y = "63.5"/>
+                <Point x = "-75" y = "52"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-72.5" y = "58"/>
+                <Point x = "-50" y = "41"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-80" y = "52.5"/>
+                <Point x = "-25" y = "30"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-35" y = "74.5"/>
+                <Point x = "0" y = "19"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-27.5" y = "69"/>
+                <Point x = "25" y = "74"/>
             </Position>
         </Wall>
-        <Wall width ="7.5" height = "5.5">
+        <Wall width ="11" height = "5.5">
             <Position>
-                <Point x = "-20" y = "63.5"/>
+                <Point x = "50" y = "63"/>
+            </Position>
+        </Wall>
+        <Wall width ="11" height = "5.5">
+            <Position>
+                <Point x = "75" y = "52"/>
+            </Position>
+        </Wall>
+        <Wall width ="11" height = "5.5">
+            <Position>
+                <Point x = "50" y = "41"/>
+            </Position>
+        </Wall>
+        <Wall width ="11" height = "5.5">
+            <Position>
+                <Point x = "25" y = "30"/>
             </Position>
         </Wall>
     </GameObject>

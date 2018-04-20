@@ -2,14 +2,14 @@
 <Level>
     <Background>NEW_YORK</Background>
     <WallTexture>YELLOW_WALL</WallTexture>
-    <Time>30</Time>
+    <Time>35</Time>
     <AvailablePower>
         <Power id = "DOUBLESHOT"/>
     </AvailablePower>
     <GameObject>
         <Ball color = "RED" size = "1">
             <Velocity>
-                <Vector x = "17" y = "0"/>
+                <Vector x = "15" y = "0"/>
             </Velocity>
             <Position>
                 <Point x = "-90" y = "95"/>
@@ -29,6 +29,14 @@
             </Velocity>
             <Position>
                 <Point x = "82" y = "75"/>
+            </Position>
+        </Ball>
+        <Ball color = "GREEN" size = "3">
+            <Velocity>
+                <Vector x = "-17" y = "0"/>
+            </Velocity>
+            <Position>
+                <Point x = "41" y = "55"/>
             </Position>
         </Ball>
         <Wall width ="5.5" height = "82.75">

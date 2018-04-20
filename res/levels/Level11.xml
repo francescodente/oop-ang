@@ -5,7 +5,6 @@
     <Time>60</Time>
     <AvailablePower>
         <Power id = "DOUBLESPEED"/>
-        <Power id = "FREEZE"/>
     </AvailablePower>
     <GameObject>
         <Ball color = "BLUE" size = "2">
