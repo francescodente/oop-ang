@@ -2,6 +2,7 @@ package oopang.model.shooter;
 
 import java.util.function.Supplier;
 
+import oopang.commons.space.Point2D;
 import oopang.model.gameobjects.Shot;
 
 /**
@@ -17,11 +18,11 @@ public interface Shooter {
     void update(double deltaTime);
 
     /**
-     * Check if the shooting action can be performed.
-     * @return
-     *      if the shooter can shoot
+     * Sets the Shooter current position.
+     * @param position
+     *      the current position of the shooter.
      */
-    boolean canShoot();
+    void setPosition(Point2D position);
 
     /**
      * Sets the shooter state to shooting or not shooting.

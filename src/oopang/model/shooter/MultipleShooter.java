@@ -2,7 +2,8 @@ package oopang.model.shooter;
 
 import java.util.function.Supplier;
 
-import oopang.model.gameobjects.GameObject;
+import oopang.commons.space.Point2D;
+import oopang.commons.space.Points2D;
 import oopang.model.gameobjects.Shot;
 
 /**
@@ -17,41 +18,37 @@ public class MultipleShooter implements Shooter {
 
     private int currentShotNumber;
     private int max;
-    private final GameObject player;
     private Supplier<Shot> supplier;
     private boolean lastShootingState;
     private boolean currentShootingState;
+    private Point2D position;
 
     /**
      * Create a new MultipleShooter instance.
      * @param max
      *      the max number of shots that can be shot simultaneously
-     * @param player
-     *      the player reference
      * @param supplier
      *      the supplier of shots
      */
-    public MultipleShooter(final int max, final GameObject player, final Supplier<Shot> supplier) {
+    public MultipleShooter(final int max, final Supplier<Shot> supplier) {
         this.currentShotNumber = 0;
         this.max = max;
-        this.player = player;
+        this.position = Points2D.ZERO;
         this.supplier = supplier;
         this.currentShootingState = false;
         this.lastShootingState = false;
     }
 
-    @Override
-    public boolean canShoot() {
+    private boolean canShoot() {
         return currentShotNumber < max 
                 && this.currentShootingState 
                 && this.currentShootingState != lastShootingState;
     }
 
-
     private void shoot() {
         if (canShoot()) {
             final Shot newShot = supplier.get();
-            newShot.setPosition(player.getPosition());
+            newShot.setPosition(this.position);
             this.currentShotNumber++;
             newShot.getDestroyedEvent().register(s -> this.currentShotNumber--);
         }
@@ -77,6 +74,11 @@ public class MultipleShooter implements Shooter {
     public void setShootingState(final boolean state) {
         this.lastShootingState = this.currentShootingState;
         this.currentShootingState = state;
+    }
+
+    @Override
+    public void setPosition(final Point2D position) {
+        this.position = position;
     }
 
 }

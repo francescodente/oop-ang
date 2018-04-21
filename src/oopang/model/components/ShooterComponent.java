@@ -14,6 +14,7 @@ public class ShooterComponent extends AbstractComponent {
     @Override
     public void update(final double deltaTime) {
         this.shooter.update(deltaTime);
+        this.shooter.setPosition(this.getGameObject().getPosition());
     }
     /**
      * Create a new ShooterComponent object.

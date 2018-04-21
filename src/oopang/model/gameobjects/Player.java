@@ -56,7 +56,7 @@ public class Player extends AbstractGameObject {
         this.collision = new CollisionComponent(this, shape, CollisionTag.PLAYER);
         this.movement = new MovementComponent(this);
         this.shoot = new ShooterComponent(this);
-        this.shoot.setShooter(new MultipleShooter(1, this, DEFAULT_SHOT));
+        this.shoot.setShooter(new MultipleShooter(1, DEFAULT_SHOT));
         this.input = new InputComponent(this,
                 e -> this.movement.setVelocity(e.multiply(this.speed)),
                 b -> this.shoot.setState(b));

@@ -29,7 +29,7 @@ public final class AdhesiveShot extends PowerInstant {
         final Supplier<Shot> supplier = () -> 
             LevelManager.getCurrentLevel().getGameObjectFactory().createStickyShot();
         player.getComponent(ShooterComponent.class).ifPresent(c -> 
-            c.setShooter(new MultipleShooter(shot, player, supplier)));
+            c.setShooter(new MultipleShooter(shot, supplier)));
     }
     /**
      * This method return the power upgrade based on level.
