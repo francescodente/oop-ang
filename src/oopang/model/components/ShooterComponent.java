@@ -11,6 +11,10 @@ public class ShooterComponent extends AbstractComponent {
 
     private Shooter shooter;
 
+    /**
+     * super.update(deltaTime) has to be called when overriding this method because
+     * updates the shooter and its position.
+     */
     @Override
     public void update(final double deltaTime) {
         this.shooter.update(deltaTime);

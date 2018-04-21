@@ -25,14 +25,17 @@ public class HookShot extends Shot {
         super(new Rectangle(WIDTH, START_HEIGHT));
     }
 
-
     @Override
-    public void start() {
+    public final void start() {
         super.start();
         this.startY = this.getPosition().getY();
         this.setPosition(this.getPosition().setPointY(START_HEIGHT));
     }
 
+    /**
+     * super.update(deltaTime) has to be called when overriding this method because
+     * updates the shape to a bigger one.
+     */
     @Override
     public void update(final double deltaTime) {
         super.update(deltaTime);
@@ -41,6 +44,9 @@ public class HookShot extends Shot {
         this.getCollisionComponent().setShape(newShape);
     }
 
+    /**
+     * This method should be completely overridden in order to change the behaviour of the Shot.
+     */
     @Override
     protected void handleCollision(final Collision c) {
         final CollisionTag tag = c.getOther().getCollisionTag();
@@ -50,18 +56,18 @@ public class HookShot extends Shot {
     }
 
     @Override
-    public double getWidth() {
+    public final double getWidth() {
         return WIDTH;
     }
 
 
     @Override
-    public double getHeight() {
+    public final double getHeight() {
         return this.getPosition().getY() - startY;
     }
 
     @Override
-    public <T> T accept(final GameObjectVisitor<T> visitor) {
+    public final <T> T accept(final GameObjectVisitor<T> visitor) {
         return visitor.visit(this);
     }
 

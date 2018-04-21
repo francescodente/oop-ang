@@ -14,7 +14,7 @@ import oopang.model.gameobjects.Shot;
  * It has a map of shots with a value describing whether the shot can be shot or not.
  */
 
-public class MultipleShooter implements Shooter {
+public final class MultipleShooter implements Shooter {
 
     private int currentShotNumber;
     private int max;

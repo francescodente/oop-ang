@@ -9,7 +9,7 @@ import oopang.model.physics.CollisionTag;
  * It is destroyed only when colliding with a ball.
  * 
  */
-public class StickyShot extends HookShot {
+public final class StickyShot extends HookShot {
 
     private static final double TIMEOUT = 3;
 
