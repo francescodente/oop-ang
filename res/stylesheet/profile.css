@@ -1,0 +1,85 @@
+.progress-bar .bar {
+	-fx-background-color: #3fff00;
+    -fx-background-radius: 15, 15, 15, 15;
+}
+
+.progress-bar .track {
+	-fx-background-color: #0bad00;
+    -fx-background-radius: 15, 15, 15, 15;
+}
+
+#powerLevelBar .bar{
+    -fx-background-color: yellow;
+    -fx-background-radius: 5, 5, 5, 5;
+}
+
+#powerLevelBar .track{
+    -fx-background-color: transparent;
+    -fx-border-color: yellow;
+    -fx-border-radius: 5, 5, 5, 5;
+}
+
+#upgradeButton {
+    -fx-background-color: #0bad00;
+}
+
+#upgradeButton:hover{
+    -fx-background-color: green;
+}
+
+#upgradeButton:disabled {
+    -fx-background-color: red;
+    -fx-text-fill: yellow;
+    -fx-opacity: 1;
+}
+
+#levelrank{
+    -fx-text-fill: red;
+}
+
+#xpPoints{
+    -fx-font-size: 15px;
+}
+
+#coins {
+    -fx-text-fill: yellow;
+}
+
+#stats {
+    -fx-font-family: 'Karmatic Arcade';
+    -fx-font-size: 60px;
+}
+
+#powerbox {
+    -fx-background-color: black;
+}
+
+.scroll-pane {
+    -fx-background-color: black;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}

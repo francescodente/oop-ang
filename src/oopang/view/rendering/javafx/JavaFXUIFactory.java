@@ -122,7 +122,7 @@ public class JavaFXUIFactory {
         final Label levelLabel = new Label("Level " + powerLevel + "/" + tag.getMaxLevel());
         final ImageView icon = this.createPowerIcon(tag);
         final ProgressBar bar = new ProgressBar(powerLevel / (double) tag.getMaxLevel());
-        final String upgradeString = powerLevel == tag.getMaxLevel() ? "maxed" : tag.getCost(powerLevel) + " coins";
+        final String upgradeString = powerLevel == tag.getMaxLevel() ? "MAXED" : tag.getCost(powerLevel) + " coins";
         final Button upgradeButton = new Button(upgradeString);
         upgradeButton.setId("upgradeButton");
         levelLabel.setId("levelLabel");
