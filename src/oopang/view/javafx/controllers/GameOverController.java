@@ -21,7 +21,11 @@ public final class GameOverController extends SceneController {
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
-        this.labelScore.setText("Name: " + controller.getUser().get().getName());
+        if (controller.getUser().isPresent()) {
+            this.labelScore.setText("Name: " + controller.getUser().get().getName());
+        } else {
+            this.labelScore.setText("Name: Guest");
+        }
         this.labelName.setText("Score: " + controller.getCurrentTotalScore());
     }
 

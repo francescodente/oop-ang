@@ -19,14 +19,6 @@
          </BorderPane.margin>
       </Label>
    </top>
-   <bottom>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="25.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onMouseClicked="#userLogin" text="LOGIN" />
-            <Button mnemonicParsing="false" onMouseClicked="#userRegister" text="REGISTER" />
-         </children>
-      </FlowPane>
-   </bottom>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
    </padding>
@@ -69,8 +61,27 @@
                   <PasswordField fx:id="userPassword" alignment="CENTER" maxWidth="250.0" prefWidth="250.0" />
                </children>
                <padding>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                  <Insets bottom="30.0" left="30.0" right="30.0" />
                </padding>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#userLogin" text="LOGIN">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#userRegister" text="REGISTER">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#nextScene" text="GUEST USER">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
             </VBox>
          </children>
          <BorderPane.margin>

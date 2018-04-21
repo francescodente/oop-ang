@@ -35,10 +35,10 @@ public class Leaderboard implements Serializable {
         if (recordList.size() < MAX_SCORES) {
             recordList.add(record);
             Collections.sort(recordList, (a, b) -> b.compareTo(a));
-            lastIndex = Optional.of(recordList.indexOf(record));
+            this.lastIndex = Optional.of(recordList.indexOf(record));
             return true;
-        }
-        lastIndex = Optional.empty();
+        } 
+        this.lastIndex = Optional.empty();
         return false;
     }
     /**
@@ -55,7 +55,7 @@ public class Leaderboard implements Serializable {
      *      The index of the last Leaderboard record.
      */
     public Optional<Integer> getLastIndex() {
-        return lastIndex;
+        return this.lastIndex;
     }
 }
 
