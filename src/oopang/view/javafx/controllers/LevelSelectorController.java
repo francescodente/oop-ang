@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import oopang.controller.Controller;
-import oopang.controller.StoryModeGameSession;
+import oopang.controller.gamesession.StoryModeGameSession;
 import oopang.view.GameParameters;
 import oopang.view.GameScene;
 import oopang.view.View;

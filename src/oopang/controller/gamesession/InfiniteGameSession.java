@@ -1,4 +1,4 @@
-package oopang.controller;
+package oopang.controller.gamesession;
 
 import java.io.IOException;
 import java.util.Optional;

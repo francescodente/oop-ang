@@ -1,4 +1,4 @@
-package oopang.controller;
+package oopang.controller.gamesession;
 
 import java.io.IOException;
 import java.util.EnumMap;
@@ -8,6 +8,7 @@ import java.util.Optional;
 import oopang.commons.events.EventSource;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.Event;
+import oopang.controller.GameLoop;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
