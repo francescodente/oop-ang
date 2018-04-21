@@ -42,10 +42,25 @@
       <URL value="@/stylesheet/mainstyle.css" />
    </stylesheets>
    <bottom>
-      <Button id="restart" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#checkRestart" text="RESTART" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="[ENTER] RESTART">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label text="[Q] BACK TO MAIN MENU">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
          <BorderPane.margin>
-            <Insets top="20.0" />
+            <Insets top="5.0" />
          </BorderPane.margin>
-      </Button>
+      </VBox>
    </bottom>
 </BorderPane>

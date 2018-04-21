@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -32,9 +33,9 @@
       </GridPane>
    </center>
    <bottom>
-      <Button id="back" mnemonicParsing="false" onMouseClicked="#back" prefHeight="32.0" prefWidth="112.0" text="BACK" BorderPane.alignment="CENTER">
+      <Button id="back" mnemonicParsing="false" onMouseClicked="#back" prefHeight="32.0" prefWidth="112.0" text="BACK" BorderPane.alignment="CENTER_LEFT">
          <BorderPane.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="10.0" left="10.0" />
          </BorderPane.margin>
          <font>
             <Font size="14.0" />
