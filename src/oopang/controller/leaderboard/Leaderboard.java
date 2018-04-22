@@ -9,8 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-
-import oopang.commons.events.EventSource;
 /**
  * Class Leaderboard that keep track of users score.
  */
