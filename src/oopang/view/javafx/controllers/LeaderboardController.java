@@ -61,8 +61,11 @@ public final class LeaderboardController extends SceneController {
 
     @Override
     public void onKeyPressed(final KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        if (event.getCode() == KeyCode.Q) {
             this.nextScene();
+        }
+        if (event.getCode() == KeyCode.ENTER) {
+            this.checkRestart();
         }
     }
 
@@ -70,11 +73,7 @@ public final class LeaderboardController extends SceneController {
         return this.getController().getLeaderboard();
     }
 
-    /**
-     * Method to be called when the player clicks on the restart button.
-     */
-    @FXML
-    public void checkRestart() {
+    private void checkRestart() {
         if (GameParameters.isStoryMode()) {
             this.getController().startStoryGameSession(GameParameters.getLevelindex(), GameParameters.isMultiplayer());
             this.getView().loadScene(GameScene.GAME_GUI);
