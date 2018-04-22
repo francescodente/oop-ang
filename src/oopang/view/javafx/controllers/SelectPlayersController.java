@@ -1,14 +1,25 @@
 package oopang.view.javafx.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import oopang.controller.Controller;
 import oopang.view.GameParameters;
 import oopang.view.GameScene;
+import oopang.view.View;
 
 /**
  * This class implements the scene SelectPlayers.
  */
 public final class SelectPlayersController extends SceneController {
 
+    @FXML
+    private Button userbutton;
+
+    @Override
+    public void init(final Controller controller, final View view) {
+        super.init(controller, view);
+        userbutton.setVisible(controller.getUser().isPresent());
+    }
     /**
      * Method that load the next scene from the selection Single Player.
      */
