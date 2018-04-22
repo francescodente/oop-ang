@@ -36,6 +36,7 @@ public class ShooterComponent extends AbstractComponent {
      */
     public void setShooter(final Shooter shooter) {
         this.shooter = shooter;
+        this.shooter.setPosition(this.getGameObject().getPosition());
     }
 
     /**
