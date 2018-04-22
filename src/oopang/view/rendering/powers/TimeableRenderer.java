@@ -1,7 +1,7 @@
 package oopang.view.rendering.powers;
 
+import oopang.commons.Timeable;
 import oopang.model.gameobjects.Player;
-import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
 import oopang.view.rendering.GenericRenderer;
 import oopang.view.rendering.Sprite;
@@ -10,11 +10,11 @@ import oopang.view.rendering.Sprite;
  * 
  *
  */
-public abstract class TimedPowerRenderer extends GenericRenderer {
+public abstract class TimeableRenderer extends GenericRenderer {
 
     private final Sprite sprite;
     private final Player player;
-    private final TimedPower power;
+    private final Timeable power;
     private final CanvasDrawer canvasDrawer;
 
     /**
@@ -24,11 +24,11 @@ public abstract class TimedPowerRenderer extends GenericRenderer {
     * @param player
     *      the player who picked up this power
     * @param power
-    *      the power activated 
+    *      the timeable passed to be rendered
     * @param drawer
     *      the current canvasDrawer
     */
-    public TimedPowerRenderer(final Sprite sprite, final Player player, final TimedPower power, final CanvasDrawer drawer) {
+    public TimeableRenderer(final Sprite sprite, final Player player, final Timeable power, final CanvasDrawer drawer) {
         super();
         this.sprite = sprite;
         this.player = player;
@@ -65,7 +65,7 @@ public abstract class TimedPowerRenderer extends GenericRenderer {
      * @return
      *      the power.
      */
-    protected TimedPower getPower() {
+    protected Timeable getTimeable() {
         return power;
     }
 

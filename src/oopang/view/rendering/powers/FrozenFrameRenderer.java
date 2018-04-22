@@ -13,7 +13,7 @@ import oopang.view.rendering.Sprite;
  * This class is a renderer that displays a frozen frame around the canvas when the freeze power
  * is activated.
  */
-public class FrozenFrameRenderer extends TimedPowerRenderer {
+public class FrozenFrameRenderer extends TimeableRenderer {
 
     private static final double FADE_TIME = 1;
     private static final double ALPHA_MAX = 0.85;

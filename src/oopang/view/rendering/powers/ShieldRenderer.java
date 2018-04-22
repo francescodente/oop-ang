@@ -12,7 +12,7 @@ import oopang.view.rendering.Sprite;
  * This class is a renderer that displays a ball around the player when the shield power
  * is activated.
  */
-public class ShieldRenderer extends BlinkingPowerRenderer {
+public class ShieldRenderer extends BlinkingTimeableRenderer {
 
     private static final double SHIELD_H_OFFSET = 8;
     private static final double SHIELD_V_OFFSET = 5;
