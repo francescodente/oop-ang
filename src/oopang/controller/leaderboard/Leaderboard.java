@@ -1,11 +1,16 @@
 package oopang.controller.leaderboard;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import oopang.commons.events.EventSource;
 /**
  * Class Leaderboard that keep track of users score.
  */
@@ -56,6 +61,31 @@ public class Leaderboard implements Serializable {
      */
     public Optional<Integer> getLastIndex() {
         return this.lastIndex;
+    }
+
+    /**
+     * Method used to read the object without losing transient fields.
+     * @param in
+     *      input stream.
+     * @throws IOException
+     *      if a problem occurred during I/O operations.
+     * @throws ClassNotFoundException
+     *      if the class is not present.
+     */
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.lastIndex = Optional.empty();
+    }
+
+    /**
+     * Method used to write the object on an output stream.
+     * @param out
+     *      output stream.
+     * @throws IOException
+     *      if a problem occurred during I/O operations.
+     */
+    private void writeObject(final ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
     }
 }
 
