@@ -1,6 +1,7 @@
 package oopang.model;
 
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelBuilder;
 
 /**
  * Model of the application.
@@ -40,4 +41,11 @@ public interface Model {
      *      the current level to be played
      */
     void setCurrentLevel(Level level);
+
+    /**
+     * Creates and returns a new level builder.
+     * @return
+     *      the level builder.
+     */
+    LevelBuilder getLevelBuilder();
 }

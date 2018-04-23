@@ -16,7 +16,6 @@ import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.input.InputController;
 import oopang.model.input.InputWriter;
-import oopang.model.levels.LazyLevelBuilder;
 import oopang.model.levels.Level;
 import oopang.model.levels.LevelBuilder;
 import oopang.view.GameScene;
@@ -88,7 +87,7 @@ public abstract class GameSession {
      * Tells the game session to start the next level and create the new game loop.
      */
     public void startNextLevel() {
-        final LevelBuilder builder = new LazyLevelBuilder();
+        final LevelBuilder builder = this.world.getLevelBuilder();
         final Map<PlayerTag, InputWriter> inputMap = new EnumMap<>(PlayerTag.class);
         final InputController input = new InputController();
         inputMap.put(PlayerTag.PLAYER_ONE, input);
