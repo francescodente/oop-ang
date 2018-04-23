@@ -1,6 +1,8 @@
 package oopang.model;
 
+import oopang.model.levels.LazyLevelBuilder;
 import oopang.model.levels.Level;
+import oopang.model.levels.LevelBuilder;
 import oopang.model.levels.LevelManager;
 
 /**
@@ -19,6 +21,11 @@ public class World implements Model {
     public void setCurrentLevel(final Level level) {
         LevelManager.setCurrentLevel(level);
         level.start();
+    }
+
+    @Override
+    public LevelBuilder getLevelBuilder() {
+        return new LazyLevelBuilder();
     }
 
 }
