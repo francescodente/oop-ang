@@ -19,7 +19,7 @@ import oopang.view.rendering.Sprite;
  * is activated and add a fading trail to the player.
  *
  */
-public class UltraInstinctRenderer extends BlinkingTimeableRenderer {
+public final class UltraInstinctRenderer extends BlinkingTimeableRenderer {
 
     private static final double H_OFFSET = 8;
     private static final double V_OFFSET = 5;

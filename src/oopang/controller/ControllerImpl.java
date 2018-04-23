@@ -85,7 +85,7 @@ public final class ControllerImpl implements Controller {
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
-        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
+        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setSurvivalMaxScore(s));
     }
 
     @Override

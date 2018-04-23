@@ -39,6 +39,9 @@ public class BlinkingTimeableRenderer extends TimeableRenderer {
         });
     }
 
+    /**
+     * This method makes the renderer blink.
+     */
     @Override
     public void render() {
         if (!blink) {

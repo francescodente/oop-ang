@@ -37,6 +37,9 @@ public abstract class TimeableRenderer extends GenericRenderer {
         this.power.getTimeOutEvent().register(n -> this.canvasDrawer.removeRenderer(this));
     }
 
+    /**
+     * This method provides the basic rendering for the sprite related to this renderer.
+     */
     @Override
     public void render() {
         this.sprite.render();
