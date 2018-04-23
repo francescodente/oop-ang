@@ -3,8 +3,10 @@ package oopang.view.javafx.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import oopang.controller.Controller;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -18,12 +20,17 @@ public final class LoginController extends SceneController {
     private TextField userName;
     @FXML
     private TextField userPassword;
+    @FXML
+    private ImageView howToPlay;
+    @FXML
+    private BorderPane howToPlayContainer;
 
 
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
         Platform.runLater(() -> this.userName.requestFocus());
+        this.howToPlay.fitHeightProperty().bind(howToPlayContainer.heightProperty().multiply(0.8));
     }
 
     @Override

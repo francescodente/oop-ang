@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -8,112 +9,122 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LoginController">
+<BorderPane id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LoginController">
    <top>
       <Label id="title" text="WELCOME" BorderPane.alignment="CENTER">
          <font>
             <Font size="42.0" />
          </font>
          <BorderPane.margin>
-            <Insets />
+            <Insets top="20.0" />
          </BorderPane.margin>
       </Label>
    </top>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
-   </padding>
    <stylesheets>
    	  <URL value="@/stylesheet/loginstyle.css" />
       <URL value="@/stylesheet/mainstyle.css" />
    </stylesheets>
-   <left>
-      <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+   <center>
+      <GridPane hgap="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="60.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <VBox id="username" alignment="CENTER" spacing="5.0">
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                <children>
-                  <Label text="UserName">
+                  <VBox id="username" alignment="CENTER" minHeight="0.0" minWidth="0.0" spacing="5.0">
+                     <children>
+                        <Label text="UserName">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="userName" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="userName" alignment="CENTER" maxWidth="250.0" prefWidth="250.0" />
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox id="password" alignment="CENTER" minHeight="0.0" minWidth="0.0" spacing="5.0">
+                     <children>
+                        <Label text="Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="userPassword" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#userLogin" text="LOGIN">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#userRegister" text="REGISTER">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#nextScene" text="LOGIN AS GUEST">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" top="10.0" />
+                     </padding>
+                  </VBox>
                </children>
-               <opaqueInsets>
+               <GridPane.margin>
                   <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+               </GridPane.margin>
                <padding>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                  <Insets left="20.0" />
                </padding>
             </VBox>
-            <VBox id="password" alignment="CENTER" spacing="5.0">
-               <children>
-                  <Label text="Password">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <PasswordField fx:id="userPassword" alignment="CENTER" maxWidth="250.0" prefWidth="250.0" />
-               </children>
-               <padding>
-                  <Insets bottom="30.0" left="30.0" right="30.0" />
-               </padding>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#userLogin" text="LOGIN">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#userRegister" text="REGISTER">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#nextScene" text="LOGIN AS GUEST">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-         <BorderPane.margin>
-            <Insets left="50.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <right>
-      <VBox alignment="CENTER" spacing="50.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-               <children>
-                  <Label id="howto" text="HOW TO PLAY">
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" GridPane.columnIndex="1">
+               <top>
+                  <Label id="howto" text="HOW TO PLAY" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets top="50.0" />
+                     </BorderPane.margin>
                      <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Label>
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <Label id="howto" text="-&gt; TO GO RIGHT&#10;&lt;- TO GO LEFT&#10;SPACE TO SHOT">
-                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </VBox>
+               </top>
+               <center>
+                  <BorderPane fx:id="howToPlayContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" BorderPane.alignment="CENTER">
+                     <center>
+                        <ImageView fx:id="howToPlay" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                           <image>
+                              <Image url="@/stylesheet/howtoplay.png" />
+                           </image>
+                        </ImageView>
+                     </center>
+                  </BorderPane>
+               </center>
+            </BorderPane>
          </children>
-         <BorderPane.margin>
-            <Insets right="50.0" />
-         </BorderPane.margin>
-      </VBox>
-   </right>
+      </GridPane>
+   </center>
 </BorderPane>
