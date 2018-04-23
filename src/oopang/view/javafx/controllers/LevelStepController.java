@@ -21,8 +21,8 @@ public final class LevelStepController extends SceneController {
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
-        this.labelScore.setText("Name: " + controller.getUser().get().getName());
-        this.labelName.setText("Score: " + controller.getCurrentTotalScore());
+        this.labelName.setText("Name: " + controller.getUser().map(u -> u.getName()).orElse("Guest"));
+        this.labelScore.setText("Score: " + controller.getCurrentTotalScore());
     }
     @Override
     protected GameScene getNextScene() {
