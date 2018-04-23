@@ -10,7 +10,7 @@ import oopang.model.levels.LevelManager;
  * It contains the basic methods for loading new levels and update.
  *
  */
-public class World implements Model {
+public final class World implements Model {
 
     @Override
     public void update(final double deltaTime) {

@@ -16,7 +16,7 @@ import oopang.commons.space.Vectors2D;
  * at each possible pair of {@link Collidable}s and notifies both of them if they are colliding.
  * This class uses the dyn4j library to detect collisions.
  */
-public class SimpleCollisionManager implements CollisionManager {
+public final class SimpleCollisionManager implements CollisionManager {
 
     private final NarrowphaseDetector narrowPhase;
     private final List<Collidable> collidables;
