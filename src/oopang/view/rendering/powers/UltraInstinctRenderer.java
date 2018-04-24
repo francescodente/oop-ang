@@ -47,6 +47,7 @@ public final class UltraInstinctRenderer extends BlinkingTimeableRenderer {
                 .map(i -> i * 1.0 / TRAIL_SPRITES)
                 .map(a -> {
                     final Sprite s = drawer.getRendererFactory().createSprite();
+                    s.setPosition(player.getPosition());
                     s.setAlpha(a);
                     s.setLayer(Layers.AURA_LAYER - 1);
                     s.setHeight(player.getHeight());
