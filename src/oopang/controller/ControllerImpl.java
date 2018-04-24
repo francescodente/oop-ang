@@ -106,7 +106,6 @@ public final class ControllerImpl implements Controller {
     @Override
     public void forceCloseGameSession() {
         this.gameSession.handleGameOver(new GameOverStatus(0, LevelResult.FORCE_EXIT));
-        this.gameSession = null;
     }
 
     @Override
@@ -129,7 +128,6 @@ public final class ControllerImpl implements Controller {
                 this.saveMaxScore.accept(this.gameSession.getTotalScore());
             });
         }
-        this.gameSession = null;
     }
 
     @Override
