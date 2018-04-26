@@ -59,9 +59,9 @@ public final class ControllerImpl implements Controller {
     }
 
     private PowerFactory getPowerFactory() {
-        return this.user.isPresent()
-        ? new UpgradePowerFactory(this.user.get().getPowerLevels())
-        : new BasicPowerFactory();
+        return this.user
+                .<PowerFactory>map(u -> new UpgradePowerFactory(this.user.get().getPowerLevels()))
+                .orElse(new BasicPowerFactory());
     }
 
     private LevelLoader getLevelLoader() {
