@@ -240,7 +240,6 @@ public final class User implements Serializable {
         int nextRankLimit = computeNextRankLimit();
         while (this.xpPoints >= nextRankLimit) {
             this.xpPoints = this.xpPoints - nextRankLimit;
-            this.userModifiedEvent.trigger(null);
             addRank();
             nextRankLimit = computeNextRankLimit();
         }
@@ -259,8 +258,6 @@ public final class User implements Serializable {
         if (this.rank < MAX_LEVEL) {
             addCoins();
             this.rank += 1;
-            this.userModifiedEvent.trigger(null);
-
             return true;
         }
         return false;
