@@ -29,6 +29,7 @@ public class InfiniteLevel extends LevelDecorator {
     private static final double SPAWN_HEIGHT = 90;
     private static final double WORLD_OFFSET = 20;
     private static final double ENABLE_TIMEOUT = 1;
+    private static final double START_SPAWN_TIME = .5;
 
     private double currentWaitTime;
     private double nextBallTimeLeft;
@@ -46,7 +47,7 @@ public class InfiniteLevel extends LevelDecorator {
         super(baseLevel);
         frozen = false;
         this.currentWaitTime = this.computeWaitTime();
-        this.nextBallTimeLeft = 0;
+        this.nextBallTimeLeft = START_SPAWN_TIME;
         this.enableTime = ENABLE_TIMEOUT;
     }
 
@@ -62,6 +63,7 @@ public class InfiniteLevel extends LevelDecorator {
                     nextBall = null;
                 }
             }
+
             this.nextBallTimeLeft -= deltaTime;
             if (this.nextBallTimeLeft <= 0) {
                 this.spawnBall();
