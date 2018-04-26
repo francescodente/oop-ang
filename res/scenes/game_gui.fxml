@@ -161,7 +161,7 @@
       </GridPane>
       <BorderPane id="pause" fx:id="pausePane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <top>
-            <Label text="PAUSE" BorderPane.alignment="CENTER">
+            <Label id="title" text="PAUSE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
