@@ -237,11 +237,12 @@ public final class User implements Serializable {
      * Method that check if the rank is reached up with the current xpPoints.
      */
     private void checkRank() {
-        final int nextRankLimit = computeNextRankLimit();
-        if (this.xpPoints >= nextRankLimit) {
+        int nextRankLimit = computeNextRankLimit();
+        while (this.xpPoints >= nextRankLimit) {
             this.xpPoints = this.xpPoints - nextRankLimit;
             this.userModifiedEvent.trigger(null);
             addRank();
+            nextRankLimit = computeNextRankLimit();
         }
     }
 
