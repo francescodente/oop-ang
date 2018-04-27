@@ -9,6 +9,7 @@ import oopang.commons.events.EventSource;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.Event;
 import oopang.controller.GameLoop;
+import oopang.controller.GameLoopThread;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
@@ -111,7 +112,7 @@ public abstract class GameSession {
         currentLevel.getGameOverStatusEvent().register(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
         this.world.setCurrentLevel(currentLevel);
-        this.gameloop = new GameLoop(this.scene, this.world, inputMap);
+        this.gameloop = new GameLoopThread(this.scene, this.world, inputMap);
         this.gameloop.start();
     }
 

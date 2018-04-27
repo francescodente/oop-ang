@@ -117,14 +117,14 @@ public interface Controller {
     /**
      * Return the current total Score taken from the current GameSession.
      * @return
-     *      the corrent total score.
+     *      the current total score.
      */
     int getCurrentTotalScore();
 
     /**
      * Get current stage.
      * @return
-     *      an integer representing the current stage
+     *    an integer representing the current stage
      */
     int getCurrentStage();
 }

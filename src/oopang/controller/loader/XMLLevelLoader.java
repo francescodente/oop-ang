@@ -1,15 +1,18 @@
 package oopang.controller.loader;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import oopang.commons.space.Point2D;
 import oopang.commons.space.Points2D;
@@ -41,12 +44,12 @@ public final class XMLLevelLoader implements LevelLoader {
     }
 
     @Override
-    public LevelData loadInfiniteLevel(final LevelBuilder builder) {
+    public LevelData loadInfiniteLevel(final LevelBuilder builder) throws IOException {
         return loadLevel(Optional.empty(), builder);
     }
 
     @Override
-    public LevelData loadStoryLevel(final int index, final LevelBuilder builder) {
+    public LevelData loadStoryLevel(final int index, final LevelBuilder builder) throws IOException {
         return loadLevel(Optional.of(index), builder);
     }
 
@@ -56,8 +59,9 @@ public final class XMLLevelLoader implements LevelLoader {
      *      the index of the {@link StoryModeGameSession}
      * @return
      *      A {@link LevelData} decorated
+     * @throws IOException 
      */
-    private LevelData loadLevel(final Optional<Integer> index, final LevelBuilder builder) {
+    private LevelData loadLevel(final Optional<Integer> index, final LevelBuilder builder) throws IOException {
         final String path;
         if (index.isPresent()) {
             path = PATH + ROOT + index.get() + ".xml";
@@ -82,10 +86,9 @@ public final class XMLLevelLoader implements LevelLoader {
                 this.getPowers(builder, doc);
                 return new LevelData(ImageID.getRandomBackground(), ImageID.getRandomWallTexture(), builder.build());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SAXException | ParserConfigurationException e) {
+            throw new IOException("Level could not be loaded");
         }
-        return null;
     }
 
     /**
