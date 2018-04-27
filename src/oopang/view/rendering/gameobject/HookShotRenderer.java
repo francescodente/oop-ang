@@ -13,7 +13,7 @@ import oopang.view.rendering.Sprite;
  * Represents a Renderer for {@link Shot} {@link GameObject}s.
  *
  */
-public class HookShotRenderer extends GameObjectRenderer<HookShot> {
+public final class HookShotRenderer extends GameObjectRenderer<HookShot> {
 
     private static final double MAX_SHOT_HEIGHT = 100;
     private static final double OFFSET = 4;

@@ -13,7 +13,7 @@ import oopang.model.gameobjects.GameObjectFactoryDecorator;
  * Represents a decorator for level that adds timeout functionality. Specifically, the GameOver event
  * is triggered when the time ends.
  */
-public class TimedLevel extends GameOverLevelDecorator {
+public final class TimedLevel extends GameOverLevelDecorator {
 
     private static final int TIME_SCORE_MULTIPLIER = 10000;
     private double timeLeft;
@@ -39,7 +39,7 @@ public class TimedLevel extends GameOverLevelDecorator {
     }
 
     @Override
-    public final void update(final double deltaTime) {
+    public void update(final double deltaTime) {
         super.update(deltaTime);
         this.timeLeft -= deltaTime;
         this.timeChangedEvent.trigger(this.getRemainingTimePercentage());

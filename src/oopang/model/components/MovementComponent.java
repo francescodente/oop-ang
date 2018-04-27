@@ -10,7 +10,7 @@ import oopang.model.gameobjects.GameObject;
  * A component that updates the position based on the velocity.
  *
  */
-public class MovementComponent extends AbstractComponent {
+public final class MovementComponent extends AbstractComponent {
 
     private Vector2D velocity;
 

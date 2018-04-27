@@ -23,6 +23,7 @@ public interface LeaderboardManager {
      * @param leaderboard
      *      The Leaderboard.
      * @return 
+     *      true if the leaderboard is correctly saved
      */
     boolean saveStoryModeLeaderboard(Leaderboard leaderboard);
     /**
@@ -30,6 +31,7 @@ public interface LeaderboardManager {
      * @param leaderboard
      *      The Leaderboard.
      * @return 
+     *      true if the leaderboard is correctly saved 
      */
     boolean saveSurvivalModeLeaderboard(Leaderboard leaderboard);
 }

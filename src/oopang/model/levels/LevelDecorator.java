@@ -26,76 +26,129 @@ public abstract class LevelDecorator implements Level {
         this.innerLevel = baseLevel;
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public void start() {
         this.innerLevel.start();
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public void update(final double deltaTime) {
         this.innerLevel.update(deltaTime);
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public Stream<GameObject> getAllObjects() {
         return this.innerLevel.getAllObjects();
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public void addGameObject(final GameObject obj) {
         this.innerLevel.addGameObject(obj);
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public void removeGameObject(final GameObject obj) {
         this.innerLevel.removeGameObject(obj);
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public int getScore() {
         return this.innerLevel.getScore();
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public void addScore(final int amount) {
         this.innerLevel.addScore(amount);
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public GameObjectFactory getGameObjectFactory() {
         return this.innerLevel.getGameObjectFactory();
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public CollisionManager getCollisionManager() {
         return this.innerLevel.getCollisionManager();
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public Event<GameObject> getObjectCreatedEvent() {
         return this.innerLevel.getObjectCreatedEvent();
     }
 
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public Event<GameOverStatus> getGameOverStatusEvent() {
         return this.innerLevel.getGameOverStatusEvent();
     }
+
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public double getRemainingTimePercentage() {
         return this.innerLevel.getRemainingTimePercentage();
     }
+
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public Event<Void> getTimeOutEvent() {
         return this.innerLevel.getTimeOutEvent();
     }
+
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public Event<Double> getTimeChangedEvent() {
         return this.innerLevel.getTimeChangedEvent();
     }
+
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public void addTime(final double time) {
         this.innerLevel.addTime(time);
     }
+
+    /**
+     * Standard implementation delegates to innerLevel.
+     */
     @Override
     public double getRemainingTime() {
         return this.innerLevel.getRemainingTime();

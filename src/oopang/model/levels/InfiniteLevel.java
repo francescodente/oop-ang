@@ -19,7 +19,7 @@ import oopang.model.powers.TimedPower;
 /**
  * Represents a decorator for level that spawns ball constantly.
  */
-public class InfiniteLevel extends LevelDecorator {
+public final class InfiniteLevel extends LevelDecorator {
 
     private static final int BALL_START_SIZE = 3;
     private static final Vector2D BALL_START_VELOCITY = Vectors2D.of(17, 0);

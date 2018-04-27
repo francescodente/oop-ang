@@ -11,7 +11,7 @@ import oopang.view.rendering.SpriteSheet;
 /**
  * Represents a Renderer for {@link Ball} {@link GameObject}s.
  */
-public class PickupRenderer extends GameObjectRenderer<Pickup> {
+public final class PickupRenderer extends GameObjectRenderer<Pickup> {
 
     private static final int COLUMNS = 3;
     private static final int ROWS = 2;

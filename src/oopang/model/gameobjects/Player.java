@@ -26,7 +26,7 @@ import oopang.model.shooter.MultipleShooter;
 /**
  * This class implements the player object.
  */
-public class Player extends AbstractGameObject {
+public final class Player extends AbstractGameObject {
 
     private static final double WIDTH = 12;
     private static final double HEIGHT = 15;
@@ -129,7 +129,7 @@ public class Player extends AbstractGameObject {
     }
 
     @Override
-    public final Stream<Component> getAllComponents() {
+    public Stream<Component> getAllComponents() {
         return Stream.of(this.input, this.movement, this.collision, this.shoot);
     }
 

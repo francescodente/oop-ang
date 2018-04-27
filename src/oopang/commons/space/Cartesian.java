@@ -4,7 +4,7 @@ package oopang.commons.space;
  * Represents a pair of (x,y) coordinates that can act as a Vector or 
  * a point in 2D space.
  */
-public class Cartesian implements Vector2D, Point2D {
+public final class Cartesian implements Vector2D, Point2D {
 
     private static final double EPSILON = 0.001;
 
@@ -94,7 +94,7 @@ public class Cartesian implements Vector2D, Point2D {
     }
 
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

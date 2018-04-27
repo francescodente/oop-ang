@@ -41,6 +41,9 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
         }
     }
 
+    /**
+     * Triggers the timeoutEvent and disable the power.
+     */
     @Override
     public void deactivate() {
         super.deactivate();
@@ -48,26 +51,26 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
     }
 
     @Override
-    public double getRemainingTimePercentage() {
+    public final double getRemainingTimePercentage() {
         return this.time / this.timeout;
     }
     @Override
-    public double getRemainingTime() {
+    public final double getRemainingTime() {
         return this.time;
     }
 
     @Override
-    public Event<Void> getTimeOutEvent() {
+    public final Event<Void> getTimeOutEvent() {
         return this.timeoutEvent;
     }
 
     @Override
-    public Event<Double> getTimeChangedEvent() {
+    public final Event<Double> getTimeChangedEvent() {
         return this.timeChangedEvent;
     }
 
     @Override
-    public void addTime(final double time) {
+    public final void addTime(final double time) {
         this.time += time;
         this.timeout += time;
     }

@@ -20,7 +20,7 @@ import oopang.model.powers.Power;
  * 
  * 
  */
-public class Pickup extends AbstractGameObject implements Timeable {
+public final class Pickup extends AbstractGameObject implements Timeable {
     private static final double WIDTH = 6;
     private static final double HEIGHT = 6;
     private static final double TIMEOUT = 7;
@@ -54,7 +54,7 @@ public class Pickup extends AbstractGameObject implements Timeable {
     }
 
     @Override
-    public final void update(final double deltaTime) {
+    public void update(final double deltaTime) {
         super.update(deltaTime);
         if (inCollision) {
             this.inCollision = false;
@@ -71,7 +71,7 @@ public class Pickup extends AbstractGameObject implements Timeable {
     }
 
     @Override
-    public final Stream<Component> getAllComponents() {
+    public Stream<Component> getAllComponents() {
         return Stream.of(this.gravitycomponent, this.movementcomponent, this.collisioncomponent); 
     }
 
@@ -85,12 +85,12 @@ public class Pickup extends AbstractGameObject implements Timeable {
     }
 
     @Override
-    public final double getWidth() {
+    public double getWidth() {
         return WIDTH;
     }
 
     @Override
-    public final double getHeight() {
+    public double getHeight() {
         return HEIGHT;
     }
 

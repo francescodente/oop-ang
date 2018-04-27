@@ -21,7 +21,7 @@ import oopang.model.physics.SimpleCollisionManager;
  * The class BaseLevel implements the Level interface.
  * It manages the updating of the GameObject.
  */
-public class BaseLevel implements Level {
+public final class BaseLevel implements Level {
 
     private static final int INITIAL_SCORE = 0;
 

@@ -14,7 +14,7 @@ import oopang.view.rendering.ImageID;
 /**
  * Class to try some test for the game.
  */
-public class TestLevelLoader implements LevelLoader {
+public final class TestLevelLoader implements LevelLoader {
 
     private static final double XSPEED = 15;
     private static final Point2D BALL_POS = Points2D.of(70, 50);

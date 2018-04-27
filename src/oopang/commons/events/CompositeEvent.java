@@ -7,7 +7,7 @@ import java.util.Set;
  * @param <T>
  *      the type of the events.
  */
-public class CompositeEvent<T> implements Event<T> {
+public final class CompositeEvent<T> implements Event<T> {
 
     private final Set<Event<T>> events;
 

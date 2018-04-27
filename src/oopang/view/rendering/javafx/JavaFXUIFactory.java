@@ -25,12 +25,14 @@ import oopang.view.rendering.ImageID;
 /**
  * This is a factory that creates icon to be add to a javaFX scene.
  */
-public class JavaFXUIFactory {
+public final class JavaFXUIFactory {
 
     private static final double HEART_SIZE = 40;
     private static final double BAR_HEIGHT_PERCENTAGE = 0.3;
     private static final double PADDING_INTERNAL = 5;
     private static final double PADDING_EXTERNAL = 10;
+    private static final double PERCENT_WIDTH_BAR = 50;
+    private static final double PERCENT_WIDTH_BUTTON = 35;
 
     /**
      * Create a icon for the heart.
@@ -153,8 +155,8 @@ public class JavaFXUIFactory {
         final ColumnConstraints c2 = new ColumnConstraints();
         c0.setPrefWidth(icon.getFitWidth());
         c0.setPercentWidth(10);
-        c1.setPercentWidth(50);
-        c2.setPercentWidth(35);
+        c1.setPercentWidth(PERCENT_WIDTH_BAR);
+        c2.setPercentWidth(PERCENT_WIDTH_BUTTON);
         c2.setHalignment(HPos.CENTER);
         mainPane.getColumnConstraints().addAll(c0, c1, c2);
         mainPane.setPadding(new Insets(PADDING_EXTERNAL));

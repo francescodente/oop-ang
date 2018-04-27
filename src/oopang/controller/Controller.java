@@ -5,7 +5,6 @@ import java.util.Optional;
 import oopang.commons.Command;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.EventHandler;
-import oopang.controller.gamesession.GameSession;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.loader.LevelData;
 import oopang.controller.users.User;
@@ -121,9 +120,11 @@ public interface Controller {
      *      the corrent total score.
      */
     int getCurrentTotalScore();
-    
+
     /**
      * Get current stage.
+     * @return
+     *      an integer representing the current stage
      */
     int getCurrentStage();
 }

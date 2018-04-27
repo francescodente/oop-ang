@@ -24,7 +24,7 @@ import oopang.view.rendering.ImageID;
 /**
  * Class that load the XMLFile into the level.
  */
-public class XMLLevelLoader implements LevelLoader {
+public final class XMLLevelLoader implements LevelLoader {
 
     private static final String PATH = "/levels/";
     private static final String ROOT = "Level";

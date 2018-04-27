@@ -9,7 +9,7 @@ import oopang.model.input.InputReader;
 /**
  * Represents a decorator for levels that makes the decorated level single player.
  */
-public class SinglePlayerLevel extends GameOverLevelDecorator {
+public final class SinglePlayerLevel extends GameOverLevelDecorator {
 
     private final InputReader playerInput;
     private final PlayerTag playerTag;

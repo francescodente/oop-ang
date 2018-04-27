@@ -10,7 +10,7 @@ import oopang.model.gameobjects.GameObjectFactoryDecorator;
 /**
  * Describes a level where gravity is different for all balls.
  */
-public class GravityLevel extends LevelDecorator {
+public final class GravityLevel extends LevelDecorator {
 
     private final Vector2D gravity;
 

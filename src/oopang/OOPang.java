@@ -13,7 +13,7 @@ import oopang.view.javafx.JavaFXView;
 /**
  * The class containing the main method.
  */
-public class OOPang extends Application {
+public final class OOPang extends Application {
 
     /**
      * The main entry point of the application.

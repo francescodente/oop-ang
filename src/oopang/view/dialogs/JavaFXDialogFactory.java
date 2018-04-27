@@ -15,7 +15,7 @@ import javafx.scene.layout.Priority;
  * This is a JavaFX implementation of the DialogFactory.
  * Note: most of the code was taken from <a> href="http://code.makery.ch/blog/javafx-dialogs-official/"</a>
  */
-public class JavaFXDialogFactory implements DialogFactory {
+public final class JavaFXDialogFactory implements DialogFactory {
 
     @Override
     public Dialog createLevelNotLoaded(final Exception ex) {
