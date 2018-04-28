@@ -1,6 +1,5 @@
 package oopang.view.dialogs;
 
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 

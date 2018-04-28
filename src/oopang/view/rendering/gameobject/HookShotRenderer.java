@@ -9,9 +9,7 @@ import oopang.view.rendering.Layers;
 import oopang.view.rendering.Sprite;
 
 /**
- * 
  * Represents a Renderer for {@link Shot} {@link GameObject}s.
- *
  */
 public final class HookShotRenderer extends GameObjectRenderer<HookShot> {
 

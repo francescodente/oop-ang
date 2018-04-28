@@ -15,8 +15,7 @@ import oopang.model.gameobjects.Shot;
 import oopang.model.gameobjects.Wall;
 
 /**
- * This class represent the score decorator.
- *
+ * This class represent the score decorator that add the score managing functionality.
  */
 public final class ScoreLevelDecorator extends LevelDecorator {
     private static final int SCORE_MULTIPLIER = 100;

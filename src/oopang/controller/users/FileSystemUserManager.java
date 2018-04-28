@@ -2,9 +2,7 @@ package oopang.controller.users;
 
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import oopang.controller.InstallManager;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -18,8 +16,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 /**
- * 
+ * This class is an implementation for the {@link UserManager} that loads and save Users in the FileSystem.
  */
 public final class FileSystemUserManager implements UserManager {
 

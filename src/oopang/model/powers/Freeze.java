@@ -11,17 +11,19 @@ import oopang.model.gameobjects.Player;
 import oopang.model.levels.LevelManager;
 
 /**
- * This enhancement freezes all the balls in the level for a certain period of time.
+ * This power freezes all the balls in the level for a certain period of time and gives the player
+ * invulnerability.
  */
 public final class Freeze extends TimedPower {
+
     private static final PowerTag TAG = PowerTag.FREEZE;
     private static final int INITIALVALUE = 3;
     private static final double TIMEFEE = 0.5;
     private static final Supplier<Double> FREEZE_MULTIPLIER = () -> 0.0;
+
     private final GameObjectVisitor<Void> activator;
     private final GameObjectVisitor<Void> deactivator;
-    private final EventHandler<GameObject> frieza;
-
+    private final EventHandler<GameObject> freezer;
 
     /**
      * This constructor set time.
@@ -54,7 +56,7 @@ public final class Freeze extends TimedPower {
                 return null;
             }
         };
-        this.frieza = obj -> obj.accept(activator);
+        this.freezer = obj -> obj.accept(activator);
     }
 
     @Override
@@ -63,7 +65,7 @@ public final class Freeze extends TimedPower {
         LevelManager.getCurrentLevel()
             .getAllObjects()
             .forEach(o -> o.accept(activator));
-        LevelManager.getCurrentLevel().getObjectCreatedEvent().register(frieza);
+        LevelManager.getCurrentLevel().getObjectCreatedEvent().register(freezer);
     }
 
     @Override
@@ -72,7 +74,7 @@ public final class Freeze extends TimedPower {
         LevelManager.getCurrentLevel()
             .getAllObjects()
             .forEach(o -> o.accept(deactivator));
-        LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(frieza);
+        LevelManager.getCurrentLevel().getObjectCreatedEvent().unregister(freezer);
     }
 
     private void freezeBall(final Ball ball) {

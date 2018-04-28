@@ -8,7 +8,7 @@ import oopang.view.rendering.Renderer;
 import oopang.view.rendering.Sprite;
 
 /**
- * 
+ * This is a JavaFX implementation of a {@link oopang.view.rendering.RendererFactory}.
  */
 public class JavaFXRendererFactory extends AbstractRendererFactory {
 

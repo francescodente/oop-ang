@@ -45,7 +45,7 @@ public final class PickupRenderer extends GameObjectRenderer<Pickup> {
             spriteSheet.setCell(2, 0);
         } else if (tag == PowerTag.DOUBLESHOT) {
             spriteSheet.setCell(0, 0);
-        } else if (tag == PowerTag.ADHESIVESHOT) {
+        } else if (tag == PowerTag.STICKYSHOT) {
             spriteSheet.setCell(0, 1);
         } else if (tag == PowerTag.DOUBLESPEED) {
             spriteSheet.setCell(2, 1);
@@ -55,6 +55,7 @@ public final class PickupRenderer extends GameObjectRenderer<Pickup> {
             spriteSheet.setCell(1, 1);
         }
     }
+
     @Override
     public void render() {
         if (!blink) {

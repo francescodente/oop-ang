@@ -23,7 +23,7 @@ import oopang.view.dialogs.JavaFXDialogFactory;
 import oopang.view.rendering.ImageID;
 
 /**
- * This is a factory that creates icon to be add to a javaFX scene.
+ * This is a factory that creates User Interface objects to be add to a javaFX scene dynamically.
  */
 public final class JavaFXUIFactory {
 
@@ -100,7 +100,7 @@ public final class JavaFXUIFactory {
         case FREEZE: imageview.setViewport(new Rectangle2D(cellwidth * 2, 0, cellwidth, cellheight)); break;
         case TIMEDSHIELD: imageview.setViewport(new Rectangle2D(cellwidth, 0, cellwidth, cellheight)); break;
         case DOUBLESHOT: imageview.setViewport(new Rectangle2D(0, 0, cellwidth, cellheight)); break;
-        case ADHESIVESHOT: imageview.setViewport(new Rectangle2D(0, cellheight, cellwidth, cellheight)); break;
+        case STICKYSHOT: imageview.setViewport(new Rectangle2D(0, cellheight, cellwidth, cellheight)); break;
         case DYNAMITE: imageview.setViewport(new Rectangle2D(cellwidth, cellheight, cellwidth, cellheight)); break;
         default: break;
         }

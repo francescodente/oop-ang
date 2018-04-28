@@ -12,7 +12,7 @@ import oopang.model.powers.PowerFactory;
 import oopang.view.rendering.ImageID;
 
 /**
- * Class to try some test for the game.
+ * A {@link LevelLoader} used for testing levels not created from files.
  */
 public final class TestLevelLoader implements LevelLoader {
 

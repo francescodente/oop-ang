@@ -7,8 +7,7 @@ import oopang.model.levels.LevelManager;
 
 /**
  * This class is the concrete implementation of the Model interface.
- * It contains the basic methods for loading new levels and update.
- *
+ * It contains the basic methods for loading new levels and update them.
  */
 public final class World implements Model {
 

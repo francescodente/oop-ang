@@ -23,7 +23,7 @@ import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
- * Class including informations about the current session game.
+ * Class including informations about the current game session.
  */
 public abstract class GameSession {
 
@@ -85,7 +85,7 @@ public abstract class GameSession {
     }
 
     /**
-     * Tells the game session to start the next level and create the new game loop.
+     * Tells the game session to start the next {@link Level} and create the new {@link GameLoop}.
      */
     public void startNextLevel() {
         final LevelBuilder builder = this.world.getLevelBuilder();
@@ -172,7 +172,7 @@ public abstract class GameSession {
     }
 
     /**
-     * Returns the level loader reference for the concrete children.
+     * Returns the {@link LevelLoader} reference for the concrete children.
      * @return
      *      the level loader
      */

@@ -81,4 +81,5 @@ public final class SimpleCollisionManager implements CollisionManager {
         t.setTranslation(coll.getPosition().getX(), coll.getPosition().getY());
         return t;
     }
+
 }

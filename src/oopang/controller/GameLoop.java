@@ -7,10 +7,12 @@ import oopang.commons.PlayerTag;
  * Represents an engine that periodically updates the world and renders it on the view.
  */
 public interface GameLoop {
+
     /**
      * Enables the game loop.
      */
     void start();
+
     /**
      * Temporarily stops the loop until resume() is called.
      */

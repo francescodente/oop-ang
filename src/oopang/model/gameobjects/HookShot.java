@@ -9,6 +9,7 @@ import oopang.model.physics.CollisionTag;
 /**
  * This class implements the GameObject Shot which is a projectile that can be shot by the player to hit the balls.
  * It can collide whit walls and balls, not with the player.
+ * It can hit balls also with the rope.
  * 
  */
 public class HookShot extends Shot {
@@ -19,7 +20,7 @@ public class HookShot extends Shot {
     private double startY;
 
     /**
-     * Creates a GameObject of type Shot.
+     * Creates a GameObject of type HookShot.
      */
     public HookShot() {
         super(new Rectangle(WIDTH, START_HEIGHT));
@@ -59,7 +60,6 @@ public class HookShot extends Shot {
     public final double getWidth() {
         return WIDTH;
     }
-
 
     @Override
     public final double getHeight() {

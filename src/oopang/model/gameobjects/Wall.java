@@ -10,7 +10,8 @@ import oopang.model.components.Component;
 import oopang.model.physics.CollisionTag;
 
 /**
- * Represents a wall in the world.
+ * Represents a wall object in the world. 
+ * It is a passive object which has no active interaction with other objects.
  */
 public final class Wall extends AbstractGameObject {
 

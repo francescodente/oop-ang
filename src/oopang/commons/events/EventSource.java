@@ -31,7 +31,7 @@ public final class EventSource<T> implements Event<T> {
     }
 
     /**
-     * Triggers the event, causing all registered handlers to be notified.
+     * Triggers the {@link Event}, causing all registered handlers to be notified.
      * @param arg
      *      the argument of the event.
      */

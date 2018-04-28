@@ -7,7 +7,7 @@ import oopang.model.gameobjects.GameObject;
 import oopang.model.input.InputReader;
 
 /**
- * Represents a decorator for levels that makes the decorated level single player.
+ * Represents a decorator for levels which add the player object and ends when the player is dead.
  */
 public final class SinglePlayerLevel extends GameOverLevelDecorator {
 

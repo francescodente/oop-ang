@@ -10,7 +10,9 @@ import oopang.model.gameobjects.GameObjectFactory;
 import oopang.model.physics.CollisionManager;
 
 /**
- * Represents a level containing all GameObjects.
+ * Represents a level containing all {@link GameObject}s.
+ * It is responsible of keeping track of all the active {@link GameObject}s, initializing them
+ * and removing them from the Level.
  */
 public interface Level extends Timeable {
 

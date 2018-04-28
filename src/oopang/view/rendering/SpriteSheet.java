@@ -9,6 +9,7 @@ import oopang.commons.space.Vectors2D;
  * class is created.
  */
 public final class SpriteSheet {
+
     private final Sprite sprite;
     private final double cellWidth;
     private final double cellHeight;

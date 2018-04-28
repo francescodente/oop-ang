@@ -37,4 +37,5 @@ public final class GravityLevel extends LevelDecorator {
             }
         };
     }
+
 }

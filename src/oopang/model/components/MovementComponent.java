@@ -6,9 +6,7 @@ import oopang.commons.space.Vectors2D;
 import oopang.model.gameobjects.GameObject;
 
 /**
- * 
- * A component that updates the position based on the velocity.
- *
+ * A component that add the ability to move and updates the position based on the velocity.
  */
 public final class MovementComponent extends AbstractComponent {
 
@@ -30,6 +28,7 @@ public final class MovementComponent extends AbstractComponent {
         position = position.translate(this.velocity.multiply(deltaTime));
         this.getGameObject().setPosition(position);
     }
+
     /**
      * Gets the velocity of the Object.
      * @return

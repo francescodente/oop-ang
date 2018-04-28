@@ -1,14 +1,16 @@
 package oopang.model.powers;
 
 import java.util.Map;
+
 /**
  * Factory for power that includes the logic of upgrades.
- *
  */
 public class UpgradePowerFactory implements PowerFactory {
+
     private final Map<PowerTag, Integer> levelmap;
+
     /**
-     * Create a new instance factory.
+     * Create a new factory.
      * @param levelmap
      *      The map that contains the level for each power.
      */
@@ -33,7 +35,7 @@ public class UpgradePowerFactory implements PowerFactory {
 
     @Override
     public final Power createAdhesiveShot() {
-        return AdhesiveShot.create(this.levelmap.get(PowerTag.ADHESIVESHOT));
+        return StickyShotPower.create(this.levelmap.get(PowerTag.STICKYSHOT));
     }
 
     @Override

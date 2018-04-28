@@ -4,7 +4,7 @@ import oopang.controller.Controller;
 import oopang.view.dialogs.DialogFactory;
 
 /**
- * View of the application.
+ * View of the application in the MVC pattern.
  */
 public interface View {
 

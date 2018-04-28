@@ -55,5 +55,4 @@ public class FrozenFrameRenderer extends TimeableRenderer {
         sprite.setHeight(Model.TOTAL_HEIGHT);
     }
 
-
 }
