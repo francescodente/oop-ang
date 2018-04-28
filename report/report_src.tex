@@ -137,7 +137,45 @@ Nella nostra versione del gioco ci siamo limitati ad implementare un solo shoote
 \label{img:shooter}
 \end{figure}
 
+\subsubsection*{Power Rendering}
+
+Per visualizzare l'azione dei TimedPower sullo schermo e fornire all'utente un segnale più evidente della fine imminente dell'azione di un determinato potere, rendendo così il gamePlay più facile, ho realizzato dei TimeableRenderer.
+
+L'interfaccia Timeable rappresenta un qualsiasi oggetto dotato di una durata specifica nel tempo.
+Questi oggetti sono in grado di segnalare ogni volta che il proprio contatore interno viene modificato tramite un evento e anche quando invece il tempo è completamente esaurito. 
+
+I TimeableRenderer sono Renderer capace di autodistruggersi registrandosi all'evento di timeout, per questo motivo tengono un'instanza del CanvasDrawer in modo da potersi eliminare autonomamente dalla lista dei Renderer attivi. 
+
+Per segnalare in modo evidente che il tempo si sta esaurendo ho deciso di creare una specializzazione dei TimeableRenderer in grado di "lampeggiare" (blink) e quindi di scegliere se essere renderizzati o meno a seconda del tempo rimanente. 
+
 \subsection*{Nicholas Ciarafoni}
+
+\subsubsection*{Pickups e Powers}
+
+Per la realizzazione del GameObject Pickup, ho subito fatto una differenza fra oggetto e potenziamento, creando a parte l'interfaccia Power che gestisce poi (con l'ausilio di altre classi) i vari potenziamenti che possono essere attivati sul Player e sulle Ball interne al Level corrente.
+L'oggetto Pickup prende come parametro un Power che definisce il modo in cui lo stato del gioco viene modificato all'atto del raccoglimento.
+All'interno dei Power sono state individuate due tipologie di potenziamento in delle classi astratte, una TimedPower per i potenziamenti che hanno un preciso tempo di vita e una volta terminato si disattivano, e InstantPower per quei potenziamenti che non hanno un tempo di vita limitato, ma persistono per tutta la durata del livello.
+Per l'effettiva creazione dei power ho utilizzato il pattern creazionale \textbf{Static Factory}, con il metodo create(), che permette di creare un power in base al suo livello.
+Per la creazione in game dei power, per rendere la logica di gioco inconsapevole di che tipo di utente è loggato e quali sono i livelli dei suoi power, ho utilizzato il pattern \textbf{Abstract Factory}, fornendo due implementazioni: una BasicPowerFactory, utilizzata per tutti gli utenti ospiti, che privi di registrazione, possono solamente giocare non avendo alcuna possibilità di aumentare e salvare i propri progressi di gioco.
+La seconda invece UpgradePowerFactory è utilizzata per gli utenti registrati che possono aumentare i livelli di tutti i power spendendo dei Coins che automaticamente il giocatore guadagna passando i livelli.
+L'utilizzo di questa struttura composta permette la possibile creazione di nuovi Powers futuri, riutilizzando più codice possibile evitandone quindi la superflua ripetizione.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/powers}
+\caption{Schema UML che rappresenta i meccanismi utilizzati per Pickups e Powers.}
+\label{img:powers}
+\end{figure}
+
+\subsubsection*{Leaderboard}
+Per la gestione della Leaderboard ho creato un'interfaccia LeaderboardManager che fornisce 4 metodi rispettivamente per le fasi di caricamento e salvataggio dei dati nelle due rispettive modalità di gioco (TourMode e Survival).
+L'implementazione concreta poi è svolta all'interno della classe FileSystemLeaderboardManager con relativa lettura e scrittura su file. In questo modo il Controller è ignaro di quale meccanismo si stia effettivamente utilizzando per mantenere la persistenza dei dati.
+Per Il salvataggio dei record personali (LeaderboardRecord) sono state valutate 2 caratteristiche importanti: il punteggio (Score) e lo Stage raggiunto, che nella modalità Survival conta il numero di palle create, e nella modalità Tour conta invece il livello raggiunto sui 17 disponibili. 
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/leaderboard}
+\caption{Schema UML che mostra la gestione della leaderboard.}
+\label{img:leaderboard}
+\end{figure}
 
 \subsection*{Francesco Dente}
 
@@ -294,12 +332,18 @@ Ulteriori competenze esterne a quelle specifiche del corso di programmazione ad 
 \subsection*{Nicholas Ciarafoni}
 All'interno della gestione delle Leaderboard ho implementato l'interfaccia Serializable, trasformando così l'intera classe in una stringa di byte, questo flusso creato dunque viene poi caricato e salvato su file binario in modo da garantire la persistenza.
 
-Ho inserito un Optional<Integer> per controllare se nella Leaderboard l'ultimo record registrato è stato aggiunto alla "top ten", se è presente tengo traccia dell'indice del record.
+Ho inserito un Optional$\langle$Integer$\rangle$ per controllare se nella Leaderboard l'ultimo record registrato è stato aggiunto alla "top ten", se è presente tengo traccia dell'indice del record.
 
 Nei Power ho fatto uso del pattern di programmazione Visitor, con il metodo visit() ho verificato per esempio nel Power Dynamite, se all'interno del livello erano presenti degli oggetti di tipo Ball e poi ne invocavo la distruzione, analogamente con il Power Freeze, verificavo se all'interno del level avevo oggetti di tipo Ball e di tipo Player.
 Avendo riscontrato dei problemi nell'accumulo di power differenti ho avuto la necessità di impostare e tenere aggiornato un counter di "invulnerabilità" che il Player ha attive su di se, tramite questo valore scelgo se disattivare il la collisione del Player con le Ball.
 
 \subsection*{Francesco Dente}
+Nella fase di sviluppo ho avuto a che fare, per la gestione delle collisioni, con una libreria esterna per la simulazione della fisica.
+A seguito di una fase di documentazione sono quindi riuscito a informarmi sulle sole parti necessarie per la rilevazione delle collisioni e a integrarle col nostro sistema.
+
+Ho avuto a che fare anche con meccanismi propri di JavaFX come il binding, usato per garantire un resize fluido della finestra.
+
+In più ho implementato un meccanismo di caching delle immagini sfruttando il pattern \textbf{Proxy}.
 
 \subsection*{Lorenzo Menghini}
 
