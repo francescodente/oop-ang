@@ -2,7 +2,10 @@ package oopang.view.javafx.controllers.gamestate;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import oopang.commons.Command;
+import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
+import oopang.model.input.InputDirection;
 import oopang.view.javafx.controllers.GameController;
 
 /**
@@ -28,6 +31,13 @@ public final class PausedState extends GameGUIState {
 
     @Override
     public void onStateEntry() {
+        final Command noInputCommand = w -> {
+            w.removeDirection(InputDirection.LEFT);
+            w.removeDirection(InputDirection.RIGHT);
+            w.setShooting(false);
+        };
+        this.getController().sendCommand(noInputCommand, PlayerTag.PLAYER_ONE);
+        this.getController().sendCommand(noInputCommand, PlayerTag.PLAYER_TWO);
         this.getController().pauseGame();
         this.pausePane.setVisible(true);
     }
