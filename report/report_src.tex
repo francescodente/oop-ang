@@ -279,9 +279,6 @@ La divisione dei compiti, come già accennato nella sezione di Design di Dettagl
 	\item \textbf{Tonetti}; Creazione della Ball e del MovementComponent, modellazione del concetto di User e UserManager, creazione dell'InstallManager, creazione delle Scene in FXML (utilizzando il tool SceneBuilder) e dei relativi Controller.
 \end{itemize}
 
-
-
-
 \section{Note di sviluppo}
 Nello sviluppo dell'applicazione abbiamo cercato di utilizzare dove possibile gli elementi avanzati del linguaggio Java visti a lezione quali lambda expressions e Streams per avere un codice più facilmente comprensibile e semplice da scrivere.
 Un caso degno di nota è quello dell'interfaccia funzionale oopang.commons.events.EventHandler, pilastro del meccanismo degli Observer presenti nel nostro progetto che è stata sempre utilizzata con l'utilizzo di lambda anche innestate.
@@ -299,18 +296,12 @@ All'interno della gestione delle Leaderboard ho implementato l'interfaccia Seria
 
 Ho inserito un Optional<Integer> per controllare se nella Leaderboard l'ultimo record registrato è stato aggiunto alla "top ten", se è presente tengo traccia dell'indice del record.
 
-Nei Power ho fatto uso del pattern di programmazione Visitors, con il metodo Visit ho verificato per esempio nel Power Dynamite, se all'interno del livello erano presenti degli oggetti di tipo Ball e poi ne invocavo la distruzione, analogamente con il Power Freeze, verificavo se all'interno del level avevo oggetti di tipo Ball e di tipo Player.
+Nei Power ho fatto uso del pattern di programmazione Visitor, con il metodo visit() ho verificato per esempio nel Power Dynamite, se all'interno del livello erano presenti degli oggetti di tipo Ball e poi ne invocavo la distruzione, analogamente con il Power Freeze, verificavo se all'interno del level avevo oggetti di tipo Ball e di tipo Player.
 Avendo riscontrato dei problemi nell'accumulo di power differenti ho avuto la necessità di impostare e tenere aggiornato un counter di "invulnerabilità" che il Player ha attive su di se, tramite questo valore scelgo se disattivare il la collisione del Player con le Ball.
 
 \subsection*{Francesco Dente}
 
 \subsection*{Lorenzo Menghini}
-
-\subsubsection*{Component}
-Come spiegato nella sezione di architettura di dettaglio, i component sono degli oggetti che permettono ai GameObject, o più in generale a chi ne ha un'istanza, di compiere determinate azioni come muoversi, sparare, collidere, ricevere input o essere sottoposti a gravità.
-
-Nell'intrefaccia generali si definiscono i metodi comuni a tutti come l'abilitazione e relativa disabilitazione, il metodo chiave di update e la start che inizializza il component stesso.
-Ho deciso di sviluppare una classe astratta poichè alcuni metodi potevano essere implementati nello stesso modo in tutti i component ed alcuni attributi come l'istanza del GameObject (vi è una doppia relazione: i GameObject contengono istanze dei component e quest'ultimi, per poterne modificare le proprietà, devono avere accesso al GameObject stesso) o il boleano che descrive se il component è attivo o meno. 
 
 \subsubsection*{GameSession}
 La GameSession è parte del cuore dell'applicazione ed ha un ruolo di contenimento e passaggio di informazioni.
@@ -384,6 +375,17 @@ L'insicurezza mi ha portato anche a non riuscire in una delle mie challenge pers
 Per uno sviluppo futuro pensavo di inserire appunto degli effetti sonori, musica di gioco, e vari potenziamenti aggiuntivi come per esempio la possibilità di avere potenziamenti fluttuanti e collezionabili a contatto con l'HookShot o potenziamenti nascosti dentro muri distruttibili.
 
 \subsection*{Francesco Dente}
+Questo progetto ha messo a dura prova le capacità di noi studenti e ci ha messo a confronto con difficoltà particolari tipiche del mondo del lavoro.
+Grazie al lavoro svolto sono riuscito a comprendere più a fondo le parti veramente critiche della gestione di un software complesso e ho ottenuto una maggiore dimestichezza coi mezzi messi a disposizione dal mondo informatico.
+Particolarmente istruttivo per me è stato l'utilizzo del DVCS che, come per tutti i nuovi all'argomento, era difficilmente apprezzabile inizialmente, ma che si è poi ovviamente rivelato indispensabile.
+
+Ritengo che le mie esperienze passate nello sviluppo di videogiochi per puro hobby abbiano influenzato pesantemente le mie scelte progettuali, nonostante le nuove conoscenze apprese a lezione abbiano sicuramente aggiunto un occhio critico sulle limitazioni dei miei vecchi mezzi.
+In passato infatti non ero mai estremamente orientato alla modularità e alla flessibilità del codice, ed inoltre tendevo sempre a buttarmi rapidamente sulla scrittura piuttosto che organizzare e progettare in primo luogo.
+Ritengo dunque che questo progetto abbia corretto (almeno in parte) questo mio "difetto".
+
+Penso che il lavoro sia stato svolto in maniera positiva nonostante la disomogeneità delle conoscenze che spesso vedeva ci vedeva rallentare per permettere di mantenere il passo comune.
+
+Credo infine che questo progetto possa essere un buon trampolino per lavori futuri, spero anche con l'appoggio di colleghi universitari, e che ci serva sia come conferma di ciò che sappiamo fare che come "lezione" per non ripetere errori già commessi.
 
 \subsection*{Lorenzo Menghini}
 Ho trovato la realizzazione del progetto uno degli aspetti più stimolanti affrontati fin'ora nel mio percorso universitario: mi ha permesso di realizzare ancora meglio cosa significa lavorare in un team di sviluppo e i relativi vantaggi/svantaggi di non essere da solo davanti al computer.
