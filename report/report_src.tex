@@ -146,7 +146,13 @@ Questi oggetti sono in grado di segnalare ogni volta che il proprio contatore in
 
 I TimeableRenderer sono Renderer capace di autodistruggersi registrandosi all'evento di timeout, per questo motivo tengono un'instanza del CanvasDrawer in modo da potersi eliminare autonomamente dalla lista dei Renderer attivi. 
 
-Per segnalare in modo evidente che il tempo si sta esaurendo ho deciso di creare una specializzazione dei TimeableRenderer in grado di "lampeggiare" (blink) e quindi di scegliere se essere renderizzati o meno a seconda del tempo rimanente. 
+Per segnalare in modo evidente che il tempo si sta esaurendo ho deciso di creare una specializzazione dei TimeableRenderer in grado di "lampeggiare" (blink) e quindi di scegliere se essere renderizzati o meno a seconda del tempo rimanente.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/power_rendering}
+\caption{Schema UML della struttura del rendering per i powers.}
+\label{img:power_rendering}
+\end{figure}
 
 \subsection*{Nicholas Ciarafoni}
 
