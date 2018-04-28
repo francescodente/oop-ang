@@ -33,6 +33,7 @@ public final class JavaFXUIFactory {
     private static final double PADDING_EXTERNAL = 10;
     private static final double PERCENT_WIDTH_BAR = 50;
     private static final double PERCENT_WIDTH_BUTTON = 35;
+    private static final double POWER_BLOCK_HEIGHT = 50;
 
     /**
      * Create a icon for the heart.
@@ -123,8 +124,9 @@ public final class JavaFXUIFactory {
         final int powerLevel = user.getPowerLevels().get(tag);
         final Label levelLabel = new Label("Level " + powerLevel + "/" + tag.getMaxLevel());
         final ImageView icon = this.createPowerIcon(tag);
+        icon.setFitHeight(POWER_BLOCK_HEIGHT);
         final ProgressBar bar = new ProgressBar(powerLevel / (double) tag.getMaxLevel());
-        final String upgradeString = powerLevel == tag.getMaxLevel() ? "MAXED" : tag.getCost(powerLevel) + " coins";
+        final String upgradeString = powerLevel == tag.getMaxLevel() ? "MAXED" : tag.getCost(powerLevel) + "$";
         final Button upgradeButton = new Button(upgradeString);
         upgradeButton.setId("upgradeButton");
         levelLabel.setId("levelLabel");
@@ -140,11 +142,17 @@ public final class JavaFXUIFactory {
                 factory.createNotEnoughCoins().show();
             }
         });
+        upgradeButton.setMinWidth(0);
         final VBox centerBox = new VBox(levelLabel, bar);
+        centerBox.setMinWidth(0);
         centerBox.setPadding(new Insets(PADDING_INTERNAL));
         bar.setMaxWidth(Double.MAX_VALUE);
+        bar.setMinWidth(0);
+        levelLabel.setMinWidth(0);
         upgradeButton.setMaxWidth(Double.MAX_VALUE);
         final GridPane mainPane = new GridPane();
+        mainPane.setMaxWidth(Double.MAX_VALUE);
+        mainPane.setMinWidth(0);
         mainPane.addRow(0);
         mainPane.setMaxWidth(Double.MAX_VALUE);
         mainPane.addColumn(0, icon);
@@ -153,8 +161,7 @@ public final class JavaFXUIFactory {
         final ColumnConstraints c0 = new ColumnConstraints();
         final ColumnConstraints c1 = new ColumnConstraints();
         final ColumnConstraints c2 = new ColumnConstraints();
-        c0.setPrefWidth(icon.getFitWidth());
-        c0.setPercentWidth(10);
+        c0.setPrefWidth(POWER_BLOCK_HEIGHT);
         c1.setPercentWidth(PERCENT_WIDTH_BAR);
         c2.setPercentWidth(PERCENT_WIDTH_BUTTON);
         c2.setHalignment(HPos.CENTER);
