@@ -5,7 +5,7 @@
     <Time>100</Time>
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
-        <Power id = "ADHESIVESHOT"/>
+        <Power id = "STICKYSHOT"/>
         <Power id = "DOUBLESPEED"/>
     </AvailablePower>
     <GameObject>

@@ -6,7 +6,7 @@
     <AvailablePower>
         <Power id = "TIMEDSHIELD"/>
         <Power id = "DOUBLESPEED"/>
-        <Power id = "ADHESIVESHOT"/>
+        <Power id = "STICKYSHOT"/>
     </AvailablePower>
     <GameObject>
         <Ball color = "BLUE" size = "4">
