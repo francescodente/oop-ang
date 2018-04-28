@@ -11,8 +11,10 @@
 \usepackage{amsmath,stmaryrd,mathtools,algorithm}
 \usepackage{amssymb}
 \usepackage{float}
+\usepackage{hyperref}
 \usepackage[italian]{cleveref}
 \usepackage[italian]{babel}
+
 
 \title{Relazione progetto OOPang}
 \author{Samuele Burattini \\ Nicholas Ciarafoni \\ Francesco Dente \\ Lorenzo Menghini \\ Francesca Tonetti}
@@ -233,14 +235,151 @@ Per quanto in generale la tendenza sia stata quella di affidare la responsabilit
 In generale l'uso del DVCS è stato fatto seguendo i consigli ricevuti a lezione, cercando quindi di mantenere alcune feature isolate sui propri branch fino al loro effettivo completamento per non impattare sulla struttura principale.
 Ciò è stato più facile nelle fasi iniziali di sviluppo del Model in quanto le parti erano più indipendenti, ma si è portata avanti la stessa filosofia dove possibile anche nello sviluppo complessivo dell'applicazione.
 
+La divisione dei compiti, come già accennato nella sezione di Design di Dettaglio è la seguente:
+\begin{itemize}
+	\item \textbf{Burattini}: Realizzazione della meccanica di sparo, supporto per il multiplayer nel GameLoop, creazione dei Dialog per segnalare errori all'Utente, creazione delle icone dinamiche e degli elementi grafici presenti nella scena di gioco (icone dei power), rendering degli effetti dei power, gestione dell'interfaccia di potenziamento dei power, creazione e adattamento di tutte le risorse grafiche, design dei livelli della modalità storia e realizzazione in XML.
+	\item \textbf{Ciarafoni}: Realizzazione dei Pickup e della struttura dei Power, gestione della leaderboard e del leaderboard manager, implementazione concreta della View.
+	\item \textbf{Dente}: Creazione degli Eventi e dei Visitor, implementazione della fisica di gioco (Point2D, Vector2D, Gravity component e CollisionManager), creazione dei Wall, creazione dei decoratori per i Level, progettazione generale del rendering, implementazione del GameLoop, resize e gestione del Canvas, GameStates per gestire le varie fasi durante la partita.
+	\item \textbf{Menghini}: Creazione del Player e della meccanica di Input, realizzazione del Loader per la creazione dei Livelli da file XML, implementazione della GameSession e delle sue specializzazioni, creazione del menu di pausa, decorazione delle schermate grafiche tramite CSS.
+	\item \textbf{Tonetti}; Creazione della Ball e del MovementComponent, modellazione del concetto di User e UserManager, creazione dell'InstallManager, creazione delle Scene in FXML (utilizzando il tool SceneBuilder) e dei relativi Controller.
+\end{itemize}
+
+
+
+
 \section{Note di sviluppo}
 Nello sviluppo dell'applicazione abbiamo cercato di utilizzare dove possibile gli elementi avanzati del linguaggio Java visti a lezione quali lambda expressions e Streams per avere un codice più facilmente comprensibile e semplice da scrivere.
 Un caso degno di nota è quello dell'interfaccia funzionale oopang.commons.events.EventHandler, pilastro del meccanismo degli Observer presenti nel nostro progetto che è stata sempre utilizzata con l'utilizzo di lambda anche innestate.
+
 Dove utile, in particolare per gli User e la Leaderboard, si è fatto uso di Optional e anche in tal caso si è preferito la creazione di lambda per programmare le azioni da eseguire sugli optional stessi.
 In generale inoltre si è fatto uso di alcune delle interfacce funzionali fornite dal linguaggio Java quali Consumer e Supplier, molto utili per poter delegare delle operazioni senza creare veri e propri oggetti dedicati.
+
+\subsection*{Samuele Burattini}
+Nel mio lavoro personale, oltre agli elementi sopracitati, ho utilizzato alcune funzionalità di JavaFX per la realizzazione dei blocchi dinamici per l'interfaccia utente all'interno della JavaFXUIFactory e per la realizzazione dei Dialog. Per quest'ultimi ho utilizzato degli snippet di codice presi da un tutorial reperito in rete a questo \href{http://code.makery.ch/blog/javafx-dialogs-official/} {link} .
+
+Ulteriori competenze esterne a quelle specifiche del corso di programmazione ad Oggetti includono l'elaborazione delle risorse grafiche principalmente tramite Photoshop e la produzione dei file XML per la codifica dei livelli.
+
+\subsection*{Nicholas Ciarafoni}
+All'interno della gestione delle Leaderboard ho implementato l'interfaccia Serializable, trasformando così l'intera classe in una stringa di byte, questo flusso creato dunque viene poi caricato e salvato su file binario in modo da garantire la persistenza.
+
+Ho inserito un Optional<Integer> per controllare se nella Leaderboard l'ultimo record registrato è stato aggiunto alla "top ten", se è presente tengo traccia dell'indice del record.
+
+Nei Power ho fatto uso del pattern di programmazione Visitors, con il metodo Visit ho verificato per esempio nel Power Dynamite, se all'interno del livello erano presenti degli oggetti di tipo Ball e poi ne invocavo la distruzione, analogamente con il Power Freeze, verificavo se all'interno del level avevo oggetti di tipo Ball e di tipo Player.
+Avendo riscontrato dei problemi nell'accumulo di power differenti ho avuto la necessità di impostare e tenere aggiornato un counter di "invulnerabilità" che il Player ha attive su di se, tramite questo valore scelgo se disattivare il la collisione del Player con le Ball.
+
+\subsection*{Francesco Dente}
+
+\subsection*{Lorenzo Menghini}
+
+\subsubsection*{Component}
+Come spiegato nella sezione di architettura di dettaglio, i component sono degli oggetti che permettono ai GameObject, o più in generale a chi ne ha un'istanza, di compiere determinate azioni come muoversi, sparare, collidere, ricevere input o essere sottoposti a gravità.
+
+Nell'intrefaccia generali si definiscono i metodi comuni a tutti come l'abilitazione e relativa disabilitazione, il metodo chiave di update e la start che inizializza il component stesso.
+Ho deciso di sviluppare una classe astratta poichè alcuni metodi potevano essere implementati nello stesso modo in tutti i component ed alcuni attributi come l'istanza del GameObject (vi è una doppia relazione: i GameObject contengono istanze dei component e quest'ultimi, per poterne modificare le proprietà, devono avere accesso al GameObject stesso) o il boleano che descrive se il component è attivo o meno. 
+
+\subsubsection*{GameSession}
+La GameSession è parte del cuore dell'applicazione ed ha un ruolo di contenimento e passaggio di informazioni.
+Modella il concetto di sessione di gioco e contiene istanze della View, del Model, e del GameLoop; essendo interfacciata con il controller funge da ponte di comunicazione tra quest'ultimo e gli altri pilastri dell'architettura del software. Questo ci permette in modo pulito di gestire delle fasi cruciali del gioco come l'evento di morte o la gestione dell'inizio di una nuova partita, dando indicazioni anche alla View sul comportamento da tenere (quali scene caricare, ad esempio).
+Facendo uso del pattern Observer, nella GameSession vengono innescati o "triggerati" degli eventi quali la creazione di un livello o la fine di una partita che generano azioni rilevanti sul Model o in generale su tutte le entità reistrate a questi due Eventi.
+
+Come spiegato nell'architettura di dettaglio è stato necessario suddividere l'implementazione in due classi differenti, a seconda della modalità di gioco da avviare (Survival o Story) mantenendo comunque le azioni comuni implementate nella classe astratta, poichè le notevoli differenze come ad esempio modalità di morte (nella Survival non esiste il "timeout") o caricamento del livello (gestito poi in parte dall'XMLLevelLoader) portavano ad una relizzazione più pulita e funzionale tramite questa suddivisione.
+La startNewLevel è un metodo chiave poichè incorpora quella che è la creazione di una nuova scena di gioco: crea le Map per contenere informazioni sui player (uno o due a seconda della scelta dell'utente) e i relativi InputWriter, si occupa di aggiungere la figura del Player al livello (compito scorporato del LevelLoader poichè la figura del Player non è variabile a seconda del livello) e riceve dal LevelLoader il livello caricato, registra quest'ultimo all'evento di terminazione della partita e indica alla view, passandogliene l'istanza, che il livello è stato creato; ma cosa più importate crea e accende il GameLoop che è il motore di tutto il gioco.
+Per quanto riguarda la fase di terminazione di una partita, la GameSession si occupa di fermare il flusso di gioco e ricevere i dati relativi ai risultati ottenuti (score e anche modalità di morte o vittoria).
+
+A questo punto darà l'input alla view di caricare la scena adatta a seconda del tipo di terminazione ottenuta.
+Come costrutti avanzati del linguaggio ho fatto uso di Optional, della reflection per la costruzione della EnumMap e anche di lambda che rendono il codice più leggibile ed ordinato.
+
+\subsubsection*{XML Level Loader}
+L'XMLevelLoader ha il compito di "parsare" le informazioni necessarie alla costruzione della scena di gioco da un file esistente.
+Per la strutturazione dei livelli ho deciso di usare il meta linguaggio XML che mi permette tramite i tag di poter leggere il file con più libertà di azione.
+Questo mi ha portato a scrivere della funzioni di utility modulari per catturare nel file le parti che mi interessavavo specificandone nella chiamata i tag da cercare e la sorgente di partenza.
+Facendo uso del LevelBuilder (che implementa il patter Builder) ho construito il livello pezzo per pezzo ad ogni lettura di informzioni per poi passarlo dopo aver fatto la build al LevelData che contiene inoltre informazioni sullo sfondo e sulla texture dei muri di gioco.
+Per implmentare in modo efficace la lettura ho fatto uso della libreria esterna DOM che mette a disposizione metodi, interfacce e classi molto utili per la modellazione dei dati.
+
+I due metodi pubblici (loadStoryLevel e loadInfiniteLevel) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file poichè conosco a priori la presenza o meno di tag all'interno del file dell'infiniteLevel.
+Per la gestione dei PowerUps agisco in modo leggermente diverso (non per quanto riguarda la lettura ma per l'utilizzo del builder) chiamando, attraverso l'uso di lambda, dei metodi di creazione sulla powerFactory.
+
+\subsubsection*{Input}
+Per spiegare il funzionamento della gestione dell'input da parte dell'utente occorre procedere per gradi: alla cattura dell'evento di pressione un tasto specifico da parte della view viene invocato il metodo sendcommand nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput al successivo update.
+Durante l'esecuzione della processInput il comando inserito nella Queue viene prelevato e passato all'InpuWriter che si occuperà di scrivere i valori corrispondenti relativi al comando.
+
+A questo punto sarà responsabilità dell'InputReader leggere i valori scritti e renderli disponibili all'InputComponent avendone quest'ultimo un'istanza.
+Alla chiamata dell'update sull'InputComponent viene invocato un metodo privato handleInput che, attraverso l'uso di Consumer parametrizzati, gestisce il settaggio di cambi di direzione o richiesta di sparo generando quindi nei GameObject interessati un cambio effettivo dei parametri.
+
+
+
+
+
+\subsection*{Francesca Tonetti}
+Nello sviluppo delle parti di applicazione del gioco di cui mi sono occupata, oltre ad aver incluso gli elementi di programmazione comuni a tutti i componenti del gruppo, mi sono impegnata nella gestione di serializzazione dello User, la gestione dei dati sul filesystem e parte delle realizzazione delle viste grafiche.
+In riferimento a quest'ultimo ho utilizzato il programma SceneBuilder per la creazione di tutte le scene di gioco, alle quali ho associato riferimenti al controller mediante l'FXMLLoader collocato nella classe SceneLoader.
+
+Per quanto riguarda la gestione degli utenti, la classe User di riferimento implementa Serializable che definisce il meccanismo di salvataggio dei dati su file relativi all'utente mediante uno stream binario in modo che ad ogni sessione vengano ripristinati, per questo sono state approfondite le classi java.io.FileInputStream e java.io.FileOutputStream.
+Per la creazione di una cartella di installazione ho implementato un InstallManager usando le API di Java.
+
+Infine un'altro aspetto di sviluppo interessante è il meccanismo di hashing applicato alle password dell'utente, per proteggere in maniera minimale i dati sensibili dell'utente stesso.
+
+
+
 
 \chapter{Commenti finali}
 
 \section{Autovalutazione e lavori futuri}
+
+
+\subsection*{Samuele Burattini}
+Ho trovato il lavoro sul progetto molto istruttivo e utile in quanto dà la possibilità di cimentarsi per la prima volta con la ideazione e realizzazione di un software complesso. La fase che ho ritenuto più stimolante è stata quella della progettazione dell'applicazione, in particolare le fasi di analisi del dominio e strutturazione del Model. Questa parte mi ha visto anche particolarmente attivo in quanto, un po' per una questione di tempistiche in relazione alla sessione invernale, un po' per una maggiore dimestichezza con i costrutti tipici della programmazione a oggetti la progettazione ha impegnato principalmente me e Francesco.
+Particolarmente interessante è stata la costruzione di una struttura che fosse il più possibile modulare e che rendesse semplice fare modifiche e aggiunte senza impattare pesantemente sul resto. Indubbiamente non tutto è stato svolto nel migliore dei modi anche soprattutto per una questione di inesperienza ed in particolare per le sezioni del Controller e della View più lontani dalla programmazione "classica".
+
+Per quello che riguarda lo sviluppo ho lavorato bene con il gruppo, e ho apprezzato l'utilizzo del DVCS che introduce ad una metodologia di lavoro molto più vicina al mondo professionale, nonostante un primo periodo di incertezza per familiarizzare con i comandi con il tempo si è rivelato uno strumento indispensabile.
+Nonostante fossimo un gruppo numeroso non abbiamo avuto grandi difficoltà nel suddividere il lavoro e siamo riusciti a tenere quasi sempre il passo in maniera uniforme, unica pecca è stata la scarsa indipendenza dei singoli che ci ha "costretto" a vederci periodicamente per fare il punto della situazione e andare avanti nello sviluppo. Questo probabilmente è dipeso in parte anche a causa del fatto che avendo progettato all'inizio la struttura generale è stato più difficile per gli altri inserirsi nella stessa ottica, ma anche semplicemente da un livello disomogeneo di praticità nell'utilizzo del linguaggio.
+
+Mi ritengo molto soddisfatto del lavoro svolto sia personalmente che dal gruppo, credo di aver lavorato bene e di essere riuscito a mettere in pratica quanto appreso in quest'anno affinando ulteriormente gli strumenti fornitici durante il corso. Quando all'inizio del semestre ci erano stati presentati gli elaborati degli anni passati ero rimasto particolarmente colpito e non pensavo sarei riuscito a raggiungere risultati dello stesso livello.
+
+Reputo l'esperienza generale estremamente formativa e considero l'elaborato finale un prodotto completo, mi piacerebbe continuare nello sviluppo (anche se non so se sarà possibile considerando gli altri impegni di questo semestre) inserendo altri elementi per rendere più vario il gameplay come l'aggiunta di altri GameObjects quali scale, muri distruggibili e palle o pistole con comportamenti differenti sfruttando l'architettura dei Component già predisposta. 
+
+\subsection*{Nicholas Ciarafoni}
+L'idea di portare come prova pratica un progetto di grosse dimensioni è interessante, peccato che manchino le giuste guide per portare a termine un gioco di questa tipologia, in molte parti sarebbe stato utile avere affianco un tutore che ci instradasse meglio al concetto di gioco, e delle sue caratteristiche principali, in particolare per quel che riguarda la View.
+A lezione ci siamo concentrati molto sulla teoria, e nel laboratorio a metterla in pratica, sarebbe carino, provare a creare dei giochi in laboratorio, dove allo stesso tempo si mette in pratica la teoria seguita a lezione piuttosto che completare esempi preimpostati.
+
+Nel processo di sviluppo ho avuto dei problemi nel capire la struttura generica del progetto all'inizio, cosa che ho fatto subito capire al gruppo di lavoro, e in alcune parti ho avuto la necessità di avere affianco una persona che sapesse guidarmi nelle parti di codice scritto, tempestandola di domande ad ogni passo.
+Troppa insicurezza in me e confusione mi hanno portato a volte in situazioni di stallo dove non sapevo proprio come continuare il mio lavoro, poi nel momento in cui qualcun altro del gruppo mi affiancava riuscivo a portare a termine i punti che progressivamente ci impostavamo.
+
+L'insicurezza mi ha portato anche a non riuscire in una delle mie challenge personali, quello di inserire la musica, e il poco tempo rimasto non ha giocato a mio favore.
+Per uno sviluppo futuro pensavo di inserire appunto degli effetti sonori, musica di gioco, e vari potenziamenti aggiuntivi come per esempio la possibilità di avere potenziamenti fluttuanti e collezionabili a contatto con l'HookShot o potenziamenti nascosti dentro muri distruttibili.
+
+\subsection*{Francesco Dente}
+
+\subsection*{Lorenzo Menghini}
+Ho trovato la realizzazione del progetto uno degli aspetti più stimolanti affrontati fin'ora nel mio percorso universitario: mi ha permesso di realizzare ancora meglio cosa significa lavorare in un team di sviluppo e i relativi vantaggi/svantaggi di non essere da solo davanti al computer.
+A causa del prolungarsi della sessione invernale non ho potuto affrontare in modo dettagliato come avrei voluto la fase di progettazione che è stata presa in carico più in dettaglio da Samuele e Francesco. Nonostante un primo periodo di ambientazione per poter capire a pieno le sfaccettature architetturali sviluppate dai miei compagni, credo di essermi inserito bene nel lavoro e di aver portato un bel contributo alla realizzazione dell'elaborato.
+
+Sono stato in grado di lavorare in modo individuale senza problemi e in alcuni casi ho supportato i miei compagni nella comprensione del codice del progetto nel caso avessero difficoltà.
+Grazie ad alcune conoscenze pregresse, esterne al corso di Programmazione ad Oggetti, ho scritto dei file CSS per la stilizzazione delle varie schermate di gioco prendendomi carico di buona parte di questa sezione di progetto.
+
+In conclusione ho trovato questo percorso particolarmente formativo sia dal punto di vista tecnico/implementativo (in particolare per l'importanza dell'utilizzo corretto dei pattern), sia dal punto di vista organizzativo per la gestione del carico di lavoro in gruppo.
+Mi ha aiutato ad apprendere in modo efficace e funzionale l'utilizzo di un DVCS comprendendo la sua indispensabile presenza all'interno di un progetto codiviso tra più sviluppatori.
+Ringrazio i miei compagni per aver condiviso questo bellissimo progetto insieme e siamo sicuramente tutti soddisfatti di quello che questa cooperazione ha portato alla luce, a parer mio un bellissimo gioco, stimolante e quasi "addictive". 
+
+Ho intenzione di continuare nello sviluppo dell'applicativo aggiungendo una leaderboard globale informandomi prima sull'implementazione in PHP dei file necessari a creare un collegamento in rete accessibile a tutti gli utenti per rendere la user experience ancora più competitiva.
+
+\subsection*{Francesca Tonetti}
+Questo progetto è stato frutto di molto lavoro coeso fra tutti i componenti del gruppo.
+Se pur spesso sia stato faticoso completare autonomamente parti di sviluppo del gioco, grazie all'aiuto dei compagni e ad incontri pomeridiani, mi ritengo ripagata dal risultato finale ottenuto e posso dirmi estremamente soddisfatta.
+
+Inizialmente la proposta di realizzare un gioco non mi ha entusiasmato non solo perché non sono mai stata appassionata al mondo dei videogiochi, ma soprattutto perché avevo molti dubbi riguardo le mie abilità di programmazione in quanto le conoscenze in linguaggio Java non le ritenevo abbastanza consistenti da poter completare un elaborato di questo genere.
+Arrivata però al completamento del progetto, penso sia stato estremamente utile cimentarsi in un gioco così corposo e strutturato di fatti questo mi ha permesso di ampliare le mi conoscenze anche per quanto riguarda altri aspetti implementativi come le parti grafiche che compongono le scene di OOPANG.
+Infatti una tra le cose che mi ha più interessato è stata proprio quella di poter lavorare sugli aspetti più grafici cimentandomi con un programma che non conoscevo, SceneBuilder, e sfruttando la mia vena più artistica dando opinioni come ad esempio sulle scene, i colori, la scelta delle icone per i powers o il player.
+
+Complessivamente penso sia stato molto piacevole lavorare in gruppo sia perché ci ha sempre permesso di confrontarci vicendevolmente ma soprattuto per poter chiedere aiuto ogni qualvolta non fossimo sicuri di svolgere in maniera corretta il lavoro assegnato, anche perché per quanto riguarda la suddivisione dei compiti non è mai stata cosi netta e precisa la linea tra il lavoro di un compagno e l'altro.
+La costanza e le abilità di alcuni componenti del gruppo penso siano state essenziali e di grande aiuto per veder progredire in maniera costante il progetto, senza mai perdere di vista gli obbiettivi prefissati effettuando un check periodico del lavoro.
+Questo mi ha permesso ancor più di capire quanto per me sia punto di forza sapere di avere attorno un team di persone con le quali potermi confrontare attivamente, ed è un aspetto che anche in futuro spero di ritrovare nel mondo del lavoro.
+
+Infine penso che il mio lavoro sia stato utile per la realizzazione del gioco, ho sempre cercato di svolgere i compiti assegnati in maniera precisa e puntuale senza dimenticare il fatto che non solo fossi responsabile di ciò dovevo compiere, ma che far del proprio meglio avrebbe aiutato me ed i miei compagni.
+Spero un domani, con la collaborazione dell'intero gruppo, si possano migliorare altri aspetti del gioco magari aggiungendo altri livelli associati alla creazione di power nuovi, per rendere l'applicazione più innovativa.
+
+\section{Difficoltà incontrate e commenti per i docenti}
+La principale difficoltà che abbiamo riscontrato nello sviluppo del progetto è stata la progettazione di una parte View composta da più schermate collegate tra loro. Crediamo che sia una sezione importante e che meriti un approfondimento nella trattazione del corso in quanto raramente ci si troverà a creare sistemi a singola finestra. 
+In più riteniamo che sarebbe stato meglio approfondire di più l'uso di DVCS Git e del repository online Bitbucket per potersi esercitare, introducendoli anche prima di quanto è stato fatto in modo che gli studenti possano acquisire più dimestichezza ed utilizzare da subito questi strumenti in maniera efficace visto che si sono rivelati incredibilmente utili.
 
 \end{document}
