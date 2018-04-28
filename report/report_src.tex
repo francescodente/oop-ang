@@ -281,6 +281,64 @@ Questa impalcatura ci permetterà anche in futuro di aggiungere sia nuove modali
 
 \subsection*{Lorenzo Menghini}
 
+\subsubsection*{Component}
+
+Dopo un'analisi dettagliata dei principali oggetti presenti nel gioco abbiamo delineato delle azioni comuni che questi oggetti potevano compiere come collidere, muoversi, ricevere input dall'utente, ed abbiamo strutturato queste capacità in components che sono paragonabili a pezzi di un motore.
+
+Questi si interfacciano con i GameObject distribuendo meglio i compiti di quest'ultimi e prendendosi la responsabilità di eseguire azioni su di essi.
+La struttura favorisce riuso di codice poichè, essendo modulari, possono essere applicati ad ogni tipo di oggetto ed essendo indipendenti la modifica di parametri (ad esempio la modalità di movimento) va solamente applicata al singolo component invece che ad ogni oggetto interessato.
+
+La classe astratta AbstractComponent delinea azioni comuni a tutte le sottoclassi come ad esempio l'abilitazione o disabilitazione del component stesso a seconda delle necessità durante l'esecuzione dell'applicazione; lasciando l'implementazione di alcuni di essi vuota ci permette di personalizzare ogni component in modo differente e funzionale.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/component}
+\caption{Schema UML che illustra l'impalcatura generale dei Component}
+\label{img:decorator}
+\end{figure}
+
+\subsubsection*{Input}
+
+La gestione dell'input dall'utente è una parte fondamentale del software che coinvolge gran parte del progetto toccando le tre macro suddivisioni quali Controller, View e Model.
+La struttura principale è a carico dell'InputController che si occupa di tenere immagazzinati i valori delle variabili di gioco (possibilità di sparo o cambi di direzione).
+
+Per permettere la manipolazione di questi valori e allo stesso tempo proteggerne il contenuto, ho scelto di creare due distinte interfacce per differenziare i compiti di lettura o scrittura: il Model deve poter leggere i dati senza poterli modificare mentre la scrittura deve avvenire dall'esterno.
+Alla cattura di un comando da parte dell'utente la View si occupa di invocare la sendCommand sul controller che aggiungerà a sua volta il comando catturato tra quelli da processare nel GameLoop.
+
+Il GameLoop essendo l'unico ad avere l'accesso in scrittura all'InputController è responsabile di modificarne il contenuto coerentemente con il comando processato.
+Ad ogni update l'InputComponent ha il compito di leggere ed interpretare i valori dall'InputReader e modificare i parametri del GameObject a cui appartiene.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/input}
+\caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
+\label{img:decorator}
+\end{figure}
+
+\subsubsection*{GameSession}
+
+La GameSession è una parte fulcro del progetto poichè mette in comunicazione il Controller con la view e il model, permetendo il passaggio di informazioni in modo protetto.
+
+Abbiamo specializzato il lavoro di questa sezione in due modalità differenti a seconda della modalità di gioco (Survival o StoryMode); 
+La suddivisione si è resa necessaria per via delle notevoli differenze tra le due modalità di gioco: per citarne alcune il numero di vite, il conteggo dello stage (nella StoryMode si riferisce al livello attuale mentre nella Survial al numero di Balls distrutte) o anche per il semplice fatto che nella Survival non esiste un livello successivo.
+Queste due parti si occupano inoltre di ricevere informazioni di gioco alla fine di ogni livello e di aggiornare di conseguenza la view che provederà poi ad interfacciarsi con l'utente.
+Come citato sopra sono responsabili di verificare la presenza di un nuovo livello possibile e di far agire l'XMLLevelLoader per provvedere al caricamento dei dati necessari.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/gamesession}
+\caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
+\label{img:decorator}
+\end{figure}
+
+\subsubsection*{Loader}
+Questa sezione del progetto è responsabile del caricamento da file (formato .xml) dei livelli e della decorazione di quest'ultimi attraverso l'inserimento delle proprietà e oggetti di gioco (Balls, Walls, ecc.).
+
+Viene utilizziato all'avvio della scena di gioco dal controller per inizializzare la partita (startStoryModeSession/Survival), questo ha come compito quello di produrre un LevelData che contiene tutte le informazione necessarie per la costruzione.
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/loader}
+\caption{Schema UML che mostra la struttura del Loader in collegamento alla GameSession}
+\label{img:decorator}
+\end{figure}
+
+
 \subsection*{Francesca Tonetti}
 
 \chapter{Sviluppo}
@@ -433,7 +491,7 @@ Ritengo che le mie esperienze passate nello sviluppo di videogiochi per puro hob
 In passato infatti non ero mai estremamente orientato alla modularità e alla flessibilità del codice, ed inoltre tendevo sempre a buttarmi rapidamente sulla scrittura piuttosto che organizzare e progettare in primo luogo.
 Ritengo dunque che questo progetto abbia corretto (almeno in parte) questo mio "difetto".
 
-Penso che il lavoro sia stato svolto in maniera positiva nonostante la disomogeneità delle conoscenze che spesso vedeva ci vedeva rallentare per permettere di mantenere il passo comune.
+Penso che il lavoro sia stato svolto in maniera positiva nonostante la disomogeneità delle conoscenze che spesso ci vedeva rallentare per permettere di mantenere il passo comune.
 
 Credo infine che questo progetto possa essere un buon trampolino per lavori futuri, spero anche con l'appoggio di colleghi universitari, e che ci serva sia come conferma di ciò che sappiamo fare che come "lezione" per non ripetere errori già commessi.
 
