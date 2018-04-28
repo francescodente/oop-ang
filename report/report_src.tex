@@ -141,7 +141,7 @@ Nella nostra versione del gioco ci siamo limitati ad implementare un solo shoote
 
 \subsubsection*{Events}
 
-Un elemento fondamentale della progettazione dell'applicazione è stata la modellazione del concetto di evento seguendo il pattern Observer.
+Un elemento fondamentale della progettazione dell'applicazione è stata la modellazione del concetto di evento seguendo il pattern \textbf{Observer}.
 In uno scenario così dinamico in cui lo stato del sistema cambia molto frequentemente, si intuisce chiaramente come la strategia di "polling" (interrogazione periodica) sia inefficacie.
 Abbiamo dunque deciso di sfruttare questo pattern.
 
@@ -155,7 +155,7 @@ La concretizzazione principale dell'interfaccia Event è EventSource, che contie
 Ho deciso di non rendere disponibile il metodo trigger() tramite l'interfaccia per non dare la possibilità ad oggetti esterni al possessore dell'evento di innescarlo.
 In questo modo solo la reale sorgente dell'evento ne ha la possibilità.
 
-L'implementazione CompositeEvent rende invece possibile trattare più eventi "simili" come se fossero uno solo, seguendo appunto il pattern Composite.
+L'implementazione CompositeEvent rende invece possibile trattare più eventi "simili" come se fossero uno solo, seguendo appunto il pattern \textbf{Composite}.
 
 Infine il NullEvent rappresenta un evento che, non potendo essere attivato, ignora semplicemente le richieste di register() e unregister().
 La necessità di questa classe è dovuta alla presenza nel progetto di interfacce che richiedono la presenza di un certo evento.
@@ -189,6 +189,18 @@ Sfruttando l'impalcatura fornita dai Component e il loro legame con i GameObject
 
 \subsubsection*{Rendering}
 
+L'attore principale nella gestione del rendering è l'interfaccia Renderer, che non è altro che un'oggetto che sa come disegnarsi sullo schermo tramite il metodo render().
+Questo concetto viene poi esteso nell'interfaccia Sprite, che aggiunge concetti come posizionamento e dimensioni.
+Entrambe le interfacce sono state inizialmente estese da classi astratte (GenericRenderer e GenericSprite) che fornissero un'implementazione di base indipendente dal motore grafico per minimizzare le riscritture nell'ipotesi di un futuro cambio di framework.
+In seguito ho fornito una prima implementazione concreta per Sprite che si basa su JavaFX.
+
+A questo punto ho deciso di concentrarmi sul rendering dei GameObject, cercando una soluzione che restasse totalmente indipendente dal gestore grafico.
+Per fare ciò ho creato una classe astratta GameObjectRenderer, che fa da wrapper sia per uno Sprite, utilizzato per l'effettivo disegno, che per un GameObject.
+Ogni specializzazione gestirà in modo diverso la grafica per un particolare oggetto.
+
+Per coordinare la molteplicità di oggetti da disegnare, i Renderer vengono gestiti da un CanvasDrawer, che espone all'esterno una \textbf{Abstract Factory} per la loro creazione (RendererFactory).
+Anche in questo caso ho voluto impostare un'architettura che risentisse in minima parte dei possibili cambiamenti futuri, fornendo alcune implementazioni base, specializzandole poi in quelle legate a JavaFX.
+
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/renderers}
 \caption{Schema UML che mette in evidenza la gerarchia alla base della gestione del Rendering.}
@@ -201,7 +213,19 @@ Sfruttando l'impalcatura fornita dai Component e il loro legame con i GameObject
 \label{img:canvas_drawer}
 \end{figure}
 
-\subsubsection*{Decorators}
+\subsubsection*{Level Decorators}
+
+In seguito all'analisi delle funzionalità dell'applicazione, sono emerse feature che hanno reso il concetto di livello molto difficile da racchiudere in una sola classe.
+Infatti la molteplicità di comportamenti diversi che il livello avrebbe dovuto avere, insieme alla necessità di poterli modificarli in base alle scelta della modalità, mi ha portato all'utilizzo del pattern \textbf{Decorator}.
+Questa scelta ci ha permesso di comporre dinamicamente le funzionalità del gioco sulla base delle scelte dell'utente, senza creare classi che aggregassero insieme troppi concetti diventando difficilmente maneggiabili.
+
+Abbiamo quindi creato un'implementazione basilare per un livello che contiene esclusivamente la logica core.
+Dopodichè ho creato un'astrazione di decoratore dalla quale ho poi derivato una specializzazione per ogni feature aggiuntiva possibile, come la gestione del tempo, dello spawn di pickup, ecc.
+
+A mano a mano che procedevamo però, ci rendevamo conto che spesso l'aggiunta di comportamenti richiedeva un cambiamento al modo di creare GameObject, rendendo quindi necessario modificare dinamicamente anche il comportamento della factory di GameObject.
+Ho quindi deciso di estendere il pattern anche alla Factory, in modo che ogni LevelDecorator potesse decorare a sua volta la factory restituita dal livello decorato.
+
+Questa impalcatura ci permetterà anche in futuro di aggiungere sia nuove modalità, sia nuove feature senza cambiare troppo la struttura del resto del modello.
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/decorator}
