@@ -55,7 +55,7 @@ Ad ogni collisione con il pavimento le palle rimbalzano tornando sempre alla ste
 \section{Analisi e modello del dominio}
 
 L'entità base del modello del dominio è il Level, in cui agiscono tutti i componenti del gioco rappresentati dai GameObject.
-Quest'ultimi descrivono le entità fondamentali che compongono il gioco quali balls, player/s, walls, shots e pickups e sono completamente responsabili del proprio comportamento.
+Quest'ultimi descrivono gli "attori" fondamentali che compongono il gioco quali balls, player/s, walls, shots e pickups e sono completamente responsabili del proprio comportamento.
 Il Level ha la responsabilità di mantenere attivi e aggiornati i componenti al suo interno mediante update incrementali che comunicano il trascorrere del tempo.
 All'interno del level è presente un motore per la gestione delle collisioni tra gli oggetti in gioco: ogni GameObject oltre alla logica del proprio comportamento può includere un Collidable che gli permette di essere rilevato dal CollisionManager e di essere notificato quando colpisce altri oggetti.
 Essendo il level un'entità che varia duarante il gioco, esso viene incapsulato all'interno del Model che permette di modificarlo durante la sessione di gioco.
@@ -169,6 +169,17 @@ In questo modo è possibile restituire comunque un oggetto compatibile con l'int
 \end{figure}
 
 \subsubsection*{Collisions}
+
+Una parte di cui mi sono occupato è stata la rilevazione delle collisioni.
+Nella scena sono infatti presenti entità che devono poter reagire non appena entrano in contatto con altri oggetti, ognuna secondo regole diverse.
+
+Un'unità che ha la capacità di collidere viene rappresentata dall'interfaccia Collidable ed è dotata di una posizione e di una forma.
+La gestione globale delle collisioni è invece affidata al CollisionManager che, venendo periodicamente richiamato dal Level, verifica quali coppie di Collidable sono in contatto in un determinato momento.
+Ogni coppia viene quindi notificata tramite il metodo notifyCollision(), dove riceve informazioni riguardanti l'urto.
+É compito del Collidable a questo punto informare chi è interessato tramite un evento.
+Questo permette ai diversi GameObject che possiedono il Collidable di reagire in modo diverso alla collisione.
+
+Sfruttando l'impalcatura fornita dai Component e il loro legame con i GameObject, ho pensato di implementare l'interfaccia Collidable tramite il CollisionComponent, permettendo facile accesso all'evento di collisione tramite l'interfaccia di GameObject.
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/collisions}
