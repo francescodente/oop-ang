@@ -35,8 +35,8 @@ public final class MultipleShooter implements Shooter {
         this.max = max;
         this.position = Points2D.ZERO;
         this.supplier = supplier;
-        this.currentShootingState = false;
-        this.lastShootingState = false;
+        this.currentShootingState = true;
+        this.lastShootingState = true;
     }
 
     private boolean canShoot() {

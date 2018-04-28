@@ -5,7 +5,7 @@
     <Time>60</Time>
     <AvailablePower>
         <Power id = "FREEZE"/>
-        <Power id = "ADHESIVESHOT"/>
+        <Power id = "STICKYSHOT"/>
     </AvailablePower>
     <GameObject>
         <Ball color = "YELLOW" size = "3">
