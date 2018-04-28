@@ -39,4 +39,5 @@ public abstract class GameOverLevelDecorator extends LevelDecorator {
     protected void endLevel(final LevelResult result) {
         this.gameOverEvent.trigger(new GameOverStatus(this.getScore(), result));
     }
+
 }

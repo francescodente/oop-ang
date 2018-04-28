@@ -5,7 +5,7 @@ import oopang.controller.DayTime;
 import oopang.model.Model;
 
 /**
- * This is a Renderer for background in javaFX.
+ * This is a Renderer for the background.
  */
 public final class BackgroundRenderer extends GenericRenderer {
 

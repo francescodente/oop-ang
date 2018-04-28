@@ -6,8 +6,7 @@ import oopang.model.physics.CollisionTag;
 
 /**
  * This class implements the GameObject Shot which is a projectile that can be shot by the player to hit the balls.
- * It is destroyed only when colliding with a ball.
- * 
+ * It is destroyed only when colliding with a ball and sticks to the wall for some time.
  */
 public final class StickyShot extends HookShot {
 
@@ -15,7 +14,6 @@ public final class StickyShot extends HookShot {
 
     private boolean isSticked;
     private double time;
-
 
     /**
      * Create a new StickyShot instance.

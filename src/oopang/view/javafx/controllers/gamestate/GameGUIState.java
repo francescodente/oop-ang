@@ -8,6 +8,7 @@ import oopang.view.javafx.controllers.GameController;
  * Represents a generic state of the GameGui scene.
  */
 public abstract class GameGUIState {
+
     private final GameController gameGui;
     private final Controller controller;
 

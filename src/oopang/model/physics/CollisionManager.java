@@ -5,6 +5,7 @@ package oopang.model.physics;
  * {@link Collidable} objects.
  */
 public interface CollisionManager {
+
     /**
      * Checks the currently registered collidables for collision and notifies the ones
      * that are actually colliding. If any intersecting pair of objects is overlapping,

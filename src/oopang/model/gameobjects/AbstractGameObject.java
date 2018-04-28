@@ -8,8 +8,9 @@ import oopang.model.components.Component;
 import oopang.model.levels.LevelManager;
 
 /**
- * This class represents the abstract model for all GameObjects and gives a basic implementation
+ * This class represents the abstract model for all {@link GameObject}s and gives a basic implementation
  * of the main methods.
+ * Each {@link GameObject} has a position and can be observed to know when it is destroyed.
  */
 public abstract class AbstractGameObject implements GameObject {
 

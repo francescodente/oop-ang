@@ -8,7 +8,7 @@ import oopang.commons.space.Point2D;
 import oopang.model.components.Component;
 
 /**
- * Represents an entity of the game.
+ * Represents a general entity of the game.
  */
 public interface GameObject {
 

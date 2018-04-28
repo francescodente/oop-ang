@@ -15,7 +15,8 @@ import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 
 /**
- * Class representing a InfiniteGameSession.
+ * Class representing a game session which lasts until the player dies. 
+ * It allows the player to play in survival mode and automatically asks the loader for the Infinite Level.
  */
 public final class InfiniteGameSession extends GameSession {
     private boolean levelStarted;

@@ -20,9 +20,9 @@ import oopang.model.physics.Collision;
 import oopang.model.physics.CollisionTag;
 
 /**
- * This class implements the GameObject Ball 
- * It can collide whit walls.
- *
+ * This class implements the GameObject Ball and contains the logic of bouncing and duplicating when
+ * hit whith the {@link Shot}.
+ * Balls bounce always at same height based on its size and not depending on gravity values.
  */
 public final class Ball extends AbstractGameObject {
 

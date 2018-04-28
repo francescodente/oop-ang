@@ -1,7 +1,7 @@
 package oopang.model.powers;
+
 /**
- * Factory interface for powers.
- *
+ * This interface describes a factory for powers.
  */
 public interface PowerFactory {
     /**

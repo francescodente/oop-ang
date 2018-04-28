@@ -1,7 +1,7 @@
 package oopang.controller;
 
 /**
- * Annum with all the DayTime.
+ * Enum with the values of DayTime used to select the background basing on the systemTime.
  */
 public enum DayTime {
 

@@ -3,7 +3,7 @@ package oopang.commons.events;
 import java.util.HashSet;
 import java.util.Set;
 /**
- * This class is a composition of {@link Events}.
+ * This class is a composition of {@link Event}s.
  * @param <T>
  *      the type of the events.
  */
@@ -18,7 +18,7 @@ public final class CompositeEvent<T> implements Event<T> {
         events = new HashSet<>();
     }
     /**
-     * Add a new event to the composition.
+     * Add a new {@link Event} to the composition.
      * @param event
      *      the event to be added to the composition.
      */

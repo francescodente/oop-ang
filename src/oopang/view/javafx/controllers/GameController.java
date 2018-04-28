@@ -183,7 +183,7 @@ public final class GameController extends SceneController {
             ((TimedPower) power).getTimeOutEvent().register(n -> Platform.runLater(() -> toBeUsedPowerPane.getChildren().remove(icon)));
         }
         final Pane toBeUsedShooterPane = (player.getPlayerTag() == PlayerTag.PLAYER_ONE) ? player1Shooter : player2Shooter;
-        if (power.getPowertag() == PowerTag.DOUBLESHOT || power.getPowertag() == PowerTag.ADHESIVESHOT) {
+        if (power.getPowertag() == PowerTag.DOUBLESHOT || power.getPowertag() == PowerTag.STICKYSHOT) {
             final ImageView icon = this.iconFactory.createPowerIcon(power.getPowertag());
             icon.fitHeightProperty().bind(toBeUsedShooterPane.heightProperty());
             Platform.runLater(() -> toBeUsedShooterPane.getChildren().add(icon));

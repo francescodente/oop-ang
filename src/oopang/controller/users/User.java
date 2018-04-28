@@ -15,7 +15,8 @@ import oopang.commons.events.EventSource;
 import oopang.model.powers.PowerTag;
 
 /**
- * Class User that implements {@link Serializable}.
+ * This class represent the concept of User and contains the logic to level up, gaining rewards and
+ * upgrade power levels.
  */
 public final class User implements Serializable {
 
@@ -55,9 +56,9 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the value of the rank.
+     * Gets the value of the rank.
      * @return
-     *      the level of the rank.
+     *      the value of the rank.
      */
     public int getRank() {
         return this.rank;
@@ -73,7 +74,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the percentage of the XpPoints.
+     * Gets the percentage of the XpPoints.
      * @return
      *      a double between 0 and 1.
      */
@@ -82,16 +83,16 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that return the coin event which triggers every time you spend some coins.
+     * Returns the user modified event which triggers every time you modify the user.
      * @return
-     *      the coin event.
+     *      the user modified event.
      */
     public Event<Void> getUserModifiedEvent() {
         return this.userModifiedEvent;
     }
 
     /**
-     * Method that get the name of the User.
+     * Gets the name of the User.
      * @return
      *      the name of the user.
      */
@@ -100,18 +101,16 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get coins of the User.
+     * Gets coins amount of the User.
      * @return
-     *      the value of the coins.
+     *      the amount of coins.
      */
     public int getCoins() {
         return this.coins;
     }
 
     /**
-     * Method that add coins.
-     * @param rank
-     *      the value to calculate the reward.
+     * Method that add coins when a new rank is reached.
      */
     private void addCoins() {
         this.coins += LEVELS_REWARD.get(this.rank);
@@ -119,13 +118,11 @@ public final class User implements Serializable {
     }
 
     /**
-     * 
-     * Method that spend coins.
+     * Method that spends coins.
      * @param amount
-     *      the value to spend to the field.
+     *      the value to be spent.
      * @return
      *      true if there are enough coins false otherwise.
-
      */
     public boolean spendCoins(final int amount) {
         if (this.coins >= amount) {
@@ -137,7 +134,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the value of the Survival max stage.
+     * Gets the value of the Survival max stage.
      * @return
      *      the value of the Survival max stage.
      */
@@ -146,7 +143,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that set the value of the Survival max stage.
+     * Sets the value of the Survival max stage.
      * @param survivalMaxStage
      *      value used to set the Survival max stage.
      */
@@ -158,7 +155,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the value of the Arcade max stage.
+     * Gets the value of the Arcade max stage.
      * @return
      *      the value of the Arcade max stage.
      */
@@ -167,7 +164,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that set the value of the Arcade max stage.
+     * Sets the value of the Arcade max stage.
      * @param arcadeMaxStage
      *      value used to set the Arcade max stage.
      */
@@ -179,7 +176,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the value of the Survival max score.
+     * Gets the value of the Survival max score.
      * @return
      *      the value of the Survival max score.
      */
@@ -187,7 +184,7 @@ public final class User implements Serializable {
         return this.survivalMaxScore;
     }
     /**
-     * Method that set the value of the Survival max score.
+     * Sets the value of the Survival max score.
      * @param survivalMaxScore
      *      value used to set the Survival max score.
      */
@@ -200,7 +197,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the value of the Arcade max score.
+     * Gets the value of the Arcade max score.
      * @return
      *      the value of the Arcade max score.
      */
@@ -209,7 +206,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that set the value of the Arcade max score.
+     * Sets the value of the Arcade max score.
      * @param arcadeMaxScore
      *      value used to set the Arcade max score.
      */
@@ -234,7 +231,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that check if the rank is reached up with the current xpPoints.
+     * Checks if the current xpPoints are enough to reach the next rank.
      */
     private void checkRank() {
         int nextRankLimit = computeNextRankLimit();
@@ -245,6 +242,11 @@ public final class User implements Serializable {
         }
     }
 
+    /**
+     * Utility to compute the xpPoints value to pass to next rank.
+     * @return
+     *      the next rank xp limit.
+     */
     private int computeNextRankLimit() {
         return MIN_XP_LIMIT * (int) Math.pow(LIMIT_MULTIPLIER, this.rank);
     }
@@ -264,7 +266,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that set the PowerLevel.
+     * Sets the PowerLevel.
      * @param powerTag
      *      the powerTag to set the key of the map.
      * @param level
@@ -276,7 +278,7 @@ public final class User implements Serializable {
     }
 
     /**
-     * Method that get the powerLevels.
+     * Gets the powerLevels.
      * @return
      *      defensive copy of the map.
      */

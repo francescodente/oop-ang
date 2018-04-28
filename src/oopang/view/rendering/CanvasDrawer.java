@@ -4,6 +4,7 @@ package oopang.view.rendering;
  * Represents an object able to draw the specified Renderer objects onto a canvas.
  */
 public interface CanvasDrawer {
+
     /**
      * Draws the current Renderer objects onto the canvas.
      */

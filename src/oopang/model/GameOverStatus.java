@@ -1,7 +1,7 @@
 package oopang.model;
 
 /**
- * Describes information about the level termination.
+ * Wrapper class which stores information about the level termination.
  */
 public final class GameOverStatus {
     private final int score;

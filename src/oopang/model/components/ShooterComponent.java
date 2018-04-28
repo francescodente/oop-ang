@@ -5,7 +5,7 @@ import oopang.model.shooter.Shooter;
 
 /**
  * Give to the GameObject the ability to Shoot.
- * Uses a Shooter to create Shot.
+ * Uses a {@link Shooter} to create {@link oopang.model.gameobjects.Shot}s.
  */
 public class ShooterComponent extends AbstractComponent {
 

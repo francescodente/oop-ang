@@ -10,7 +10,7 @@ import oopang.controller.loader.LevelData;
 import oopang.controller.users.User;
 
 /**
- * Controller of the application.
+ * Interface describing the Controller in the MVC pattern of this application.
  */
 public interface Controller {
 

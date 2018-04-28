@@ -18,7 +18,6 @@ import oopang.controller.InstallManager;
 /**
  * This class implement the Leaderboard manager interface, and add two method Load and Save, 
  * load read from file, save write on file.
- *
  */
 public final class FileSystemLeaderboardManager implements LeaderboardManager {
 

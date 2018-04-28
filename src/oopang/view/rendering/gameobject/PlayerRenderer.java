@@ -16,6 +16,7 @@ import oopang.view.rendering.Sprite;
 public final class PlayerRenderer extends GameObjectRenderer<Player> {
 
     private static final double PLAYER_OFFSET = 3;
+
     /**
      * Constructor of the {@link Player} Renderer.
      * @param sprite

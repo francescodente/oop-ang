@@ -13,6 +13,7 @@ import oopang.model.gameobjects.GameObject;
  * Represents an object that can collide with other collidable objects.
  */
 public interface Collidable {
+
     /**
      * Returns the shape of the object without any transformation.
      * @return
@@ -62,4 +63,5 @@ public interface Collidable {
      *      the collision event
      */
     Event<Collision> getCollisionEvent();
+
 }

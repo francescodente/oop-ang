@@ -5,6 +5,5 @@
         <Power id = "DOUBLESHOT"/>
         <Power id = "DYNAMITE"/>
         <Power id = "TIMEDSHIELD"/>
-        <Power id = "DOUBLESPEED"/>
     </AvailablePower>
 </Level>

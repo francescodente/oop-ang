@@ -11,7 +11,7 @@ import oopang.view.View;
 import oopang.view.javafx.JavaFXView;
 
 /**
- * The class containing the main method.
+ * The class containing the main method to start the application.
  */
 public final class OOPang extends Application {
 

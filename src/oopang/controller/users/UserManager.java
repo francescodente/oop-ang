@@ -3,7 +3,7 @@ package oopang.controller.users;
 import java.util.Optional;
 
 /**
- * Interface that manage the user.
+ * Interface that manage the login, registration and saving of a {@link User}.
  */
 public interface UserManager {
 

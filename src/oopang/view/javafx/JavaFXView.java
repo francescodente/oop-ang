@@ -19,6 +19,7 @@ public final class JavaFXView implements View {
     private static final double MIN_WIDTH = 384;
     private static final double MIN_HEIGHT = 200;
     private static final String TITLE = "OOPang";
+
     private Controller control;
     private SceneController currentScene;
     private final Stage stage;

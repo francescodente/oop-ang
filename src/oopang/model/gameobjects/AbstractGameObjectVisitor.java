@@ -8,6 +8,7 @@ package oopang.model.gameobjects;
 public abstract class AbstractGameObjectVisitor<T> implements GameObjectVisitor<T> {
 
     private final T defaultValue;
+
     /**
      * Initialize visitor to default value.
      * @param defaultValue

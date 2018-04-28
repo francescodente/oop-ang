@@ -7,7 +7,7 @@ import oopang.model.levels.Level;
 import oopang.view.rendering.ImageID;
 
 /**
- * A class containing informations about the level.
+ * A wrapper class containing informations about the level that has been loaded.
  */
 public class LevelData {
 
@@ -57,6 +57,7 @@ public class LevelData {
     public ImageID getBackground() {
         return this.background;
     }
+
     /**
      * Getter of the wall texture.
      * @return

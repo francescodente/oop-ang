@@ -28,7 +28,7 @@ import oopang.model.powers.UpgradePowerFactory;
 import oopang.view.View;
 
 /**
- * This is the concrete implementation of the Controller.
+ * This is the concrete implementation of the {@link Controller}.
  */
 public final class ControllerImpl implements Controller {
 

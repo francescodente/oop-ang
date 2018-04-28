@@ -8,6 +8,7 @@ import oopang.view.GameScene;
  * This class implements the scene SelectMode.
  */
 public final class SelectModeController extends SceneController {
+
     /**
      * Method that loads the game from the selection Infinite Mode.
      */

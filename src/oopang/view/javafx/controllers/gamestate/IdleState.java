@@ -13,6 +13,7 @@ public final class IdleState extends GameGUIState {
 
     private boolean keyPressed;
     private final Pane startMessage;
+
     /**
      * Creates a new idle state object.
      * @param gameGui

@@ -1,7 +1,7 @@
 package oopang.commons.space;
 
 /**
- * Utility class for Point2D objects.
+ * Utility class for {@link Point2D} objects.
  */
 public final class Points2D {
 
@@ -15,7 +15,7 @@ public final class Points2D {
     }
 
     /**
-     * Create a new Point2D with the given values.
+     * Create a new {@link Point2D} with the given values.
      * 
      * @param x
      *     x value of the new Point

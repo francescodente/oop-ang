@@ -6,9 +6,10 @@ import oopang.model.BallColor;
 import oopang.model.powers.Power;
 
 /**
- * A factory for {@link GameObject}s that also adds them to the current level.
+ * A factory for {@link GameObject}s that also adds them to the current {@link oopang.model.levels.Level}.
  */
 public interface GameObjectFactory {
+
     /**
      * Creates a new player {@link GameObject} and adds it to the level.
      * @param tag
@@ -19,15 +20,15 @@ public interface GameObjectFactory {
     GameObject createPlayer(PlayerTag tag);
 
     /**
-     * Creates a new bubble {@link GameObject} given its radius and adds it to the level.
+     * Creates a new ball {@link GameObject} given its radius and adds it to the level.
      * @param size
-     *      the size of the bubble.
+     *      the size of the ball.
      * @param velocity
-     *      the velocity of the bubble.
+     *      the velocity of the ball.
      * @param color
      *      the color of the ball.
      * @return
-     *      the bubble {@link GameObject}.
+     *      the ball {@link GameObject}.
      */
     GameObject createBall(int size, Vector2D velocity, BallColor color);
 

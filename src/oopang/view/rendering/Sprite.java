@@ -11,6 +11,7 @@ import oopang.commons.space.Vector2D;
  * in the range [-1,1] indicate a pivot inside the rectangle of the image. The image source is specified as an ImageID. 
  */
 public interface Sprite extends Renderer {
+
     /**
      * Sets the position of the sprite in pixel coordinates an relative to the pivot.
      * @param pos

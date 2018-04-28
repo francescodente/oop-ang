@@ -12,7 +12,8 @@ import oopang.model.levels.LevelBuilder;
 import oopang.view.View;
 
 /**
- * 
+ * Class representing a game session which lasts until the player loses all his lives. 
+ * It allows the player to play in arcade mode and manages the next level basing on the LevelResult.
  */
 public final class StoryModeGameSession extends GameSession {
 

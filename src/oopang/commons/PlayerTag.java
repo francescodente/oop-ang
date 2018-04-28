@@ -1,7 +1,7 @@
 package oopang.commons;
 
 /**
- * This enum identifies the player.
+ * This enum identifies the {@link oopang.model.gameobjects.Player}.
  *
  */
 public enum PlayerTag {

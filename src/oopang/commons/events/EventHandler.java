@@ -1,7 +1,7 @@
 package oopang.commons.events;
 
 /**
- * Represents an object that is responsible for handling events.
+ * Represents an object that is responsible for handling {@link Event}s.
  * @param <T>
  */
 @FunctionalInterface
