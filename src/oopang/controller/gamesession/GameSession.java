@@ -9,6 +9,7 @@ import oopang.commons.events.EventSource;
 import oopang.commons.PlayerTag;
 import oopang.commons.events.Event;
 import oopang.controller.GameLoop;
+import oopang.controller.GameLoopThread;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
 import oopang.model.GameOverStatus;
@@ -22,7 +23,7 @@ import oopang.view.GameScene;
 import oopang.view.View;
 
 /**
- * Class including informations about the current session game.
+ * Class including informations about the current game session.
  */
 public abstract class GameSession {
 
@@ -84,7 +85,7 @@ public abstract class GameSession {
     }
 
     /**
-     * Tells the game session to start the next level and create the new game loop.
+     * Tells the game session to start the next {@link Level} and create the new {@link GameLoop}.
      */
     public void startNextLevel() {
         final LevelBuilder builder = this.world.getLevelBuilder();
@@ -111,7 +112,7 @@ public abstract class GameSession {
         currentLevel.getGameOverStatusEvent().register(this::handleGameOver);
         this.levelCreatedEvent.trigger(levelData.get());
         this.world.setCurrentLevel(currentLevel);
-        this.gameloop = new GameLoop(this.scene, this.world, inputMap);
+        this.gameloop = new GameLoopThread(this.scene, this.world, inputMap);
         this.gameloop.start();
     }
 
@@ -171,7 +172,7 @@ public abstract class GameSession {
     }
 
     /**
-     * Returns the level loader reference for the concrete children.
+     * Returns the {@link LevelLoader} reference for the concrete children.
      * @return
      *      the level loader
      */

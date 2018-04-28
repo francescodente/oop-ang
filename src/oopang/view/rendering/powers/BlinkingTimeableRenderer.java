@@ -49,6 +49,4 @@ public class BlinkingTimeableRenderer extends TimeableRenderer {
         }
     }
 
-
-
 }

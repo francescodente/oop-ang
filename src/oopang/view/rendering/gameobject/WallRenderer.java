@@ -11,9 +11,10 @@ import oopang.view.rendering.Sprite;
 /**
  * Represents a Renderer for {@link Wall} {@link GameObject}s.
  */
-public class WallRenderer extends GameObjectRenderer<Wall> {
+public final class WallRenderer extends GameObjectRenderer<Wall> {
 
     private static final double MAX_WALL_SIZE = Model.TOTAL_WIDTH;
+
     /**
      * Creates a new {@link Wall} Renderer given its Wall {@link GameObject}.
      * @param sprite

@@ -1,10 +1,9 @@
 package oopang.model.powers;
 
 import oopang.model.gameobjects.Player;
+
  /**
- * 
- *   This interface represents the specific enhancement of each pick-up.
- * 
+ * This interface represents the specific power associated to a {@link oopang.model.gameobjects.Pickup}.
  */
 public interface Power {
     /**

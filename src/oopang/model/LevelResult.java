@@ -1,9 +1,10 @@
 package oopang.model;
 
 /**
- * Describes the way a level ended.
+ * Describes the way a level could end.
  */
 public enum LevelResult {
+
     /**
      * Indicates that the level ended because the time expired.
      */
@@ -19,5 +20,6 @@ public enum LevelResult {
     /**
      * Indicates that the user decided to end the level through the pause menu.
      */
-    FORCE_EXIT
+    FORCE_EXIT;
+
 }

@@ -25,7 +25,7 @@ import oopang.model.powers.PowerTag;
 import oopang.view.rendering.ImageID;
 
 /**
- * Class that load the XMLFile into the level.
+ * A {@link LevelLoader} capable of reading XML files and converting them in {@link LevelData}.
  */
 public final class XMLLevelLoader implements LevelLoader {
 
@@ -106,7 +106,7 @@ public final class XMLLevelLoader implements LevelLoader {
         for (int i = 0; i < length; i++) {
             final Element power = (Element) powerField.getElementsByTagName("Power").item(i);
             final PowerTag pow = PowerTag.valueOf(power.getAttribute("id"));
-            if (pow == PowerTag.ADHESIVESHOT) {
+            if (pow == PowerTag.STICKYSHOT) {
                 level.addAvailablePower(() -> this.powerFactory.createAdhesiveShot());
             }
             if (pow == PowerTag.DOUBLESHOT) {

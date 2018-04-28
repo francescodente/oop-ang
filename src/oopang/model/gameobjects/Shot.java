@@ -12,9 +12,8 @@ import oopang.model.physics.Collision;
 import oopang.model.physics.CollisionTag;
 
 /**
- * This is an abstract implementation of Shot.
- * 
- *
+ * This is an abstract implementation of Shot object. It can collide with balls to destroy them.
+ * The behaviour and the shape of the Shot is defined by the concrete implementation.
  */
 public abstract class Shot extends AbstractGameObject {
 

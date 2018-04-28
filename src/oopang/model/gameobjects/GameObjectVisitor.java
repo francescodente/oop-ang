@@ -7,6 +7,7 @@ package oopang.model.gameobjects;
  *      the type of the returning value for the visits.
  */
 public interface GameObjectVisitor<T> {
+
     /**
      * Visit a {@link Player} object.
      * @param player

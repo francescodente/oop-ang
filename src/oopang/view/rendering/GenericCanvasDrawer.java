@@ -19,19 +19,22 @@ public abstract class GenericCanvasDrawer implements CanvasDrawer {
         this.renderers = new ArrayList<>();
     }
 
+    /**
+     * Renders all the renderer in the list.
+     */
     @Override
     public void draw() {
         this.getRenderers().forEach(Renderer::render);
     }
 
     @Override
-    public void addRenderer(final Renderer rend) {
+    public final void addRenderer(final Renderer rend) {
         this.renderers.add(rend);
         Collections.sort(this.renderers);
     }
 
     @Override
-    public void removeRenderer(final Renderer rend) {
+    public final  void removeRenderer(final Renderer rend) {
         this.renderers.remove(rend);
     }
 

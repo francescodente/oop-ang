@@ -11,6 +11,7 @@ import oopang.view.rendering.ImageID;
  * in memory after a load operation.
  */
 public final class ImageLoaderCacheProxy extends ImageLoader {
+
     private final Map<ImageID, Image> imageMap;
     private final ImageLoader realLoader;
 

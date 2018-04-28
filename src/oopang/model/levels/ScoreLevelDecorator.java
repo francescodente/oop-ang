@@ -15,10 +15,9 @@ import oopang.model.gameobjects.Shot;
 import oopang.model.gameobjects.Wall;
 
 /**
- * This class represent the score decorator.
- *
+ * This class represent the score decorator that add the score managing functionality.
  */
-public class ScoreLevelDecorator extends LevelDecorator {
+public final class ScoreLevelDecorator extends LevelDecorator {
     private static final int SCORE_MULTIPLIER = 100;
     private static final int MAX_COMBO = 4;
 
@@ -55,7 +54,7 @@ public class ScoreLevelDecorator extends LevelDecorator {
     }
 
     @Override
-    public final GameObjectFactory getGameObjectFactory() {
+    public GameObjectFactory getGameObjectFactory() {
         return new GameObjectFactoryDecorator(super.getGameObjectFactory()) {
             @Override
             public GameObject createPlayer(final PlayerTag tag) {

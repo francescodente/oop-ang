@@ -14,11 +14,12 @@ import oopang.view.rendering.javafx.ImageLoader;
 /**
  * This is the concrete implementation of the view Interface.
  */
-public class JavaFXView implements View {
+public final class JavaFXView implements View {
 
     private static final double MIN_WIDTH = 384;
     private static final double MIN_HEIGHT = 200;
     private static final String TITLE = "OOPang";
+
     private Controller control;
     private SceneController currentScene;
     private final Stage stage;
@@ -37,7 +38,7 @@ public class JavaFXView implements View {
     }
 
     @Override
-    public final void launch(final Controller controller) {
+    public void launch(final Controller controller) {
         this.control = controller;
         this.stage.setMinWidth(MIN_WIDTH);
         this.stage.setMinHeight(MIN_HEIGHT);
@@ -48,12 +49,12 @@ public class JavaFXView implements View {
     }
 
     @Override
-    public final void render() {
+    public void render() {
         Platform.runLater(() -> this.currentScene.render());
     }
 
     @Override
-    public final void loadScene(final GameScene scene) {
+    public void loadScene(final GameScene scene) {
         try {
             final SceneWrapper wrapper = SceneLoader.getLoader().getScene(scene);
             wrapper.getController().init(control, this);

@@ -22,31 +22,49 @@ public abstract class GameObjectFactoryDecorator implements GameObjectFactory {
         this.innerFactory = baseFactory;
     }
 
+    /**
+     * Standard implementation delegates to the innerFactory.
+     */
     @Override
     public GameObject createPlayer(final PlayerTag tag) {
         return this.innerFactory.createPlayer(tag);
     }
 
+    /**
+     * Standard implementation delegates to the innerFactory.
+     */
     @Override
     public GameObject createBall(final int size, final Vector2D velocity, final BallColor color) {
         return this.innerFactory.createBall(size, velocity, color);
     }
 
+    /**
+     * Standard implementation delegates to the innerFactory.
+     */
     @Override
     public Shot createHookShot() {
         return this.innerFactory.createHookShot();
     }
 
+    /**
+     * Standard implementation delegates to the innerFactory.
+     */
     @Override
     public Shot createStickyShot() {
         return this.innerFactory.createStickyShot();
     }
 
+    /**
+     * Standard implementation delegates to the innerFactory.
+     */
     @Override
     public GameObject createWall(final double width, final double height) {
         return this.innerFactory.createWall(width, height);
     }
 
+    /**
+     * Standard implementation delegates to the innerFactory.
+     */
     @Override
     public GameObject createPickup(final Power power) {
         return this.innerFactory.createPickup(power);

@@ -6,6 +6,7 @@ package oopang.view.rendering;
  * (i.e. on top of lower layers).
  */
 public interface Renderer extends Comparable<Renderer> {
+
     /**
      * Draws this object onto the canvas.
      */

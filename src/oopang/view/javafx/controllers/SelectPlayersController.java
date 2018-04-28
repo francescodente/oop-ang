@@ -20,6 +20,7 @@ public final class SelectPlayersController extends SceneController {
         super.init(controller, view);
         userbutton.setVisible(controller.getUser().isPresent());
     }
+
     /**
      * Method that load the next scene from the selection Single Player.
      */

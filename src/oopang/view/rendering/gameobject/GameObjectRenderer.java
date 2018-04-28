@@ -27,6 +27,10 @@ public abstract class GameObjectRenderer<G extends GameObject> extends GenericRe
         this.gameObject = gameObject;
     }
 
+    /**
+     * Sets the position and the size of this renderer based on the linked GameObject 
+     * and renders the renderer.
+     */
     @Override
     public void render() {
         this.sprite.setPosition(this.gameObject.getPosition());

@@ -9,7 +9,7 @@ import oopang.model.input.InputDirection;
 import oopang.model.input.InputReader;
 
 /**
- * A component used by object can have input from user.
+ * A component used by object which can receive input from the user.
  */
 public class InputComponent extends AbstractComponent {
 
@@ -36,6 +36,7 @@ public class InputComponent extends AbstractComponent {
     public final void update(final double deltaTime) {
         this.handleInput(controller.getDirection(), controller.isShooting());
     }
+
     /**
      * Private method to update all parameters.
      * @param direction

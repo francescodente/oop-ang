@@ -15,7 +15,7 @@ import oopang.model.powers.Power;
 /**
  * Describes a decorator for levels that adds pick up generation functionality.
  */
-public class PickUpGeneratingLevel extends LevelDecorator {
+public final class PickUpGeneratingLevel extends LevelDecorator {
 
     private static final int MIN_BALLS = 4;
     private static final int MAX_BALLS = 10;
@@ -70,4 +70,5 @@ public class PickUpGeneratingLevel extends LevelDecorator {
             }
         };
     }
+
 }

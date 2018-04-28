@@ -24,7 +24,7 @@ public abstract class GameOverLevelDecorator extends LevelDecorator {
     }
 
     @Override
-    public Event<GameOverStatus> getGameOverStatusEvent() {
+    public final Event<GameOverStatus> getGameOverStatusEvent() {
         final CompositeEvent<GameOverStatus> composition = new CompositeEvent<>();
         composition.addEvent(gameOverEvent);
         composition.addEvent(super.getGameOverStatusEvent());
@@ -39,4 +39,5 @@ public abstract class GameOverLevelDecorator extends LevelDecorator {
     protected void endLevel(final LevelResult result) {
         this.gameOverEvent.trigger(new GameOverStatus(this.getScore(), result));
     }
+
 }

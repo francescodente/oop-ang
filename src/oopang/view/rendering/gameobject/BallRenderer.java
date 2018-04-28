@@ -10,7 +10,7 @@ import oopang.view.rendering.SpriteSheet;
 /**
  * Represents a Renderer for {@link Ball} {@link GameObject}s.
  */
-public class BallRenderer extends GameObjectRenderer<Ball> {
+public final class BallRenderer extends GameObjectRenderer<Ball> {
 
     private static final int COLUMNS = 3;
     private static final int ROWS = 2;

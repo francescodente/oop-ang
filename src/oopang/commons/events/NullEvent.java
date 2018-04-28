@@ -1,7 +1,7 @@
 package oopang.commons.events;
 
 /**
- * Represents an event that cannot be triggered, thus implementing register() and unregister()
+ * Represents an {@link Event} that cannot be triggered, thus implementing register() and unregister()
  * as empty methods.
  * @param <T>
  *      the type of the event.

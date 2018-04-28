@@ -1,6 +1,6 @@
 package oopang.view;
 /**
- *  This Class is used by menus to set GameParameters.
+ *  This is a wrapper class used by menus to set and store GameParameters.
  */
 public final class GameParameters {
 

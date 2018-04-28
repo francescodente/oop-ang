@@ -31,9 +31,9 @@ public final class LevelSelectorController extends SceneController {
                 GameParameters.setLevelindex(levelIndex);
                 this.getView().loadScene(GameScene.GAME_GUI);
             });
-//            if (i != 0) {
-//                controller.getUser().ifPresent(u -> button.setDisable(u.getArcadeMaxStage() < levelIndex));
-//            }
+            if (i != 0) {
+                controller.getUser().ifPresent(u -> button.setDisable(u.getArcadeMaxStage() < levelIndex));
+            }
             this.levelGrid.add(button,
                     i % COLUMNS + 1, 
                     i / COLUMNS);

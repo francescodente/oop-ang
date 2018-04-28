@@ -4,6 +4,7 @@ package oopang.model.physics;
  * Represents a value used to decide if an object type can collide with another.
  */
 public enum CollisionTag {
+
     /**
      * Collision tag for the player object.
      */
@@ -18,6 +19,7 @@ public enum CollisionTag {
             return other != WALL;
         }
     },
+
     /**
      * Collision tag for all ball.
      */
@@ -32,6 +34,7 @@ public enum CollisionTag {
             return other == PLAYER || other == SHOT;
         }
     },
+
     /**
      * Collision tag for all walls.
      */
@@ -41,6 +44,7 @@ public enum CollisionTag {
             return other != WALL;
         }
     },
+
     /**
      * Collision tag for all pickups.
      */
@@ -55,6 +59,7 @@ public enum CollisionTag {
             return other != WALL;
         }
     },
+
     /**
      * Collision tag for all shots.
      */

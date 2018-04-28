@@ -28,7 +28,7 @@ import oopang.model.powers.UpgradePowerFactory;
 import oopang.view.View;
 
 /**
- * This is the concrete implementation of the Controller.
+ * This is the concrete implementation of the {@link Controller}.
  */
 public final class ControllerImpl implements Controller {
 
@@ -59,9 +59,9 @@ public final class ControllerImpl implements Controller {
     }
 
     private PowerFactory getPowerFactory() {
-        return this.user.isPresent()
-        ? new UpgradePowerFactory(this.user.get().getPowerLevels())
-        : new BasicPowerFactory();
+        return this.user
+                .<PowerFactory>map(u -> new UpgradePowerFactory(this.user.get().getPowerLevels()))
+                .orElse(new BasicPowerFactory());
     }
 
     private LevelLoader getLevelLoader() {

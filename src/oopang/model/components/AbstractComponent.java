@@ -32,17 +32,17 @@ public abstract class AbstractComponent implements Component {
     }
 
     @Override
-    public void enable() {
+    public final void enable() {
         this.isActive = true;
     }
 
     @Override
-    public void disable() {
+    public final void disable() {
         this.isActive = false;
     }
 
     @Override
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return this.isActive;
     }
 

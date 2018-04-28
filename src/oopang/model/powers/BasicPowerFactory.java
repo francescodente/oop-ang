@@ -4,7 +4,9 @@ package oopang.model.powers;
  *
  */
 public class BasicPowerFactory implements PowerFactory {
+
     private static final int STARTLEVEL = 1;
+
     @Override
     public final Power createFreeze() {
         return Freeze.create(STARTLEVEL);
@@ -22,7 +24,7 @@ public class BasicPowerFactory implements PowerFactory {
 
     @Override
     public final Power createAdhesiveShot() {
-        return AdhesiveShot.create(STARTLEVEL);
+        return StickyShotPower.create(STARTLEVEL);
     }
 
     @Override

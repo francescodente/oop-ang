@@ -1,10 +1,8 @@
 package oopang.model.gameobjects;
 
 import java.util.stream.Stream;
-
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Rectangle;
-
 import oopang.commons.Timeable;
 import oopang.commons.events.Event;
 import oopang.commons.events.EventSource;
@@ -14,13 +12,12 @@ import oopang.model.components.GravityComponent;
 import oopang.model.components.MovementComponent;
 import oopang.model.physics.CollisionTag;
 import oopang.model.powers.Power;
+
 /**
- *  This class represents the GameObject Pick-up, which is a series of enhancements 
- *  that the player can get colliding.
- * 
- * 
+ *  This class represents the GameObject Pickup, which is a wrapper for a power
+ *  that the player can obtain when colliding.
  */
-public class Pickup extends AbstractGameObject implements Timeable {
+public final class Pickup extends AbstractGameObject implements Timeable {
     private static final double WIDTH = 6;
     private static final double HEIGHT = 6;
     private static final double TIMEOUT = 7;
@@ -54,7 +51,7 @@ public class Pickup extends AbstractGameObject implements Timeable {
     }
 
     @Override
-    public final void update(final double deltaTime) {
+    public void update(final double deltaTime) {
         super.update(deltaTime);
         if (inCollision) {
             this.inCollision = false;
@@ -71,7 +68,7 @@ public class Pickup extends AbstractGameObject implements Timeable {
     }
 
     @Override
-    public final Stream<Component> getAllComponents() {
+    public Stream<Component> getAllComponents() {
         return Stream.of(this.gravitycomponent, this.movementcomponent, this.collisioncomponent); 
     }
 
@@ -85,12 +82,12 @@ public class Pickup extends AbstractGameObject implements Timeable {
     }
 
     @Override
-    public final double getWidth() {
+    public double getWidth() {
         return WIDTH;
     }
 
     @Override
-    public final double getHeight() {
+    public double getHeight() {
         return HEIGHT;
     }
 

@@ -3,7 +3,7 @@ package oopang.model.physics;
 import oopang.commons.space.Vector2D;
 
 /**
- * Stores data relative to a collision event.
+ * Wrapper class which stores data relative to a collision event.
  */
 public class Collision {
 

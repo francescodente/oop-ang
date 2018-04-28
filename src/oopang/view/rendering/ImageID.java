@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * Identifies an image stored on the disk and its path.
+ * Can return a random Backround and a random WallTexture.
  */
 public enum ImageID {
     /**

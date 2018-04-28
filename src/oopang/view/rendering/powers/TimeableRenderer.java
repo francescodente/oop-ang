@@ -7,8 +7,8 @@ import oopang.view.rendering.GenericRenderer;
 import oopang.view.rendering.Sprite;
 
 /**
- * 
- *
+ * This is a Renderer for an object with limitate duration in time. 
+ * It is able to self remove from canvasDrawer when time expired.
  */
 public abstract class TimeableRenderer extends GenericRenderer {
 

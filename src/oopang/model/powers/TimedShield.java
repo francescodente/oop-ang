@@ -1,14 +1,16 @@
 package oopang.model.powers;
 
 import oopang.model.gameobjects.Player;
+
 /**
- * This enhancements creates a shield around the player, where the balls can not hit it, disabling the collision component.
- *
+ * This power creates a shield around the player and sets him invulnerable.
  */
 public final class TimedShield extends TimedPower {
+
     private static final PowerTag TAG = PowerTag.TIMEDSHIELD;
     private static final int INITIALVALUE = 4;
     private static final double TIMEFEE = 0.5;
+
     /**
      * This constructor set time.
      * @param timeout 
@@ -32,6 +34,7 @@ public final class TimedShield extends TimedPower {
     private static double calculateTimeout(final int powerlevel) {
         return INITIALVALUE + (TIMEFEE * (powerlevel - 1));
     }
+
     /**
      * This method return the power upgrade based on level.
      * @param powerlevel
@@ -42,4 +45,5 @@ public final class TimedShield extends TimedPower {
     public static Power create(final int powerlevel) {
        return  new TimedShield(calculateTimeout(powerlevel));
     }
+
 }

@@ -7,6 +7,7 @@ import oopang.model.levels.LevelBuilder;
  * Model of the application.
  */
 public interface Model {
+
     /**
      * Default width for the levels.
      */

@@ -6,12 +6,14 @@ import oopang.model.gameobjects.Player;
 import oopang.model.levels.LevelManager;
 
 /**
- * This enhancement splits all the balls in the level.
+ * This power splits all the balls in the level.
  *
  */
 public final class Dynamite extends AbstractPower {
+
     private static final PowerTag TAG = PowerTag.DYNAMITE;
     private static final double WAIT_TIME = 0.5;
+
     private int remainingHits;
     private double timeToNextDestroy;
 
@@ -30,6 +32,7 @@ public final class Dynamite extends AbstractPower {
         super.activate(player);
         this.activateDynamite();
     }
+
     /**
      * This method return the power upgrade based on level.
      * @param powerLevel
@@ -65,5 +68,6 @@ public final class Dynamite extends AbstractPower {
             timeToNextDestroy += WAIT_TIME;
         }
     }
+
 }
 

@@ -4,7 +4,7 @@
     <WallTexture>ORANGE_WALL</WallTexture>
     <Time>60</Time>
     <AvailablePower>
-        <Power id = "ADHESIVESHOT"/>
+        <Power id = "STICKYSHOT"/>
         <Power id = "TIMEDSHIELD"/>
     </AvailablePower>
     <GameObject>

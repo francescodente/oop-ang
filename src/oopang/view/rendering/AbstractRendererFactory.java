@@ -84,7 +84,7 @@ public abstract class AbstractRendererFactory implements RendererFactory {
     }
 
     @Override
-    public Renderer createTimedPowerRenderer(final TimedPower power, final Player player) {
+    public final Renderer createTimedPowerRenderer(final TimedPower power, final Player player) {
         Renderer renderer;
         switch (power.getPowertag()) {
         case TIMEDSHIELD: 

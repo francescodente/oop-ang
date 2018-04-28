@@ -10,6 +10,7 @@ import oopang.model.powers.TimedPower;
  * Use {@link CanvasDrawer}.getRendererFactory() to get the correct instance.
  */
 public interface RendererFactory {
+
     /**
      * Creates a new Renderer that is responsible for drawing the given GameObject.
      * The type of renderer may be different depending on the type of GameObject.

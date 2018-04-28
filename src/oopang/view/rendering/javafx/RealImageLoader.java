@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import oopang.view.rendering.ImageID;
 
 /**
- * Represents the object responsible of 
+ * Represents the object responsible of loading images from disk.
  */
 public final class RealImageLoader extends ImageLoader {
 

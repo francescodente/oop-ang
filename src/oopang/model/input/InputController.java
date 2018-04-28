@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Describes an object that can act as a {@link InputReader} and as an {@link InputWriter}.
+ * Describes an object that can act as a {@link InputReader} and as an {@link InputWriter} and stores
+ * informations about the current input received.
  */
 public final class InputController implements InputReader, InputWriter {
 

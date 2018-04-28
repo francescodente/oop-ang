@@ -24,9 +24,11 @@ import oopang.model.powers.Power;
 import oopang.model.shooter.MultipleShooter;
 
 /**
- * This class implements the player object.
+ * This class implements the Player object. It represent the entity controlled by the user which can
+ * shoot to destroy objects and dies when hit by a ball. It contain the logic to activate and update
+ * powers collected when colliding with a pickup.
  */
-public class Player extends AbstractGameObject {
+public final class Player extends AbstractGameObject {
 
     private static final double WIDTH = 12;
     private static final double HEIGHT = 15;
@@ -43,6 +45,7 @@ public class Player extends AbstractGameObject {
     private int invulnerable;
     private final PlayerTag tag;
     private final EventSource<Power> pickupCollected;
+
     /**
      * Constructor of this class.
      * @param tag
@@ -129,7 +132,7 @@ public class Player extends AbstractGameObject {
     }
 
     @Override
-    public final Stream<Component> getAllComponents() {
+    public Stream<Component> getAllComponents() {
         return Stream.of(this.input, this.movement, this.collision, this.shoot);
     }
 

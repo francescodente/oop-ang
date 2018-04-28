@@ -8,8 +8,9 @@ import oopang.model.components.Component;
 import oopang.model.levels.LevelManager;
 
 /**
- * This class represents the abstract model for all GameObjects and gives a basic implementation
+ * This class represents the abstract model for all {@link GameObject}s and gives a basic implementation
  * of the main methods.
+ * Each {@link GameObject} has a position and can be observed to know when it is destroyed.
  */
 public abstract class AbstractGameObject implements GameObject {
 
@@ -24,16 +25,25 @@ public abstract class AbstractGameObject implements GameObject {
         this.destroyedEvent = new EventSource<>();
     }
 
+    /**
+     * Calls start() on each component.
+     */
     @Override
     public void start() {
        this.getAllComponents().forEach(Component::start);
     }
 
+    /**
+     * Calls update(deltaTime) on each component.
+     */
     @Override
     public void update(final double deltaTime) {
         this.getAllComponents().filter(Component::isEnabled).forEach(comp -> comp.update(deltaTime));
     }
 
+    /**
+     * Remove the gameObject from current level and triggers destroyedEvent.
+     */
     @Override
     public void destroy() {
         LevelManager.getCurrentLevel().removeGameObject(this);
@@ -41,17 +51,17 @@ public abstract class AbstractGameObject implements GameObject {
     }
 
     @Override
-    public Point2D getPosition() {
+    public final Point2D getPosition() {
         return this.position;
     }
 
     @Override
-    public void setPosition(final Point2D position) {
+    public final void setPosition(final Point2D position) {
         this.position = position;
     }
 
     @Override
-    public Event<GameObject> getDestroyedEvent() {
+    public final Event<GameObject> getDestroyedEvent() {
         return this.destroyedEvent;
     }
 

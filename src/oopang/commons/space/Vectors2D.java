@@ -1,7 +1,7 @@
 package oopang.commons.space;
 
 /**
- * Utility class for Vector2D objects.
+ * Utility class for {@link Vector2D} objects.
  */
 public final class Vectors2D {
 
@@ -35,7 +35,7 @@ public final class Vectors2D {
     }
 
     /**
-     * Create a new Vector2D with the given values.
+     * Create a new {@link Vector2D} with the given values.
      * 
      * @param x
      *     x value of the new Vector
@@ -49,7 +49,7 @@ public final class Vectors2D {
     }
 
     /**
-     * Returns the vector going from the first point to the second point.
+     * Returns the {@link Vector2D} going from the first point to the second point.
      * @param from
      *      the first vector.
      * @param to
@@ -62,7 +62,7 @@ public final class Vectors2D {
     }
 
     /**
-     * Returns the vector between [LEFT, RIGHT, UP, DOWN] constants whose direction is 
+     * Returns the {@link Vector2D} between [LEFT, RIGHT, UP, DOWN] constants whose direction is 
      * closer to the given vector's direction.
      * If the given vector is (0, 0) the constant ZERO is returned.
      * @param vector

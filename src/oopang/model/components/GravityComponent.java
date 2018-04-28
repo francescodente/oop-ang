@@ -7,7 +7,7 @@ import oopang.model.gameobjects.GameObject;
 /**
  * A component that adds gravity acceleration.
  */
-public class GravityComponent extends AbstractComponent {
+public final class GravityComponent extends AbstractComponent {
 
     private static final Vector2D DEFAULT_GRAVITY_ACC = Vectors2D.of(0, -100);
 

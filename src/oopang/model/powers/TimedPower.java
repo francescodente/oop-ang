@@ -5,14 +5,15 @@ import oopang.commons.events.Event;
 import oopang.commons.events.EventSource;
 
 /**
- * This class represents all the enhancements that have temporary effects.
- *
+ * This class represents all the powers that have temporary effects.
  */
 public abstract class TimedPower extends AbstractPower implements Timeable {
+
     private double time;
     private double timeout;
     private final EventSource<Void> timeoutEvent;
     private final EventSource<Double> timeChangedEvent;
+
     /**
      * This constructor set time.
      * @param timeout 
@@ -27,6 +28,7 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
        this.timeoutEvent = new EventSource<>();
        this.timeChangedEvent = new EventSource<>();
     }
+
     /**
      * It must be called in extended methods.
      */
@@ -41,6 +43,9 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
         }
     }
 
+    /**
+     * Triggers the timeoutEvent and disable the power.
+     */
     @Override
     public void deactivate() {
         super.deactivate();
@@ -48,26 +53,26 @@ public abstract class TimedPower extends AbstractPower implements Timeable {
     }
 
     @Override
-    public double getRemainingTimePercentage() {
+    public final double getRemainingTimePercentage() {
         return this.time / this.timeout;
     }
     @Override
-    public double getRemainingTime() {
+    public final double getRemainingTime() {
         return this.time;
     }
 
     @Override
-    public Event<Void> getTimeOutEvent() {
+    public final Event<Void> getTimeOutEvent() {
         return this.timeoutEvent;
     }
 
     @Override
-    public Event<Double> getTimeChangedEvent() {
+    public final Event<Double> getTimeChangedEvent() {
         return this.timeChangedEvent;
     }
 
     @Override
-    public void addTime(final double time) {
+    public final void addTime(final double time) {
         this.time += time;
         this.timeout += time;
     }

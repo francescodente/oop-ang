@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+
 /**
  * Class Leaderboard that keep track of users score.
  */
@@ -17,6 +18,7 @@ public class Leaderboard implements Serializable {
     private static final int MAX_SCORES = 10;
     private final List<LeaderboardRecord> recordList;
     private transient Optional<Integer> lastIndex;
+
     /**
      * Create a new Leaderboard.
      */
@@ -24,12 +26,13 @@ public class Leaderboard implements Serializable {
         this.recordList = new ArrayList<>();
         this.lastIndex = Optional.empty();
     }
+
     /**
-     * Add the Record if is grater than other on top 10 records.
+     * Add the {@link LeaderboardRecord} if is grater than other on top 10 records.
      * @param record
-     *      The Record of the User.
+     *      The last record submitted.
      * @return
-     *      True if the Record is greater than last, False in the other case.
+     *      True if the record is greater than last, false in the other case.
      */
     public boolean addRecord(final LeaderboardRecord record) {
         if (recordList.size() >= MAX_SCORES && record.compareTo(recordList.get(recordList.size() - 1)) > 0) {
@@ -44,18 +47,20 @@ public class Leaderboard implements Serializable {
         this.lastIndex = Optional.empty();
         return false;
     }
+
     /**
-     * This getter return the stream of records.
+     * Returns a stream of {@link LeaderboardRecord}.
      * @return
-     *      The stream of Record.
+     *      a stream of Record.
      */
     public Stream<LeaderboardRecord> getRecords() {
         return recordList.stream();
     }
+
     /**
-     * This getter returns the index of the last Leaderboard record.
+     * Returns an optional for the index of the last Leaderboard record added.
      * @return
-     *      The index of the last Leaderboard record.
+     *      The index of the last Leaderboard record, empty if last record was lower than the top ten.
      */
     public Optional<Integer> getLastIndex() {
         return this.lastIndex;

@@ -10,7 +10,7 @@ import oopang.model.levels.LevelBuilder;
 public interface LevelLoader {
 
     /**
-     * Method that load the infinite level.
+     * Loads the infinite level.
      * @param builder
      *      the builder used to create the level.
      * @return
@@ -20,7 +20,7 @@ public interface LevelLoader {
     LevelData loadInfiniteLevel(LevelBuilder builder) throws IOException;
 
     /**
-     * Method that load a level of the story mode.
+     * Loads a level of the story mode.
      * @param index
      *      The index of the level to load
      * @param builder 

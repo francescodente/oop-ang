@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Annum representing the color of the balls.
+ * An enum representing the possible colors for the balls.
+ * Can return a random Color.
  */
 public enum BallColor {
 

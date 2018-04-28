@@ -5,9 +5,9 @@ import oopang.controller.DayTime;
 import oopang.model.Model;
 
 /**
- * This is a Renderer for background in javaFX.
+ * This is a Renderer for the background.
  */
-public class BackgroundRenderer extends GenericRenderer {
+public final class BackgroundRenderer extends GenericRenderer {
 
     private static final int ROWS = 1;
     private static final int COLUMS = 3;

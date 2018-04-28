@@ -9,9 +9,9 @@ import oopang.model.gameobjects.GameObject;
 import oopang.model.gameobjects.GameObjectVisitor;
 import oopang.model.gameobjects.Player;
 import oopang.model.levels.LevelManager;
+
 /**
- * 
- *
+ * This power slows down all the balls simulating a "super speed" for the player.
  */
 public final class DoubleSpeed extends TimedPower {
     private static final double SLOW_TIME_MULTIPLIER = 0.3;
@@ -19,9 +19,11 @@ public final class DoubleSpeed extends TimedPower {
     private static final int INITIALVALUE = 4;
     private static final double TIMEFEE = 0.5;
     private static final Supplier<Double> MULTIPLIER = () -> SLOW_TIME_MULTIPLIER;
+
     private final GameObjectVisitor<Void> activator;
     private final GameObjectVisitor<Void> deactivator;
     private final EventHandler<GameObject> slower;
+
     /**
      * This constructor set time.
      * @param timeout 

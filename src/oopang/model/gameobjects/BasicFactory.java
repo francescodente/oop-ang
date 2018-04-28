@@ -9,7 +9,7 @@ import oopang.model.powers.Power;
 /**
  * This class is a basic implementation of GameObjectFactory.
  */
-public class BasicFactory implements GameObjectFactory {
+public final class BasicFactory implements GameObjectFactory {
     private final Level currentLevel;
 
     /**
