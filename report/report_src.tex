@@ -325,7 +325,7 @@ Ad ogni update l'InputComponent ha il compito di leggere ed interpretare i valor
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/input}
-\caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
+\caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller.}
 \label{img:input}
 \end{figure}
 
@@ -340,17 +340,19 @@ Come citato sopra sono responsabili di verificare la presenza di un nuovo livell
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/gamesession}
-\caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
+\caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller.}
 \label{img:gamesession}
 \end{figure}
 
 \subsubsection*{Loader}
-Questa sezione del progetto è responsabile del caricamento da file (formato .xml) dei livelli e della decorazione di quest'ultimi attraverso l'inserimento delle proprietà e oggetti di gioco (Balls, Walls, ecc.).
+Questa sezione del progetto è responsabile del caricamento dei livelli e dell'inserimento delle proprietà e oggetti di gioco (Balls, Walls, ecc.).
 
-Viene utilizziato all'avvio della scena di gioco dal controller per inizializzare la partita (startStoryModeSession/Survival), questo ha come compito quello di produrre un LevelData che contiene tutte le informazione necessarie per la costruzione.
+Viene utilizziato all'avvio della scena di gioco dal controller per inizializzare la partita (startStoryModeSession/Survival), questo ha come compito quello di produrre un LevelData che contiene tutte le informazioni necessarie per la costruzione.
+
+Ho fornito due implementazioni: la prima, XMLLevelLoader, esegue il caricamento dei livelli da file .xml, ed è quella che verrà utilizzata nell'eseguibile finale. La seconda, TestLevelLoader è stata utilizzata in fase di sviluppo per testare dei comportamenti particolari di alcune meccaniche senza dover modificare i livelli veri e propri.
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/loader}
-\caption{Schema UML che mostra la struttura del Loader in collegamento alla GameSession}
+\caption{Schema UML che mostra la struttura del Loader in collegamento al Controller.}
 \label{img:loader}
 \end{figure}
 
@@ -365,7 +367,7 @@ La creazione di questa stessa interfaccia riporta uno stile fluent, infatti tutt
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/levelbuilder}
-\caption{Schema UML che mostra la struttura del LevelBuilder}
+\caption{Schema UML che mostra la struttura del LevelBuilder.}
 \label{img:builder}
 \end{figure}
 
@@ -380,7 +382,7 @@ All'interno della classe User si sviluppa tutta la logica di conversione dei pun
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/user}
-\caption{Schema UML che mostra le relazioni tra User e UserManager}
+\caption{Schema UML che mostra le relazioni tra User e UserManager.}
 \label{img:user}
 \end{figure}
 
@@ -397,7 +399,7 @@ Le classi che estendono SceneController sono numerose e riguardano separatamente
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/scene_controller}
-\caption{Schema UML che mostra la gerarchia degli Scene controller}
+\caption{Schema UML che mostra la gerarchia degli Scene controller.}
 \label{img:scenecontroller}
 \end{figure}
 
