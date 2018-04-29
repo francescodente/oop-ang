@@ -24,7 +24,7 @@ public final class User implements Serializable {
     private static final int MAX_LEVEL = 10;
     private static final double LIMIT_MULTIPLIER = 1.8;
     private static final int MIN_XP_LIMIT = 100000;
-    private static final List<Integer> LEVELS_REWARD = Arrays.asList(100, 100, 500, 500, 1500, 1500, 1500, 2000, 2500, 3000); 
+    private static final List<Integer> LEVELS_REWARD = Arrays.asList(100, 100, 500, 500, 1500, 1500, 1500, 2000, 3000, 3500); 
 
     private final String name;
     private int coins;
