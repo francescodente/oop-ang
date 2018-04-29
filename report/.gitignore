@@ -1,2 +1,3 @@
 *.gz
 report_src.pdf
+*.log
