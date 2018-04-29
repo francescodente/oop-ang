@@ -340,6 +340,50 @@ Viene utilizziato all'avvio della scena di gioco dal controller per inizializzar
 
 
 \subsection*{Francesca Tonetti}
+\subsubsection*{Level Builder}
+L'interfaccia LevelBuilder è realizzata seguendo il pattern di progettazione Builder.
+Questo tipo di implementazione permette di gestire il problema della costruzione di un oggetto complesso come il Level, in modo che il processo di costruzione possa creare diverse rappresentazioni.
+
+Le decorazioni di un livello sono così gestite unicamente dal builder e non dal codice client richiamando una struttura lazy, come specifica il nome della classe implementativa LazyLevelBuilder, poiché si deve seguire unicamente un certo ordine di decorazione del Level. 
+La creazione di questa stessa interfaccia riporta uno stile fluent, infatti tutti i metodi da cui è composta restituiscono il LevelBuilder stesso.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/levelbuilder}
+\caption{Schema UML che mostra la struttura del LevelBuilder}
+\label{img:decorator}
+\end{figure}
+
+\subsubsection*{User}
+La classe User rappresenta il profilo di un utente a cui è associato un login con password per far si che ad ogni sessione di gioco i dati vengano conservati in maniera persistente, sicura e per permettere inoltre all'utente stesso di potenziare i propri power nell'ascesa ai livelli.
+La creazione di un nuovo oggetto User ho deciso di affidarla allo UserManager dell'applicazione che viene a sua volta invocato dal Controller per effettuare la registrazione ed il login dell'utente.
+
+I metodi fondamentali che compongono l'interfaccia UserManager riguardano il login() ed registerUser(), per questo ho scelto di dichiararli opzionali poiché rappresentano tipi di operazioni che possono talvolta non andare a buon fine. 
+Il meccanismo di salvataggio è automatico in quanto lo User notifica il Controller tramite lo userModifiedEvent, innescando la riscrittura su file ogni qualvolta avviene una variazione dei dati, anche in questo caso nell'interfaccia UserManager ho pensato di dichiarare booleano il tipo di ritorno del metodo saveUser() che mostrerà true o false in base al terminazione corretta o viceversa.
+
+All'interno della classe User si sviluppa tutta la logica di conversione dei punti accumulati dall'utente in punti esperienza, necessari per guadagnare monete ed aumentare il livello del proprio rank e poter così potenziare i power. Tale logica applicativa fa sì che un utente con punteggi più elevati possa ricevere ricompense migliori a mano a mano che si raggiungono i livelli più alti del gioco.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/user}
+\caption{Schema UML che mostra le relazioni tra User e UserManager}
+\label{img:decorator}
+\end{figure}
+
+\subsubsection*{Scene Controller}
+La classe astratta SceneController racchiude complessivamente i metodi per la gestione delle varie scene durante le sessioni di gioco.
+L'architettura di tale classe segue il pattern di progettazione Template Method realizzato mediante due metodi della classe astratta: back() e nextScene() che richiamano al loro interno rispettivamente i due metodi astratti getPreviusScene() e getNextScene().
+
+Questo scelta implementativa permette di lasciare alle sottoclassi la libertà di caricare scene differenti in base a quella corrente.
+Tutte le scene dell'applicazione hanno modo di comunicare, richiedere informazioni ed effettuare modifiche con il Controller e la View.
+All'interno della classe astratta ho deciso di creare il metodo onKeyPressed() che rappresenta l' EventHandler per la pressione di un tasto.
+Questa è la parte più interattiva della classe poiché permette una differente specializzazione a seconda della scena su cui agiamo modificando il codice del tasto da premere per innescare azioni differenti.
+
+Le classi che estendono SceneController sono numerose e riguardano separatamente ogni scena dell'applicazione.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/scene_controller}
+\caption{Schema UML che mostra la gerarchia degli Scene controller}
+\label{img:decorator}
+\end{figure}
 
 \chapter{Sviluppo}
 
