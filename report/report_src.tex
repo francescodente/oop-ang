@@ -454,35 +454,22 @@ Ho avuto a che fare anche con meccanismi propri di JavaFX come il binding, usato
 In più ho implementato un meccanismo di caching delle immagini sfruttando il pattern \textbf{Proxy}.
 
 \subsection*{Lorenzo Menghini}
+La parte del progetto che ha richiesto più lavoro a livello "tecnico" è stata la creazione dell'XMLevelLoader che ha il compito di "parsare" le informazioni necessarie alla costruzione della scena di gioco da un file esistente.
 
-\subsubsection*{GameSession}
-La GameSession è parte del cuore dell'applicazione ed ha un ruolo di contenimento e passaggio di informazioni.
-Modella il concetto di sessione di gioco e contiene istanze della View, del Model, e del GameLoop; essendo interfacciata con il controller funge da ponte di comunicazione tra quest'ultimo e gli altri pilastri dell'architettura del software. Questo ci permette in modo pulito di gestire delle fasi cruciali del gioco come l'evento di morte o la gestione dell'inizio di una nuova partita, dando indicazioni anche alla View sul comportamento da tenere (quali scene caricare, ad esempio).
-Facendo uso del pattern Observer, nella GameSession vengono innescati o "triggerati" degli eventi quali la creazione di un livello o la fine di una partita che generano azioni rilevanti sul Model o in generale su tutte le entità reistrate a questi due Eventi.
-
-Come spiegato nell'architettura di dettaglio è stato necessario suddividere l'implementazione in due classi differenti, a seconda della modalità di gioco da avviare (Survival o Story) mantenendo comunque le azioni comuni implementate nella classe astratta, poichè le notevoli differenze come ad esempio modalità di morte (nella Survival non esiste il "timeout") o caricamento del livello (gestito poi in parte dall'XMLLevelLoader) portavano ad una relizzazione più pulita e funzionale tramite questa suddivisione.
-La startNewLevel è un metodo chiave poichè incorpora quella che è la creazione di una nuova scena di gioco: crea le Map per contenere informazioni sui player (uno o due a seconda della scelta dell'utente) e i relativi InputWriter, si occupa di aggiungere la figura del Player al livello (compito scorporato del LevelLoader poichè la figura del Player non è variabile a seconda del livello) e riceve dal LevelLoader il livello caricato, registra quest'ultimo all'evento di terminazione della partita e indica alla view, passandogliene l'istanza, che il livello è stato creato; ma cosa più importate crea e accende il GameLoop che è il motore di tutto il gioco.
-Per quanto riguarda la fase di terminazione di una partita, la GameSession si occupa di fermare il flusso di gioco e ricevere i dati relativi ai risultati ottenuti (score e anche modalità di morte o vittoria).
-
-A questo punto darà l'input alla view di caricare la scena adatta a seconda del tipo di terminazione ottenuta.
-Come costrutti avanzati del linguaggio ho fatto uso di Optional, della reflection per la costruzione della EnumMap e anche di lambda che rendono il codice più leggibile ed ordinato.
-
-\subsubsection*{XML Level Loader}
-L'XMLevelLoader ha il compito di "parsare" le informazioni necessarie alla costruzione della scena di gioco da un file esistente.
 Per la strutturazione dei livelli ho deciso di usare il meta linguaggio XML che mi permette tramite i tag di poter leggere il file con più libertà di azione.
 Questo mi ha portato a scrivere della funzioni di utility modulari per catturare nel file le parti che mi interessavavo specificandone nella chiamata i tag da cercare e la sorgente di partenza.
-Facendo uso del LevelBuilder (che implementa il patter Builder) ho construito il livello pezzo per pezzo ad ogni lettura di informzioni per poi passarlo dopo aver fatto la build al LevelData che contiene inoltre informazioni sullo sfondo e sulla texture dei muri di gioco.
+L'obiettivo final del Loader è quello di produrre un LevelData che contiene le informazioni relative al livello.
 Per implmentare in modo efficace la lettura ho fatto uso della libreria esterna DOM che mette a disposizione metodi, interfacce e classi molto utili per la modellazione dei dati.
+I due metodi pubblici (loadStoryLevel e loadInfiniteLevel) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file.
+Per la gestione dei PowerUps agisco in modo leggermente diverso (non per quanto riguarda la lettura ma per l'utilizzo del builder) chiamando, attraverso l'uso di lambda, dei metodi di creazione sulla powerFactory. 
 
-I due metodi pubblici (loadStoryLevel e loadInfiniteLevel) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file poichè conosco a priori la presenza o meno di tag all'interno del file dell'infiniteLevel.
-Per la gestione dei PowerUps agisco in modo leggermente diverso (non per quanto riguarda la lettura ma per l'utilizzo del builder) chiamando, attraverso l'uso di lambda, dei metodi di creazione sulla powerFactory.
-
-\subsubsection*{Input}
-Per spiegare il funzionamento della gestione dell'input da parte dell'utente occorre procedere per gradi: alla cattura dell'evento di pressione un tasto specifico da parte della view viene invocato il metodo sendcommand nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput al successivo update.
+Per quel che riguarda la gestione dell'input da parte dell'utente occorre ho lavorato con la libreria di JavaFX per catturare gli eventi di pressione di un tasto specifico da parte della view per invocare il metodo sendcommand nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput al successivo update.
 Durante l'esecuzione della processInput il comando inserito nella Queue viene prelevato e passato all'InpuWriter che si occuperà di scrivere i valori corrispondenti relativi al comando.
 
-A questo punto sarà responsabilità dell'InputReader leggere i valori scritti e renderli disponibili all'InputComponent avendone quest'ultimo un'istanza.
 Alla chiamata dell'update sull'InputComponent viene invocato un metodo privato handleInput che, attraverso l'uso di Consumer parametrizzati, gestisce il settaggio di cambi di direzione o richiesta di sparo generando quindi nei GameObject interessati un cambio effettivo dei parametri.
+
+Mi sono anche occupato della stilizzazione di quasi tutte le viste grafiche in virtù delle mie conoscenze pregresse del CSS. 
+
 
 
 \subsection*{Francesca Tonetti}
