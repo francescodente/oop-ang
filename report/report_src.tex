@@ -309,7 +309,7 @@ La classe astratta AbstractComponent delinea azioni comuni a tutte le sottoclass
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/component}
 \caption{Schema UML che illustra l'impalcatura generale dei Component}
-\label{img:decorator}
+\label{img:component}
 \end{figure}
 
 \subsubsection*{Input}
@@ -326,7 +326,7 @@ Ad ogni update l'InputComponent ha il compito di leggere ed interpretare i valor
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/input}
 \caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
-\label{img:decorator}
+\label{img:input}
 \end{figure}
 
 \subsubsection*{GameSession}
@@ -341,7 +341,7 @@ Come citato sopra sono responsabili di verificare la presenza di un nuovo livell
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/gamesession}
 \caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
-\label{img:decorator}
+\label{img:gamesession}
 \end{figure}
 
 \subsubsection*{Loader}
@@ -351,7 +351,7 @@ Viene utilizziato all'avvio della scena di gioco dal controller per inizializzar
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/loader}
 \caption{Schema UML che mostra la struttura del Loader in collegamento alla GameSession}
-\label{img:decorator}
+\label{img:loader}
 \end{figure}
 
 
@@ -366,7 +366,7 @@ La creazione di questa stessa interfaccia riporta uno stile fluent, infatti tutt
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/levelbuilder}
 \caption{Schema UML che mostra la struttura del LevelBuilder}
-\label{img:decorator}
+\label{img:builder}
 \end{figure}
 
 \subsubsection*{User}
@@ -381,7 +381,7 @@ All'interno della classe User si sviluppa tutta la logica di conversione dei pun
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/user}
 \caption{Schema UML che mostra le relazioni tra User e UserManager}
-\label{img:decorator}
+\label{img:user}
 \end{figure}
 
 \subsubsection*{Scene Controller}
@@ -398,7 +398,7 @@ Le classi che estendono SceneController sono numerose e riguardano separatamente
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/scene_controller}
 \caption{Schema UML che mostra la gerarchia degli Scene controller}
-\label{img:decorator}
+\label{img:scenecontroller}
 \end{figure}
 
 \chapter{Sviluppo}
@@ -501,9 +501,6 @@ A questo punto sarà responsabilità dell'InputReader leggere i valori scritti e
 Alla chiamata dell'update sull'InputComponent viene invocato un metodo privato handleInput che, attraverso l'uso di Consumer parametrizzati, gestisce il settaggio di cambi di direzione o richiesta di sparo generando quindi nei GameObject interessati un cambio effettivo dei parametri.
 
 
-
-
-
 \subsection*{Francesca Tonetti}
 Nello sviluppo delle parti di applicazione del gioco di cui mi sono occupata, oltre ad aver incluso gli elementi di programmazione comuni a tutti i componenti del gruppo, mi sono impegnata nella gestione di serializzazione dello User, la gestione dei dati sul filesystem e parte delle realizzazione delle viste grafiche.
 In riferimento a quest'ultimo ho utilizzato il programma SceneBuilder per la creazione di tutte le scene di gioco, alle quali ho associato riferimenti al controller mediante l'FXMLLoader collocato nella classe SceneLoader.
@@ -587,4 +584,118 @@ Spero un domani, con la collaborazione dell'intero gruppo, si possano migliorare
 La principale difficoltà che abbiamo riscontrato nello sviluppo del progetto è stata la progettazione di una parte View composta da più schermate collegate tra loro. Crediamo che sia una sezione importante e che meriti un approfondimento nella trattazione del corso in quanto raramente ci si troverà a creare sistemi a singola finestra. 
 In più riteniamo che sarebbe stato meglio approfondire di più l'uso di DVCS Git e del repository online Bitbucket per potersi esercitare, introducendoli anche prima di quanto è stato fatto in modo che gli studenti possano acquisire più dimestichezza ed utilizzare da subito questi strumenti in maniera efficace visto che si sono rivelati incredibilmente utili.
 
+
+\chapter{Apppendice A}
+\section{Guida Utente}
+
+\subsection*{Scopo del gioco}
+Il giocatore ha come obiettivo quello di distruggere le palle generate dal gioco, attraverso un arpione,  cercando di non essere mai colpito. 
+Ad ogni sparo il proiettile può permettere di distruggere le palle che vengono toccate anche con la corda, una volta colpite queste ultime si sdoppiano dimezzandosi fino a quando non raggiungono un raggio minimo e spariscono.
+
+\subsection*{Modalità di gioco}
+Esistono due modalità di gioco
+\begin{itemize}
+	\item \textbf{Tour Mode}: il giocatore ha lo scopo di completare tutti i 17 livelli nel tempo prestabilito per ogni livello.
+	\item \textbf{Survival Mode}: il giocatore ha lo scopo di sopravvivere il maggior tempo possibile man mano che il numero di palle aumenta.
+\end{itemize}
+In entrambe le modalità lo scopo è quello di accumulare più punti possibili per guadagnare esperienza.
+Colpire le palle in serie senza mai sbagliare, permette di aumentare il punteggio ricevuto ad ogni colpo.
+
+\subsection*{Poteri attivabili}
+\begin{itemize}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/1}
+			\label{img:doubleshot}
+			\textbf{DOUBLESHOT}
+
+			Permette al player di sparare due volte di fila. 
+
+  			\underline{POTENZIAMENTO}: Permette al player di sparare tre volte di fila.
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/2}
+			\label{img:sticky}
+			\textbf{STICKYSHOT}
+
+			Il proiettile si attacca al muro per tre secondi.
+
+ 			\underline{POTENZIAMENTO}: Permette al player di sparare due volte di fila.
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/3}
+			\label{img:freeze}
+			\textbf{FREEZE}
+
+			Tutte le palle si fermano per un tot di tempo e il player è invulnerabile.
+
+ 			\underline{POTENZIAMENTO}: Aumenta la durata di 0.5 secondi ad ogni livello (MAX 5).
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/4}
+			\label{img:doublespeed}
+			\textbf{DOUBLESPEED}
+			
+			Tutte le palle vengono rallentate come se il player andasse super veloce.
+
+ 			\underline{POTENZIAMENTO}: Aumenta la durata di 0.5 secondi ad ogni livello (MAX 5).
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/5}
+			\label{img:shield}
+			\textbf{TIMEDSHIELD}
+
+			Crea una bolla intorno al player che lo rende invulnerabile.
+
+ 			\underline{POTENZIAMENTO}: Aumenta la durata di 0.5 secondi ad ogni livello (MAX 5).
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/6}
+			\label{img:dynamite}
+			\textbf{DYNAMITE}
+
+			Fa esplodere tutte le palle in gioco una volta.
+
+ 			\underline{POTENZIAMENTO}: La dinamite colpisce tante volte quanto il livello associato (MAX 3).
+	\end{figure}
+\end{itemize}
+
+\subsection*{Controlli}
+
+\subsection*{Schermata di gioco principale}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/7}
+\label{img:decorator}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{CUORI}:     vite del player
+\item \textbf{SCORE}:     punteggio calcolato in base al numero di palle distrutte ed agli
+             oggetti raccolti
+\item \textbf{STAGE}:     livello raggiunto dall'utente
+\item \textbf{PLAYER1/2}: nome del player sotto al quale un box contiene i pickup a tempo attivi durante la   
+             sessione di gioco, mentre accanto al nome appare l'icona della pistola in uso.
+\end{itemize}
+
+\subsection*{Profilo Utente}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/8}
+\label{img:decorator}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{USERNAME}:     nome utente
+\item \textbf{RANK}:     rank dell'utente calcolato in base ai punti esperienza guadagnati
+\item \textbf{XP POINTS}:     punti esperienza guadagnati per raggiungere il rank successivo
+\item \textbf{COINS}: 	monete accumulate tramite le ricompense per acquistare i potenziamenti dei power
+\item \textbf{POWER BOX}: 	Schermata di potenziamento per i power con il rispettivo indice di livello e costo di potenziamento
+\end{itemize}
+
+
 \end{document}
+
