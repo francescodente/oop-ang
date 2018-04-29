@@ -17,8 +17,8 @@ There are two game modes:
 Keep playing to gain xp Points and reach rank 10. Every rank is rewarded with coins to upgrade your powers.
 
 ### How do I get set up? ###
-1. Install the Java Runtime environment
-2. Download OOPang.jar
+1. Install the Java Runtime environment [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+2. Download OOPang.jar in the *Downloads* section
 3. Doubleclick to launch application
 4. Enjoy!
 
