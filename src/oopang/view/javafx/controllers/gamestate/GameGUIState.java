@@ -2,24 +2,24 @@ package oopang.view.javafx.controllers.gamestate;
 
 import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
-import oopang.view.javafx.controllers.GameController;
+import oopang.view.javafx.controllers.GameGuiController;
 
 /**
  * Represents a generic state of the GameGui scene.
  */
 public abstract class GameGUIState {
 
-    private final GameController gameGui;
+    private final GameGuiController gameGui;
     private final Controller controller;
 
     /**
-     * Initializes this state with the given {@link GameController}.
+     * Initializes this state with the given {@link GameGuiController}.
      * @param gameGui
-     *      the {@link GameController} object.
+     *      the {@link GameGuiController} object.
      * @param controller
      *      the {@link Controller} of the app.
      */
-    public GameGUIState(final GameController gameGui, final Controller controller) {
+    public GameGUIState(final GameGuiController gameGui, final Controller controller) {
         this.gameGui = gameGui;
         this.controller = controller;
     }
@@ -51,9 +51,9 @@ public abstract class GameGUIState {
     /**
      * Getter for the game gui for this state.
      * @return
-     *      the {@link GameController}.
+     *      the {@link GameGuiController}.
      */
-    protected GameController getGameGui() {
+    protected GameGuiController getGameGui() {
         return this.gameGui;
     }
 

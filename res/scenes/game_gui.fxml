@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<StackPane onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameController">
+<StackPane onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.GameGuiController">
    <children>
       <GridPane minHeight="0.0" minWidth="0.0" onKeyReleased="#handleReleased" prefHeight="600.0" prefWidth="800.0">
         <columnConstraints>

@@ -6,7 +6,7 @@ import oopang.commons.Command;
 import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
 import oopang.model.input.InputDirection;
-import oopang.view.javafx.controllers.GameController;
+import oopang.view.javafx.controllers.GameGuiController;
 
 /**
  * Represents the state in which the game is paused.
@@ -24,7 +24,7 @@ public final class PausedState extends GameGUIState {
      * @param pausePane
      *      the pane to be showed during the pause state.
      */
-    public PausedState(final GameController gameGui, final Controller controller, final Pane pausePane) {
+    public PausedState(final GameGuiController gameGui, final Controller controller, final Pane pausePane) {
         super(gameGui, controller);
         this.pausePane = pausePane;
     }

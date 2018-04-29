@@ -35,7 +35,7 @@ import oopang.view.rendering.javafx.JavaFXUIFactory;
 /**
  * Class implementing the real scene of the game.
  */
-public final class GameController extends SceneController {
+public final class GameGuiController extends SceneController {
 
     @FXML
     private Canvas canvas;

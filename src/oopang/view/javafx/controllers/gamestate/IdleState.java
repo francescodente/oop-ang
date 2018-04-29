@@ -3,7 +3,7 @@ package oopang.view.javafx.controllers.gamestate;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import oopang.controller.Controller;
-import oopang.view.javafx.controllers.GameController;
+import oopang.view.javafx.controllers.GameGuiController;
 
 /**
  * Represents the idle state of the level, active at the start of the new level to give
@@ -23,7 +23,7 @@ public final class IdleState extends GameGUIState {
      * @param startMessage
      *      the pane containing the "Ready" message.
      */
-    public IdleState(final GameController gameGui, final Controller controller, final Pane startMessage) {
+    public IdleState(final GameGuiController gameGui, final Controller controller, final Pane startMessage) {
         super(gameGui, controller);
         this.keyPressed = false;
         this.startMessage = startMessage;

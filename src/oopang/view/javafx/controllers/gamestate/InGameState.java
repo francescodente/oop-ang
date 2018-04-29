@@ -4,7 +4,7 @@ import javafx.scene.input.KeyEvent;
 import oopang.commons.PlayerTag;
 import oopang.controller.Controller;
 import oopang.model.input.InputDirection;
-import oopang.view.javafx.controllers.GameController;
+import oopang.view.javafx.controllers.GameGuiController;
 
 /**
  * Represents the state where the player is interacting with the game.
@@ -18,7 +18,7 @@ public final class InGameState extends GameGUIState {
      * @param controller
      *      the application controller.
      */
-    public InGameState(final GameController gameGui, final Controller controller) {
+    public InGameState(final GameGuiController gameGui, final Controller controller) {
         super(gameGui, controller);
     }
 
