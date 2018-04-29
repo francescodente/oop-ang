@@ -154,6 +154,22 @@ Per segnalare in modo evidente che il tempo si sta esaurendo ho deciso di creare
 \label{img:power_rendering}
 \end{figure}
 
+\subsubsection*{GameObjectVisitor}
+
+Nella fase di sviluppo mi sono reso conto che spesso avevamo bisogno di operare azioni differenti a seconda del tipo di Gameobject pur non avendo un modo semplice per distinguerli.
+Una soluzione sarebbe potuta essere aggiungere nuovi metodi all'interfaccia GameObject, ma sarebbe andato spesso in conflitto con l'architettura MVC.
+Ho quindi deciso di riprogettare il codice per poter sfruttare il pattern \textbf{Visitor}.
+In questo modo i GameObject possono accettare appunto un visitor che può modificare o interagire con l'oggetto ed eventualmente ritornare un valore. Come si può osservare in \Cref{img:visitor} l'interfaccia GameObjectVisitor 
+
+Siccome in alcuni casi non era necessario eseguire operazioni per certi tipi di oggetto, abbiamo implementato anche una versione di base astratta del GameObjectVisitor, che implementa tutti metodi restituendo un valore di default.
+In questo modo è necessario ridefinire solamente il comportamento per gli oggetti desiderati.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/visitor}
+\caption{Schema UML della struttura del pattern Visitor applicato ai GameObject.}
+\label{img:visitor}
+\end{figure}
+
 \subsection*{Nicholas Ciarafoni}
 
 \subsubsection*{Pickups e Powers}
@@ -293,7 +309,7 @@ La classe astratta AbstractComponent delinea azioni comuni a tutte le sottoclass
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/component}
 \caption{Schema UML che illustra l'impalcatura generale dei Component}
-\label{img:decorator}
+\label{img:component}
 \end{figure}
 
 \subsubsection*{Input}
@@ -310,7 +326,7 @@ Ad ogni update l'InputComponent ha il compito di leggere ed interpretare i valor
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/input}
 \caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
-\label{img:decorator}
+\label{img:input}
 \end{figure}
 
 \subsubsection*{GameSession}
@@ -319,13 +335,13 @@ La GameSession è una parte fulcro del progetto poichè mette in comunicazione i
 
 Abbiamo specializzato il lavoro di questa sezione in due modalità differenti a seconda della modalità di gioco (Survival o StoryMode); 
 La suddivisione si è resa necessaria per via delle notevoli differenze tra le due modalità di gioco: per citarne alcune il numero di vite, il conteggo dello stage (nella StoryMode si riferisce al livello attuale mentre nella Survial al numero di Balls distrutte) o anche per il semplice fatto che nella Survival non esiste un livello successivo.
-Queste due parti si occupano inoltre di ricevere informazioni di gioco alla fine di ogni livello e di aggiornare di conseguenza la view che provederà poi ad interfacciarsi con l'utente.
-Come citato sopra sono responsabili di verificare la presenza di un nuovo livello possibile e di far agire l'XMLLevelLoader per provvedere al caricamento dei dati necessari.
+Queste due parti si occupano inoltre di ricevere informazioni di gioco alla fine di ogni livello e di aggiornare di conseguenza la view che provvederà poi ad interfacciarsi con l'utente.
+Come citato sopra sono responsabili di verificare la presenza di un nuovo livello possibile e di far agire il LevelLoader per provvedere al caricamento dei dati necessari.
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/gamesession}
 \caption{Schema UML che spiega il collegamento effettuato per gestire l'Input trasversalmente tra il Model la View e il Controller}
-\label{img:decorator}
+\label{img:gamesession}
 \end{figure}
 
 \subsubsection*{Loader}
@@ -335,11 +351,55 @@ Viene utilizziato all'avvio della scena di gioco dal controller per inizializzar
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/loader}
 \caption{Schema UML che mostra la struttura del Loader in collegamento alla GameSession}
-\label{img:decorator}
+\label{img:loader}
 \end{figure}
 
 
 \subsection*{Francesca Tonetti}
+\subsubsection*{Level Builder}
+L'interfaccia LevelBuilder è realizzata seguendo il pattern di progettazione Builder.
+Questo tipo di implementazione permette di gestire il problema della costruzione di un oggetto complesso come il Level, in modo che il processo di costruzione possa creare diverse rappresentazioni.
+
+Le decorazioni di un livello sono così gestite unicamente dal builder e non dal codice client richiamando una struttura lazy, come specifica il nome della classe implementativa LazyLevelBuilder, poiché si deve seguire unicamente un certo ordine nelle operazioni e devono essere eseguite solo una volta che si hanno tutti i dati. 
+La creazione di questa stessa interfaccia riporta uno stile fluent, infatti tutti i metodi di cui è composta restituiscono il LevelBuilder stesso.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/levelbuilder}
+\caption{Schema UML che mostra la struttura del LevelBuilder}
+\label{img:builder}
+\end{figure}
+
+\subsubsection*{User}
+La classe User rappresenta il profilo di un utente a cui è associato un login con password per far si che ad ogni sessione di gioco i dati vengano conservati in maniera persistente, sicura e per permettere inoltre all'utente stesso di potenziare i propri power nell'ascesa ai livelli.
+La creazione di un nuovo oggetto User ho deciso di affidarla allo UserManager dell'applicazione che viene a sua volta invocato dal Controller per effettuare la registrazione ed il login dell'utente.
+
+I metodi fondamentali che compongono l'interfaccia UserManager riguardano il login() ed registerUser(), per questo ho scelto di dichiararli opzionali poiché rappresentano tipi di operazioni che possono talvolta non andare a buon fine. 
+Il meccanismo di salvataggio è automatico in quanto lo User notifica il Controller tramite lo userModifiedEvent, innescando la riscrittura su file ogni qualvolta avviene una variazione dei dati, anche in questo caso nell'interfaccia UserManager ho pensato di dichiarare booleano il tipo di ritorno del metodo saveUser() che mostrerà true o false in base al terminazione corretta o viceversa.
+
+All'interno della classe User si sviluppa tutta la logica di conversione dei punti accumulati dall'utente in punti esperienza, necessari per guadagnare monete ed aumentare il livello del proprio rank e poter così potenziare i power. Tale logica applicativa fa sì che un utente con punteggi più elevati possa ricevere ricompense migliori a mano a mano che si raggiungono i livelli più alti del gioco.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/user}
+\caption{Schema UML che mostra le relazioni tra User e UserManager}
+\label{img:user}
+\end{figure}
+
+\subsubsection*{Scene Controller}
+La classe astratta SceneController racchiude complessivamente i metodi per la gestione delle varie scene durante le sessioni di gioco.
+L'architettura di tale classe segue il pattern di progettazione Template Method realizzato mediante due metodi della classe astratta: back() e nextScene() che richiamano al loro interno rispettivamente i due metodi astratti getPreviusScene() e getNextScene().
+
+Questo scelta implementativa permette di lasciare alle sottoclassi la libertà di caricare scene differenti in base a quella corrente.
+Tutte le scene dell'applicazione hanno modo di comunicare, richiedere informazioni ed effettuare modifiche con il Controller e la View.
+All'interno della classe astratta ho deciso di creare il metodo onKeyPressed() che rappresenta l' EventHandler per la pressione di un tasto.
+Questa è la parte più interattiva della classe poiché permette una differente specializzazione a seconda della scena su cui agiamo modificando il codice del tasto da premere per innescare azioni differenti.
+
+Le classi che estendono SceneController sono numerose e riguardano separatamente ogni scena dell'applicazione.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/scene_controller}
+\caption{Schema UML che mostra la gerarchia degli Scene controller}
+\label{img:scenecontroller}
+\end{figure}
 
 \chapter{Sviluppo}
 
@@ -410,37 +470,21 @@ Ho avuto a che fare anche con meccanismi propri di JavaFX come il binding, usato
 In più ho implementato un meccanismo di caching delle immagini sfruttando il pattern \textbf{Proxy}.
 
 \subsection*{Lorenzo Menghini}
+La parte del progetto che ha richiesto più lavoro a livello "tecnico" è stata la creazione dell'XMLevelLoader che ha il compito di "parsare" le informazioni necessarie alla costruzione della scena di gioco da un file esistente.
 
-\subsubsection*{GameSession}
-La GameSession è parte del cuore dell'applicazione ed ha un ruolo di contenimento e passaggio di informazioni.
-Modella il concetto di sessione di gioco e contiene istanze della View, del Model, e del GameLoop; essendo interfacciata con il controller funge da ponte di comunicazione tra quest'ultimo e gli altri pilastri dell'architettura del software. Questo ci permette in modo pulito di gestire delle fasi cruciali del gioco come l'evento di morte o la gestione dell'inizio di una nuova partita, dando indicazioni anche alla View sul comportamento da tenere (quali scene caricare, ad esempio).
-Facendo uso del pattern Observer, nella GameSession vengono innescati o "triggerati" degli eventi quali la creazione di un livello o la fine di una partita che generano azioni rilevanti sul Model o in generale su tutte le entità reistrate a questi due Eventi.
-
-Come spiegato nell'architettura di dettaglio è stato necessario suddividere l'implementazione in due classi differenti, a seconda della modalità di gioco da avviare (Survival o Story) mantenendo comunque le azioni comuni implementate nella classe astratta, poichè le notevoli differenze come ad esempio modalità di morte (nella Survival non esiste il "timeout") o caricamento del livello (gestito poi in parte dall'XMLLevelLoader) portavano ad una relizzazione più pulita e funzionale tramite questa suddivisione.
-La startNewLevel è un metodo chiave poichè incorpora quella che è la creazione di una nuova scena di gioco: crea le Map per contenere informazioni sui player (uno o due a seconda della scelta dell'utente) e i relativi InputWriter, si occupa di aggiungere la figura del Player al livello (compito scorporato del LevelLoader poichè la figura del Player non è variabile a seconda del livello) e riceve dal LevelLoader il livello caricato, registra quest'ultimo all'evento di terminazione della partita e indica alla view, passandogliene l'istanza, che il livello è stato creato; ma cosa più importate crea e accende il GameLoop che è il motore di tutto il gioco.
-Per quanto riguarda la fase di terminazione di una partita, la GameSession si occupa di fermare il flusso di gioco e ricevere i dati relativi ai risultati ottenuti (score e anche modalità di morte o vittoria).
-
-A questo punto darà l'input alla view di caricare la scena adatta a seconda del tipo di terminazione ottenuta.
-Come costrutti avanzati del linguaggio ho fatto uso di Optional, della reflection per la costruzione della EnumMap e anche di lambda che rendono il codice più leggibile ed ordinato.
-
-\subsubsection*{XML Level Loader}
-L'XMLevelLoader ha il compito di "parsare" le informazioni necessarie alla costruzione della scena di gioco da un file esistente.
 Per la strutturazione dei livelli ho deciso di usare il meta linguaggio XML che mi permette tramite i tag di poter leggere il file con più libertà di azione.
 Questo mi ha portato a scrivere della funzioni di utility modulari per catturare nel file le parti che mi interessavavo specificandone nella chiamata i tag da cercare e la sorgente di partenza.
-Facendo uso del LevelBuilder (che implementa il patter Builder) ho construito il livello pezzo per pezzo ad ogni lettura di informzioni per poi passarlo dopo aver fatto la build al LevelData che contiene inoltre informazioni sullo sfondo e sulla texture dei muri di gioco.
+L'obiettivo final del Loader è quello di produrre un LevelData che contiene le informazioni relative al livello.
 Per implmentare in modo efficace la lettura ho fatto uso della libreria esterna DOM che mette a disposizione metodi, interfacce e classi molto utili per la modellazione dei dati.
+I due metodi pubblici (loadStoryLevel e loadInfiniteLevel) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file.
+Per la gestione dei PowerUps agisco in modo leggermente diverso (non per quanto riguarda la lettura ma per l'utilizzo del builder) chiamando, attraverso l'uso di lambda, dei metodi di creazione sulla powerFactory. 
 
-I due metodi pubblici (loadStoryLevel e loadInfiniteLevel) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file poichè conosco a priori la presenza o meno di tag all'interno del file dell'infiniteLevel.
-Per la gestione dei PowerUps agisco in modo leggermente diverso (non per quanto riguarda la lettura ma per l'utilizzo del builder) chiamando, attraverso l'uso di lambda, dei metodi di creazione sulla powerFactory.
-
-\subsubsection*{Input}
-Per spiegare il funzionamento della gestione dell'input da parte dell'utente occorre procedere per gradi: alla cattura dell'evento di pressione un tasto specifico da parte della view viene invocato il metodo sendcommand nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput al successivo update.
+Per quel che riguarda la gestione dell'input da parte dell'utente occorre ho lavorato con la libreria di JavaFX per catturare gli eventi di pressione di un tasto specifico da parte della view per invocare il metodo sendcommand nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput al successivo update.
 Durante l'esecuzione della processInput il comando inserito nella Queue viene prelevato e passato all'InpuWriter che si occuperà di scrivere i valori corrispondenti relativi al comando.
 
-A questo punto sarà responsabilità dell'InputReader leggere i valori scritti e renderli disponibili all'InputComponent avendone quest'ultimo un'istanza.
 Alla chiamata dell'update sull'InputComponent viene invocato un metodo privato handleInput che, attraverso l'uso di Consumer parametrizzati, gestisce il settaggio di cambi di direzione o richiesta di sparo generando quindi nei GameObject interessati un cambio effettivo dei parametri.
 
-
+Mi sono anche occupato della stilizzazione di quasi tutte le viste grafiche in virtù delle mie conoscenze pregresse del CSS. 
 
 
 
@@ -527,4 +571,118 @@ Spero un domani, con la collaborazione dell'intero gruppo, si possano migliorare
 La principale difficoltà che abbiamo riscontrato nello sviluppo del progetto è stata la progettazione di una parte View composta da più schermate collegate tra loro. Crediamo che sia una sezione importante e che meriti un approfondimento nella trattazione del corso in quanto raramente ci si troverà a creare sistemi a singola finestra. 
 In più riteniamo che sarebbe stato meglio approfondire di più l'uso di DVCS Git e del repository online Bitbucket per potersi esercitare, introducendoli anche prima di quanto è stato fatto in modo che gli studenti possano acquisire più dimestichezza ed utilizzare da subito questi strumenti in maniera efficace visto che si sono rivelati incredibilmente utili.
 
+
+\chapter{Apppendice A}
+\section{Guida Utente}
+
+\subsection*{Scopo del gioco}
+Il giocatore ha come obiettivo quello di distruggere le palle generate dal gioco, attraverso un arpione,  cercando di non essere mai colpito. 
+Ad ogni sparo il proiettile può permettere di distruggere le palle che vengono toccate anche con la corda, una volta colpite queste ultime si sdoppiano dimezzandosi fino a quando non raggiungono un raggio minimo e spariscono.
+
+\subsection*{Modalità di gioco}
+Esistono due modalità di gioco
+\begin{itemize}
+	\item \textbf{Tour Mode}: il giocatore ha lo scopo di completare tutti i 17 livelli nel tempo prestabilito per ogni livello.
+	\item \textbf{Survival Mode}: il giocatore ha lo scopo di sopravvivere il maggior tempo possibile man mano che il numero di palle aumenta.
+\end{itemize}
+In entrambe le modalità lo scopo è quello di accumulare più punti possibili per guadagnare esperienza.
+Colpire le palle in serie senza mai sbagliare, permette di aumentare il punteggio ricevuto ad ogni colpo.
+
+\subsection*{Poteri attivabili}
+\begin{itemize}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/1}
+			\label{img:doubleshot}
+			\textbf{DOUBLESHOT}
+
+			Permette al player di sparare due volte di fila. 
+
+  			\underline{POTENZIAMENTO}: Permette al player di sparare tre volte di fila.
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/2}
+			\label{img:sticky}
+			\textbf{STICKYSHOT}
+
+			Il proiettile si attacca al muro per tre secondi.
+
+ 			\underline{POTENZIAMENTO}: Permette al player di sparare due volte di fila.
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/3}
+			\label{img:freeze}
+			\textbf{FREEZE}
+
+			Tutte le palle si fermano per un tot di tempo e il player è invulnerabile.
+
+ 			\underline{POTENZIAMENTO}: Aumenta la durata di 0.5 secondi ad ogni livello (MAX 5).
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/4}
+			\label{img:doublespeed}
+			\textbf{DOUBLESPEED}
+			
+			Tutte le palle vengono rallentate come se il player andasse super veloce.
+
+ 			\underline{POTENZIAMENTO}: Aumenta la durata di 0.5 secondi ad ogni livello (MAX 5).
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/5}
+			\label{img:shield}
+			\textbf{TIMEDSHIELD}
+
+			Crea una bolla intorno al player che lo rende invulnerabile.
+
+ 			\underline{POTENZIAMENTO}: Aumenta la durata di 0.5 secondi ad ogni livello (MAX 5).
+	\end{figure}
+	\begin{figure}[H]
+			\item
+			\includegraphics[width=0.05\linewidth]{img/6}
+			\label{img:dynamite}
+			\textbf{DYNAMITE}
+
+			Fa esplodere tutte le palle in gioco una volta.
+
+ 			\underline{POTENZIAMENTO}: La dinamite colpisce tante volte quanto il livello associato (MAX 3).
+	\end{figure}
+\end{itemize}
+
+\subsection*{Controlli}
+
+\subsection*{Schermata di gioco principale}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/7}
+\label{img:decorator}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{CUORI}:     vite del player
+\item \textbf{SCORE}:     punteggio calcolato in base al numero di palle distrutte ed agli
+             oggetti raccolti
+\item \textbf{STAGE}:     livello raggiunto dall'utente
+\item \textbf{PLAYER1/2}: nome del player sotto al quale un box contiene i pickup a tempo attivi durante la   
+             sessione di gioco, mentre accanto al nome appare l'icona della pistola in uso.
+\end{itemize}
+
+\subsection*{Profilo Utente}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/8}
+\label{img:decorator}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{USERNAME}:     nome utente
+\item \textbf{RANK}:     rank dell'utente calcolato in base ai punti esperienza guadagnati
+\item \textbf{XP POINTS}:     punti esperienza guadagnati per raggiungere il rank successivo
+\item \textbf{COINS}: 	monete accumulate tramite le ricompense per acquistare i potenziamenti dei power
+\item \textbf{POWER BOX}: 	Schermata di potenziamento per i power con il rispettivo indice di livello e costo di potenziamento
+\end{itemize}
+
+
 \end{document}
+
