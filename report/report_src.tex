@@ -154,6 +154,22 @@ Per segnalare in modo evidente che il tempo si sta esaurendo ho deciso di creare
 \label{img:power_rendering}
 \end{figure}
 
+\subsubsection*{GameObjectVisitor}
+
+Nella fase di sviluppo mi sono reso conto che spesso avevamo bisogno di operare azioni differenti a seconda del tipo di Gameobject pur non avendo un modo semplice per distinguerli.
+Una soluzione sarebbe potuta essere aggiungere nuovi metodi all'interfaccia GameObject, ma sarebbe andato spesso in conflitto con l'architettura MVC.
+Ho quindi deciso di riprogettare il codice per poter sfruttare il pattern \textbf{Visitor}.
+In questo modo i GameObject possono accettare appunto un visitor che può modificare o interagire con l'oggetto ed eventualmente ritornare un valore. Come si può osservare in \Cref{img:visitor} l'interfaccia GameObjectVisitor 
+
+Siccome in alcuni casi non era necessario eseguire operazioni per certi tipi di oggetto, abbiamo implementato anche una versione di base astratta del GameObjectVisitor, che implementa tutti metodi restituendo un valore di default.
+In questo modo è necessario ridefinire solamente il comportamento per gli oggetti desiderati.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{img/visitor}
+\caption{Schema UML della struttura del pattern Visitor applicato ai GameObject.}
+\label{img:visitor}
+\end{figure}
+
 \subsection*{Nicholas Ciarafoni}
 
 \subsubsection*{Pickups e Powers}
@@ -344,8 +360,8 @@ Viene utilizziato all'avvio della scena di gioco dal controller per inizializzar
 L'interfaccia LevelBuilder è realizzata seguendo il pattern di progettazione Builder.
 Questo tipo di implementazione permette di gestire il problema della costruzione di un oggetto complesso come il Level, in modo che il processo di costruzione possa creare diverse rappresentazioni.
 
-Le decorazioni di un livello sono così gestite unicamente dal builder e non dal codice client richiamando una struttura lazy, come specifica il nome della classe implementativa LazyLevelBuilder, poiché si deve seguire unicamente un certo ordine di decorazione del Level. 
-La creazione di questa stessa interfaccia riporta uno stile fluent, infatti tutti i metodi da cui è composta restituiscono il LevelBuilder stesso.
+Le decorazioni di un livello sono così gestite unicamente dal builder e non dal codice client richiamando una struttura lazy, come specifica il nome della classe implementativa LazyLevelBuilder, poiché si deve seguire unicamente un certo ordine nelle operazioni e devono essere eseguite solo una volta che si hanno tutti i dati. 
+La creazione di questa stessa interfaccia riporta uno stile fluent, infatti tutti i metodi di cui è composta restituiscono il LevelBuilder stesso.
 
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{img/levelbuilder}
