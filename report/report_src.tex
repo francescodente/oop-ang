@@ -127,7 +127,7 @@ Lo ShooterComponent utilizza lo Shooter via Strategy e può settare il suo stato
 Lo Shot invece gestisce il proprio comportamento in maniera indipendente.
 Il metodo astratto handleCollision permette di modificare radicalmente il modo di comportarsi dello shot in relazione alla tipologia di oggetto colpito.
 
-L'interazione tra Shooter e Shot è basata sul pattern Bridge in modo da legare direttamente l'interfaccia con la classe astratta e fare sì che ci sia compatibilità tra tutte le specializzazioni.
+L'interazione tra Shooter e Shot è basata sul pattern \textbf{Bridge} in modo da legare direttamente l'interfaccia con la classe astratta e fare sì che ci sia compatibilità tra tutte le specializzazioni.
 Ho fatto questa scelta proprio per rendere facile l'inserimento di armi con politiche di sparo diverso o di munizioni speciali e soprattutto per poterle combinare in maniera semplice dando la possibilità di un gameplay molto più vario.
 Nella nostra versione del gioco ci siamo limitati ad implementare un solo shooter con due diversi tipi di HookShot sebbene la struttura supporti molte più variazioni.
 
@@ -357,7 +357,7 @@ Viene utilizziato all'avvio della scena di gioco dal controller per inizializzar
 
 \subsection*{Francesca Tonetti}
 \subsubsection*{Level Builder}
-L'interfaccia LevelBuilder è realizzata seguendo il pattern di progettazione Builder.
+L'interfaccia LevelBuilder è realizzata seguendo il pattern di progettazione \textbf{Builder}.
 Questo tipo di implementazione permette di gestire il problema della costruzione di un oggetto complesso come il Level, in modo che il processo di costruzione possa creare diverse rappresentazioni.
 
 Le decorazioni di un livello sono così gestite unicamente dal builder e non dal codice client richiamando una struttura lazy, come specifica il nome della classe implementativa LazyLevelBuilder, poiché si deve seguire unicamente un certo ordine nelle operazioni e devono essere eseguite solo una volta che si hanno tutti i dati. 
@@ -474,15 +474,15 @@ La parte del progetto che ha richiesto più lavoro a livello "tecnico" è stata 
 
 Per la strutturazione dei livelli ho deciso di usare il meta linguaggio XML che mi permette tramite i tag di poter leggere il file con più libertà di azione.
 Questo mi ha portato a scrivere della funzioni di utility modulari per catturare nel file le parti che mi interessavavo specificandone nella chiamata i tag da cercare e la sorgente di partenza.
-L'obiettivo final del Loader è quello di produrre un LevelData che contiene le informazioni relative al livello.
+L'obiettivo finale del Loader è quello di produrre un LevelData che contiene le informazioni relative al livello.
 Per implmentare in modo efficace la lettura ho fatto uso della libreria esterna DOM che mette a disposizione metodi, interfacce e classi molto utili per la modellazione dei dati.
-I due metodi pubblici (loadStoryLevel e loadInfiniteLevel) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file.
+I due metodi pubblici (loadStoryLevel() e loadInfiniteLevel()) chiamano all'interno un metodo privato che, facendo uso di un Optional e a seconda della sua presenza o meno tra i parametri al momento della chiamata, legge in modo differente il file.
 Per la gestione dei PowerUps agisco in modo leggermente diverso (non per quanto riguarda la lettura ma per l'utilizzo del builder) chiamando, attraverso l'uso di lambda, dei metodi di creazione sulla powerFactory. 
 
-Per quel che riguarda la gestione dell'input da parte dell'utente occorre ho lavorato con la libreria di JavaFX per catturare gli eventi di pressione di un tasto specifico da parte della view per invocare il metodo sendcommand nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput al successivo update.
+Per quel che riguarda la gestione dell'input da parte dell'utente ho lavorato con la libreria di JavaFX per catturare gli eventi di pressione di un tasto specifico da parte della view per invocare il metodo sendCommand() nel controller che, attraverso l'uso di una lambda, invia al GameLoop (passando per la GameSession che in questo caso funge da ponte) il comando da inserire nella BlockingQueue per poi farlo processare dal metodo processInput() al successivo update.
 Durante l'esecuzione della processInput il comando inserito nella Queue viene prelevato e passato all'InpuWriter che si occuperà di scrivere i valori corrispondenti relativi al comando.
 
-Alla chiamata dell'update sull'InputComponent viene invocato un metodo privato handleInput che, attraverso l'uso di Consumer parametrizzati, gestisce il settaggio di cambi di direzione o richiesta di sparo generando quindi nei GameObject interessati un cambio effettivo dei parametri.
+Alla chiamata dell'update sull'InputComponent viene invocato un metodo privato handleInput() che, attraverso l'uso di Consumer parametrizzati, gestisce il settaggio di cambi di direzione o richiesta di sparo generando quindi nei GameObject interessati un cambio effettivo dei parametri.
 
 Mi sono anche occupato della stilizzazione di quasi tutte le viste grafiche in virtù delle mie conoscenze pregresse del CSS. 
 
