@@ -24,19 +24,19 @@ public interface LeaderboardManager {
     /**
      * Save the story Leaderboard.
      * @param leaderboard
-     *      The Leaderboard.
+     *      The Leaderboard record.
      * @return 
      *      true if the leaderboard is correctly saved
      */
-    boolean saveStoryModeLeaderboard(Leaderboard leaderboard);
+    boolean saveStoryModeLeaderboardRecord(LeaderboardRecord record);
 
     /**
      * Save the survival Leaderboard.
-     * @param leaderboard
-     *      The Leaderboard.
+     * @param record
+     *      The Leaderboard record.
      * @return 
      *      true if the leaderboard is correctly saved 
      */
-    boolean saveSurvivalModeLeaderboard(Leaderboard leaderboard);
+    boolean saveSurvivalModeLeaderboardRecord(LeaderboardRecord record);
 
 }
