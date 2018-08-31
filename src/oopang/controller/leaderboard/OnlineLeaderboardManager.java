@@ -47,7 +47,7 @@ public class OnlineLeaderboardManager implements LeaderboardManager {
             this.manager.createConnection();
             final String query = "INSERT INTO " + tableName + " (Name, Score, Stage) " +
                     "VALUES ('" + record.getName() + "', " + record.getScore() + ", " +
-                    record.getStage();
+                    record.getStage() + ")";
             this.manager.insertRecords(query);
             return true;
         } catch (SQLException e) {

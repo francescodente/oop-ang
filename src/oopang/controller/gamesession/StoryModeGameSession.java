@@ -21,7 +21,7 @@ public final class StoryModeGameSession extends GameSession {
      * The total number of available levels in the story mode.
      */
     public static final int MAX_LEVEL = 17;
-    private static final int FULL_LIFE = 1;
+    private static final int FULL_LIFE = 5;
     private static final int SCORE_TO_GET_LIFE = 100000;
     private int currentLevel;
     private int lives;
