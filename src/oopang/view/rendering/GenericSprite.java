@@ -23,6 +23,8 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
     private double width;
     private double height;
     private double alpha;
+    private boolean hFlip;
+    private boolean vFlip;
 
     /**
      * Initializes base data for the sprite.
@@ -118,5 +120,25 @@ public abstract class GenericSprite extends GenericRenderer implements Sprite {
     @Override
     public final double getAlpha() {
         return this.alpha;
+    }
+    
+    @Override
+    public void setVerticalFlip(final boolean flip) {
+        this.vFlip = flip;
+    }
+    
+    @Override
+    public void setHorizontalFlip(final boolean flip) {
+        this.hFlip = flip;
+    }
+    
+    @Override
+    public boolean isFlippedVertically() {
+        return this.vFlip;
+    }
+    
+    @Override
+    public boolean isFlippedHorizontally() {
+        return this.hFlip;
     }
 }

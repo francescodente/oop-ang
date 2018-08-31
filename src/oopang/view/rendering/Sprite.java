@@ -118,4 +118,30 @@ public interface Sprite extends Renderer {
      *      means full transparency.
      */
     double getAlpha();
+
+    /**
+     * Sets the flip state on the horizontal axis of the image.
+     * @param flip
+     *      the flip state, true flips the original image.
+     */
+    void setHorizontalFlip(boolean flip);
+
+    /**
+     * Sets the flip state on the vertical axis of the image.
+     * @param flip
+     *      the flip state, true flips the original image.
+     */
+    void setVerticalFlip(boolean flip);
+    
+    /**
+     * 
+     * @return
+     */
+    boolean isFlippedHorizontally();
+    
+    /**
+     * 
+     * @return
+     */
+    boolean isFlippedVertically();
 }

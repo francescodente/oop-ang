@@ -2,7 +2,9 @@ package oopang.view.rendering.gameobject;
 
 
 import oopang.commons.PlayerTag;
+import oopang.commons.space.Vector2D;
 import oopang.commons.space.Vectors2D;
+import oopang.model.components.MovementComponent;
 import oopang.model.gameobjects.Player;
 import oopang.model.powers.TimedPower;
 import oopang.view.rendering.CanvasDrawer;
@@ -16,6 +18,8 @@ import oopang.view.rendering.Sprite;
 public final class PlayerRenderer extends GameObjectRenderer<Player> {
 
     private static final double PLAYER_OFFSET = 3;
+    
+    private final MovementComponent playerMovement;
 
     /**
      * Constructor of the {@link Player} Renderer.
@@ -40,10 +44,15 @@ public final class PlayerRenderer extends GameObjectRenderer<Player> {
                 canvasDrawer.getRendererFactory().createTimedPowerRenderer((TimedPower) p, gameObject);
             }
         });
+        this.playerMovement = gameObject.getComponent(MovementComponent.class).get();
     }
 
     @Override
     public void render() {
+        final Vector2D velocity = this.playerMovement.getVelocity();
+        if (!velocity.equals(Vectors2D.ZERO)) {
+            this.getSprite().setHorizontalFlip(velocity.getX() < 0);
+        }
         this.getSprite().setPosition(this.getGameObject().getPosition());
         this.getSprite().setWidth(this.getGameObject().getWidth() + PLAYER_OFFSET);
         this.getSprite().setHeight(this.getGameObject().getHeight());
