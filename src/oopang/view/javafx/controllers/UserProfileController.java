@@ -11,6 +11,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import oopang.controller.Controller;
 import oopang.controller.users.User;
+import oopang.controller.users.UserStat;
+import oopang.controller.users.Users;
 import oopang.model.powers.PowerTag;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -50,24 +52,24 @@ public final class UserProfileController extends SceneController {
         super.init(controller, view);
         this.user = controller.getUser().get();
         this.userName.setText(this.user.getName());
-        this.xpPoints.setText(user.getXpPoints() + " xp");
-        this.levelRank.setText("Rank: " + this.user.getRank());
-        this.maxArcadeStage.setText("Max Arcade Stage: " + this.user.getArcadeMaxStage());
-        this.maxSurvivalStage.setText("Max Survival Stage: " + this.user.getSurvivalMaxStage());
-        this.maxSurvivalScore.setText("Max Survival Score: " + this.user.getSurvivalMaxScore());
-        this.maxArcadeScore.setText("Max Arcade Score: " + this.user.getArcadeMaxScore());
-        this.xpBar.setProgress(this.user.getXpLevelPercentage());
+        this.xpPoints.setText(Users.computeExceedingXpPoints(this.user) + " xp");
+        this.levelRank.setText("Rank: " + Users.computeRank(this.user));
+        this.maxArcadeStage.setText("Max Arcade Stage: " + this.user.getStatValue(UserStat.MAX_ARCADE_STAGE));
+        this.maxSurvivalStage.setText("Max Survival Stage: " + this.user.getStatValue(UserStat.MAX_SURVIVAL_STAGE));
+        this.maxSurvivalScore.setText("Max Survival Score: " + this.user.getStatValue(UserStat.MAX_SURVIVAL_SCORE));
+        this.maxArcadeScore.setText("Max Arcade Score: " + this.user.getStatValue(UserStat.MAX_ARCADE_SCORE));
+        this.xpBar.setProgress(Users.computeXpLevelPercentage(this.user));
         this.factory = new JavaFXUIFactory();
-        this.user.getUserModifiedEvent().register(n -> {
-            Platform.runLater(() -> refresh());
+        this.user.getUserChangedEvent().register(n -> {
+            Platform.runLater(() -> this.refresh(n));
         });
-        refresh();
+        refresh(this.user);
     }
 
     /**
      * Refresh all the values in the screen.
      */
-    private void refresh() {
+    private void refresh(final User user) {
         this.powerContainerBox.getChildren().clear();
         this.coins.setText("Coins: " + this.user.getCoins() + "$");
         Arrays.stream(PowerTag.values()).forEach(tag -> {

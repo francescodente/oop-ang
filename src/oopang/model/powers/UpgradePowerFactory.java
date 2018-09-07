@@ -1,51 +1,51 @@
 package oopang.model.powers;
 
-import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Factory for power that includes the logic of upgrades.
  */
 public class UpgradePowerFactory implements PowerFactory {
 
-    private final Map<PowerTag, Integer> levelmap;
+    private final Function<PowerTag, Integer> powerToLevel;
 
     /**
      * Create a new factory.
      * @param levelmap
      *      The map that contains the level for each power.
      */
-    public UpgradePowerFactory(final Map<PowerTag, Integer> levelmap) {
-       this.levelmap = levelmap;
+    public UpgradePowerFactory(final Function<PowerTag, Integer> powerToLevel) {
+       this.powerToLevel = powerToLevel;
     }
 
     @Override
     public final Power createFreeze() {
-        return Freeze.create(this.levelmap.get(PowerTag.FREEZE));
+        return Freeze.create(this.powerToLevel.apply(PowerTag.FREEZE));
     }
 
     @Override
     public final Power createTimedShield() {
-        return TimedShield.create(this.levelmap.get(PowerTag.TIMEDSHIELD));
+        return TimedShield.create(this.powerToLevel.apply(PowerTag.TIMEDSHIELD));
     }
 
     @Override
     public final Power createDoubleSpeed() {
-        return DoubleSpeed.create(this.levelmap.get(PowerTag.DOUBLESPEED));
+        return DoubleSpeed.create(this.powerToLevel.apply(PowerTag.DOUBLESPEED));
     }
 
     @Override
     public final Power createAdhesiveShot() {
-        return StickyShotPower.create(this.levelmap.get(PowerTag.STICKYSHOT));
+        return StickyShotPower.create(this.powerToLevel.apply(PowerTag.STICKYSHOT));
     }
 
     @Override
     public final Power createDoubleShot() {
-        return DoubleShot.create(this.levelmap.get(PowerTag.DOUBLESHOT));
+        return DoubleShot.create(this.powerToLevel.apply(PowerTag.DOUBLESHOT));
     }
 
     @Override
     public final Power createDynamite() {
-        return Dynamite.create(this.levelmap.get(PowerTag.DYNAMITE));
+        return Dynamite.create(this.powerToLevel.apply(PowerTag.DYNAMITE));
     }
 
 }

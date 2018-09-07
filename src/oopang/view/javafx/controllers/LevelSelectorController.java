@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import oopang.controller.Controller;
 import oopang.controller.gamesession.StoryModeGameSession;
+import oopang.controller.users.UserStat;
 import oopang.view.GameParameters;
 import oopang.view.GameScene;
 import oopang.view.View;
@@ -32,7 +33,7 @@ public final class LevelSelectorController extends SceneController {
                 this.getView().loadScene(GameScene.GAME_GUI);
             });
             if (i != 0) {
-                controller.getUser().ifPresent(u -> button.setDisable(u.getArcadeMaxStage() < levelIndex));
+                controller.getUser().ifPresent(u -> button.setDisable(u.getStatValue(UserStat.MAX_ARCADE_STAGE) < levelIndex));
             }
             this.levelGrid.add(button,
                     i % COLUMNS + 1, 

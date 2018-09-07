@@ -9,7 +9,6 @@ import oopang.commons.events.EventHandler;
 import oopang.controller.gamesession.GameSession;
 import oopang.controller.gamesession.InfiniteGameSession;
 import oopang.controller.gamesession.StoryModeGameSession;
-import oopang.controller.leaderboard.FileSystemLeaderboardManager;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardManager;
 import oopang.controller.leaderboard.LeaderboardRecord;
@@ -21,6 +20,7 @@ import oopang.model.GameOverStatus;
 import oopang.controller.users.FileSystemUserManager;
 import oopang.controller.users.User;
 import oopang.controller.users.UserManager;
+import oopang.controller.users.UserStat;
 import oopang.model.LevelResult;
 import oopang.model.Model;
 import oopang.model.powers.BasicPowerFactory;
@@ -61,7 +61,7 @@ public final class ControllerImpl implements Controller {
 
     private PowerFactory getPowerFactory() {
         return this.user
-                .<PowerFactory>map(u -> new UpgradePowerFactory(this.user.get().getPowerLevels()))
+                .<PowerFactory>map(u -> new UpgradePowerFactory(u::getPowerLevel))
                 .orElse(new BasicPowerFactory());
     }
 
@@ -75,8 +75,8 @@ public final class ControllerImpl implements Controller {
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboardRecord(l);
-        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
-        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
+        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setStatValue(UserStat.MAX_ARCADE_STAGE, s));
+        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setStatValue(UserStat.MAX_ARCADE_SCORE, s));
     }
 
     @Override
@@ -85,8 +85,8 @@ public final class ControllerImpl implements Controller {
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboardRecord(l);
-        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
-        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setSurvivalMaxScore(s));
+        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setStatValue(UserStat.MAX_SURVIVAL_STAGE, s));
+        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setStatValue(UserStat.MAX_SURVIVAL_SCORE, s));
     }
 
     @Override
@@ -147,23 +147,13 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public boolean registerUser(final String userName, final String password) {
-        final Optional<User> user = this.userManager.registerUser(userName, password);
-        this.user = user;
-        if (this.user.isPresent()) {
-            this.user.get().getUserModifiedEvent()
-            .register(u -> this.saveUser());
-        }
+        this.user = this.userManager.registerUser(userName, password);
         return this.user.isPresent();
     }
 
     @Override
     public boolean loginUser(final String userName, final String password) {
-        final Optional<User> user = this.userManager.login(userName, password);
-        this.user = user;
-        if (this.user.isPresent()) {
-            this.user.get().getUserModifiedEvent()
-            .register(u -> this.saveUser());
-        }
+        this.user = this.userManager.login(userName, password);
         return this.user.isPresent(); 
     }
 

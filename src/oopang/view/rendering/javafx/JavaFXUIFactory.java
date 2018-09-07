@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import oopang.commons.Timeable;
 import oopang.controller.users.User;
+import oopang.controller.users.Users;
 import oopang.model.powers.PowerTag;
 import oopang.model.powers.TimedPower;
 import oopang.view.dialogs.DialogFactory;
@@ -121,7 +122,7 @@ public final class JavaFXUIFactory {
      *      the interface to upgrade a power
      */
     public Node createUpdatePowerLevelBlock(final User user, final PowerTag tag) {
-        final int powerLevel = user.getPowerLevels().get(tag);
+        final int powerLevel = user.getPowerLevel(tag);
         final Label levelLabel = new Label("Level " + powerLevel + "/" + tag.getMaxLevel());
         final ImageView icon = this.createPowerIcon(tag);
         icon.setFitHeight(POWER_BLOCK_HEIGHT);
@@ -136,9 +137,7 @@ public final class JavaFXUIFactory {
         }
         final DialogFactory factory = new JavaFXDialogFactory();
         upgradeButton.setOnMouseClicked(e -> {
-            if (user.spendCoins(tag.getCost(powerLevel))) {
-                user.setPowerLevel(tag, powerLevel + 1);
-            } else {
+            if (!Users.upgradePower(user, tag)) {
                 factory.createNotEnoughCoins().show();
             }
         });

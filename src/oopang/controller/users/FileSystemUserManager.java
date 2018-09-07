@@ -58,7 +58,7 @@ public final class FileSystemUserManager implements UserManager {
             try (BufferedWriter write = new BufferedWriter(new FileWriter(InstallManager.USER_LIST_FILE, true))) {
                 write.write(userName + FIELD_SEPARATOR + password.hashCode());
                 write.newLine();
-                final User newUser = new User(userName);
+                final User newUser = new SimpleUser(userName);
                 this.writeUser(newUser);
                 return Optional.of(newUser);
             } catch (IOException e) {
