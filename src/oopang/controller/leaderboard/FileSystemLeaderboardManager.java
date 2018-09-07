@@ -21,12 +21,14 @@ import oopang.controller.InstallManager;
  */
 public final class FileSystemLeaderboardManager implements LeaderboardManager {
 
-    private boolean save(final Leaderboard leaderboard, final String path) {
+    private boolean save(final LeaderboardRecord record, final String path) {
+        final Leaderboard leaderboard = this.load(path).orElse(new Leaderboard());
         try (
             OutputStream file = new FileOutputStream(path);
             OutputStream bstream = new BufferedOutputStream(file);
             ObjectOutputStream ostream = new ObjectOutputStream(bstream)
         ) {
+            leaderboard.addRecord(record);
             ostream.writeObject(leaderboard);
             return true;
         } catch (IOException e) {
@@ -59,12 +61,12 @@ public final class FileSystemLeaderboardManager implements LeaderboardManager {
     }
 
     @Override
-    public boolean saveStoryModeLeaderboard(final Leaderboard leaderboard) {
-        return this.save(leaderboard, InstallManager.STORY_FILE);
+    public boolean saveStoryModeLeaderboardRecord(final LeaderboardRecord record) {
+        return this.save(record, InstallManager.STORY_FILE);
     }
 
     @Override
-    public boolean saveSurvivalModeLeaderboard(final Leaderboard leaderboard) {
-        return this.save(leaderboard, InstallManager.SURVIVAL_FILE);
+    public boolean saveSurvivalModeLeaderboardRecord(final LeaderboardRecord record) {
+        return this.save(record, InstallManager.SURVIVAL_FILE);
     }
 }

@@ -13,6 +13,7 @@ import oopang.controller.leaderboard.FileSystemLeaderboardManager;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardManager;
 import oopang.controller.leaderboard.LeaderboardRecord;
+import oopang.controller.leaderboard.OnlineLeaderboardManager;
 import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
 import oopang.controller.loader.XMLLevelLoader;
@@ -39,7 +40,7 @@ public final class ControllerImpl implements Controller {
     private final UserManager userManager;
     private final LeaderboardManager leaderboardManager;
     private Leaderboard leaderboard;
-    private Consumer<Leaderboard> saveAction;
+    private Consumer<LeaderboardRecord> saveAction;
     private Consumer<Integer> saveMaxStage;
     private Consumer<Integer> saveMaxScore;
 
@@ -54,7 +55,7 @@ public final class ControllerImpl implements Controller {
         this.model = model;
         this.view = view;
         this.userManager = new FileSystemUserManager();
-        this.leaderboardManager = new FileSystemLeaderboardManager();
+        this.leaderboardManager = new OnlineLeaderboardManager();
         this.user = Optional.empty();
     }
 
@@ -73,7 +74,7 @@ public final class ControllerImpl implements Controller {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, this.getLevelLoader(), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
-        this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboard(l);
+        this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboardRecord(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
         this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
     }
@@ -83,7 +84,7 @@ public final class ControllerImpl implements Controller {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, this.getLevelLoader());
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
         this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
-        this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboard(l);
+        this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboardRecord(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
         this.saveMaxScore = s -> this.user.ifPresent(u -> u.setSurvivalMaxScore(s));
     }
@@ -120,10 +121,14 @@ public final class ControllerImpl implements Controller {
     private void handleSessionResult(final LevelResult result) {
         if (result != LevelResult.FORCE_EXIT) {
             this.user.ifPresent(u -> {
-                this.leaderboard.addRecord(new LeaderboardRecord(u.getName(), this.gameSession.getTotalScore(), this.gameSession.getStage()));
+                final LeaderboardRecord record = new LeaderboardRecord(
+                        u.getName(),
+                        this.gameSession.getTotalScore(),
+                        this.gameSession.getStage());
+                this.leaderboard.addRecord(record);
                 u.addXpPoints(this.gameSession.getTotalScore());
                 this.saveUser();
-                this.saveAction.accept(this.leaderboard);
+                this.saveAction.accept(record);
                 this.saveMaxStage.accept(this.gameSession.getStage());
                 this.saveMaxScore.accept(this.gameSession.getTotalScore());
             });
