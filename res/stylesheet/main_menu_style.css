@@ -8,12 +8,6 @@
     src: url("PressStart2P.ttf");
 }
 
-
-.root {
-	-fx-font-family: 'Press Start 2P';
-	-fx-background-color: black;
-}
-
 #mainpanel {
     -fx-background-image: url("pang.jpg");
     -fx-background-color: rgb(0, 0, 0);

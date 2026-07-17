@@ -34,6 +34,15 @@ public interface DialogFactory {
     Dialog createFailedToRegisterUser(String username);
 
     /**
+     * Create a leaderboard save failure dialog.
+     * @param username
+     *      the user name associated with the score that could not be saved.
+     * @return
+     *      a dialog specific for leaderboard save failures.
+     */
+    Dialog createLeaderboardNotSaved(String username);
+
+    /**
      * Create an Empty Field error dialog.
      * @param fieldName
      *      the name of the field left empty

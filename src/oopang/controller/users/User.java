@@ -27,6 +27,7 @@ public final class User implements Serializable {
     private static final List<Integer> LEVELS_REWARD = Arrays.asList(100, 100, 500, 500, 1500, 1500, 1500, 2000, 3000, 3500); 
 
     private final String name;
+    private long lastModified;
     private int coins;
     private int rank;
     private int survivalMaxStage;
@@ -44,6 +45,7 @@ public final class User implements Serializable {
      */
     public User(final String name) {
         this.powerLevels = Arrays.stream(PowerTag.values()).collect(Collectors.toMap(p -> p, p -> 1));
+        this.lastModified = System.currentTimeMillis();
         this.coins = 0;
         this.rank = 0;
         this.survivalMaxStage = 0;
@@ -101,6 +103,24 @@ public final class User implements Serializable {
     }
 
     /**
+     * Gets the last time the user state was modified.
+     * @return
+     *      the last modified timestamp in milliseconds.
+     */
+    public long getLastModified() {
+        return this.lastModified;
+    }
+
+    void setLastModified(final long lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    private void markModified() {
+        this.lastModified = System.currentTimeMillis();
+        this.userModifiedEvent.trigger(null);
+    }
+
+    /**
      * Gets coins amount of the User.
      * @return
      *      the amount of coins.
@@ -114,7 +134,7 @@ public final class User implements Serializable {
      */
     private void addCoins() {
         this.coins += LEVELS_REWARD.get(this.rank);
-        this.userModifiedEvent.trigger(null);
+        this.markModified();
     }
 
     /**
@@ -127,7 +147,7 @@ public final class User implements Serializable {
     public boolean spendCoins(final int amount) {
         if (this.coins >= amount) {
             this.coins -= amount;
-            this.userModifiedEvent.trigger(null);
+            this.markModified();
             return true; 
         } 
             return false;
@@ -150,7 +170,7 @@ public final class User implements Serializable {
     public void setSurvivalMaxStage(final int survivalMaxStage) {
         if (survivalMaxStage > this.survivalMaxStage) {
             this.survivalMaxStage = survivalMaxStage;
-            this.userModifiedEvent.trigger(null);
+            this.markModified();
         }
     }
 
@@ -171,7 +191,7 @@ public final class User implements Serializable {
     public void setArcadeMaxStage(final int arcadeMaxStage) {
         if (arcadeMaxStage > this.arcadeMaxStage) {
             this.arcadeMaxStage = arcadeMaxStage;
-            this.userModifiedEvent.trigger(null);
+            this.markModified();
         }
     }
 
@@ -192,7 +212,7 @@ public final class User implements Serializable {
     public void setSurvivalMaxScore(final int survivalMaxScore) {
         if (survivalMaxScore > this.survivalMaxScore) {
             this.survivalMaxScore = survivalMaxScore;
-            this.userModifiedEvent.trigger(null);
+            this.markModified();
         }
     }
 
@@ -213,7 +233,7 @@ public final class User implements Serializable {
     public void setArcadeMaxScore(final int arcadeMaxScore) {
         if (arcadeMaxScore > this.arcadeMaxScore) {
             this.arcadeMaxScore = arcadeMaxScore;
-            this.userModifiedEvent.trigger(null);
+            this.markModified();
         }
     }
 
@@ -227,7 +247,7 @@ public final class User implements Serializable {
             this.xpPoints += score;
             this.checkRank();
         }
-        this.userModifiedEvent.trigger(null);
+        this.markModified();
     }
 
     /**
@@ -274,7 +294,7 @@ public final class User implements Serializable {
      */
     public void setPowerLevel(final PowerTag powerTag, final Integer level) {
         this.powerLevels.put(powerTag, level);
-        this.userModifiedEvent.trigger(null);
+        this.markModified();
     }
 
     /**

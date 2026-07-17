@@ -17,10 +17,17 @@ There are two game modes:
 Keep playing to gain xp Points and reach rank 10. Every rank is rewarded with coins to upgrade your powers.
 
 ### How do I get set up? ###
-1. Install the Java Runtime environment [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-2. Download OOPang.jar in the *Downloads* section
-3. Doubleclick to launch application
-4. Enjoy!
+1. Install a Java 17 or newer JDK.
+2. Build the executable jar with Gradle:
+   ```sh
+   ./gradlew build
+   ```
+3. Run the generated jar:
+   ```sh
+   java -jar build/libs/oop-ang-1.0.0-all.jar
+   ```
+
+The project uses OpenJFX through Gradle because JavaFX is no longer bundled with the JDK after Java 8.
 
 ### Makers ###
 * Samuele Burattini

@@ -9,7 +9,7 @@ import oopang.controller.database.DatabaseManager;
 public class OnlineLeaderboardManager implements LeaderboardManager {
 
     private static final String STORY_MODE_TABLE_NAME = "StoryModeLeaderboard";
-    private static final String SURVIVAL_MODE_TABLE_NAME = "SurvivalModeLeaderBoard";
+    private static final String SURVIVAL_MODE_TABLE_NAME = "SurvivalModeLeaderboard";
     private final DatabaseManager manager;
 
     public OnlineLeaderboardManager() {
@@ -31,12 +31,14 @@ public class OnlineLeaderboardManager implements LeaderboardManager {
                             r.getInt("Score"),
                             r.getInt("Stage")));
                 } catch (SQLException e) {
+                    System.err.println("Error loading leaderboard from database: " + e.getMessage());
                     e.printStackTrace();
                 }
             });
             return Optional.of(leaderboard);
         } catch (SQLException e) {
-            return Optional.empty();
+            System.err.println("Error loading leaderboard from database: " + e.getMessage());
+            throw new IllegalStateException("Leaderboard is unavailable online", e);
         } finally {
             this.manager.closeConnection();
         }
@@ -51,6 +53,7 @@ public class OnlineLeaderboardManager implements LeaderboardManager {
             this.manager.insertRecords(query);
             return true;
         } catch (SQLException e) {
+            System.err.println("Error saving leaderboard record to database: " + e.getMessage());
             return false;
         } finally {
             this.manager.closeConnection();

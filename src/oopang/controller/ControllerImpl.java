@@ -1,7 +1,7 @@
 package oopang.controller;
 
 import java.util.Optional;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import oopang.commons.Command;
 import oopang.commons.PlayerTag;
@@ -9,7 +9,6 @@ import oopang.commons.events.EventHandler;
 import oopang.controller.gamesession.GameSession;
 import oopang.controller.gamesession.InfiniteGameSession;
 import oopang.controller.gamesession.StoryModeGameSession;
-import oopang.controller.leaderboard.FileSystemLeaderboardManager;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardManager;
 import oopang.controller.leaderboard.LeaderboardRecord;
@@ -18,7 +17,7 @@ import oopang.controller.loader.LevelData;
 import oopang.controller.loader.LevelLoader;
 import oopang.controller.loader.XMLLevelLoader;
 import oopang.model.GameOverStatus;
-import oopang.controller.users.FileSystemUserManager;
+import oopang.controller.users.FallbackUserManager;
 import oopang.controller.users.User;
 import oopang.controller.users.UserManager;
 import oopang.model.LevelResult;
@@ -40,9 +39,10 @@ public final class ControllerImpl implements Controller {
     private final UserManager userManager;
     private final LeaderboardManager leaderboardManager;
     private Leaderboard leaderboard;
-    private Consumer<LeaderboardRecord> saveAction;
-    private Consumer<Integer> saveMaxStage;
-    private Consumer<Integer> saveMaxScore;
+    private boolean leaderboardOffline;
+    private Function<LeaderboardRecord, Boolean> saveAction;
+    private Function<Integer, Void> saveMaxStage;
+    private Function<Integer, Void> saveMaxScore;
 
     /**
      * Create a new Controller instance.
@@ -54,9 +54,10 @@ public final class ControllerImpl implements Controller {
     public ControllerImpl(final Model model, final View view) {
         this.model = model;
         this.view = view;
-        this.userManager = new FileSystemUserManager();
+        this.userManager = new FallbackUserManager();
         this.leaderboardManager = new OnlineLeaderboardManager();
         this.user = Optional.empty();
+        this.leaderboardOffline = false;
     }
 
     private PowerFactory getPowerFactory() {
@@ -73,20 +74,54 @@ public final class ControllerImpl implements Controller {
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, this.getLevelLoader(), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
-        this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
+        this.leaderboard = new Leaderboard();
+        this.leaderboardOffline = false;
         this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboardRecord(l);
-        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
-        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
+        this.saveMaxStage = s -> {
+            this.user.ifPresent(u -> u.setArcadeMaxStage(s));
+            return null;
+        };
+        this.saveMaxScore = s -> {
+            this.user.ifPresent(u -> u.setArcadeMaxScore(s));
+            return null;
+        };
     }
 
     @Override
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, this.getLevelLoader());
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
-        this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
+        this.leaderboard = new Leaderboard();
+        this.leaderboardOffline = false;
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboardRecord(l);
-        this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
-        this.saveMaxScore = s -> this.user.ifPresent(u -> u.setSurvivalMaxScore(s));
+        this.saveMaxStage = s -> {
+            this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
+            return null;
+        };
+        this.saveMaxScore = s -> {
+            this.user.ifPresent(u -> u.setSurvivalMaxScore(s));
+            return null;
+        };
+    }
+
+    private Leaderboard loadStoryModeLeaderboard() {
+        this.leaderboardOffline = false;
+        try {
+            return this.leaderboardManager.loadStoryModeLeaderboard().orElseGet(Leaderboard::new);
+        } catch (IllegalStateException e) {
+            this.leaderboardOffline = true;
+            return new Leaderboard();
+        }
+    }
+
+    private Leaderboard loadSurvivalModeLeaderboard() {
+        this.leaderboardOffline = false;
+        try {
+            return this.leaderboardManager.loadSurvivalModeLeaderboard().orElseGet(Leaderboard::new);
+        } catch (IllegalStateException e) {
+            this.leaderboardOffline = true;
+            return new Leaderboard();
+        }
     }
 
     @Override
@@ -128,9 +163,11 @@ public final class ControllerImpl implements Controller {
                 this.leaderboard.addRecord(record);
                 u.addXpPoints(this.gameSession.getTotalScore());
                 this.saveUser();
-                this.saveAction.accept(record);
-                this.saveMaxStage.accept(this.gameSession.getStage());
-                this.saveMaxScore.accept(this.gameSession.getTotalScore());
+                if (!this.saveAction.apply(record)) {
+                    this.view.getDialogFactory().createLeaderboardNotSaved(u.getName()).show();
+                }
+                this.saveMaxStage.apply(this.gameSession.getStage());
+                this.saveMaxScore.apply(this.gameSession.getTotalScore());
             });
         }
     }
@@ -178,8 +215,27 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
+    public Leaderboard loadLeaderboard(final boolean storyMode) {
+        this.leaderboardOffline = false;
+        try {
+            this.leaderboard = storyMode
+                    ? this.leaderboardManager.loadStoryModeLeaderboard().orElseGet(Leaderboard::new)
+                    : this.leaderboardManager.loadSurvivalModeLeaderboard().orElseGet(Leaderboard::new);
+        } catch (IllegalStateException e) {
+            this.leaderboardOffline = true;
+            this.leaderboard = new Leaderboard();
+        }
+        return this.leaderboard;
+    }
+
+    @Override
     public Optional<User> getUser() {
         return this.user;
+    }
+
+    @Override
+    public boolean isLeaderboardOffline() {
+        return this.leaderboardOffline;
     }
 
     @Override
@@ -189,7 +245,7 @@ public final class ControllerImpl implements Controller {
 
     private void saveUser() {
         if (!this.userManager.saveUser(this.user.get())) {
-            this.view.getDialogFactory().createUserNotSaved(this.user.get().getName());
+            this.view.getDialogFactory().createUserNotSaved(this.user.get().getName()).show();
         }
     }
 
@@ -199,4 +255,3 @@ public final class ControllerImpl implements Controller {
     }
 
 }
-

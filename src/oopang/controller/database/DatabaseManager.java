@@ -11,6 +11,10 @@ public class DatabaseManager {
 
     private Connection connection;
 
+    public Connection getConnection() {
+        return this.connection;
+    }
+
     public void createConnection() throws SQLException {
         final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         try {
@@ -18,7 +22,10 @@ public class DatabaseManager {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        final String url = "jdbc:sqlserver://den1.mssql6.gear.host;databaseName=pangleaderboard";
+        final String url = "jdbc:sqlserver://den1.mssql6.gear.host:1433;"
+                + "databaseName=pangleaderboard;"
+                + "loginTimeout=5;"
+                + "encrypt=false";
         this.connection = DriverManager.getConnection(url, "pangleaderboard", "Vw2Zlr12o_!5");
     }
 
@@ -42,9 +49,13 @@ public class DatabaseManager {
     }
 
     public void closeConnection() {
-        try {
-            this.connection.close();
-        } catch (SQLException e) {
+        if (this.connection != null) {
+            try {
+                this.connection.close();
+            } catch (SQLException e) {
+            } finally {
+                this.connection = null;
+            }
         }
     }
 

@@ -108,11 +108,27 @@ public interface Controller {
     Leaderboard getLeaderboard();
 
     /**
+     * Loads the leaderboard for the current mode.
+     * @param storyMode
+     *      true when the story mode leaderboard should be loaded.
+     * @return
+     *      the loaded leaderboard, or an empty one if loading fails.
+     */
+    Leaderboard loadLeaderboard(boolean storyMode);
+
+    /**
      * Method that get the user.
      * @return
      *      an Optional of user.
      */
     Optional<User> getUser();
+
+    /**
+     * Returns whether the leaderboard could not be loaded because the app is offline.
+     * @return
+     *      true when the leaderboard is unavailable online.
+     */
+    boolean isLeaderboardOffline();
 
     /**
      * Return the current total Score taken from the current GameSession.
