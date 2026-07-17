@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - master
       - feat/**
   pull_request:
   workflow_dispatch:
@@ -41,11 +41,11 @@ jobs:
         run: ./gradlew --no-daemon build
 
       - name: Create jlink image
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         run: ./gradlew --no-daemon jlink
 
       - name: Upload distribution
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v4
         with:
           name: oop-ang-${{ matrix.os }}
@@ -56,7 +56,7 @@ jobs:
   release:
     name: Release
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     steps:
