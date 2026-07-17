@@ -2,10 +2,11 @@ plugins {
     id 'application'
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'org.beryx.jlink' version '3.1.1'
 }
 
 group = 'oopang'
-version = '1.1.0'
+version = '1.1.1'
 
 java {
     toolchain {
@@ -15,7 +16,10 @@ java {
 
 javafx {
     version = '21.0.6'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = [
+        'javafx.controls',
+        'javafx.fxml'
+    ]
 }
 
 application {
@@ -32,6 +36,7 @@ sourceSets {
             srcDirs = ['res']
         }
     }
+
     test {
         java {
             srcDirs = ['src/test']
@@ -54,31 +59,43 @@ tasks.named('test') {
     useJUnit()
 }
 
+/*
+ * jlink configuration
+ *
+ * Produces a self-contained application:
+ *
+ * build/image/
+ * ├── bin/oop-ang
+ * └── lib/
+ */
+jlink {
+    imageZip = file("${buildDir}/distributions/${project.name}-${version}.zip")
+
+    options = [
+        '--strip-debug',
+        '--compress', '2',
+        '--no-header-files',
+        '--no-man-pages'
+    ]
+
+    launcher {
+        name = 'oop-ang'
+    }
+
+    jpackage {
+        imageName = 'oop-ang'
+        installerType = 'app-image'
+    }
+}
+
+/*
+ * Required because jlink needs automatic modules
+ * for non-modular dependencies.
+ */
 tasks.named('jar') {
     manifest {
-        attributes 'Main-Class': application.mainClass.get()
+        attributes(
+            'Main-Class': application.mainClass.get()
+        )
     }
-}
-
-tasks.register('fatJar', Jar) {
-    group = 'build'
-    description = 'Builds an executable jar with runtime dependencies.'
-
-    archiveClassifier = 'all'
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    from sourceSets.main.output
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
-
-    manifest {
-        attributes 'Main-Class': application.mainClass.get()
-    }
-}
-
-tasks.named('build') {
-    dependsOn tasks.named('fatJar')
 }
