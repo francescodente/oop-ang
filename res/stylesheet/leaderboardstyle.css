@@ -11,9 +11,9 @@
     -fx-background-color: red;
 }
 
-.table-column {
-	-fx-text-fill: white;
-	-fx-alignment: center;
+.table-cell {
+    -fx-text-fill: white;
+    -fx-alignment: center;
 }
 
 * {

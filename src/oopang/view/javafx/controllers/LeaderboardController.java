@@ -45,6 +45,7 @@ public final class LeaderboardController extends SceneController {
     @Override
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         final Leaderboard leaderboard = this.getLeaderboard();
         final List<LeaderboardRecord> records = leaderboard.getRecords().collect(Collectors.toList());
         this.nameColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));

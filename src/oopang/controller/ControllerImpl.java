@@ -9,6 +9,7 @@ import oopang.commons.events.EventHandler;
 import oopang.controller.gamesession.GameSession;
 import oopang.controller.gamesession.InfiniteGameSession;
 import oopang.controller.gamesession.StoryModeGameSession;
+import oopang.controller.leaderboard.FallbackLeaderboardManager;
 import oopang.controller.leaderboard.FileSystemLeaderboardManager;
 import oopang.controller.leaderboard.Leaderboard;
 import oopang.controller.leaderboard.LeaderboardManager;
@@ -73,7 +74,7 @@ public final class ControllerImpl implements Controller {
     public void startStoryGameSession(final int levelIndex, final boolean isMultiPlayer) {
         this.gameSession = new StoryModeGameSession(view, model, isMultiPlayer, this.getLevelLoader(), levelIndex);
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
-        this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().get();
+        this.leaderboard = this.leaderboardManager.loadStoryModeLeaderboard().orElseGet(Leaderboard::new);
         this.saveAction = l -> this.leaderboardManager.saveStoryModeLeaderboardRecord(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setArcadeMaxStage(s));
         this.saveMaxScore = s -> this.user.ifPresent(u -> u.setArcadeMaxScore(s));
@@ -83,7 +84,7 @@ public final class ControllerImpl implements Controller {
     public void startInifiniteGameSession(final boolean isMultiPlayer) {
         this.gameSession = new InfiniteGameSession(view, model, isMultiPlayer, this.getLevelLoader());
         this.gameSession.getShouldEndEvent().register(s -> this.handleSessionResult(s));
-        this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().get();
+        this.leaderboard = this.leaderboardManager.loadSurvivalModeLeaderboard().orElseGet(Leaderboard::new);
         this.saveAction = l -> this.leaderboardManager.saveSurvivalModeLeaderboardRecord(l);
         this.saveMaxStage = s -> this.user.ifPresent(u -> u.setSurvivalMaxStage(s));
         this.saveMaxScore = s -> this.user.ifPresent(u -> u.setSurvivalMaxScore(s));
@@ -199,4 +200,3 @@ public final class ControllerImpl implements Controller {
     }
 
 }
-
