@@ -1,0 +1,122 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - feat/**
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build executable jar (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test
+        run: ./gradlew --no-daemon build
+        shell: bash
+
+      - name: Upload executable jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: oopang-executable-jar-${{ matrix.os }}
+          path: build/libs/*-all.jar
+          if-no-files-found: error
+
+
+  release:
+    name: Create release if version changed
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Read Gradle version
+        id: version
+        run: |
+          VERSION=$(./gradlew -q properties | grep '^version:' | awk '{print $2}')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check latest release
+        id: release_check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CURRENT="v${{ steps.version.outputs.version }}"
+
+          LATEST=$(gh release view --json tagName -q .tagName 2>/dev/null || echo "")
+
+          echo "Current: $CURRENT"
+          echo "Latest:  $LATEST"
+
+          if [ "$CURRENT" != "$LATEST" ]; then
+            echo "needs_release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_release=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create git tag
+        if: steps.release_check.outputs.needs_release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+
+      - name: Download artifacts
+        if: steps.release_check.outputs.needs_release == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+
+      - name: Create GitHub Release
+        if: steps.release_check.outputs.needs_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          files: |
+            release-assets/**/*
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
