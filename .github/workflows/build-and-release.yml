@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - master
       - feat/**
   pull_request:
   workflow_dispatch:
@@ -52,7 +52,7 @@ jobs:
   release:
     name: Create release if version changed
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     steps:
