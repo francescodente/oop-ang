@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import oopang.controller.Controller;
@@ -31,6 +32,8 @@ public final class LeaderboardController extends SceneController {
     private TableColumn<LeaderboardRecord, Integer> stageColumn;
     @FXML
     private TableColumn<LeaderboardRecord, Integer> scoreColumn;
+    @FXML
+    private Label offlineMessage;
 
     @Override
     protected GameScene getNextScene() {
@@ -46,7 +49,16 @@ public final class LeaderboardController extends SceneController {
     public void init(final Controller controller, final View view) {
         super.init(controller, view);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-        final Leaderboard leaderboard = this.getLeaderboard();
+        final Leaderboard leaderboard = this.getController().loadLeaderboard(GameParameters.isStoryMode());
+        if (this.getController().isLeaderboardOffline()) {
+            this.table.setVisible(false);
+            this.table.setManaged(false);
+            this.offlineMessage.setVisible(true);
+            this.offlineMessage.setManaged(true);
+        } else {
+            this.offlineMessage.setVisible(false);
+            this.offlineMessage.setManaged(false);
+        }
         final List<LeaderboardRecord> records = leaderboard.getRecords().collect(Collectors.toList());
         this.nameColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getName()));
         this.stageColumn.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getStage()));
@@ -68,10 +80,6 @@ public final class LeaderboardController extends SceneController {
         if (event.getCode() == KeyCode.ENTER) {
             this.checkRestart();
         }
-    }
-
-    private Leaderboard getLeaderboard() {
-        return this.getController().getLeaderboard();
     }
 
     private void checkRestart() {

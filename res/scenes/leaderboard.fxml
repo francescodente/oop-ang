@@ -12,29 +12,40 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oopang.view.javafx.controllers.LeaderboardController">
    <center>
-    <TableView fx:id="table">
-        <columns>
-            <TableColumn fx:id="rankColumn"
-                         text="Rank"
-                         sortable="false"
-                         editable="false"/>
+      <StackPane>
+         <children>
+            <TableView fx:id="table">
+               <columns>
+                  <TableColumn fx:id="rankColumn"
+                            text="Rank"
+                            sortable="false"
+                            editable="false"/>
 
-            <TableColumn fx:id="nameColumn"
-                         text="Name"
-                         sortable="false"
-                         editable="false"/>
+                  <TableColumn fx:id="nameColumn"
+                            text="Name"
+                            sortable="false"
+                            editable="false"/>
 
-            <TableColumn fx:id="stageColumn"
-                         text="Stage"
-                         sortable="false"
-                         editable="false"/>
+                  <TableColumn fx:id="stageColumn"
+                            text="Stage"
+                            sortable="false"
+                            editable="false"/>
 
-            <TableColumn fx:id="scoreColumn"
-                         text="Score"
-                         sortable="false"
-                         editable="false"/>
-        </columns>
-    </TableView>
+                  <TableColumn fx:id="scoreColumn"
+                            text="Score"
+                            sortable="false"
+                            editable="false"/>
+               </columns>
+            </TableView>
+            <Label fx:id="offlineMessage"
+                  text="You are offline. Scores are registered in the global leaderboard only when playing online."
+                  wrapText="true"
+                  visible="false"
+                  managed="false"
+                  style="-fx-font-size: 18px; -fx-text-alignment: center;"
+                  StackPane.alignment="CENTER"/>
+         </children>
+      </StackPane>
    </center>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

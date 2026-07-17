@@ -11,6 +11,10 @@ public class DatabaseManager {
 
     private Connection connection;
 
+    public Connection getConnection() {
+        return this.connection;
+    }
+
     public void createConnection() throws SQLException {
         final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         try {

@@ -38,7 +38,7 @@ public class OnlineLeaderboardManager implements LeaderboardManager {
             return Optional.of(leaderboard);
         } catch (SQLException e) {
             System.err.println("Error loading leaderboard from database: " + e.getMessage());
-            return Optional.empty();
+            throw new IllegalStateException("Leaderboard is unavailable online", e);
         } finally {
             this.manager.closeConnection();
         }

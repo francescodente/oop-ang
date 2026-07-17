@@ -71,7 +71,22 @@ public final class JavaFXDialogFactory implements DialogFactory {
             public void show() {
                 alert.setTitle("Registration Error");
                 alert.setHeaderText("Failed to register " + username);
-                alert.setContentText("Can not register, maybe the username is already taken");
+                alert.setContentText("Can not register, if you are offline you cannot register users or maybe the username is taken.");
+                alert.showAndWait();
+            }
+        };
+    }
+
+    @Override
+    public Dialog createLeaderboardNotSaved(final String username) {
+        return new Dialog() {
+            private final Alert alert = new Alert(AlertType.ERROR);
+
+            @Override
+            public void show() {
+                alert.setTitle("Leaderboard save error");
+                alert.setHeaderText("Could not save score for " + username);
+                alert.setContentText("The online leaderboard is unavailable or the leaderboard tables are missing. Your score was not saved online.");
                 alert.showAndWait();
             }
         };
