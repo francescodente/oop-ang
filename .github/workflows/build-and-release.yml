@@ -13,16 +13,8 @@ permissions:
 
 jobs:
   build:
-    name: Build (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
+    name: Build
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -33,6 +25,7 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
+          cache: gradle
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -40,18 +33,17 @@ jobs:
       - name: Build and test
         run: ./gradlew --no-daemon build
 
-      - name: Create jlink image
+      - name: Build fat JAR
         if: github.ref == 'refs/heads/master'
-        run: ./gradlew --no-daemon jlink
+        run: ./gradlew --no-daemon shadowJar
 
-      - name: Upload distribution
+      - name: Upload artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v4
         with:
-          name: oop-ang-${{ matrix.os }}
-          path: build/distributions/*.zip
+          name: oop-ang-fatjar
+          path: build/libs/*-all.jar
           if-no-files-found: error
-
 
   release:
     name: Release
@@ -70,12 +62,14 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
+          cache: gradle
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Read version
         id: version
+        shell: bash
         run: |
           VERSION=$(./gradlew -q properties | grep '^version:' | awk '{print $2}')
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
@@ -84,6 +78,7 @@ jobs:
         id: check
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
           TAG="v${{ steps.version.outputs.version }}"
 
@@ -93,10 +88,11 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Download artifacts
+      - name: Download artifact
         if: steps.check.outputs.exists == 'false'
         uses: actions/download-artifact@v4
         with:
+          name: oop-ang-fatjar
           path: release-assets
 
       - name: Create tag
@@ -113,7 +109,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.version }}
-          files: |
-            release-assets/**/*.zip
+          files: release-assets/*-all.jar
         env:
           GITHUB_TOKEN: ${{ github.token }}
